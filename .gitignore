@@ -1,0 +1,253 @@
+## Ignore temporary files
+## build results
+## generated databases
+site
+build*
+dist/
+venv/
+*.egg-info
+*.pyc
+*.qmlc
+*.pdf
+*.log
+*.var
+*.var.bak
+*.pref
+*.halscope
+.tmp*
+.idea/
+.tox/
+*~
+*#
+
+# Editors 
+*.swp
+*.user
+
+# Compiled Qt resource and ui files
+*_rc.py
+*_ui.py
+*.qm
+
+# update INI backups
+sim/*.old
+
+# sphinx
+/docs/build
+
+# debian packages
+*.deb
+
+# persistent data files
+sim/*messages.json
+sim/*settings.json
+
+*messages.json
+
+#
+linuxdeployqt
+*.AppImage
+.build
+*.tar
+*.gz
+# .qtmodules-travis
+
+# Sqlite-DB
+*.db
+*.db3
+*.sqlite
+*.user.*
+
+# General Build artifacts
+[Dd]ebug/
+[Rr]elease/
+[Bb]uild/
+[Oo]bj/
+[Bb]in/
+[Ii]nstall/
+[Ll]ib/*.so*
+Makefile*
+qbs-build/
+
+# Compiled Object files, Static and Dynamic libs (Shared Objects)
+*.o
+*.qm
+*.moc
+moc_*.cpp
+ui_*.h
+qrc_*
+default/
+moc_predefs.h
+jmbde_autogen/
+
+# Build artifacts on Windows
+*.exe
+*.dll
+*.obj
+*.a
+*.lib
+*.exp
+*.intermediate.manifest
+
+# Build artifacts on Mac
+.qmake.stash
+translations/phony_target.app
+
+# IDE files
+*.pro.user*
+*.qbs.user*
+
+# Man
+
+# Doxygen and Sphinx
+html/
+docs/_build/html/
+docs/_build/gettext/.doctrees
+docs/build/doctrees/
+*.mo
+
+# Linux perf/debugging
+gmon.out
+
+
+# VS-Code
+*.db-*
+
+
+# This file is used to ignore files which are generated
+# ----------------------------------------------------------------------------
+
+!core/
+*.*#
+*.a
+*.app
+*.autosave
+*.bak
+*.bin
+*.core
+*.debug
+*.embed.manifest
+*.moc
+*.o
+*.obj
+*.orig
+*.out
+*.prl
+*.qm
+*.rej
+*.res
+*.so
+*.so.*
+*_pch.h.cpp
+*_resource.rc
+*_wrapper.bat
+*_wrapper.sh
+*~
+.#*
+.DS_Store
+/.qmake.cache
+/.qmake.stash
+*.check_cache
+CMakeFiles/
+*.cmake
+CMakeCache.txt
+Makefile*
+Thumbs.db
+core
+moc_*.cpp
+qrc_*.cpp
+tags
+ui_*.h
+wrapper.bat
+wrapper.sh
+
+# qtcreator generated file
+*.pro.user*
+*.pyqtc.user*
+*.qbs.user*
+*.qmlproject.user*
+/src/app/Info.plist
+/src/plugins/**/*.json
+/src/plugins/coreplugin/ide_version.h
+app_version.h
+phony.c
+
+# xemacs temporary files
+*.flc
+
+# Vim temporary files
+.*.swp
+
+# Visual Studio generated files
+*.ib_pdb_index
+*.idb
+*.ilk
+*.ncb
+*.opensdf
+*.pdb
+*.sdf
+*.sln
+*.suo
+*.vcproj
+*.vcxproj
+*vcproj.*.*.user
+*vcxproj.*
+
+# gcov files
+*.gcda
+*.gcno
+*.gcov
+
+# MinGW generated files
+*.Debug
+*.Release
+
+# Python byte code
+*.pyc
+
+
+# Qml caching files
+*.jsc
+*.qmlc
+
+# Directories to ignore
+# ---------------------
+
+.moc/
+.obj/
+.pch/
+.rcc/
+.uic/
+/*-debug/
+/*-release/
+/dist/gdb/*.gz
+/dist/gdb/python/
+/dist/gdb/qtcreator-*/
+/dist/gdb/source/
+/dist/gdb/staging/
+/doc/api/html/
+/doc/html-dev/
+/doc/html/
+/doc/pluginhowto/html/
+/jmbde_doc_generated
+/lib/
+/lib64/
+/libexec/
+debug/
+ipch/
+release/
+tmp/
+
+# Binaries
+# --------
+*.dll
+*.exe
+/bin/qbs*
+
+# Tests
+#------
+
+# qbs builds
+/*-debug/
+/*-release/
+
