@@ -14,9 +14,9 @@ cmdclass = {}
 
 try:
     from pyqt_distutils.build_ui import build_ui
-    cmdclass = {'build_ui': build_ui}
+    has_build_ui = True
 except ImportError:
-    cmdclass = {}
+    has_build_ui = False
 
 try:
     from sphinx.setup_command import BuildDoc
@@ -30,6 +30,56 @@ with open('jmbde/__init__.py') as f:
 
 with open("README.rst") as readme_file:
     readme = readme_file.read()
+
+if has_build_ui:
+    class build_res(build_ui):
+        """Build UI, resources and translations."""
+
+        def run(self):
+            # build translations
+            check_call(['pylupdate5', 'jmbde.pro'])
+
+            lrelease = os.environ.get('LRELEASE_BIN')
+            if not lrelease:
+                lrelease = 'lrelease'
+
+            check_call([lrelease, 'jmbde.pro'])
+
+            # build UI & resources
+            build_ui.run(self)
+
+    cmdclass['build_res'] = build_res
+
+
+class custom_sdist(sdist):
+    """Custom sdist command."""
+
+    def run(self):
+        self.run_command('build_res')
+        sdist.run(self)
+
+
+cmdclass['sdist'] = custom_sdist
+
+
+class bdist_app(Command):
+    """Custom command to build the application. """
+
+    description = 'Build the application'
+    user_options = []
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        self.run_command('build_res')
+        check_call(['pyinstaller', '-y', 'jmbde.spec'])
+
+
+cmdclass['bdist_app'] = bdist_app
 
 setup(
     name='jmbde',
@@ -76,8 +126,7 @@ setup(
         'gui_scripts': ['jmbde=app.__main__:main'],
     },
     install_requires=[
-        'PySide2',
-        'Qt.py',
+        'PySide2'
     ],
     cmdclass=cmdclass,
     test_suite='tests',

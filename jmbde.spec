@@ -2,39 +2,37 @@
 
 block_cipher = None
 
-a = Analysis(['jmbde/__main__.py'],
-            pathex=['.'],
-            binaries=[],
-            datas=[],
-            hiddenimports=[],
-            hookspath=[],
-            runtime_hooks=[],
-            excludes=[],
-            win_no_prefer_redirects=False,
-            win_private_assemblies=False,
-            cipher=block_cipher)
+a = Analysis(['bin/jmbde'],
+             pathex=['.'],
+             binaries=None,
+             datas=[],
+             hiddenimports=[],
+             hookspath=None,
+             runtime_hooks=None,
+             excludes=None,
+             cipher=block_cipher)
 
-pyz = PYZ(a.pure, a.zipped_data,
-            cipher=block_cipher)
-
-app = BUNDLE(exe,
-         name='jmbde.app',
-         icon=None,
-         bundle_identifier=None)
+pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
 exe = EXE(pyz,
-        a.scripts,
-        exclude_binaries=True,
-        name='jmbde',
-        debug=False,
-        strip=False,
-        upx=False,
-        console=False)
+          a.scripts,
+          exclude_binaries=True,
+          name='app',
+          debug=False,
+          strip=False,
+          upx=True,
+          console=False,
+          icon='resources\\icons\\app.ico')
 
 coll = COLLECT(exe,
-        a.binaries,
-        a.zipfiles,
-        a.datas,
-        strip=False,
-        upx=True,
-        name='jmbde')
+               a.binaries,
+               a.zipfiles,
+               a.datas,
+               strip=False,
+               upx=True,
+               name='app')
+
+app = BUNDLE(coll,
+             name='App.app',
+             icon='resources/icons/app.icns',
+             bundle_identifier=None)

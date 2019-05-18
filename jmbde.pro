@@ -1,27 +1,27 @@
 SOURCES += \
-    jmbde/__init__.py
-    jmbde/__main__.py
+    jmbde/__init__.py \
+    jmbde/__main__.py \
+    jmbde/resources_rc.py \
     jmbde/views/MainWindow.py
 
 FORMS += \
     resources/views/aboutdialog.ui \
     resources/views/chipcardinputarea.ui \
-    resources/views/ciytinputarea.ui \
+    resources/views/cityinputarea.ui \
     resources/views/computerinputarea.ui \
-    resources/views/csvinputarea.ui \
     resources/views/csvimportdialog.ui \
     resources/views/departmentinputarea.ui \
     resources/views/employeeinputarea.ui \
     resources/views/functioninputarea.ui \
     resources/views/mainwindow.ui \
-    resources/views/manufactureriinputarea.ui \
+    resources/views/manufacturerinputarea.ui \
     resources/views/mobileinputarea.ui \
     resources/views/osinputarea.ui \
-    resources/views/phoeninputarea.ui \
+    resources/views/phoneinputarea.ui \
     resources/views/preferencesdialog.ui \
     resources/views/printerinputarea.ui \
     resources/views/processorinputarea.ui \
-    resources/views/softwareinputerea.ui \
+    resources/views/softwareinputarea.ui \
     resources/views/titleinputarea.ui 
 
 TRANSLATIONS += \

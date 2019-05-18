@@ -1,17 +1,29 @@
+ jmbde
+============
 
-# jmbde
+..  image:: https://img.shields.io/badge/license-EUPL-blue.svg
+    :alt: GitHub license
+    :target: https://joinup.ec.europa.eu/page/eupl-text-11-12
+..  image:: https://img.shields.io/badge/code%20style-pep8-green.svg
+    :alt: PEP8
+    :target: https://www.python.org/dev/peps/pep-0008/
 
-[![GitHub license](https://img.shields.io/badge/license-EUPL-blue.svg)](https://joinup.ec.europa.eu/page/eupl-text-11-12)
-[![PEP8](https://img.shields.io/badge/code%20style-pep8-green.svg)](https://www.python.org/dev/peps/pep-0008/)
-[![Build status](https://ci.appveyor.com/api/projects/status/mq9qt36e588dk7ui?svg=true)](https://ci.appveyor.com/project/jmuelbert/jmbde-python)
-[![Build Status](https://travis-ci.org/jmuelbert/jmbde-python.svg?branch=master)](https://travis-ci.org/jmuelbert/jmbde-python)
+..  image:: https://ci.appveyor.com/api/projects/status/vmqd5y83u390tsrg?svg=true
+    :alt: Build status
+    :target: https://ci.appveyor.com/project/jmuelbert/jmbde-python
+
+.. image:: https://travis-ci.org/jmuelbert/jmbde-python.svg?branch=master
+    :alt: Build Status
+    :target: https://travis-ci.org/jmuelbert/jmbde-python
+
 
 jmbde is a program to collect data for the IT. The database contains employees, departments, functions, phones, mobiles, computers, printers, faxes and accounts.
 
-jmbde use the cross-platform framework [Qt](http://www.qt.io/download-open-source/),
+jmbde use the cross-platform framework [Qt](http://www.qt.io/download-open-source/) with the PySide2 Extension,
 which means it works with the most operating systems.
 
-## Supported Platforms
+Supported Platforms
+-------------------
 
 The standalone binary packages support the following platforms:
 
@@ -19,7 +31,8 @@ The standalone binary packages support the following platforms:
 * Windows 7 or later
 * Linux
 
-## Sources
+Sources
+-------
 
 The master branch represents the latest pre-release code.
 
@@ -27,88 +40,63 @@ The master branch represents the latest pre-release code.
 
 * [Milestones](https://github.com/jmuelbert/jmbde-python/milestones)
 
-## Requests and Bug reports
+Requests and Bug reports
+-------------------------
 
 * [GitHub issues (preferred)](https://github.com/jmuelbert/jmbde-python/issues)
 
-## Questions or Comments
+Questions or Comments
+---------------------
 
-## Wiki
+Wiki
+----
 
 * [Main Page](https://github.com/jmuelbert/jmbde-python/wiki)
 * [User Manual](http://jmuelbert.github.io/jmbde-python/)
 
-## Compiling jmbde
+Resources and translations
+--------------------------
 
-### On macOS
+In order to ease the development process, the Qt Creator project ``app.pro`` is
+provided. You can open it to edit the UI files or to manage resources.
+Translations can be edited using Qt Linguist, part of the Qt SDK. In order to
+build the translations, you will need to have the ``lrelease`` command on your
+``PATH`` or set its full path to the ``LRELEASE_BIN`` environment variable.
+UI files, translations and resources can be built like this::
 
-    The latest Xcode.
+    python setup.py build_res
 
-    brew install qt5
-    brew link qt5 --force
-    brew install qbs
-    qbs setup-toolchains --detect
-    qbs setup-qt /usr/local/opt/qt/bin/qmake qt-brew
-    qbs config profiles.qt-brew.baseProfile xcode-macosx-x86_64
-    qbs config defaultProfile qt-brew
+Note that this command is automatically run before running ``sdist`` and
+``bdist_app`` commands.
 
-Run `qbs` to build jmbde:
+Compiled application
+--------------------
 
-    For the release version:
+You can generate a *compiled* application so that end-users do not need to
+install anything. You can tweak some settings on the ``app.spec`` file. It can
+be generated like this::
 
-        qbs install --install-root install config:release project.JMBde.version:$JMBDE_VERSION
+    python setup.py bdist_app
 
-    For the debug version:
+Documentation
+-------------
 
-        qbs -d build --all-products config:debug
+Sphinx_ is used for documentation purposes. You can tweak its configuration in
+``docs/conf.py`` and the documentation can be built like this::
 
-* Alternatively, you can [download Qt here](https://www.qt.io/download-qt-installer)
+    python setup.py build_docs
 
-### On Windows
+Linting
+-------
 
-    You many tools install with choco
-    choco install qbs
-    Visual Studio 2017 or later
-    qbs
+Flake8 is a great tool to check for style issues, unused imports and similar
+stuff. You can tweak ``.flake8`` to ignore certain types of errors, increase the
+maximum line length, etc. You can run it like this::
 
-### On Linux
+    flake8 app
 
-* On Ubuntu/Debian: `apt-get install qt5-default qttools5-dev-tools zlib1g-dev`
-* On Fedora:        `sudo dnf builddep tiled`
-* On Arch Linux:    `pacman -S qt`
-
-The installed toolchains have to match the one Qt was compiled with.
-
-Next, compile by running:
-
-    qmake (or qmake-qt5 on some systems)
-    make
-
-To perform a shadow build, run qmake from a different directory and refer
-it to jmbde.pro. For example:
-
-    mkdir build
-    cd build
-    qmake ../jmdbde.pro
-    make
-
-You can now run jmbde using the executable in `bin/jmbde``
-
-## Installing
-
-To install jmbde, run `make install`from terminal. By default, jmbde will
-install itself to `/usr/local`.
-
-The installation prefix fan be changed when running qmake, or by changing thr
-install root when running `make install`. For example, to use an installation
-prefix of `/usr`instead of `/usr/local`:
-
-    qmake -r PREFIX=/usr
-
-Note: The -r recursive flag is required if you've run qmake before, as this
-command will affect nested pro files.
-
-## License
+License
+-------
 
 jmbde is free software; you can redistribute ot and/or modify ir under the terms
 of the [European Public License Version 1.2](https://joinup.ec.europa.eu/page/eupl-text-11-12).

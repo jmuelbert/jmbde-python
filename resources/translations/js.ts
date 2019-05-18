@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="nb_NO" sourcelanguage="">
+<!DOCTYPE TS><TS version="2.0">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -21,18 +21,23 @@
 <context>
     <name>ChipCardInputArea</name>
     <message>
+        <location filename="../views/chipcardinputarea.ui" line="20"/>
+        <source>Chip Card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/chipcardinputarea.ui" line="17"/>
+        <source>ChipCardInputDialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../views/chipcardinputarea.ui" line="38"/>
         <source>ChipCard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../views/chipcardinputarea.ui" line="125"/>
-        <source>+</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/chipcardinputarea.ui" line="145"/>
-        <source>Edit</source>
+        <location filename="../views/chipcardinputarea.ui" line="68"/>
+        <source>Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -46,23 +51,18 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../views/chipcardinputarea.ui" line="68"/>
-        <source>Number</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../views/chipcardinputarea.ui" line="98"/>
         <source>Employee</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../views/chipcardinputarea.ui" line="20"/>
-        <source>Chip Card</source>
+        <location filename="../views/chipcardinputarea.ui" line="125"/>
+        <source>+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../views/chipcardinputarea.ui" line="17"/>
-        <source>ChipCardInputDialog</source>
+        <location filename="../views/chipcardinputarea.ui" line="145"/>
+        <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -114,16 +114,6 @@
     <message>
         <location filename="../views/computerinputarea.ui" line="38"/>
         <source>Computer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/computerinputarea.ui" line="320"/>
-        <source>+</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/computerinputarea.ui" line="340"/>
-        <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -221,6 +211,16 @@
         <source>Printer</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../views/computerinputarea.ui" line="320"/>
+        <source>+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/computerinputarea.ui" line="340"/>
+        <source>Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CsvImportDialog</name>
@@ -240,16 +240,6 @@
     <message>
         <location filename="../views/departmentinputarea.ui" line="17"/>
         <source>DepartmentInputDialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/departmentinputarea.ui" line="160"/>
-        <source>+</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/departmentinputarea.ui" line="180"/>
-        <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -277,6 +267,16 @@
         <source>Fax</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../views/departmentinputarea.ui" line="160"/>
+        <source>+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/departmentinputarea.ui" line="180"/>
+        <source>Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EmployeeInputArea</name>
@@ -291,43 +291,8 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../views/employeeinputarea.ui" line="458"/>
-        <source>+</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/employeeinputarea.ui" line="478"/>
-        <source>Edit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/employeeinputarea.ui" line="202"/>
-        <source>Pers.Number</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/employeeinputarea.ui" line="127"/>
-        <source>Address</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/employeeinputarea.ui" line="111"/>
-        <source>Lastname</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/employeeinputarea.ui" line="91"/>
-        <source>Firstname</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/employeeinputarea.ui" line="291"/>
-        <source>Gender</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/employeeinputarea.ui" line="264"/>
-        <source>Titel</source>
+        <location filename="../views/employeeinputarea.ui" line="71"/>
+        <source>End Date</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -336,63 +301,8 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../views/employeeinputarea.ui" line="408"/>
-        <source>Last Update</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/employeeinputarea.ui" line="385"/>
-        <source>Start Date</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/employeeinputarea.ui" line="251"/>
-        <source>Phone</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/employeeinputarea.ui" line="218"/>
-        <source>Home Phone</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/employeeinputarea.ui" line="140"/>
-        <source>Computer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/employeeinputarea.ui" line="415"/>
-        <source>Home Mail</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/employeeinputarea.ui" line="337"/>
-        <source>Active</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/employeeinputarea.ui" line="228"/>
-        <source>Birthday</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/employeeinputarea.ui" line="369"/>
-        <source>Employee Document</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/employeeinputarea.ui" line="317"/>
-        <source>ChipCard</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/employeeinputarea.ui" line="428"/>
-        <source>City</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/employeeinputarea.ui" line="150"/>
-        <source>Zipcode</source>
+        <location filename="../views/employeeinputarea.ui" line="91"/>
+        <source>Firstname</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -401,28 +311,23 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../views/employeeinputarea.ui" line="238"/>
-        <source>Function</source>
+        <location filename="../views/employeeinputarea.ui" line="111"/>
+        <source>Lastname</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../views/employeeinputarea.ui" line="395"/>
-        <source>Department</source>
+        <location filename="../views/employeeinputarea.ui" line="127"/>
+        <source>Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../views/employeeinputarea.ui" line="327"/>
-        <source>Printer</source>
+        <location filename="../views/employeeinputarea.ui" line="140"/>
+        <source>Computer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../views/employeeinputarea.ui" line="186"/>
-        <source>Datacare</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/employeeinputarea.ui" line="274"/>
-        <source>Date</source>
+        <location filename="../views/employeeinputarea.ui" line="150"/>
+        <source>Zipcode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -431,8 +336,53 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../views/employeeinputarea.ui" line="71"/>
-        <source>End Date</source>
+        <location filename="../views/employeeinputarea.ui" line="173"/>
+        <source>Notes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/employeeinputarea.ui" line="186"/>
+        <source>Datacare</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/employeeinputarea.ui" line="202"/>
+        <source>Pers.Number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/employeeinputarea.ui" line="218"/>
+        <source>Home Phone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/employeeinputarea.ui" line="228"/>
+        <source>Birthday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/employeeinputarea.ui" line="238"/>
+        <source>Function</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/employeeinputarea.ui" line="251"/>
+        <source>Phone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/employeeinputarea.ui" line="264"/>
+        <source>Titel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/employeeinputarea.ui" line="274"/>
+        <source>Date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/employeeinputarea.ui" line="291"/>
+        <source>Gender</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -441,13 +391,63 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../views/employeeinputarea.ui" line="173"/>
-        <source>Notes</source>
+        <location filename="../views/employeeinputarea.ui" line="317"/>
+        <source>ChipCard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/employeeinputarea.ui" line="327"/>
+        <source>Printer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/employeeinputarea.ui" line="337"/>
+        <source>Active</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../views/employeeinputarea.ui" line="350"/>
         <source>Mobile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/employeeinputarea.ui" line="369"/>
+        <source>Employee Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/employeeinputarea.ui" line="385"/>
+        <source>Start Date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/employeeinputarea.ui" line="395"/>
+        <source>Department</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/employeeinputarea.ui" line="408"/>
+        <source>Last Update</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/employeeinputarea.ui" line="415"/>
+        <source>Home Mail</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/employeeinputarea.ui" line="428"/>
+        <source>City</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/employeeinputarea.ui" line="458"/>
+        <source>+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/employeeinputarea.ui" line="478"/>
+        <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -486,6 +486,11 @@
 </context>
 <context>
     <name>MainWindow</name>
+    <message encoding="UTF-8">
+        <location filename="../views/mainwindow.ui" line="35"/>
+        <source>JMBDE Version 0.4.0 (c) Jürgen Mülbert</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message>
         <location filename="../views/mainwindow.ui" line="159"/>
         <source>File</source>
@@ -574,11 +579,6 @@
     <message>
         <location filename="../views/mainwindow.ui" line="336"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="../views/mainwindow.ui" line="35"/>
-        <source>JMBDE Version 0.4.0 (c) Jürgen Mülbert</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -673,16 +673,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../views/mobileinputarea.ui" line="246"/>
-        <source>+</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/mobileinputarea.ui" line="266"/>
-        <source>Edit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../views/mobileinputarea.ui" line="71"/>
         <source>Devicename</source>
         <translation type="unfinished"></translation>
@@ -747,6 +737,16 @@
         <source>Number</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../views/mobileinputarea.ui" line="246"/>
+        <source>+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/mobileinputarea.ui" line="266"/>
+        <source>Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OSInputArea</name>
@@ -758,16 +758,6 @@
     <message>
         <location filename="../views/osinputarea.ui" line="17"/>
         <source>OSInputDialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/osinputarea.ui" line="137"/>
-        <source>+</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/osinputarea.ui" line="157"/>
-        <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -788,6 +778,16 @@
     <message>
         <location filename="../views/osinputarea.ui" line="107"/>
         <source>Fix</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/osinputarea.ui" line="137"/>
+        <source>+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/osinputarea.ui" line="157"/>
+        <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -925,63 +925,8 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../views/printerinputarea.ui" line="286"/>
-        <source>+</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/printerinputarea.ui" line="306"/>
-        <source>Edit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/printerinputarea.ui" line="140"/>
-        <source>Papersize</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/printerinputarea.ui" line="193"/>
-        <source>Employee</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/printerinputarea.ui" line="101"/>
-        <source>Place</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/printerinputarea.ui" line="206"/>
-        <source>Active</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/printerinputarea.ui" line="252"/>
-        <source>Replace</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/printerinputarea.ui" line="160"/>
-        <source>Inventory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/printerinputarea.ui" line="117"/>
-        <source>Name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/printerinputarea.ui" line="242"/>
-        <source>IP Address</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/printerinputarea.ui" line="170"/>
-        <source>Devicetype</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/printerinputarea.ui" line="147"/>
-        <source>Department</source>
+        <location filename="../views/printerinputarea.ui" line="78"/>
+        <source>Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -990,8 +935,53 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../views/printerinputarea.ui" line="259"/>
-        <source>Computer</source>
+        <location filename="../views/printerinputarea.ui" line="101"/>
+        <source>Place</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/printerinputarea.ui" line="117"/>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/printerinputarea.ui" line="130"/>
+        <source>Devicename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/printerinputarea.ui" line="140"/>
+        <source>Papersize</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/printerinputarea.ui" line="147"/>
+        <source>Department</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/printerinputarea.ui" line="160"/>
+        <source>Inventory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/printerinputarea.ui" line="170"/>
+        <source>Devicetype</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/printerinputarea.ui" line="180"/>
+        <source>Resources</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/printerinputarea.ui" line="193"/>
+        <source>Employee</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/printerinputarea.ui" line="206"/>
+        <source>Active</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1005,18 +995,28 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../views/printerinputarea.ui" line="130"/>
-        <source>Devicename</source>
+        <location filename="../views/printerinputarea.ui" line="242"/>
+        <source>IP Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../views/printerinputarea.ui" line="180"/>
-        <source>Resources</source>
+        <location filename="../views/printerinputarea.ui" line="252"/>
+        <source>Replace</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../views/printerinputarea.ui" line="78"/>
-        <source>Color</source>
+        <location filename="../views/printerinputarea.ui" line="259"/>
+        <source>Computer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/printerinputarea.ui" line="286"/>
+        <source>+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/printerinputarea.ui" line="306"/>
+        <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1030,16 +1030,6 @@
     <message>
         <location filename="../views/processorinputarea.ui" line="17"/>
         <source>ProcessorInputDialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/processorinputarea.ui" line="131"/>
-        <source>+</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/processorinputarea.ui" line="151"/>
-        <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1060,6 +1050,16 @@
     <message>
         <location filename="../views/processorinputarea.ui" line="101"/>
         <source>Cores</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/processorinputarea.ui" line="131"/>
+        <source>+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/processorinputarea.ui" line="151"/>
+        <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1119,16 +1119,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../views/titleinputarea.ui" line="124"/>
-        <source>+</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../views/titleinputarea.ui" line="144"/>
-        <source>Edit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../views/titleinputarea.ui" line="68"/>
         <source>From</source>
         <translation type="unfinished"></translation>
@@ -1136,6 +1126,16 @@
     <message>
         <location filename="../views/titleinputarea.ui" line="78"/>
         <source>To</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/titleinputarea.ui" line="124"/>
+        <source>+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../views/titleinputarea.ui" line="144"/>
+        <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

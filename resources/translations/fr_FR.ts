@@ -3,17 +3,17 @@
 <context>
     <name>AboutDialog</name>
     <message>
-        <location filename="../../views/ui_aboutdialog.py" line="57"/>
+        <location filename="../views/aboutdialog.ui" line="14"/>
         <source>About jmbde</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_aboutdialog.py" line="58"/>
+        <location filename="../views/aboutdialog.ui" line="100"/>
         <source>Donate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_aboutdialog.py" line="59"/>
+        <location filename="../views/aboutdialog.ui" line="107"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
@@ -21,47 +21,47 @@
 <context>
     <name>ChipCardInputArea</name>
     <message>
-        <location filename="../../views/ui_chipcardinputarea.py" line="86"/>
+        <location filename="../views/chipcardinputarea.ui" line="20"/>
         <source>Chip Card</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_chipcardinputarea.py" line="85"/>
+        <location filename="../views/chipcardinputarea.ui" line="17"/>
         <source>ChipCardInputDialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_chipcardinputarea.py" line="87"/>
+        <location filename="../views/chipcardinputarea.ui" line="38"/>
         <source>ChipCard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_chipcardinputarea.py" line="88"/>
+        <location filename="../views/chipcardinputarea.ui" line="68"/>
         <source>Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_chipcardinputarea.py" line="89"/>
+        <location filename="../views/chipcardinputarea.ui" line="78"/>
         <source>Door</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_chipcardinputarea.py" line="90"/>
+        <location filename="../views/chipcardinputarea.ui" line="88"/>
         <source>Profile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_chipcardinputarea.py" line="91"/>
+        <location filename="../views/chipcardinputarea.ui" line="98"/>
         <source>Employee</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_chipcardinputarea.py" line="92"/>
+        <location filename="../views/chipcardinputarea.ui" line="125"/>
         <source>+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_chipcardinputarea.py" line="93"/>
+        <location filename="../views/chipcardinputarea.ui" line="145"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -69,32 +69,32 @@
 <context>
     <name>CityInputArea</name>
     <message>
-        <location filename="../../views/ui_cityinputarea.py" line="74"/>
+        <location filename="../views/cityinputarea.ui" line="38"/>
         <source>City</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_cityinputarea.py" line="72"/>
+        <location filename="../views/cityinputarea.ui" line="17"/>
         <source>CityInputDialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_cityinputarea.py" line="75"/>
+        <location filename="../views/cityinputarea.ui" line="71"/>
         <source>Zip Code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_cityinputarea.py" line="76"/>
+        <location filename="../views/cityinputarea.ui" line="81"/>
         <source>City Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_cityinputarea.py" line="77"/>
+        <location filename="../views/cityinputarea.ui" line="105"/>
         <source>+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_cityinputarea.py" line="78"/>
+        <location filename="../views/cityinputarea.ui" line="125"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -102,122 +102,122 @@
 <context>
     <name>ComputerInputArea</name>
     <message>
-        <location filename="../../views/ui_computerinputarea.py" line="204"/>
+        <location filename="../views/computerinputarea.ui" line="14"/>
         <source>GroupBox</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_computerinputarea.py" line="205"/>
+        <location filename="../views/computerinputarea.ui" line="17"/>
         <source>ComputerInputDialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_computerinputarea.py" line="207"/>
+        <location filename="../views/computerinputarea.ui" line="38"/>
         <source>Computer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_computerinputarea.py" line="208"/>
+        <location filename="../views/computerinputarea.ui" line="68"/>
         <source>Service Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_computerinputarea.py" line="209"/>
+        <location filename="../views/computerinputarea.ui" line="78"/>
         <source>Active</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_computerinputarea.py" line="210"/>
+        <location filename="../views/computerinputarea.ui" line="85"/>
         <source>Replace</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_computerinputarea.py" line="211"/>
+        <location filename="../views/computerinputarea.ui" line="92"/>
         <source>Operation System</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_computerinputarea.py" line="212"/>
+        <location filename="../views/computerinputarea.ui" line="105"/>
         <source>Place</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_computerinputarea.py" line="213"/>
+        <location filename="../views/computerinputarea.ui" line="115"/>
         <source>Employee</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_computerinputarea.py" line="214"/>
+        <location filename="../views/computerinputarea.ui" line="131"/>
         <source>Processor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_computerinputarea.py" line="215"/>
+        <location filename="../views/computerinputarea.ui" line="141"/>
         <source>Inventory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_computerinputarea.py" line="216"/>
+        <location filename="../views/computerinputarea.ui" line="154"/>
         <source>Manufacturer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_computerinputarea.py" line="217"/>
+        <location filename="../views/computerinputarea.ui" line="176"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_computerinputarea.py" line="218"/>
+        <location filename="../views/computerinputarea.ui" line="192"/>
         <source>IP Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_computerinputarea.py" line="219"/>
+        <location filename="../views/computerinputarea.ui" line="202"/>
         <source>Serial Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_computerinputarea.py" line="220"/>
+        <location filename="../views/computerinputarea.ui" line="212"/>
         <source>Network</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_computerinputarea.py" line="221"/>
+        <location filename="../views/computerinputarea.ui" line="222"/>
         <source>Devicename</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_computerinputarea.py" line="222"/>
+        <location filename="../views/computerinputarea.ui" line="232"/>
         <source>Devicetype</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_computerinputarea.py" line="223"/>
+        <location filename="../views/computerinputarea.ui" line="245"/>
         <source>Department</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_computerinputarea.py" line="224"/>
+        <location filename="../views/computerinputarea.ui" line="258"/>
         <source>Service Tag</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_computerinputarea.py" line="225"/>
+        <location filename="../views/computerinputarea.ui" line="277"/>
         <source>Software</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_computerinputarea.py" line="226"/>
+        <location filename="../views/computerinputarea.ui" line="290"/>
         <source>Printer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_computerinputarea.py" line="227"/>
+        <location filename="../views/computerinputarea.ui" line="320"/>
         <source>+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_computerinputarea.py" line="228"/>
+        <location filename="../views/computerinputarea.ui" line="340"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -225,7 +225,7 @@
 <context>
     <name>CsvImportDialog</name>
     <message>
-        <location filename="../../views/ui_csvimportdialog.py" line="35"/>
+        <location filename="../views/csvimportdialog.ui" line="14"/>
         <source>CSV Import</source>
         <translation type="unfinished"></translation>
     </message>
@@ -233,47 +233,47 @@
 <context>
     <name>DepartmentInputArea</name>
     <message>
-        <location filename="../../views/ui_departmentinputarea.py" line="111"/>
+        <location filename="../views/departmentinputarea.ui" line="38"/>
         <source>Department</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_departmentinputarea.py" line="109"/>
+        <location filename="../views/departmentinputarea.ui" line="17"/>
         <source>DepartmentInputDialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_departmentinputarea.py" line="112"/>
+        <location filename="../views/departmentinputarea.ui" line="68"/>
         <source>Printer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_departmentinputarea.py" line="113"/>
+        <location filename="../views/departmentinputarea.ui" line="78"/>
         <source>Pri-Test</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_departmentinputarea.py" line="114"/>
+        <location filename="../views/departmentinputarea.ui" line="91"/>
         <source>Priority</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_departmentinputarea.py" line="115"/>
+        <location filename="../views/departmentinputarea.ui" line="113"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_departmentinputarea.py" line="116"/>
+        <location filename="../views/departmentinputarea.ui" line="130"/>
         <source>Fax</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_departmentinputarea.py" line="117"/>
+        <location filename="../views/departmentinputarea.ui" line="160"/>
         <source>+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_departmentinputarea.py" line="118"/>
+        <location filename="../views/departmentinputarea.ui" line="180"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -281,172 +281,172 @@
 <context>
     <name>EmployeeInputArea</name>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="285"/>
+        <location filename="../views/employeeinputarea.ui" line="38"/>
         <source>Employee</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="283"/>
+        <location filename="../views/employeeinputarea.ui" line="17"/>
         <source>EmployeeInputDialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="286"/>
+        <location filename="../views/employeeinputarea.ui" line="71"/>
         <source>End Date</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="287"/>
+        <location filename="../views/employeeinputarea.ui" line="81"/>
         <source>Home Mobile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="288"/>
+        <location filename="../views/employeeinputarea.ui" line="91"/>
         <source>Firstname</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="289"/>
+        <location filename="../views/employeeinputarea.ui" line="101"/>
         <source>Businessmail</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="290"/>
+        <location filename="../views/employeeinputarea.ui" line="111"/>
         <source>Lastname</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="291"/>
+        <location filename="../views/employeeinputarea.ui" line="127"/>
         <source>Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="292"/>
+        <location filename="../views/employeeinputarea.ui" line="140"/>
         <source>Computer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="293"/>
+        <location filename="../views/employeeinputarea.ui" line="150"/>
         <source>Zipcode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="294"/>
+        <location filename="../views/employeeinputarea.ui" line="163"/>
         <source>Employee Account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="295"/>
+        <location filename="../views/employeeinputarea.ui" line="173"/>
         <source>Notes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="296"/>
+        <location filename="../views/employeeinputarea.ui" line="186"/>
         <source>Datacare</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="297"/>
+        <location filename="../views/employeeinputarea.ui" line="202"/>
         <source>Pers.Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="298"/>
+        <location filename="../views/employeeinputarea.ui" line="218"/>
         <source>Home Phone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="299"/>
+        <location filename="../views/employeeinputarea.ui" line="228"/>
         <source>Birthday</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="300"/>
+        <location filename="../views/employeeinputarea.ui" line="238"/>
         <source>Function</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="301"/>
+        <location filename="../views/employeeinputarea.ui" line="251"/>
         <source>Phone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="302"/>
+        <location filename="../views/employeeinputarea.ui" line="264"/>
         <source>Titel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="303"/>
+        <location filename="../views/employeeinputarea.ui" line="274"/>
         <source>Date</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="304"/>
+        <location filename="../views/employeeinputarea.ui" line="291"/>
         <source>Gender</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="305"/>
+        <location filename="../views/employeeinputarea.ui" line="307"/>
         <source>Fax</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="306"/>
+        <location filename="../views/employeeinputarea.ui" line="317"/>
         <source>ChipCard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="307"/>
+        <location filename="../views/employeeinputarea.ui" line="327"/>
         <source>Printer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="308"/>
+        <location filename="../views/employeeinputarea.ui" line="337"/>
         <source>Active</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="309"/>
+        <location filename="../views/employeeinputarea.ui" line="350"/>
         <source>Mobile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="310"/>
+        <location filename="../views/employeeinputarea.ui" line="369"/>
         <source>Employee Document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="311"/>
+        <location filename="../views/employeeinputarea.ui" line="385"/>
         <source>Start Date</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="312"/>
+        <location filename="../views/employeeinputarea.ui" line="395"/>
         <source>Department</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="313"/>
+        <location filename="../views/employeeinputarea.ui" line="408"/>
         <source>Last Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="314"/>
+        <location filename="../views/employeeinputarea.ui" line="415"/>
         <source>Home Mail</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="315"/>
+        <location filename="../views/employeeinputarea.ui" line="428"/>
         <source>City</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="316"/>
+        <location filename="../views/employeeinputarea.ui" line="458"/>
         <source>+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_employeeinputarea.py" line="317"/>
+        <location filename="../views/employeeinputarea.ui" line="478"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -454,32 +454,32 @@
 <context>
     <name>FunctionInputArea</name>
     <message>
-        <location filename="../../views/ui_functioninputarea.py" line="79"/>
+        <location filename="../views/functioninputarea.ui" line="38"/>
         <source>Function</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_functioninputarea.py" line="77"/>
+        <location filename="../views/functioninputarea.ui" line="17"/>
         <source>FunctionInputDialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_functioninputarea.py" line="80"/>
+        <location filename="../views/functioninputarea.ui" line="68"/>
         <source>Priority</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_functioninputarea.py" line="81"/>
+        <location filename="../views/functioninputarea.ui" line="81"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_functioninputarea.py" line="82"/>
+        <location filename="../views/functioninputarea.ui" line="111"/>
         <source>+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_functioninputarea.py" line="83"/>
+        <location filename="../views/functioninputarea.ui" line="131"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -492,97 +492,97 @@
         <translation type="obsolete">BONJOUR!</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="../../views/ui_mainwindow.py" line="183"/>
+        <location filename="../views/mainwindow.ui" line="35"/>
         <source>JMBDE Version 0.4.0 (c) Jürgen Mülbert</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mainwindow.py" line="184"/>
+        <location filename="../views/mainwindow.ui" line="159"/>
         <source>File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mainwindow.py" line="202"/>
+        <location filename="../views/mainwindow.ui" line="327"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mainwindow.py" line="200"/>
+        <location filename="../views/mainwindow.ui" line="309"/>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mainwindow.py" line="187"/>
+        <location filename="../views/mainwindow.ui" line="212"/>
         <source>Preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mainwindow.py" line="188"/>
+        <location filename="../views/mainwindow.ui" line="217"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mainwindow.py" line="189"/>
+        <location filename="../views/mainwindow.ui" line="229"/>
         <source>New</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mainwindow.py" line="190"/>
+        <location filename="../views/mainwindow.ui" line="232"/>
         <source>Ctrl+N</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mainwindow.py" line="191"/>
+        <location filename="../views/mainwindow.ui" line="237"/>
         <source>Quit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mainwindow.py" line="192"/>
+        <location filename="../views/mainwindow.ui" line="249"/>
         <source>Open...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mainwindow.py" line="193"/>
+        <location filename="../views/mainwindow.ui" line="252"/>
         <source>Ctrl+O</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mainwindow.py" line="194"/>
+        <location filename="../views/mainwindow.ui" line="260"/>
         <source>Import...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mainwindow.py" line="195"/>
+        <location filename="../views/mainwindow.ui" line="268"/>
         <source>Export...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mainwindow.py" line="196"/>
+        <location filename="../views/mainwindow.ui" line="277"/>
         <source>Print...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mainwindow.py" line="197"/>
+        <location filename="../views/mainwindow.ui" line="280"/>
         <source>Ctrl+P</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mainwindow.py" line="198"/>
+        <location filename="../views/mainwindow.ui" line="289"/>
         <source>Print Preview...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mainwindow.py" line="199"/>
+        <location filename="../views/mainwindow.ui" line="297"/>
         <source>&amp;Export Pdf</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mainwindow.py" line="201"/>
+        <location filename="../views/mainwindow.ui" line="318"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mainwindow.py" line="203"/>
+        <location filename="../views/mainwindow.ui" line="336"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
@@ -590,77 +590,77 @@
 <context>
     <name>ManufacturerInputArea</name>
     <message>
-        <location filename="../../views/ui_manufacturerinputarea.py" line="146"/>
+        <location filename="../views/manufacturerinputarea.ui" line="38"/>
         <source>Manufacturer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_manufacturerinputarea.py" line="144"/>
+        <location filename="../views/manufacturerinputarea.ui" line="17"/>
         <source>ManufacturerInputDialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_manufacturerinputarea.py" line="147"/>
+        <location filename="../views/manufacturerinputarea.ui" line="68"/>
         <source>Phone Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_manufacturerinputarea.py" line="148"/>
+        <location filename="../views/manufacturerinputarea.ui" line="81"/>
         <source>Mail Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_manufacturerinputarea.py" line="149"/>
+        <location filename="../views/manufacturerinputarea.ui" line="94"/>
         <source>Name2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_manufacturerinputarea.py" line="150"/>
+        <location filename="../views/manufacturerinputarea.ui" line="110"/>
         <source>Zip Code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_manufacturerinputarea.py" line="151"/>
+        <location filename="../views/manufacturerinputarea.ui" line="120"/>
         <source>Fax Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_manufacturerinputarea.py" line="152"/>
+        <location filename="../views/manufacturerinputarea.ui" line="130"/>
         <source>Address2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_manufacturerinputarea.py" line="153"/>
+        <location filename="../views/manufacturerinputarea.ui" line="149"/>
         <source>Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_manufacturerinputarea.py" line="154"/>
+        <location filename="../views/manufacturerinputarea.ui" line="165"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_manufacturerinputarea.py" line="155"/>
+        <location filename="../views/manufacturerinputarea.ui" line="175"/>
         <source>Supporter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_manufacturerinputarea.py" line="156"/>
+        <location filename="../views/manufacturerinputarea.ui" line="185"/>
         <source>Hotline Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_manufacturerinputarea.py" line="157"/>
+        <location filename="../views/manufacturerinputarea.ui" line="198"/>
         <source>City</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_manufacturerinputarea.py" line="158"/>
+        <location filename="../views/manufacturerinputarea.ui" line="222"/>
         <source>+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_manufacturerinputarea.py" line="159"/>
+        <location filename="../views/manufacturerinputarea.ui" line="242"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -668,87 +668,87 @@
 <context>
     <name>MobileInputArea</name>
     <message>
-        <location filename="../../views/ui_mobileinputarea.py" line="160"/>
+        <location filename="../views/mobileinputarea.ui" line="38"/>
         <source>Mobile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mobileinputarea.py" line="158"/>
+        <location filename="../views/mobileinputarea.ui" line="17"/>
         <source>MobileInputDialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mobileinputarea.py" line="161"/>
+        <location filename="../views/mobileinputarea.ui" line="71"/>
         <source>Devicename</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mobileinputarea.py" line="162"/>
+        <location filename="../views/mobileinputarea.ui" line="81"/>
         <source>Department</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mobileinputarea.py" line="163"/>
+        <location filename="../views/mobileinputarea.ui" line="94"/>
         <source>Inventory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mobileinputarea.py" line="164"/>
+        <location filename="../views/mobileinputarea.ui" line="107"/>
         <source>Employee</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mobileinputarea.py" line="165"/>
+        <location filename="../views/mobileinputarea.ui" line="117"/>
         <source>Manufacturer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mobileinputarea.py" line="166"/>
+        <location filename="../views/mobileinputarea.ui" line="134"/>
         <source>Replace</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mobileinputarea.py" line="167"/>
+        <location filename="../views/mobileinputarea.ui" line="141"/>
         <source>Place</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mobileinputarea.py" line="168"/>
+        <location filename="../views/mobileinputarea.ui" line="151"/>
         <source>Card Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mobileinputarea.py" line="169"/>
+        <location filename="../views/mobileinputarea.ui" line="164"/>
         <source>Pin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mobileinputarea.py" line="170"/>
+        <location filename="../views/mobileinputarea.ui" line="174"/>
         <source>Devicetype</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mobileinputarea.py" line="171"/>
+        <location filename="../views/mobileinputarea.ui" line="187"/>
         <source>Active</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mobileinputarea.py" line="172"/>
+        <location filename="../views/mobileinputarea.ui" line="194"/>
         <source>Serial Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mobileinputarea.py" line="173"/>
+        <location filename="../views/mobileinputarea.ui" line="207"/>
         <source>Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mobileinputarea.py" line="174"/>
+        <location filename="../views/mobileinputarea.ui" line="246"/>
         <source>+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_mobileinputarea.py" line="175"/>
+        <location filename="../views/mobileinputarea.ui" line="266"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -756,42 +756,42 @@
 <context>
     <name>OSInputArea</name>
     <message>
-        <location filename="../../views/ui_osinputarea.py" line="95"/>
+        <location filename="../views/osinputarea.ui" line="38"/>
         <source>Operation System</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_osinputarea.py" line="93"/>
+        <location filename="../views/osinputarea.ui" line="17"/>
         <source>OSInputDialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_osinputarea.py" line="96"/>
+        <location filename="../views/osinputarea.ui" line="68"/>
         <source>Version</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_osinputarea.py" line="97"/>
+        <location filename="../views/osinputarea.ui" line="81"/>
         <source>Revision</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_osinputarea.py" line="98"/>
+        <location filename="../views/osinputarea.ui" line="97"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_osinputarea.py" line="99"/>
+        <location filename="../views/osinputarea.ui" line="107"/>
         <source>Fix</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_osinputarea.py" line="100"/>
+        <location filename="../views/osinputarea.ui" line="137"/>
         <source>+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_osinputarea.py" line="101"/>
+        <location filename="../views/osinputarea.ui" line="157"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -799,82 +799,82 @@
 <context>
     <name>PhoneInputArea</name>
     <message>
-        <location filename="../../views/ui_phoneinputarea.py" line="152"/>
+        <location filename="../views/phoneinputarea.ui" line="38"/>
         <source>Phone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_phoneinputarea.py" line="150"/>
+        <location filename="../views/phoneinputarea.ui" line="17"/>
         <source>PhoneInputDialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_phoneinputarea.py" line="153"/>
+        <location filename="../views/phoneinputarea.ui" line="68"/>
         <source>Department</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_phoneinputarea.py" line="154"/>
+        <location filename="../views/phoneinputarea.ui" line="78"/>
         <source>Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_phoneinputarea.py" line="155"/>
+        <location filename="../views/phoneinputarea.ui" line="88"/>
         <source>Place</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_phoneinputarea.py" line="156"/>
+        <location filename="../views/phoneinputarea.ui" line="104"/>
         <source>Manufacturer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_phoneinputarea.py" line="157"/>
+        <location filename="../views/phoneinputarea.ui" line="114"/>
         <source>Devicetype</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_phoneinputarea.py" line="158"/>
+        <location filename="../views/phoneinputarea.ui" line="146"/>
         <source>Employee</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_phoneinputarea.py" line="159"/>
+        <location filename="../views/phoneinputarea.ui" line="159"/>
         <source>Replace</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_phoneinputarea.py" line="160"/>
+        <location filename="../views/phoneinputarea.ui" line="185"/>
         <source>Pin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_phoneinputarea.py" line="161"/>
+        <location filename="../views/phoneinputarea.ui" line="195"/>
         <source>Devicename</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_phoneinputarea.py" line="162"/>
+        <location filename="../views/phoneinputarea.ui" line="208"/>
         <source>Active</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_phoneinputarea.py" line="163"/>
+        <location filename="../views/phoneinputarea.ui" line="215"/>
         <source>Inventory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_phoneinputarea.py" line="164"/>
+        <location filename="../views/phoneinputarea.ui" line="228"/>
         <source>Serial Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_phoneinputarea.py" line="165"/>
+        <location filename="../views/phoneinputarea.ui" line="252"/>
         <source>+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_phoneinputarea.py" line="166"/>
+        <location filename="../views/phoneinputarea.ui" line="272"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -882,37 +882,37 @@
 <context>
     <name>PreferencesDialog</name>
     <message>
-        <location filename="../../views/ui_preferencesdialog.py" line="84"/>
+        <location filename="../views/preferencesdialog.ui" line="20"/>
         <source>Dialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_preferencesdialog.py" line="85"/>
+        <location filename="../views/preferencesdialog.ui" line="45"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_preferencesdialog.py" line="86"/>
+        <location filename="../views/preferencesdialog.ui" line="52"/>
         <source>Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_preferencesdialog.py" line="87"/>
+        <location filename="../views/preferencesdialog.ui" line="69"/>
         <source>Username</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_preferencesdialog.py" line="88"/>
+        <location filename="../views/preferencesdialog.ui" line="79"/>
         <source>Database Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_preferencesdialog.py" line="89"/>
+        <location filename="../views/preferencesdialog.ui" line="96"/>
         <source>Database Connc.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_preferencesdialog.py" line="90"/>
+        <location filename="../views/preferencesdialog.ui" line="113"/>
         <source>Hostname</source>
         <translation type="unfinished"></translation>
     </message>
@@ -920,107 +920,107 @@
 <context>
     <name>PrinterInputArea</name>
     <message>
-        <location filename="../../views/ui_printerinputarea.py" line="181"/>
+        <location filename="../views/printerinputarea.ui" line="38"/>
         <source>Printer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_printerinputarea.py" line="179"/>
+        <location filename="../views/printerinputarea.ui" line="17"/>
         <source>PrinterInputDialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_printerinputarea.py" line="182"/>
+        <location filename="../views/printerinputarea.ui" line="78"/>
         <source>Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_printerinputarea.py" line="183"/>
+        <location filename="../views/printerinputarea.ui" line="85"/>
         <source>Serial Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_printerinputarea.py" line="184"/>
+        <location filename="../views/printerinputarea.ui" line="101"/>
         <source>Place</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_printerinputarea.py" line="185"/>
+        <location filename="../views/printerinputarea.ui" line="117"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_printerinputarea.py" line="186"/>
+        <location filename="../views/printerinputarea.ui" line="130"/>
         <source>Devicename</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_printerinputarea.py" line="187"/>
+        <location filename="../views/printerinputarea.ui" line="140"/>
         <source>Papersize</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_printerinputarea.py" line="188"/>
+        <location filename="../views/printerinputarea.ui" line="147"/>
         <source>Department</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_printerinputarea.py" line="189"/>
+        <location filename="../views/printerinputarea.ui" line="160"/>
         <source>Inventory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_printerinputarea.py" line="190"/>
+        <location filename="../views/printerinputarea.ui" line="170"/>
         <source>Devicetype</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_printerinputarea.py" line="191"/>
+        <location filename="../views/printerinputarea.ui" line="180"/>
         <source>Resources</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_printerinputarea.py" line="192"/>
+        <location filename="../views/printerinputarea.ui" line="193"/>
         <source>Employee</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_printerinputarea.py" line="193"/>
+        <location filename="../views/printerinputarea.ui" line="206"/>
         <source>Active</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_printerinputarea.py" line="194"/>
+        <location filename="../views/printerinputarea.ui" line="219"/>
         <source>Manufacturer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_printerinputarea.py" line="195"/>
+        <location filename="../views/printerinputarea.ui" line="232"/>
         <source>Network</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_printerinputarea.py" line="196"/>
+        <location filename="../views/printerinputarea.ui" line="242"/>
         <source>IP Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_printerinputarea.py" line="197"/>
+        <location filename="../views/printerinputarea.ui" line="252"/>
         <source>Replace</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_printerinputarea.py" line="198"/>
+        <location filename="../views/printerinputarea.ui" line="259"/>
         <source>Computer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_printerinputarea.py" line="199"/>
+        <location filename="../views/printerinputarea.ui" line="286"/>
         <source>+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_printerinputarea.py" line="200"/>
+        <location filename="../views/printerinputarea.ui" line="306"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1028,42 +1028,42 @@
 <context>
     <name>ProcessorInputArea</name>
     <message>
-        <location filename="../../views/ui_processorinputarea.py" line="90"/>
+        <location filename="../views/processorinputarea.ui" line="38"/>
         <source>Processor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_processorinputarea.py" line="88"/>
+        <location filename="../views/processorinputarea.ui" line="17"/>
         <source>ProcessorInputDialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_processorinputarea.py" line="91"/>
+        <location filename="../views/processorinputarea.ui" line="74"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_processorinputarea.py" line="92"/>
+        <location filename="../views/processorinputarea.ui" line="84"/>
         <source>Clock Rate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_processorinputarea.py" line="93"/>
+        <location filename="../views/processorinputarea.ui" line="94"/>
         <source>Ghz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_processorinputarea.py" line="94"/>
+        <location filename="../views/processorinputarea.ui" line="101"/>
         <source>Cores</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_processorinputarea.py" line="95"/>
+        <location filename="../views/processorinputarea.ui" line="131"/>
         <source>+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_processorinputarea.py" line="96"/>
+        <location filename="../views/processorinputarea.ui" line="151"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1071,42 +1071,42 @@
 <context>
     <name>SoftwareInputArea</name>
     <message>
-        <location filename="../../views/ui_softwareinputarea.py" line="95"/>
+        <location filename="../views/softwareinputarea.ui" line="38"/>
         <source>Software</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_softwareinputarea.py" line="93"/>
+        <location filename="../views/softwareinputarea.ui" line="17"/>
         <source>SoftwareInputDialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_softwareinputarea.py" line="96"/>
+        <location filename="../views/softwareinputarea.ui" line="74"/>
         <source>Revision</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_softwareinputarea.py" line="97"/>
+        <location filename="../views/softwareinputarea.ui" line="84"/>
         <source>Version</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_softwareinputarea.py" line="98"/>
+        <location filename="../views/softwareinputarea.ui" line="97"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_softwareinputarea.py" line="99"/>
+        <location filename="../views/softwareinputarea.ui" line="107"/>
         <source>Fix</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_softwareinputarea.py" line="100"/>
+        <location filename="../views/softwareinputarea.ui" line="137"/>
         <source>+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_softwareinputarea.py" line="101"/>
+        <location filename="../views/softwareinputarea.ui" line="157"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1114,33 +1114,126 @@
 <context>
     <name>TitleInputArea</name>
     <message>
-        <location filename="../../views/ui_titleinputarea.py" line="90"/>
+        <location filename="../views/titleinputarea.ui" line="94"/>
         <source>Title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_titleinputarea.py" line="85"/>
+        <location filename="../views/titleinputarea.ui" line="17"/>
         <source>TitleInputDialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_titleinputarea.py" line="88"/>
+        <location filename="../views/titleinputarea.ui" line="68"/>
         <source>From</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_titleinputarea.py" line="89"/>
+        <location filename="../views/titleinputarea.ui" line="78"/>
         <source>To</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_titleinputarea.py" line="91"/>
+        <location filename="../views/titleinputarea.ui" line="124"/>
         <source>+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../views/ui_titleinputarea.py" line="92"/>
+        <location filename="../views/titleinputarea.ui" line="144"/>
         <source>Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>app</name>
+    <message>
+        <location filename="../../jmbde/views/MainWindow.py" line="106"/>
+        <source>Person</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../jmbde/views/MainWindow.py" line="108"/>
+        <source>Employee</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../jmbde/views/MainWindow.py" line="108"/>
+        <source>Function</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../jmbde/views/MainWindow.py" line="108"/>
+        <source>Department</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../jmbde/views/MainWindow.py" line="108"/>
+        <source>Title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../jmbde/views/MainWindow.py" line="110"/>
+        <source>Device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../jmbde/views/MainWindow.py" line="112"/>
+        <source>Computer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../jmbde/views/MainWindow.py" line="113"/>
+        <source>Processor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../jmbde/views/MainWindow.py" line="114"/>
+        <source>Operation System</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../jmbde/views/MainWindow.py" line="114"/>
+        <source>Software</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../jmbde/views/MainWindow.py" line="114"/>
+        <source>Printer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../jmbde/views/MainWindow.py" line="116"/>
+        <source>Communication</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../jmbde/views/MainWindow.py" line="117"/>
+        <source>Phone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../jmbde/views/MainWindow.py" line="117"/>
+        <source>Mobile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../jmbde/views/MainWindow.py" line="119"/>
+        <source>Misc</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../jmbde/views/MainWindow.py" line="120"/>
+        <source>Manufacturer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../jmbde/views/MainWindow.py" line="121"/>
+        <source>City</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../jmbde/views/MainWindow.py" line="121"/>
+        <source>Chipcard</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
