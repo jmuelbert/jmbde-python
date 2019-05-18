@@ -60,14 +60,14 @@ script:
 after_success:
  - coveralls
 
-deploy:
-  provider: pypi
-  skip_upload_docs: true
-  user: nicoddemus
-  distributions: sdist bdist_wheel
-  password:
-    secure: * 
-  on:
-    tags: true
-    repo: pytest-dev/pytest-qt
-    condition: $PYTEST_QT_API = pyqt5
+# deploy:
+#  provider: pypi
+#  skip_upload_docs: true
+#  user: nicoddemus
+#  distributions: sdist bdist_wheel
+#  password:
+#    secure: * 
+#  on:
+#    tags: true
+#    repo: pytest-dev/pytest-qt
+#    condition: $PYTEST_QT_API = pyqt5
