@@ -130,7 +130,11 @@ setup(
     ],
     cmdclass=cmdclass,
     test_suite='tests',
-    tests_require=["pytest"],
+    tests_require=["pytest",
+                   "pytest-qt"
+                   "pytest-xvfb",
+                   "pytest-runner"
+                   "pytest-cov"],
     include_package_data=True,
     zip_safe=False,
 )
