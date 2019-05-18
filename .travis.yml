@@ -1,12 +1,12 @@
 language: python
-python: "3.6"
+python: "3.7"
 sudo: required
 dist: trusty
 
 env:
   global:
       # used by ci-helpers
-      - DEPS="pytest tox coveralls six"
+      - DEPS="pytest pytest-qt tox coveralls six"
       - MINICONDA_VERSION=latest
       - DISPLAY=":99.0"
 
@@ -55,7 +55,7 @@ script:
     if [ $LINTING == "1" ]; then
       tox -e linting
     else
-      source activate test && catchsegv coverage run --source=pytestqt -m pytest -v tests
+      source activate test && catchsegv coverage run --source=jmbde -m pytest -v tests
     fi
 after_success:
  - coveralls

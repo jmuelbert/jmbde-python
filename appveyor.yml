@@ -11,17 +11,10 @@ environment:
       CONDA_CHANNELS: "conda-forge"
 
   matrix:
-    - PYTHON_VERSION: "3.5"
+    - PYTHON_VERSION: "3.7"
       PYTEST_QT_API: "pyqt5"
       CONDA_DEPENDENCIES: "pytest pyqt=5.*"
-    - PYTHON_VERSION: "3.5"
-      PYTEST_QT_API: "pyside2"
-      CONDA_DEPENDENCIES: "pytest pyside2=2.*"
-
-    - PYTHON_VERSION: "3.6"
-      PYTEST_QT_API: "pyqt5"
-      CONDA_DEPENDENCIES: "pytest pyqt=5.*"
-    - PYTHON_VERSION: "3.6"
+    - PYTHON_VERSION: "3.7"
       PYTEST_QT_API: "pyside2"
       CONDA_DEPENDENCIES: "pytest pyside2=2.*"
 
@@ -31,7 +24,7 @@ matrix:
     - PYTEST_QT_API: "pyside2"
 
 platform:
-    -x64
+    - x64
 
 install:
     # If there is a newer build queued for the same PR, cancel this one.
@@ -53,7 +46,6 @@ install:
 build: false
 
 test_script:
-  - "%CMD_IN_ENV% python setup.py build_ui"
   - "%CMD_IN_ENV% python -m jmbde -v tests/"
 
 skip_tags: true

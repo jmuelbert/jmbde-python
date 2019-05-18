@@ -1,4 +1,4 @@
-mport datetime
+import datetime
 
 import pytest
 
@@ -205,13 +205,15 @@ def test_logging_formatting(testdir):
     res.stdout.fnmatch_lines(
         [
             "*-- Captured Qt messages --*",
-            "QtWarningMsg WARNING {}: this is a WARNING message*".format(today),
+            "QtWarningMsg WARNING {}: this is a WARNING message*".format(
+                today),
         ]
     )
 
 
 @pytest.mark.parametrize(
-    "level, expect_passes", [("DEBUG", 1), ("WARNING", 2), ("CRITICAL", 3), ("NO", 4)]
+    "level, expect_passes", [
+        ("DEBUG", 1), ("WARNING", 2), ("CRITICAL", 3), ("NO", 4)]
 )
 def test_logging_fails_tests(testdir, level, expect_passes):
     """
