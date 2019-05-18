@@ -46,6 +46,7 @@ install:
 build: false
 
 test_script:
+  - "%CMD_IN_ENV% python setup.py sdist"
   - "%CMD_IN_ENV% python -m jmbde -v tests/"
 
 skip_tags: true
