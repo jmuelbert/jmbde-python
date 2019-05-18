@@ -15,6 +15,8 @@ sphinx-autodoc-typehints==1.6.0
 
 twine==1.13.0
 
+pyqt-distutils
+
 PySide2==5.12.3
 Markdown==3.1
 docutils==0.14

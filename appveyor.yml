@@ -41,6 +41,7 @@ install:
     - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
     - "activate test"
     - "pip install -e ."
+    - "pip install pyqt-distutils"
 
 # Not a .NET project, we build in the install step instead
 build: false

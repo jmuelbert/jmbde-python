@@ -6,7 +6,7 @@ dist: trusty
 env:
   global:
       # used by ci-helpers
-      - DEPS="pytest pytest-qt tox coveralls six"
+      - DEPS="pyqt-distutils pytest pytest-qt tox coveralls six"
       - MINICONDA_VERSION=latest
       - DISPLAY=":99.0"
 
