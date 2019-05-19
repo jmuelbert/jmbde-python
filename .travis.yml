@@ -6,7 +6,7 @@ dist: trusty
 env:
   global:
       # used by ci-helpers
-      - DEPS="pyqt-distutils pytest pytest-qt tox coveralls six"
+      - DEPS="pytest pytest-qt tox coveralls six"
       - MINICONDA_VERSION=latest
       - DISPLAY=":99.0"
 
@@ -45,6 +45,7 @@ install:
       conda config --set always_yes yes --set changeps1 no
       conda create -n test --quiet python=${PYTHON_VERSION} ${DEPS} ${PYQT_PACKAGE}
       source activate test && pip install -e .
+      pip install pyqt-distutils
     fi
 before_script:
  - "herbstluftwm &"
