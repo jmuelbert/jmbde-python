@@ -1,0 +1,2 @@
+include README.rst LICENSE LICENSE.DE
+recursive-include tests *.py

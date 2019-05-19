@@ -54,14 +54,17 @@ from .views.MainWindow import MainWindow
 from . import resources_rc  # noqa
 
 
-def setApplicationConstants(app):
-    QGuiApplication.setApplicationDisplayName("jmbde")
+def setApplicationConstants(app, appname):
 
     if sys.platform == 'darwin':
         app.setAttribute(Qt.AA_DontShowIconsInMenus)
 
-    QtCore.QCoreApplication.setApplicationName("JMBde")
+    QtCore.QCoreApplication.setApplicationName('jmbde')
+    QtCore.QCoreApplication.setOrgnizationName('jmbde')
+    QtCore.QCoreApplication.setOrginazationDomain('io.jmuelbert.github')
+    QtCore.QCoreApplication.setApplicationVersion(__init__.version)
 
+    QGuiApplication.setApplicationDisplayName("jmbde")
     print(QtCore.QCoreApplication.applicationName())
 
 

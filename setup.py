@@ -3,6 +3,7 @@
 
 """The setup script."""
 
+import io
 import re
 import os
 from subprocess import check_call
@@ -85,7 +86,7 @@ setup(
     name='jmbde',
     description="JMBde is a tool for collect data for a company",
     long_description=readme,
-    version=_version,
+    version='0.1.0',
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: MacOS X',
