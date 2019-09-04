@@ -1,9 +1,18 @@
  jmbde
 ============
 
+.. image:: https://pyup.io/repos/github/jmuelbert/jmbde-python/shield.svg
+     :target: https://pyup.io/repos/github/jmuelbert/jmbde-python/
+     :alt: Updates
+
+.. image:: https://pyup.io/repos/github/jmuelbert/jmbde-python/python-3-shield.svg
+     :target: https://pyup.io/repos/github/jmuelbert/jmbde-python/
+     :alt: Python 3
+     
 ..  image:: https://img.shields.io/badge/license-EUPL-blue.svg
     :alt: GitHub license
     :target: https://joinup.ec.europa.eu/page/eupl-text-11-12
+
 ..  image:: https://img.shields.io/badge/code%20style-pep8-green.svg
     :alt: PEP8
     :target: https://www.python.org/dev/peps/pep-0008/
