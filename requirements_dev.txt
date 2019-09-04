@@ -19,7 +19,7 @@ pyqt-distutils==0.7.3
 
 PySide2==5.12.3
 Markdown==3.1.1
-docutils==0.14
+docutils==0.15.2
 
 pytest==4.3.1
 pytest-qt==3.2.2
