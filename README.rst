@@ -97,7 +97,7 @@ You can generate a *compiled* application so that end-users do not need to
 install anything. You can tweak some settings on the ``app.spec`` file. It can
 be generated like this::
 
-    python pyinstaller
+    ``python pyinstaller``
 
 Documentation
 -------------
@@ -105,7 +105,14 @@ Documentation
 `Sphinx <https://sphinx.readthedocs.io/en/master/>`_ is used for documentation purposes. You can tweak its configuration in
 ``docs/conf.py`` and the documentation can be built like this::
 
-    python setup.py build_docs
+    ``cd docs``
+    ``pip install -r requirements.txt```
+    or
+    ``conda create -n build_docs -f environment.yml```
+    ``conda activate build_docs```
+    The docs can you build with the command:
+    ``make html``to build the web documentation
+
 
 License
 -------

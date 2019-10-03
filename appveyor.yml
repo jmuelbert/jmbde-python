@@ -7,15 +7,15 @@ image:
 
 environment:
   matrix:
-    - PYTHON_VERSION: "3.7"
-      PYTEST_QT_API: "pyqt5"
-      CONDA_DEPENDENCIES: "pytest-qt pytest pyqt=5.*"
+    - PYTHON_VERSION: "3.6"
+      PYTEST_QT_API: "pyside2"
+      CONDA_DEPENDENCIES: "pytest-qt pytest pyside2=2.*"
     - PYTHON_VERSION: "3.7"
       PYTEST_QT_API: "pyside2"
       CONDA_DEPENDENCIES: "pytest-qt pytest pyside2=2.*"
-
-    # PySide2 crashes: #202
-    - PYTEST_QT_API: "pyside2"
+    - PYTHON_VERSION: "3.8"
+      PYTEST_QT_API: "pyside2"
+      CONDA_DEPENDENCIES: "pytest-qt pytest pyside2=2.*"
 
   global:
     PYTHON: "C:\\conda"
@@ -40,12 +40,12 @@ install:
 
   # Windows - Miniconda is in Image
   - cmd: set "PATH="C:\Miniconda3-x64;C:\Miniconda3-x64\Scripts;%PATH%"
-  - cmd: activate
+  - cmd: conda activate base
   - conda config --set always_yes yes
   - conda install -c conda-forge
   - conda info
-  - conda env create --name jmbde -f environment.yml
-  - conda activate jmbde
+  - conda create -q -n testenv python=${PYTHON_VERSION} .-f environment.yml
+  - conda activate testenv
   - conda list
   - pip install -e .
   - pip install pytest-xvfb pytest-mock pytest-cov pytest-repeat codecov pyvirtualdisplay==0.2.1
