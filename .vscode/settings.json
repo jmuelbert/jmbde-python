@@ -1,3 +1,75 @@
 {
-    "python.pythonPath": "/Users/juergen/anaconda3/bin/python"
+    "python.pythonPath": "/miniconda3/envs/jmbde-python/bin/python",
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintArgs": [
+        "--reports",
+        "12",
+        "--disable-msg",
+        "I0011"
+    ],
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": [
+        "--ignore=E24,W504",
+        "--verbose"
+    ],
+    "python.linting.pep8Enabled": false,
+    "python.linting.pydocstyleEnabled": true,
+    "python.linting.pydocstyleArgs": [
+        "--ignore=D400",
+        "--ignore=D4"
+    ],
+    "python.linting.enabled": true,
+    "python.linting.lintOnSave": true,
+    "python.formatting.provider": "black",
+    "python.testing.pytestEnabled": true,
+    "python.testing.nosetestsEnabled": false,
+    "qtForPython.path.designer": "${env:HOME}/Qt/5.12.3/clang_64/bin/Designer",
+    "qtForPython.path.linguist": "${env:HOME}/Qt/5.12.3/clang_64/bin/Linguist",
+    "qtForPython.path.lrelease": "${env:HOME}/Qt/5.12.3/clang_64/bin/lrelease",
+    "qtForPython.path.pylupdate": "",
+    "qtForPython.path.pyrcc": "",
+    "qtForPython.path.pyuic": "",
+    "qtForPython.path.qmlscene": "${env:HOME}/Qt/5.12.3/clang_64/bin/qmlscene --verbose ${file}",
+    "pyside2-vsc.designer-creator.path": "",
+    "pyside2-vsc.rcc.cmd": "pyside2-rcc",
+    "pyqt-integration.linguist.cmd": "linguist",
+    "pyside2-vsc.uic.cmd": "pyside2-uic",
+    // files
+    "files.trimTrailingWhitespace": true,
+    "files.autoSave": "afterDelay",
+    "files.exclude": {
+        "**/*.pyc": true,
+        "**/*.min.js": true,
+        "**/*.js.map": true,
+        "htmlcov": true,
+        "build": true,
+        "*.log": true,
+        "*.egg-info": true,
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    // Controls if quick suggestions should show up while typing
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": false,
+        "strings": false
+    },
+    // Controls if suggestions should be accepted on 'Enter' - in addition to 'Tab'. Helps to avoid ambiguity between inserting new lines or accepting suggestions. The value 'smart' means only accept a suggestion with Enter when it makes a textual change
+    "editor.acceptSuggestionOnEnter": "on",
+    // Controls the delay in ms after which quick suggestions will show up.
+    "editor.quickSuggestionsDelay": 10,
+    // Controls if suggestions should automatically show up when typing trigger characters
+    "editor.suggestOnTriggerCharacters": true,
+    // Controls if pressing tab inserts the best suggestion and if tab cycles through other suggestions
+    "editor.tabCompletion": "on",
+    // Controls whether sorting favours words that appear close to the cursor
+    "editor.suggest.localityBonus": true,
+    // Controls how suggestions are pre-selected when showing the suggest list
+    "editor.suggestSelection": "recentlyUsed",
+    // Enable word based suggestions
+    "editor.wordBasedSuggestions": true,
+    // Enable parameter hints
+    "editor.parameterHints.enabled": true,
 }

@@ -1,8 +1,15 @@
 include README.rst
+include CONTRIBUTING.rst
 include LICENSE
 include LICENSE.DE
 include *.md
 include versioneer.py
 include jmbde/_version.py
+
+recursive-include jmbde/i18n *.qm
+recursive-include tests *
+recursive-exclude * __pycache__
+
+recursive-include docs *.rst conf.py Makefile make.bat *.jpg *.png *.gif
 
 global-exclude *.py[cod]

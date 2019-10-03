@@ -1,2 +1,6 @@
+.*
+!.coveragerc
+!.env
+!.pylintrc
 # Ignore generated files
 **/*.pyc

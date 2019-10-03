@@ -1,71 +1,124 @@
+# Config file for automatic building at travis-ci.org
+
 language: python
-python: "3.6"
-sudo: required
-dist: xenial
+sudo: false
+
+notifications:
+  email: false
 
 env:
   global:
     # used by ci-helpers
+    - PYTHON=3.4 QT=pyside2 TEST=standard # pyside isn't available for 3.4 with conda
+    - PYTHON=3.5 QT=pyside2 TEST=standard # pyside isn't available for 3.4 with conda
+    - PYTHON=3.6 QT=pyside2 TEST=standard # pyside isn't available for 3.4 with conda
+    - PYTHON=3.7 QT=pyside2 TEST=standard # pyside isn't available for 3.4 with conda
     - DEPS="pytest pytest-qt tox coveralls six"
     - MINICONDA_VERSION=latest
     - DISPLAY=":99.0"
 
-  matrix:
-    - PYTEST_QT_API=pyside2   PYQT_PACKAGE="pyside2=2.*" PYTHON_VERSION=3.5
+services:
+  - xvfb
 
-    - PYTEST_QT_API=pyside2   PYQT_PACKAGE="pyside2=2.*" PYTHON_VERSION=3.6
+before_install:
+  - wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+  - bash miniconda.sh -b -p $HOME/miniconda
+  - export PATH="$HOME/miniconda/bin:$PATH"
+  - hash -r
 
-    - PYTEST_QT_API=pyside2   PYQT_PACKAGE="pyside2=2.*" PYTHON_VERSION=3.7
-
-matrix:
-  # PySide2 crashes: #202
-  allow_failures:
-    - env: PYTEST_QT_API=pyside2   PYQT_PACKAGE="pyside2=2.*" PYTHON_VERSION=3.5
-    - env: PYTEST_QT_API=pyside2   PYQT_PACKAGE="pyside2=2.*" PYTHON_VERSION=3.6
-    - env: PYTEST_QT_API=pyside2   PYQT_PACKAGE="pyside2=2.*" PYTHON_VERSION=3.7
+  # to aid in debugging
+  - echo ${TRAVIS_BRANCH}
+  - echo ${TRAVIS_REPO_SLUG}
+  - echo ${GIT_TARGET_EXTRA}
+  - echo ${GIT_SOURCE_EXTRA}
 
 install:
-  - |
-    if [ $LINTING == "1" ]; then
-      pip install -U pip
-      pip install tox
-    else
-      # Xvfb / window manager
-      sudo apt-get update
-      sudo apt-get install -y xvfb herbstluftwm
-      # courtesy of https://github.com/astropy/ci-helpers/blob/master/travis/setup_conda_linux.sh
-      # /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 1920x1200x24 -ac +extension GLX +render -noreset
-      # Setup miniconda
-      wget https://repo.continuum.io/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -O miniconda.sh
-      bash miniconda.sh -b -p $HOME/miniconda
-      export PATH="$HOME/miniconda/bin:$PATH"
-      conda config --add channels conda-forge
-      conda config --set always_yes yes --set changeps1 no
-      conda create -n test --quiet python=${PYTHON_VERSION} ${DEPS} ${PYQT_PACKAGE}
-      source activate test && pip install -e .
-      pip install pyqt-distutils
-    fi
+  - export GIT_FULL_HASH=`git rev-parse HEAD`
+  - conda config --set always_yes yes --set changeps1 no
+  - conda config --add channels conda-forge
+  - conda update -q conda --yes
+  - conda config --set auto_update_conda no
+  - conda create -q -n testenv python=${PYTHON}
+  - source activate testenv
+  - conda install tox, pyside2, pip
+  - pip install .
+    - echo ${QT}
+    - echo ${TEST}
+    - echo ${PYTHON}
+
 before_script:
-  - "herbstluftwm &"
-  - sleep 1
+  # We need to create a (fake) display on Travis, let's use a funny resolution
+  - export DISPLAY=:99.0
+  - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 1400x900x24 -ac +extension GLX +render
+
+  # Make sure everyone uses the correct python (this is handled by conda)
+  - which python
+  - python --version
+  - pwd
+  - ls
+  # Help color output from each test
+  - RESET='\033[0m';
+    RED='\033[00;31m';
+    GREEN='\033[00;32m';
+    YELLOW='\033[00;33m';
+    BLUE='\033[00;34m';
+    PURPLE='\033[00;35m';
+    CYAN='\033[00;36m';
+    WHITE='\033[00;37m';
+    start_test() {
+    echo -e "${BLUE}======== Starting $1 ========${RESET}";
+    };
+    check_output() {
+    ret=$?;
+    if [ $ret == 0 ]; then
+    echo -e "${GREEN}>>>>>>    $1 passed    <<<<<<${RESET}";
+    else
+    echo -e "${RED}>>>>>>    $1 FAILED    <<<<<<${RESET}";
+    fi;
+    return $ret;
+    };
+
+  - if [ "${TEST}" == "extra" ]; then
+    start_test "repo size check";
+    mkdir ~/repo-clone && cd ~/repo-clone &&
+    git init && git remote add -t ${TRAVIS_BRANCH} origin git://github.com/${TRAVIS_REPO_SLUG}.git &&
+    git fetch origin ${GIT_TARGET_EXTRA} &&
+    git checkout -qf FETCH_HEAD &&
+    git tag travis-merge-target &&
+    git gc --aggressive &&
+    TARGET_SIZE=`du -s . | sed -e "s/\t.*//"` &&
+    git pull origin ${GIT_SOURCE_EXTRA} &&
+    git gc --aggressive &&
+    MERGE_SIZE=`du -s . | sed -e "s/\t.*//"` &&
+    if [ "${MERGE_SIZE}" != "${TARGET_SIZE}" ]; then
+    SIZE_DIFF=`expr \( ${MERGE_SIZE} - ${TARGET_SIZE} \)`;
+    else
+    SIZE_DIFF=0;
+    fi;
+    fi;
 
 script:
-  - |
-    if [ $LINTING == "1" ]; then
-      tox -e linting
-    else
-      source activate test && catchsegv coverage run --source=jmbde -m pytest -v tests
-    fi
+  - source activate test_env
+  - tox -e lint
+  - tox -e ${PYTHON}
+  - tox -e docs
+
 after_success:
+  - conda install -c conda-forge codecov
+  - conda install conda-build anaconda-client pytest pytest-cov
+  - codecov
   - coveralls
-# deploy:
-#  provider: pypi
-#  skip_upload_docs: true
-#  user: nicoddemus
-#  distributions: sdist bdist_wheel
-#  password:
-#    secure: *
-#  on:
-#    tags: true
-#    repo: pytest-dev/pytest-qt
-#    condition: $PYTEST_QT_API = pyqt5
+  - conda build conda.recipe --no-test
+  - conda install --use-local jmbde
+  - conda info -a
+
+deploy:
+  provider: pypi
+  skip_upload_docs: true
+  user: jmuelbert
+  password:
+    secure: "blWLOCNJ/UuEK2tg4dpgd2pkRvIXlvJmFSv7vF06k+BSacTtRVn5L+syXkcJDjB8eOm1FLBAwlcqt2W6/KACrV0NnfyNj8kuBaIUVrJhWJ+7osoMGJR2tH/TqIFxYFgRs0ZcolfhCVWX0ApRt127526vhUR5m+BLlCRfMlGT4fRgK3Wd7x4YNabjk+t2AHAzDu2v43r95ozxFQALTZHwRg06DrVxuE1eU6QRA6k1mx68DVDmKjjjDVCMCHeTuiqXJ8yPF4btO9mo88B6lMlUQ/grIbY9XTCncscgrZyvuiToERbOeTsQllvVSbl1E2HXcDRBIQR/+M/gy0583Fwf33+cIrITaEtKhe5XU8jykAnW05kcTN81TEKPCxuJYRfkzyZ6+1TDtixniI9/sofwED8cN85yql8xhO44GPPeMfSBLHNAzScd73KhSMz2xDXfWxF9oBjtt3KoEM/v7CVHc+wSuxR/hT/++w2tJgxxxsnX8ntC8zkA7JgAMZn2rgRefYXeR24EQmmWiWJBABlfijYM7SqBEYrEVrV8TOQpfJ09X2CbqNlTMOlqzZBSNHGrMRR4+UsRgAvoYlUXifwRCYr/qY3XJqW8baGRogRYL6ASSTXO/DTC/QVpWqWg57Ey6gejG+NRhCeJsJCm0dzDGTuc3qw/kEHWimY+bX2Xgh0="
+  distributions: sdist bdist_wheel
+  on:
+    tags: true
+    repo: jmuelbert/jmbde

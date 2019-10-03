@@ -1,0 +1,12 @@
+[build-system]
+# Minimum requirements for the build system to execute.
+requires = [
+    "setuptools",
+    "wheel",
+    "PySide2"
+]
+requires-python="3"
+
+[tool.black]
+target-version = ["py36", "py37", "py38"]
+exclude = 'generated'
