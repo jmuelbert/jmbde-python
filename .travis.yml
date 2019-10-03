@@ -38,7 +38,7 @@ install:
   - conda config --add channels conda-forge
   - conda update -q conda --yes
   - conda config --set auto_update_conda no
-  - conda create -q -n testenv python=${PYTHON} .-f environment.yml
+  - conda create -q -n testenv python=${PYTHON} -f environment.yml
   - source activate testenv
   - pip install .
     - echo ${QT}
