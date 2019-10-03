@@ -1,2 +1,8 @@
-include README.rst LICENSE LICENSE.DE
-recursive-include tests *.py
+include README.rst
+include LICENSE
+include LICENSE.DE
+include *.md
+include versioneer.py
+include jmbde/_version.py
+
+global-exclude *.py[cod]
