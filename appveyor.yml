@@ -45,7 +45,7 @@ install:
   - conda update -q conda --yes
   - conda config --set auto_update_conda no
   - conda info
-  - conda create -q -n testenv python=${PYTHON_VERSION} --file environment.yml
+  - conda create env --file environment.yml python=${PYTHON_VERSION}
   - conda activate testenv
   - conda list
   - pip install -e .

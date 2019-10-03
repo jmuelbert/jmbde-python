@@ -1,13 +1,12 @@
-name: jmbde-python
+name: testenv
 channels:
   - conda-forge
-  - anaconda-fusion
   - defaults
 dependencies:
+  - appdirs=1.4.3=py_1
   - astroid=2.2.5=py37_0
   - atomicwrites=1.3.0=py_0
   - attrs=19.1.0=py_0
-  - appdirs=1.4.3=py_1
   - backports=1.0=py_2
   - black=19.3b0=py_0
   - bzip2=1.0.8=h01d97ff_1
@@ -68,12 +67,26 @@ dependencies:
   - toml=0.10.0=py_0
   - tox=3.14.0=py_0
   - virtualenv=16.7.5=py_0
-  - wcwidth=0.1.7=py_1
   - wheel=0.33.6=py37_0
   - wrapt=1.11.2=py37h01d97ff_0
   - xz=5.2.4=h1de35cc_1001
   - zipp=0.6.0=py_0
   - zlib=1.2.11=h01d97ff_1006
   - pip:
+      - appnope==0.1.0
+      - backcall==0.1.0
+      - decorator==4.4.0
       - ipython==6.5.0
-prefix: /miniconda/envs/pyside2
+      - ipython-genutils==0.2.0
+      - jedi==0.15.1
+      - parso==0.5.1
+      - pexpect==4.7.0
+      - pickleshare==0.7.5
+      - prompt-toolkit==1.0.16
+      - ptyprocess==0.6.0
+      - pygments==2.4.2
+      - setup-qt==1.0.0
+      - simplegeneric==0.8.1
+      - traitlets==4.3.2
+      - wcwidth==0.1.7
+prefix: //miniconda/envs/testenv
