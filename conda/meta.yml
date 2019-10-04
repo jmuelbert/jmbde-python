@@ -1,12 +1,12 @@
 package:
   name: jmbde
-version:  {{ environ.get('PACKAGE_VERSION') }}
+version: { { environ.get('PACKAGE_VERSION') } }
 
 source:
   path: ..
 
 build:
-  string: {{ 'py'+environ.get('PYTHON_VERSION') }}
+  string: { { "py", environ.get('PYTHON_VERSION') } }
   script: python setup.py install --single-version-externally-managed --record=record.txt
 
 requirements:
@@ -18,4 +18,5 @@ requirements:
     - pyside2
 
 about:
-summary: A BDE tool
+  home: https://github.com/jmuelbert/jmbde-python
+  license: EUPL-1.2
