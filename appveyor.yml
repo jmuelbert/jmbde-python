@@ -44,13 +44,14 @@ install:
   - conda config --add channels conda-forge
   - conda update -q conda --yes
   - conda config --set auto_update_conda no
-  - conda info
-  - conda create env --file environment.yml python=${PYTHON_VERSION}
-  - conda activate testenv
+  - conda info -a # for debug reasons
+  - conda env create -fcon environment.yml python=${PYTHON_VERSION}
+  - cmd: activate testenv
+  - sh: source activate testenv
   - conda list
   - pip install -e .
   - pip install pytest-xvfb pytest-mock pytest-cov pytest-repeat codecov pyvirtualdisplay==0.2.1
-
+  - conda list # for debug reason
   # Not a .NET project, we build in the install step instead
 build: false
 

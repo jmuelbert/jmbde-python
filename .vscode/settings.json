@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/miniconda3/envs/jmbde-python/bin/python",
+    "python.pythonPath": "/miniconda3/envs/cliapp37/bin/python",
     "python.linting.pylintEnabled": true,
     "python.linting.pylintArgs": [
         "--reports",

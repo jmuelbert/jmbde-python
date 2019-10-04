@@ -139,6 +139,7 @@ OPTIONS = {
 
 
 def parse_requirements(requirements):
+    """ load requirements from a pip requirements file """
     # load from requirements.txt
     with open(requirements) as f:
         lines = [l for l in f]
