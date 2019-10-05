@@ -5,10 +5,10 @@ import os
 
 
 class Logger:
-    def __init__(self):
+    def __init__(self) -> None:
         self.create_log()
 
-    def create_log(self):
+    def create_log(self) -> logging.Logger:
         """
         For debugging and informational purposes.
         """
@@ -25,17 +25,17 @@ class Logger:
         return log
 
     @staticmethod
-    def logger_exists(log):
+    def logger_exists(log) -> bool:
         if len(log.handlers) > 0:
             return True
         else:
             return False
 
     @staticmethod
-    def ensure_log_folder_exists():
+    def ensure_log_folder_exists() -> None:
         if not os.path.exists(os.path.join(os.path.expanduser("~"), "jmbde", "log")):
             os.makedirs(os.path.join(os.path.expanduser("~"), "jmbde", "log"))
 
     @staticmethod
-    def create_log_filename():
+    def create_log_filename() -> str:
         return os.path.join(os.path.expanduser("~"), "jmbde", "log", "jmbde_debug.log")

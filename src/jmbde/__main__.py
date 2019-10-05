@@ -57,7 +57,7 @@ from .logger import Logger
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
-    def __init__(self):
+    def __init__(self) -> None:
         super(MainWindow, self).__init__()
 
         self.green_color = None
@@ -78,7 +78,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         QApplication.instance().aboutToQuit.connect(self.prepare_to_exit)
         self.show()
 
-    def set_application_constants(self):
+    def set_application_constants(self) -> None:
 
         if sys.platform == "darwin":
             QGuiApplication.setAttribute(Qt.AA_DontShowIconsInMenus)
@@ -101,13 +101,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         translator.load(":/translations/" + QLocale.system().name() + ".qm")
         QApplication.installTranslator(translator)
 
-    def setup_ui(self):
+    def setup_ui(self) -> None:
         self.setupUi(self)
         self.setup_colors()
         self.setup_tray_icon()
         self.setup_last_used_settings()
 
-    def setup_colors(self):
+    def setup_colors(self) -> None:
         green = QColor(55, 195, 58)
         palette_green = QtGui.QPalette()
         palette_green.setColor(QtGui.QPalette.Text, green)
@@ -126,7 +126,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         palette_red.setColor(QtGui.QPalette.Foreground, red)
         self.red_color = palette_red
 
-    def setup_tray_icon(self):
+    def setup_tray_icon(self) -> None:
         if self.tray.isSystemTrayAvailable():
             self.tray.setIcon(QIcon("assets/icon_256.png"))
             menu = QMenu()
@@ -138,7 +138,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             self.tray = None
 
-    def connect_ui_to_functions(self):
+    def connect_ui_to_functions(self) -> None:
         pass
 
     def write_gui_config_options_to_config_file(self):
@@ -153,7 +153,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             config.write(configfile)
         self.log.info("Updated input_properties.cfg file with new settings.")
 
-    def setup_last_used_settings(self):
+    def setup_last_used_settings(self) -> None:
         config = configparser.ConfigParser()
         self.config_filename = os.path.join(
             os.path.expanduser("~"), "jmbde", "input_properties.cfg"
@@ -167,7 +167,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         config.read(self.config_filename)
         self.set_instance_variables_from_config(config)
 
-    def need_new_config_file(self, config):
+    def need_new_config_file(self, config) -> bool:
         if not os.path.isfile(self.config_filename):
             return True
         if os.stat(self.config_filename).st_size == 0:
@@ -181,16 +181,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # if not config.has_option('input_properties', 'serial_port'):
         #    return True
 
-    def write_default_config(self):
+    def write_default_config(self) -> None:
         with open(self.config_filename, "w") as config_file:
             print("[input_properties]", file=config_file)
 
-    def set_instance_variables_from_config(self, config):
+    def set_instance_variables_from_config(self, config) -> None:
         pass
         # self.tabWidget_serialIp.setCurrentIndex(1)  # TODO: Make this an actual config parameter
 
     @staticmethod
-    def str2bool(bool_string):
+    def str2bool(bool_string) -> bool:
         if bool_string == "True":
             return True
         if bool_string == "False":
@@ -201,13 +201,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             )
         )
 
-    def prepare_to_exit(self):
+    def prepare_to_exit(self) -> None:
         self.log.info("About to quit.")
         # self.upload_data()  # Only occurs if forward data is toggled on
         self.log.info("Closing jmbde.")
 
 
-def main():
+def main() -> None:
     app = QApplication(sys.argv)
     mainWin = MainWindow()
     mainWin.setWindowTitle = "Test"
