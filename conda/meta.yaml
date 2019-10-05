@@ -2,7 +2,7 @@
 
 package:
   name: jmbde
-  version: {{ data[version]}}
+  version: 0.2.0
 
 source:
   path: ..
