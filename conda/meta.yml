@@ -1,6 +1,6 @@
 package:
   name: jmbde
-version: { { environ.get('PACKAGE_VERSION') } }
+  version: { { environ.get('PACKAGE_VERSION') } }
 
 source:
   path: ..
