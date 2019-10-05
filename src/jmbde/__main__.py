@@ -3,6 +3,7 @@
 """
     JMBDe app.
 """
+# Standard library imports
 #
 # Copyright (c) 2019 Jürgen Mülbert. All rights reserved.
 #
@@ -44,22 +45,15 @@ import configparser
 import os
 import sys
 
-from PySide2 import QtCore
-from PySide2 import QtGui
-from PySide2.QtCore import QLocale
-from PySide2.QtCore import Qt
-from PySide2.QtCore import QTranslator
-from PySide2.QtGui import QColor
-from PySide2.QtGui import QGuiApplication
-from PySide2.QtGui import QIcon
-from PySide2.QtWidgets import QApplication
-from PySide2.QtWidgets import QMainWindow
-from PySide2.QtWidgets import QMenu
-from PySide2.QtWidgets import QSystemTrayIcon
-
-import versioneer
-from .logger import Logger
+# Third party imports
 from jmbde.views.ui_mainwindow import Ui_MainWindow
+from PySide2 import QtCore, QtGui
+from PySide2.QtCore import QLocale, Qt, QTranslator
+from PySide2.QtGui import QColor, QGuiApplication, QIcon
+from PySide2.QtWidgets import QApplication, QMainWindow, QMenu, QSystemTrayIcon
+import versioneer
+
+from .logger import Logger
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -75,7 +69,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.base_output_filename = None
 
         self.log = Logger().create_log()
-        self.log.info(self.translate("Launched jmbde"))
+        self.log.info(self.translate('Launched jmbde'))
 
         self.set_application_constants()
         self.setup_ui()
@@ -86,17 +80,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def set_application_constants(self):
 
-        if sys.platform == "darwin":
+        if sys.platform == 'darwin':
             QGuiApplication.setAttribute(Qt.AA_DontShowIconsInMenus)
 
-        QtCore.QCoreApplication.setApplicationName("jmbde")
+        QtCore.QCoreApplication.setApplicationName('jmbde')
         #  QtCore.QCoreApplication.setOrgnizationName("jmbde")
         # QtCore.QCoreApplication.setOrginazationDomain("io.jmuelbert.github")
         QtCore.QCoreApplication.setApplicationVersion(versioneer.get_version())
 
-        self.log.info("Set Appname to: " + QtCore.QCoreApplication.applicationName())
+        self.log.info('Set Appname to: ' + QtCore.QCoreApplication.applicationName())
 
-        QGuiApplication.setWindowIcon(QIcon(":/icons/app.svg"))
+        QGuiApplication.setWindowIcon(QIcon(':/icons/app.svg'))
 
         # f = QFile(":/style.qss")
         # f.open(QFile.ReadOnly | QFile.Text)
@@ -104,7 +98,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # f.close()
 
         translator = QTranslator()
-        translator.load(":/translations/" + QLocale.system().name() + ".qm")
+        translator.load(':/translations/' + QLocale.system().name() + '.qm')
         QApplication.installTranslator(translator)
 
     def setup_ui(self):
@@ -134,9 +128,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def setup_tray_icon(self):
         if self.tray.isSystemTrayAvailable():
-            self.tray.setIcon(QIcon("assets/icon_256.png"))
+            self.tray.setIcon(QIcon('assets/icon_256.png'))
             menu = QMenu()
-            action_quit = menu.addAction("Quit")
+            action_quit = menu.addAction('Quit')
             action_quit.triggered.connect(self.close)
 
             self.tray.setContextMenu(menu)
@@ -154,19 +148,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # config.set('cat', 'setting', value)
 
         with open(
-            os.path.join(os.path.expanduser("~"), "jmbde", "input_properties.cfg"), "w"
+            os.path.join(os.path.expanduser('~'), 'jmbde', 'input_properties.cfg'), 'w'
         ) as configfile:
             config.write(configfile)
-        self.log.info("Updated input_properties.cfg file with new settings.")
+        self.log.info('Updated input_properties.cfg file with new settings.')
 
     def setup_last_used_settings(self):
         config = configparser.ConfigParser()
         self.config_filename = os.path.join(
-            os.path.expanduser("~"), "jmbde", "input_properties.cfg"
+            os.path.expanduser('~'), 'jmbde', 'input_properties.cfg'
         )
         if self.need_new_config_file(config):
             self.log.info(
-                "No input_properties.cfg file found. Creating the default one."
+                'No input_properties.cfg file found. Creating the default one.'
             )
             self.write_default_config()
 
@@ -188,8 +182,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #    return True
 
     def write_default_config(self):
-        with open(self.config_filename, "w") as config_file:
-            print("[input_properties]", file=config_file)
+        with open(self.config_filename, 'w') as config_file:
+            print('[input_properties]', file=config_file)
 
     def set_instance_variables_from_config(self, config):
         pass
@@ -197,9 +191,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     @staticmethod
     def str2bool(bool_string):
-        if bool_string == "True":
+        if bool_string == 'True':
             return True
-        if bool_string == "False":
+        if bool_string == 'False':
             return False
         raise ValueError(
             'Can only accept exact strings "True" or "False". Was passed {}'.format(
@@ -208,18 +202,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         )
 
     def prepare_to_exit(self):
-        self.log.info("About to quit.")
+        self.log.info('About to quit.')
         # self.upload_data()  # Only occurs if forward data is toggled on
-        self.log.info("Closing jmbde.")
+        self.log.info('Closing jmbde.')
 
 
 def main():
     app = QApplication(sys.argv)
     mainWin = MainWindow()
-    mainWin.setWindowTitle = "Test"
+    mainWin.setWindowTitle = 'Test'
     ret = app.exec_()
     sys.exit(ret)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
