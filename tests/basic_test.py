@@ -13,11 +13,11 @@ def response():
     pass
 
 
-def test_content(response):
+def content_test(response):
     """Sample pytest test function with the pytest fixture as an argument."""
     pass
 
 
-def test_command_line_interface():
+def command_line_interface_test():
     """Sample pytest test function with the pytest fixture as an argument."""
     pass
