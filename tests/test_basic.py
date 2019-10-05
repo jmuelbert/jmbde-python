@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """Tests for `jmbde-python` package."""
-
+# Third party imports
 import pytest
 
 

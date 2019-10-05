@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 #
 # Copyright (c) 2019 Jürgen Mülbert. All rights reserved.
 #
@@ -38,15 +37,16 @@
 # Die sprachspezifischen Genehmigungen und Beschränkungen
 # unter der Lizenz sind dem Lizenztext zu entnehmen.
 #
-
 """Setuop jmbde application"""
-
-import os
-import io
+# Standard library imports
 from datetime import datetime as dt
 from pathlib import Path  # noqa E402
-import versioneer
+import io
+import os
+
+# Third party imports
 from setuptools import setup
+import versioneer
 
 
 CURRENT_DIR = Path(__file__).parent
@@ -56,83 +56,84 @@ cmdclass = {}
 try:
     from setup_qt import build_qt
 
-    cmdclass["build_qt"] = build_qt
+    cmdclass['build_qt'] = build_qt
 except ImportError:
     pass
 
 
 def get_long_description() -> str:
     """Get the text of the README.rst."""
-    readme_rst = os.path.join(CURRENT_DIR, "README.rst")
+    readme_rst = os.path.join(CURRENT_DIR, 'README.rst')
 
-    with io.open(readme_rst, "rt", encoding="utf8") as f:
+    with io.open(readme_rst, 'rt', encoding='utf8') as f:
         readme = f.read()
         return readme
 
 
-MIN_PY_VERSION = "3.6"
-PROJECT_NAME = "JM OpenOrders"
-PROJECT_DESCRIPTION = "jmbde is a generator to generate infos for the affected persons"
-PROJECT_PACKAGE_NAME = "jmbde"
-PROJECT_LICENSE = "EUPL-1.2 "
-PROJECT_AUTHOR = "Jürgen Mülbert"
-PROJECT_COPYRIGHT = " 2018-{}, {}".format(dt.now().year, PROJECT_AUTHOR)
-PROJECT_URL = "https://jmbde.github.io/"
-PROJECT_EMAIL = "juergen.muelbert@gmail.com"
+MIN_PY_VERSION = '3.6'
+PROJECT_NAME = 'JM OpenOrders'
+PROJECT_DESCRIPTION = 'jmbde is a generator to generate infos for the affected persons'
+PROJECT_PACKAGE_NAME = 'jmbde'
+PROJECT_LICENSE = 'EUPL-1.2 '
+PROJECT_AUTHOR = 'Jürgen Mülbert'
+PROJECT_COPYRIGHT = ' 2018-{}, {}'.format(dt.now().year, PROJECT_AUTHOR)
+PROJECT_URL = 'https://jmbde.github.io/'
+PROJECT_EMAIL = 'juergen.muelbert@gmail.com'
 
-PROJECT_GITHUB_USERNAME = "jmuelbert"
-PROJECT_GITHUB_REPOSITORY = "jmbde"
+PROJECT_GITHUB_USERNAME = 'jmuelbert'
+PROJECT_GITHUB_REPOSITORY = 'jmbde'
 
-PYPI_URL = "https://pypi.python.org/pypi/{}".format(PROJECT_PACKAGE_NAME)
-GITHUB_PATH = "{}/{}".format(PROJECT_GITHUB_USERNAME, PROJECT_GITHUB_REPOSITORY)
-GITHUB_URL = "https://github.com/{}".format(GITHUB_PATH)
+PYPI_URL = 'https://pypi.python.org/pypi/{}'.format(PROJECT_PACKAGE_NAME)
+GITHUB_PATH = '{}/{}'.format(PROJECT_GITHUB_USERNAME, PROJECT_GITHUB_REPOSITORY)
+GITHUB_URL = 'https://github.com/{}'.format(GITHUB_PATH)
 
-DOWNLOAD_URL = "{}/archive/{}.zip".format(GITHUB_URL, versioneer.get_version())
+DOWNLOAD_URL = '{}/archive/{}.zip'.format(GITHUB_URL, versioneer.get_version())
 PROJECT_URLS = {
-    "Source Code": "{GITHUB_URL}",
-    "Bug Reports": "{}/issues".format(GITHUB_URL),
-    "Documentation": "https://readthedocs.org/projects/{}".format(PROJECT_PACKAGE_NAME),
+    'Source Code': '{GITHUB_URL}',
+    'Bug Reports': '{}/issues'.format(GITHUB_URL),
+    'Documentation': 'https://readthedocs.org/projects/{}'.format(PROJECT_PACKAGE_NAME),
 }
 
 
-PACKAGES = ["jmbde"]
-PACKAGE_DATA = {"jmbde": ["forms/*.ui", "*.qrc", "languages/*.ts", "languages/*.qm"]}
+PACKAGES = ['jmbde']
+PACKAGE_DIR = {'': 'src'}
+PACKAGE_DATA = {'jmbde': ['forms/*.ui', '*.qrc', 'languages/*.ts', 'languages/*.qm']}
 
 OPTIONS = {
-    "build_qt": {
-        "packages": ["jmbde"],
-        "languages": [
-            "ar_DZ",
-            "bg",
-            "ca_ES",
-            "cs",
-            "de",
-            "en_US",
-            "en",
-            "es_ES",
-            "es",
-            "fr_FR",
-            "fr",
-            "he",
-            "hu",
-            "it",
-            "ja",
-            "js",
-            "nb",
-            "nl",
-            "pl",
-            "pt_PT",
-            "pt",
-            "ru",
-            "tr",
-            "uk",
-            "uh_TW",
+    'build_qt': {
+        'packages': ['jmbde'],
+        'languages': [
+            'ar_DZ',
+            'bg',
+            'ca_ES',
+            'cs',
+            'de',
+            'en_US',
+            'en',
+            'es_ES',
+            'es',
+            'fr_FR',
+            'fr',
+            'he',
+            'hu',
+            'it',
+            'ja',
+            'js',
+            'nb',
+            'nl',
+            'pl',
+            'pt_PT',
+            'pt',
+            'ru',
+            'tr',
+            'uk',
+            'uh_TW',
         ],  # optional
-        "languages_dir": "languages",  # optional ('languages' is default)
-        "bindings": "PySide2",  # optional ('PyQt5' is default)
-        "pyrcc": "pyside2-rcc",
-        "pyuic": "pyside2-uic",
-        "pylupdate": "pyside2-lupdate",
+        'languages_dir': 'languages',  # optional ('languages' is default)
+        'bindings': 'PySide2',  # optional ('PyQt5' is default)
+        'pyrcc': 'pyside2-rcc',
+        'pyuic': 'pyside2-uic',
+        'pylupdate': 'pyside2-lupdate',
         # "replacement_bindings": "Qt",  # optional (for Qt.py wrapper usage)
     }
 }
@@ -146,7 +147,7 @@ def parse_requirements(requirements):
         # remove spaces
         stripped = map((lambda x: x.strip()), lines)
         # remove comments
-        nocomments = filter((lambda x: not x.startswith("#")), stripped)
+        nocomments = filter((lambda x: not x.startswith('#')), stripped)
         # remove empty lines
         reqs = filter((lambda x: x), nocomments)
         return reqs
@@ -154,8 +155,8 @@ def parse_requirements(requirements):
 
 extras_require = {}
 
-REQUIREMENTS = parse_requirements(os.path.join(CURRENT_DIR, "requirements.txt"))
-TESTS_REQUIRES = parse_requirements(os.path.join(CURRENT_DIR, "requirements_dev.txt"))
+REQUIREMENTS = parse_requirements(os.path.join(CURRENT_DIR, 'requirements.txt'))
+TESTS_REQUIRES = parse_requirements(os.path.join(CURRENT_DIR, 'requirements_dev.txt'))
 
 
 CMDCLASS = versioneer.get_cmdclass()
@@ -164,21 +165,22 @@ setup(
     name=PROJECT_PACKAGE_NAME,
     description=PROJECT_DESCRIPTION,
     long_description=get_long_description(),
-    long_description_content_type="text/markdown",
+    long_description_content_type='text/markdown',
     url=PROJECT_URL,
     download_url=DOWNLOAD_URL,
     project_urls=PROJECT_URLS,
     author=PROJECT_AUTHOR,
     author_email=PROJECT_EMAIL,
     packages=PACKAGES,
+    package_dir=PACKAGE_DIR,
     package_data=PACKAGE_DATA,
     include_package_data=True,
     zip_safe=False,
     install_requires=REQUIREMENTS,
-    python_requires=">={}".format(MIN_PY_VERSION),
-    test_suite="tests",
+    python_requires='>={}'.format(MIN_PY_VERSION),
+    test_suite='tests',
     tests_require=TESTS_REQUIRES,
-    entry_points={"gui_scripts": ["jmbde=app.__main__:main"]},
+    entry_points={'gui_scripts': ['jmbde=app.__main__:main']},
     version=versioneer.get_version(),
     options=OPTIONS,
     cmdclass=CMDCLASS,

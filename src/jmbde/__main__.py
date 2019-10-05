@@ -1,10 +1,8 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-
 """
     JMBDe app.
 """
-
 #
 # Copyright (c) 2019 Jürgen Mülbert. All rights reserved.
 #
@@ -42,21 +40,26 @@
 # Die sprachspezifischen Genehmigungen und Beschränkungen
 # unter der Lizenz sind dem Lizenztext zu entnehmen.
 #
-
-import sys
-import os
-import versioneer
 import configparser
+import os
+import sys
 
+from PySide2 import QtCore
+from PySide2 import QtGui
+from PySide2.QtCore import QLocale
+from PySide2.QtCore import Qt
+from PySide2.QtCore import QTranslator
+from PySide2.QtGui import QColor
+from PySide2.QtGui import QGuiApplication
+from PySide2.QtGui import QIcon
+from PySide2.QtWidgets import QApplication
+from PySide2.QtWidgets import QMainWindow
+from PySide2.QtWidgets import QMenu
+from PySide2.QtWidgets import QSystemTrayIcon
 
-from PySide2 import QtGui, QtCore
-from PySide2.QtCore import QTranslator, QLocale, Qt
-from PySide2.QtWidgets import QMainWindow, QApplication, QSystemTrayIcon, QMenu
-from PySide2.QtGui import QGuiApplication, QColor, QIcon
-
-from jmbde.views.ui_mainwindow import Ui_MainWindow
-
+import versioneer
 from .logger import Logger
+from jmbde.views.ui_mainwindow import Ui_MainWindow
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):

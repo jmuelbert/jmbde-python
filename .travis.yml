@@ -1,21 +1,37 @@
-# Config file for automatic building at travis-ci.org
-
 language: python
+dist: xenial
+
+# Setting sudo to false opts in to Travis-CI container-based builds.
 sudo: false
 
+# Turn off email notifications
 notifications:
   email: false
 
 env:
   global:
     # used by ci-helpers
-    - PYTHON=3.4 QT=pyside2 TEST=standard # pyside isn't available for 3.4 with conda
-    - PYTHON=3.5 QT=pyside2 TEST=standard # pyside isn't available for 3.4 with conda
-    - PYTHON=3.6 QT=pyside2 TEST=standard # pyside isn't available for 3.4 with conda
-    - PYTHON=3.7 QT=pyside2 TEST=standard # pyside isn't available for 3.4 with conda
     - DEPS="pytest pytest-qt tox coveralls six"
     - MINICONDA_VERSION=latest
     - DISPLAY=":99.0"
+
+matrix:
+  include:
+    - os: linux
+      env: PYTHON_VERSION="3.5"
+    - os: linux
+      env: PYTHON_VERSION="3.6"
+    - os: linux
+      env: PYTHON_VERSION="3.7"
+    - os: osx
+      osx_image: xcode9.4
+      env: PYTHON_VERSION="3.5"
+    - os: osx
+      osx_image: xcode9.4
+      env: PYTHON_VERSION="3.6"
+    - os: osx
+      osx_image: xcode9.4
+      env: PYTHON_VERSION="3.7"
 
 services:
   - xvfb
@@ -26,6 +42,11 @@ before_install:
   - export PATH="$HOME/miniconda/bin:$PATH"
   - hash -r
 
+  - conda config --set always_yes yes --set changeps1 no
+  - conda config --add channels conda-forge
+  - conda update -q conda --yes
+  - conda info -a # for debug reasons
+
   # to aid in debugging
   - echo ${TRAVIS_BRANCH}
   - echo ${TRAVIS_REPO_SLUG}
@@ -34,12 +55,7 @@ before_install:
 
 install:
   - export GIT_FULL_HASH=`git rev-parse HEAD`
-  - conda config --set always_yes yes --set changeps1 no
-  - conda config --add channels conda-forge
-  - conda info -a # for debug reasons
-  - conda update -q conda --yes
-  - conda config --set auto_update_conda no
-  - conda env create -f environment.yml python=${PYTHON}
+  - conda env create -f environment.yml python=${PYTHON_VERSION}
   - source activate testenv
   - conda list # for debug reasons
 
@@ -105,9 +121,23 @@ after_success:
   - conda install conda-build anaconda-client pytest pytest-cov
   - codecov
   - coveralls
-  - conda build conda.recipe --no-test
-  - conda install --use-local jmbde
-  - conda info -a
+
+before_deploy:
+  # Conda deploy if on tag
+  # ANACONDA_TOKEN should be provided by Travis
+  # How to generate ANACONDA_TOKEN: https://docs.anaconda.com/anaconda-cloud/user-guide/tasks/work-with-accounts#creating-access-tokens
+
+  # https://conda.io/docs/user-guide/tasks/build-packages/install-conda-build.html
+  - conda install -y conda-build conda-verify anaconda-client
+  - conda config --set anaconda_upload no
+  - travis_wait 60 conda build --quiet --no-test --output-folder conda_build conda.recipe
+
+  # Convert to other platforms: OSX, WIN
+  - conda convert --platform win-64 conda_build/linux-64/*.tar.bz2 -o conda_build/
+  - conda convert --platform osx-64 conda_build/linux-64/*.tar.bz2 -o conda_build/
+  # Upload to Anaconda
+  # We could use --all but too much platforms to uploaded
+  - ls conda_build/*/*.tar.bz2 | xargs -I {} anaconda -v -t $ANACONDA_TOKEN upload -u jmuelbert {}
 
 deploy:
   provider: pypi
@@ -115,7 +145,7 @@ deploy:
   user: jmuelbert
   password:
     secure: "blWLOCNJ/UuEK2tg4dpgd2pkRvIXlvJmFSv7vF06k+BSacTtRVn5L+syXkcJDjB8eOm1FLBAwlcqt2W6/KACrV0NnfyNj8kuBaIUVrJhWJ+7osoMGJR2tH/TqIFxYFgRs0ZcolfhCVWX0ApRt127526vhUR5m+BLlCRfMlGT4fRgK3Wd7x4YNabjk+t2AHAzDu2v43r95ozxFQALTZHwRg06DrVxuE1eU6QRA6k1mx68DVDmKjjjDVCMCHeTuiqXJ8yPF4btO9mo88B6lMlUQ/grIbY9XTCncscgrZyvuiToERbOeTsQllvVSbl1E2HXcDRBIQR/+M/gy0583Fwf33+cIrITaEtKhe5XU8jykAnW05kcTN81TEKPCxuJYRfkzyZ6+1TDtixniI9/sofwED8cN85yql8xhO44GPPeMfSBLHNAzScd73KhSMz2xDXfWxF9oBjtt3KoEM/v7CVHc+wSuxR/hT/++w2tJgxxxsnX8ntC8zkA7JgAMZn2rgRefYXeR24EQmmWiWJBABlfijYM7SqBEYrEVrV8TOQpfJ09X2CbqNlTMOlqzZBSNHGrMRR4+UsRgAvoYlUXifwRCYr/qY3XJqW8baGRogRYL6ASSTXO/DTC/QVpWqWg57Ey6gejG+NRhCeJsJCm0dzDGTuc3qw/kEHWimY+bX2Xgh0="
-  distributions: sdist bdist_wheel
+  distributions: "sdist bdist_wheel"
   on:
     tags: true
     condition: $TRAVIS_TAG =~ v[0-9]+\.[0-9]+\.[0-9]+ && $BUILD_SDIST=true

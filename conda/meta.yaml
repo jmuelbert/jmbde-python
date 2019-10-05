@@ -1,0 +1,35 @@
+{% set data = load_setup_py_data() %}
+
+package:
+  name: jmbde
+  version: {{ data[version]}}
+
+source:
+  path: ..
+
+build:
+  number: 0
+  script: "{{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt"
+
+# https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#export-runtime-requirements
+requirements:
+  build:
+    - python {{ environ.get('PYTHON_VERSION') }}
+    - setuptools
+  run:
+    - python {{ environ.get('PYTHON_VERSION') }}
+    - pyside2
+
+test:
+  imports:
+    - ignite
+    - ignite.engine
+    - ignite.handlers
+    - ignite.metrics
+    - ignite.contrib
+
+about:
+  home: {{ data['url'] }}
+  license: {{ data['license'] }}
+  license: EUPL-1.2
+  summary: {{ data['description'] }}
