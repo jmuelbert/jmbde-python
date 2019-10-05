@@ -68,10 +68,10 @@ Installing
 
 An install script is preferred. You can you the latest release or build the newest version with the command:
 
-    `./setup.py setup_qt sdist`
+    ``./setup.py setup_qt sdist``
 
 or
-    `python setup.py setup_qt sdist`
+    ``python setup.py setup_qt sdist``
 
 This build an python installer
 
@@ -85,7 +85,7 @@ build the translations, you will need to have the ``lrelease`` command on your
 ``PATH`` or set its full path to the ``LRELEASE_BIN`` environment variable.
 UI files, translations and resources can be built like this::
 
-    `python setup.py setup_qt sdist bdist_wheel`
+    ``python setup.py setup_qt sdist bdist_wheel``
 
 Note that this command is automatically run before running ``sdist`` and
 ``bdist_app`` commands.

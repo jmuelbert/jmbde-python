@@ -59,7 +59,7 @@ Get Started!
 
 Ready to contribute? Here's how to set up `jmbde` for local development.
 
-1. Fork the `jmbde-python` repo on GitHub.
+1. Fork the ``jmbde-python`` repo on GitHub.
 2. Clone your fork locally::
 
     $ git clone git@github.com:your_name_here/jmbde-python.git
