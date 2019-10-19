@@ -1,0 +1,14 @@
+- id: flake8
+  name: flake8
+  description: "`flake8` is a command-line utility for enforcing style consistency across Python projects."
+  entry: flake8
+  language: python
+  types: [python]
+  require_serial: true
+
+- id: pydocstyle
+  name: pydocstyle
+  description: pydocstyle is a static analysis tool for checking compliance with Python docstring conventions.
+  entry: pydocstyle
+  language: python
+  types: [python]

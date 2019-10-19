@@ -2,6 +2,6 @@
     "files": [
         "jmbde/__main__.py",
         "jmbde/__main__.py",
-        "jmbde/views/MainWindow.py"
+        "jmbde/forms/MainWindow.py"
         ]
 }

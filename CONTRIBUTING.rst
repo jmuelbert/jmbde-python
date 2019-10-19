@@ -57,9 +57,9 @@ If you are proposing a feature:
 Get Started!
 ------------
 
-Ready to contribute? Here's how to set up `jmbde` for local development.
+Ready to contribute? Here's how to set up ``jmbde`` for local development.
 
-1. Fork the `jmbde-python` repo on GitHub.
+1. Fork the ``jmbde-python`` repo on GitHub.
 2. Clone your fork locally::
 
     $ git clone git@github.com:your_name_here/jmbde-python.git
@@ -121,7 +121,6 @@ A reminder for the maintainers on how to deploy.
 Make sure all your changes are committed (including an entry in HISTORY.rst).
 Then run::
 
-$ bump2version patch # possible: major / minor / patch
 $ git push
 $ git push --tags
 

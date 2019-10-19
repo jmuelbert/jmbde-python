@@ -7,7 +7,7 @@ name = "pypi"
 
 [packages]
 
-"PyQt5" = "*"
+"PySide2" = "*"
 
 
 [dev-packages]
