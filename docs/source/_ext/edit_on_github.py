@@ -4,10 +4,8 @@ Sphinx extension to add ReadTheDocs-style "Edit on GitHub" links to the
 sidebar.
 Loosely based on https://github.com/astropy/astropy/pull/347
 """
-# Standard library imports
 import os
 import warnings
-
 
 __licence__ = "BSD (3 clause)"
 

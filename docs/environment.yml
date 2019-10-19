@@ -6,4 +6,4 @@ dependencies:
   - sphinx==2.2.0
   - pip:
       - recommonmark==0.4.0
-      - git+htttps://git@github.com/jmuelbert/jmopenorders.git
+      - git+htttps://git@github.com/jmuelbert/jmbde-python.git

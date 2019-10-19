@@ -2,14 +2,59 @@ include README.rst
 include CONTRIBUTING.rst
 include LICENSE
 include LICENSE.DE
+include .dockerignore
+include .editorconfig
+include .isort.cfg
+include update_docs
 include *.md
-include versioneer.py
-include jmbde/_version.py
+include *.py
+include *.pyproject
+include *.rst
+include *.sh
+include *.toml
+include *.txt
+include *.yaml
+include *.yml
+include .bumpversion.cfg
+include .coveragerc
+include CONTRIBUTORS
+include Dockerfile
+include Pipfile
+include tox.ini
+include docs/Makefile
+include docs/make.bat
+include scripts/compile_ui
+include scripts/make
+include update_docs
+
+recursive-include .vscode *json
+recursive-include recipe *.yaml
+recursive-include docs *.html
+recursive-include docs *.py
+recursive-include docs *.svg
+recursive-include docs *.txt
+recursive-include docs *.yml
+recursive-include scripts *.bat
+recursive-include scripts *.sh
+recursive-include src *.icns
+recursive-include src *.ico
+recursive-include src *.png
+recursive-include src *.py
+recursive-include src *.qrc
+recursive-include src *.qss
+recursive-include src *.svg
+recursive-include src *.ts
+recursive-include src *.ui
+recursive-include src *.yml
+recursive-include recipe *.yaml
 
 recursive-include jmbde/i18n *.qm
 recursive-include tests *
-recursive-exclude * __pycache__
-
 recursive-include docs *.rst conf.py Makefile make.bat *.jpg *.png *.gif
+
+
+recursive-exclude * __pycache__
+recursive-exclude docs/build *
+recursive-exclude docs/_build *
 
 global-exclude *.py[cod]

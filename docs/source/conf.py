@@ -30,7 +30,8 @@ PROJECT_NAME = "jmbde-python"
 PROJECT_PACKAGE_NAME = "jmbde"
 PROJECT_LICENSE = "EUPL-1.2 "
 PROJECT_AUTHOR = "Jürgen Mülbert"
-PROJECT_COPYRIGHT = " 2018-{}, {}".format(dt.datetime.now().year, PROJECT_AUTHOR)
+PROJECT_COPYRIGHT = " 2018-{}, {}".format(
+    dt.datetime.now().year, PROJECT_AUTHOR)
 PROJECT_URL = "https://jmbde-python.github.io/"
 PROJECT_EMAIL = "juergen.muelbert@gmail.com"
 PROJECT_LONG_DESCRIPTION = "A BDE Tool"
@@ -38,7 +39,8 @@ PROJECT_LONG_DESCRIPTION = "A BDE Tool"
 PROJECT_GITHUB_USERNAME = "jmuelbert"
 PROJECT_GITHUB_REPOSITORY = "jmbde-python"
 
-GITHUB_PATH = "{}/{}".format(PROJECT_GITHUB_USERNAME, PROJECT_GITHUB_REPOSITORY)
+GITHUB_PATH = "{}/{}".format(PROJECT_GITHUB_USERNAME,
+                             PROJECT_GITHUB_REPOSITORY)
 GITHUB_URL = "https://github.com/{}".format(GITHUB_PATH)
 
 sys.path.insert(0, os.path.abspath("_ext"))
@@ -56,7 +58,6 @@ sys.path.insert(0, os.path.abspath("../jmbde"))
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.linkcode",
-    "sphinx_autodoc_annotation",
     "edit_on_github",
     "sphinx.ext.githubpages",
 ]
@@ -108,17 +109,17 @@ def linkcode_resolve(domain, info):
     for part in fullname.split("."):
         try:
             obj = getattr(obj, part)
-        except:
+        except Exception:
             return None
     try:
         fn = inspect.getsourcefile(obj)
-    except:
+    except Exception:
         fn = None
     if not fn:
         return None
     try:
         source, lineno = inspect.findsource(obj)
-    except:
+    except Exception:
         lineno = None
     if lineno:
         linespec = "#L%d" % (lineno + 1)
@@ -270,7 +271,10 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, "jmbde.tex", "jmbde Documentation", "Jürgen Mülbert", "manual")
+    (master_doc, "jmbde.tex",
+                 "jmbde Documentation",
+                 "Jürgen Mülbert",
+                 "manual")
 ]
 
 

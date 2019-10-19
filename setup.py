@@ -37,67 +37,25 @@
 # Die sprachspezifischen Genehmigungen und Beschränkungen
 # unter der Lizenz sind dem Lizenztext zu entnehmen.
 #
-"""Setuop jmbde application"""
-# Standard library imports
-from datetime import datetime as dt
-from pathlib import Path  # noqa E402
-import io
+"""Setup jmbde application"""
+import codecs
 import os
 
-# Third party imports
+from setuptools import find_packages
 from setuptools import setup
-import versioneer
+
+version = '0.2.0'
+here = os.path.abspath(os.path.dirname(__file__))
 
 
-CURRENT_DIR = Path(__file__).parent
-cmdclass = {}
-
-# Allow compilation of Qt .qrc, .ui and .ts files (build_qt command)
-try:
-    from setup_qt import build_qt
-
-    cmdclass["build_qt"] = build_qt
-except ImportError:
-    pass
+def read(*parts: str) -> str:
+    # intentionally *not* adding an encoding option to open, See:
+    #   https://github.com/pypa/virtualenv/issues/201#issuecomment-3145690
+    with codecs.open(os.path.join(here, *parts), 'r') as fp:
+        return fp.read()
 
 
-def get_long_description() -> str:
-    """Get the text of the README.rst."""
-    readme_rst = os.path.join(CURRENT_DIR, "README.rst")
-
-    with io.open(readme_rst, "rt", encoding="utf8") as f:
-        readme = f.read()
-        return readme
-
-
-MIN_PY_VERSION = "3.6"
-PROJECT_NAME = "JM OpenOrders"
-PROJECT_DESCRIPTION = "jmbde is a generator to generate infos for the affected persons"
-PROJECT_PACKAGE_NAME = "jmbde"
-PROJECT_LICENSE = "EUPL-1.2 "
-PROJECT_AUTHOR = "Jürgen Mülbert"
-PROJECT_COPYRIGHT = " 2018-{}, {}".format(dt.now().year, PROJECT_AUTHOR)
-PROJECT_URL = "https://jmbde.github.io/"
-PROJECT_EMAIL = "juergen.muelbert@gmail.com"
-
-PROJECT_GITHUB_USERNAME = "jmuelbert"
-PROJECT_GITHUB_REPOSITORY = "jmbde"
-
-PYPI_URL = "https://pypi.python.org/pypi/{}".format(PROJECT_PACKAGE_NAME)
-GITHUB_PATH = "{}/{}".format(PROJECT_GITHUB_USERNAME, PROJECT_GITHUB_REPOSITORY)
-GITHUB_URL = "https://github.com/{}".format(GITHUB_PATH)
-
-DOWNLOAD_URL = "{}/archive/{}.zip".format(GITHUB_URL, versioneer.get_version())
-PROJECT_URLS = {
-    "Source Code": "{GITHUB_URL}",
-    "Bug Reports": "{}/issues".format(GITHUB_URL),
-    "Documentation": "https://readthedocs.org/projects/{}".format(PROJECT_PACKAGE_NAME),
-}
-
-
-PACKAGES = ["jmbde"]
-PACKAGE_DIR = {"": "src"}
-PACKAGE_DATA = {"jmbde": ["forms/*.ui", "*.qrc", "languages/*.ts", "languages/*.qm"]}
+long_description = read('README.rst')
 
 OPTIONS = {
     "build_qt": {
@@ -139,7 +97,7 @@ OPTIONS = {
 }
 
 
-def parse_requirements(requirements):
+def parse_requirements(requirements: str):
     """ load requirements from a pip requirements file """
     # load from requirements.txt
     with open(requirements) as f:
@@ -153,35 +111,59 @@ def parse_requirements(requirements):
         return reqs
 
 
-extras_require = {}
-
-REQUIREMENTS = parse_requirements(os.path.join(CURRENT_DIR, "requirements.txt"))
-TESTS_REQUIRES = parse_requirements(os.path.join(CURRENT_DIR, "requirements_dev.txt"))
-
-
-CMDCLASS = versioneer.get_cmdclass()
+REQUIREMENTS = parse_requirements(os.path.join(here, "requirements.txt"))
+TESTS_REQUIRES = parse_requirements(os.path.join(here, "requirements_dev.txt"))
 
 setup(
-    name=PROJECT_PACKAGE_NAME,
-    description=PROJECT_DESCRIPTION,
-    long_description=get_long_description(),
-    long_description_content_type="text/markdown",
-    url=PROJECT_URL,
-    download_url=DOWNLOAD_URL,
-    project_urls=PROJECT_URLS,
-    author=PROJECT_AUTHOR,
-    author_email=PROJECT_EMAIL,
-    packages=PACKAGES,
-    package_dir=PACKAGE_DIR,
-    package_data=PACKAGE_DATA,
-    include_package_data=True,
+    version=version,
+    description="A generator to generate infos for the affected persons.",
+    long_description=long_description,
+
+    license='EUPL-1.2',
+    classifiers=[
+        "Development Status :: 4 - Beta",
+        "Environment :: Console",
+        "Intended Audience :: Developers",
+        "Intended Audience :: End Users/Desktop",
+        "License :: OSI Approved :: European Union Public Licence 1.2 " +
+        "(EUPL 1.2)",
+        "Natural Language :: English",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: Implementation :: CPython",
+        "Programming Language :: Python :: Implementation :: PyPy",
+        "Topic :: Office/Business",
+    ],
+    url='https://github.com/jmuelbert/jmbde-python',
+    download_url='https://github.com/jmuelbert/jmbde-python/archiv/' +
+        version + ".zip",
+    project_urls={
+        'Source Code': 'https://github.com/jmuelbert/jmbde-python',
+        'Bug Reports': 'https://github.com/jmuelbert/jmbde-python/issues',
+        'Documentation': 'https://jmbde-python.readthedocs.io/en/latest/'
+    },
+    keywords='jmbde, bde, business tool, qt5, python',
+
+    author='Jürgen Mülbert',
+    author_email='juergen.muelbert@gmail.com',
+
+    install_requirements=REQUIREMENTS,
+
+    package_dir={'': 'src'},
+
+    packages=find_packages(
+        exclude=["contrib", "docs", "tests*", "tasks"],
+    ),
+    entry_points={
+        'console_scripts':
+        ['jmbde=jmbde.cli:main'],
+        "gui_scripts":
+        ["jmbde=app.__main__:main"]
+    },
     zip_safe=False,
-    install_requires=REQUIREMENTS,
-    python_requires=">={}".format(MIN_PY_VERSION),
-    test_suite="tests",
-    tests_require=TESTS_REQUIRES,
-    entry_points={"gui_scripts": ["jmbde=app.__main__:main"]},
-    version=versioneer.get_version(),
-    options=OPTIONS,
-    cmdclass=CMDCLASS,
+    python_requires='>=3.4.*',
 )

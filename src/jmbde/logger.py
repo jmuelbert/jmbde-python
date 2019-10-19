@@ -17,7 +17,8 @@ class Logger:
 
         if not self.logger_exists(log):
             handler = logging.FileHandler(self.create_log_filename())
-            formatter = logging.Formatter("%(asctime)s %(levelname)s %(message)s")
+            formatter = logging.Formatter(
+                "%(asctime)s %(levelname)s %(message)s")
             handler.setFormatter(formatter)
             log.addHandler(handler)
             log.setLevel(logging.DEBUG)
@@ -33,9 +34,11 @@ class Logger:
 
     @staticmethod
     def ensure_log_folder_exists() -> None:
-        if not os.path.exists(os.path.join(os.path.expanduser("~"), "jmbde", "log")):
+        if not os.path.exists(os.path.join(os.path.expanduser("~"),
+                                           "jmbde", "log")):
             os.makedirs(os.path.join(os.path.expanduser("~"), "jmbde", "log"))
 
     @staticmethod
     def create_log_filename() -> str:
-        return os.path.join(os.path.expanduser("~"), "jmbde", "log", "jmbde_debug.log")
+        return os.path.join(os.path.expanduser("~"), "jmbde",
+                            "log", "jmbde_debug.log")

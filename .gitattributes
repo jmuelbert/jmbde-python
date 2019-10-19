@@ -26,5 +26,3 @@
 *.ttf binary
 *.woff binary
 *.mo binary
-
-jmbde/_version.py export-subst

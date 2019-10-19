@@ -2,5 +2,5 @@
 MainWindow
 ==========
 
-.. automodule:: app.views.MainWindow
+.. automodule:: jmbde.forms
     :members:

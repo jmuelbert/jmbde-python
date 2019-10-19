@@ -1,76 +1,111 @@
+exclude: "src/jmbde/_vendor/"
+
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v2.3.0
     hooks:
-      - id: check-added-large-files
       - id: check-ast
+      - id: check-added-large-files
+      - id: check-builtin-literals
       - id: check-byte-order-marker
       - id: check-case-conflict
-      - id: check-docstring-first
       - id: check-executables-have-shebangs
+      - id: check-toml
+      - id: check-yaml
+        exclude: recipe/meta.yaml
       - id: check-json
+      - id: pretty-format-json
+        argument: autofix
+        exclude: .vscode/*
+      - id: check-xml
       - id: check-merge-conflict
       - id: check-symlinks
-      - id: check-toml
       - id: check-vcs-permalinks
-      - id: check-yaml
-      - id: check-xml
       - id: debug-statements
       - id: detect-private-key
-      - id: double-quote-string-fixer
       - id: end-of-file-fixer
-      - id: fix-encoding-pragma
-      - id: forbid-new-submodules
-      - id: mixed-line-ending
       - id: name-tests-test
-      - id: pretty-format-json
+      # - id: double-quote-string-fixer
       - id: requirements-txt-fixer
+      - id: forbid-new-submodules
       - id: trailing-whitespace
-        exclude: ^tests/fixtures/diffs/
-  - repo: https://github.com/ambv/black
-    rev: 18.9b0
+        exclude: .patch
+      - id: check-docstring-first
+      - id: fix-encoding-pragma
+
+  - repo: https://gitlab.com/pycqa/flake8
+    rev: 3.7.8
     hooks:
-      - id: black
-        args: [--safe, --quiet]
-        language_version: python3
-  - repo: https://github.com/asottile/blacken-docs
-    rev: v1.3.0
+      - id: flake8
+
+  - repo: https://github.com/pre-commit/mirrors-autopep8
+    rev: v1.4.4
     hooks:
-      - id: blacken-docs
-        additional_dependencies: [black==18.9b0]
-        language_version: python3
-  - repo: https://github.com/asottile/setup-cfg-fmt
-    rev: v1.5.0
+      - id: autopep8
+
+  - repo: https://github.com/pre-commit/pre-commit
+    rev: v1.18.3
     hooks:
-      - id: setup-cfg-fmt
+      - id: validate_manifest
+
   - repo: https://github.com/asottile/reorder_python_imports
-    rev: v1.7.0
+    rev: v1.8.0
     hooks:
       - id: reorder-python-imports
-        args: ["--application-directories=.:src"]
+        language_version: python3
+
   - repo: https://github.com/asottile/pyupgrade
-    rev: v1.24.0
+    rev: v1.25.0
     hooks:
       - id: pyupgrade
-  - repo: https://github.com/pre-commit/pygrep-hooks
-    rev: v1.2.0
-    hooks:
-      - id: rst-backticks
-  - repo: https://github.com/pre-commit/mirrors-isort
-    rev: "" # Use the revision sha / tag you want to point at
-    hooks:
-      - id: isort
+
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: "" # Use the sha / tag you want to point at
+    rev: v0.740
     hooks:
       - id: mypy
-        args: [--no-strict-optional, --ignore-missing-imports]
-        exclude: ^(docs|tests/fixtures)
-  - repo: local
+        exclude: docs|tests|jmbde|setup.py
+        args: []
+        language_version: python3
+
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.4.2
     hooks:
-      - id: rst
-        name: rst
-        entry: rst-lint --encoding utf-8
-        files: ^(CHANGELOG.rst|HOWTORELEASE.rst|README.rst|changelog/.*)$
-        language: python
-        additional_dependencies: [pygments, restructuredtext_lint]
+      - id: python-check-blanket-noqa
+      - id: python-check-mock-methods
+      - id: python-no-log-warn
+      - id: python-no-eval
+      - id: python-use-type-annotations
+      # - id: rst-backticks
+      #  # Validate existing ReST files and NEWS fragments.
+      #  files: .*\.rst$|^news/.*
+      #  types:
+      #    [file]
+      #    # The errors flagged in NEWS.rst are old.
+      #  exclude: NEWS.rst
+
+  # - repo: https://github.com/mgedmin/check-manifest
+  # rev: "0.40"
+  # hooks:
+  #  - id: check-manifest
+
+  - repo: https://github.com/jumanjihouse/pre-commit-hooks
+    rev: 1.11.0
+    hooks:
+      - id: bundler-audit
+      - id: check-mailmap
+      - id: fasterer
+      - id: forbid-binary
+      # - id: git-check # Configure in .gitattributes
+      - id: git-dirty # Configure in .gitignore
+      - id: markdownlint # Configure in .mdlrc
+      - id: reek
+      - id: rubocop
+      - id: script-must-have-extension
+      - id: script-must-not-have-extension
+      - id: shellcheck
+
+  - repo: https://github.com/Lucas-C/pre-commit-hooks-nodejs
+    rev: v1.1.0
+    hooks:
+      - id: dockerfile_lint
+      - id: markdown-toc

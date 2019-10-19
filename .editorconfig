@@ -15,10 +15,11 @@ end_of_line = lf
 [*.py]
 indent_style = space
 indent_size = 4
-max_line_length = 119
+max_line_length = 80
 
 [*.{yml,yaml}]
 indent_size = 2
+indent_style = space
 
 [*.json]
 indent_size = 2
