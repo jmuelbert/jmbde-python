@@ -30,7 +30,8 @@ init:
 
 install:
   - conda env create python=%PYVER% -f environment.yml
-  - conda activate jmbde
+  - conda activate jmbde-python
+
   - conda update --all
   - conda list # for debug reason
 
