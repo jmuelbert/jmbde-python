@@ -20,39 +20,47 @@ env:
     # to repeat them for all configurations.
     - PYTHON_VERSION=3.7
     - PIP_DEPENDENCIES='tox'
-    - RUN_CMD='pytest'
     - MINICONDA_VERSION=latest
     - DISPLAY=":99.0"
-
-  matrix:
-    - PYTHON_VERSION=3.6
-    - PYTHON_VERSION=3.7
-    - PYTHON_VERSION=3.8
 
 matrix:
   fast_finish: true
   include:
     - env: PIP_DEPENDENCIES='tox twine' TWINE_CHECK=1
 
+    # Try a run on Linux
+    - os: linux
+      env: PYTHON_VERSION=3.6
+        MINICONDA_VERSION=latest
+        TOX_ENV=py36
+
+    - os: linux
+      env: PYTHON_VERSION=3.7
+        MINICONDA_VERSION=latest
+        TOX_ENV=py37
+
     # Try a run on OSX
     - os: osx
+      osx_image: xcode11
       env: PYTHON_VERSION=3.6
+        MINICONDA_VERSION=latest
+        TOX_ENV=py36
 
     - os: osx
+      osx_image: xcode11
       env: PYTHON_VERSION=3.7
-
-    - os: osx
-      env: PYTHON_VERSION=3.8
+        MINICONDA_VERSION=latest
+        TOX_ENV=py37
 
     # Run a series of tests on Windows
-    - os: windows
-      env: PYTHON_VERSION=3.6
-
-    - os: windows
-      env: PYTHON_VERSION=3.7
-
-    - os: windows
-      env: PYTHON_VERSION=3.8
+    #  - os: windows
+    #  env: PYTHON_VERSION=3.6
+    #    MINICONDA_VERSION=4.7.10
+    #    TOX_ENV=py36
+    # - os: windows
+    #  env: PYTHON_VERSION=3.7
+    #    MINICONDA_VERSION=4.7.10
+    #    TOX_ENV=py37
 
 install:
   - git clone git://github.com/astropy/ci-helpers.git
@@ -63,8 +71,17 @@ script: if [[ $TWINE_CHECK ]]; then
   python setup.py build sdist;
   twine check dist/*;
   else
-  $RUN_CMD;
+  tox -e "${TOX_ENV}";
   fi
+
+after_success:
+  - conda install -c conda-forge codecov
+  - conda install conda-build anaconda-client pytest pytest-cov
+  - codecov
+  - coveralls
+  - conda build recipe --no-test
+  - conda install --use-local jmbde
+  - conda info -a
 
 deploy:
   provider: pypi
@@ -75,4 +92,4 @@ deploy:
   distributions: sdist bdist_wheel
   on:
     tags: true
-    repo: jmuelbert/jmbde-python
+    repo: jmuelbert/jmbde

@@ -12,30 +12,43 @@ environment:
   matrix:
     - PYTHON: "C:\\Python36"
       TOX_ENV: "py36"
+      PYVER: "3.6"
 
     - PYTHON: "C:\\Python37"
       TOX_ENV: "py37"
+      PYVER: "3.7"
 
 init:
   - "%PYTHON%/python -V"
   - mkdir C:\Users\appveyor\.conda
   - call %MINICONDA%\Scripts\activate.bat
+  - python -V
+  - conda config --set always_yes yes --set changeps1 no
+  - conda update -q conda
+  - conda config --add channels conda-forge
+  - conda update --all
 
 install:
-  - cmd: "%PYTHON%/Scripts/pip install -U --user pip"
-  - cmd: "%PYTHON%/Scripts/pip install -U --user tox wheel"
-
+  - conda env create python=%PYVER% -f environment.yml
+  - conda activate jmbde
+  - conda update --all
   - conda list # for debug reason
 
 # Not a .NET project, we build in the install step instead
 build: false
 
 test_script:
-  - "%PYTHON%/python -m tox -e %TOX_ENV%"
-  - tox -e docs
+  - "python -m tox -e %TOX_ENV%"
 
 after_test:
-  - "%PYTHON%/python setup.py bdist_wheel"
+  - "python setup.py bdist_wheel"
+  - conda install -c conda-forge codecov
+  - conda install conda-build anaconda-client pytest pytest-cov
+  - codecov
+  - coveralls
+  - conda build recipe --no-test
+  - conda install --use-local jmbde
+  - conda info -a
 
 artifacts:
   - path: dist\*
