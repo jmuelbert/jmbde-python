@@ -94,7 +94,7 @@ repos:
       - id: bundler-audit
       - id: check-mailmap
       - id: fasterer
-      - id: forbid-binary
+      # - id: forbid-binary
       # - id: git-check # Configure in .gitattributes
       - id: git-dirty # Configure in .gitignore
       - id: markdownlint # Configure in .mdlrc
@@ -102,10 +102,10 @@ repos:
       - id: rubocop
       - id: script-must-have-extension
       - id: script-must-not-have-extension
-      - id: shellcheck
+      # - id: shellcheck
 
   - repo: https://github.com/Lucas-C/pre-commit-hooks-nodejs
     rev: v1.1.0
     hooks:
-      - id: dockerfile_lint
+      # - id: dockerfile_lint
       - id: markdown-toc

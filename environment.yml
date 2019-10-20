@@ -39,7 +39,6 @@ dependencies:
   - lazy-object-proxy
   - libclang
   - libcxx
-  - libcxxabi
   - libffi
   - libiconv
   - libllvm8
@@ -51,7 +50,6 @@ dependencies:
   - llvmdev
   - mccabe
   - more-itertools
-  - ncurses
   - nspr
   - nss
   - openssl
@@ -68,7 +66,6 @@ dependencies:
   - pyside2
   - pytest
   - qt=>5.10
-  - readline
   - setuptools
   - six
   - snowballstemmer

@@ -25,9 +25,9 @@ env:
     - DISPLAY=":99.0"
 
   matrix:
-    - PYTHON_VERSION=3.5
     - PYTHON_VERSION=3.6
     - PYTHON_VERSION=3.7
+    - PYTHON_VERSION=3.8
 
 matrix:
   fast_finish: true
@@ -35,19 +35,25 @@ matrix:
     - env: PIP_DEPENDENCIES='tox twine' TWINE_CHECK=1
 
     # Try a run on OSX
-    # Try a run on OSX
+    - os: osx
+      env: PYTHON_VERSION=3.6
+
     - os: osx
       env: PYTHON_VERSION=3.7
 
-    # Run a series of tests on Windows
-    - os: windows
-      env: PYTHON_VERSION=3.5
+    - os: osx
+      env: PYTHON_VERSION=3.8
 
+    # Run a series of tests on Windows
     - os: windows
       env: PYTHON_VERSION=3.6
 
     - os: windows
       env: PYTHON_VERSION=3.7
+
+    - os: windows
+      env: PYTHON_VERSION=3.8
+
 install:
   - git clone git://github.com/astropy/ci-helpers.git
   - source ci-helpers/travis/setup_conda.sh
