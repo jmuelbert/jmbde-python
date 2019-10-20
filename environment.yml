@@ -8,6 +8,7 @@
 #   python setup.py test
 
 name: jmbde-python
+prefix: ./conda-envs/jmbde-python
 
 channels:
   - conda-forge
@@ -23,8 +24,6 @@ dependencies:
   - bzip2
   - ca-certificates
   - certifi
-  - clang_variant
-  - clangdev
   - click
   - configparser
   - contextlib2
@@ -37,17 +36,6 @@ dependencies:
   - isort
   - jpeg
   - lazy-object-proxy
-  - libclang
-  - libcxx
-  - libffi
-  - libiconv
-  - libllvm8
-  - libllvm9
-  - libpng
-  - libxml2
-  - libxslt
-  - llvm-tools
-  - llvmdev
   - mccabe
   - more-itertools
   - openssl
