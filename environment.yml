@@ -50,8 +50,6 @@ dependencies:
   - llvmdev
   - mccabe
   - more-itertools
-  - nspr
-  - nss
   - openssl
   - packaging
   - pathlib2
