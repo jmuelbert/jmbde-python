@@ -4,7 +4,7 @@ releases==1.4.0
 
 # workaround for #492
 semantic-version<2.7
-Sphinx==2.2.0
+Sphinx==2.2.1
 sphinx-autodoc-annotation==1.0.post1
 sphinx-autodoc-typehints==1.7.0
 sphinx_rtd_theme>=0.2.4
