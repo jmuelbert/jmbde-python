@@ -8,8 +8,8 @@ Using Anaconda
 --------------
 If the disk space isn't problem, we can install a python distribution with full of packages to boost it, like anaconda:
 
-    * x86: https://repo.anaconda.com/archive/Anaconda3-2019.03-Windows-x86.exe
-    * amd64: https://repo.anaconda.com/archive/Anaconda3-2019.03-Windows-x86_64.exe
+    * x86: https://repo.anaconda.com/archive/Anaconda3-2019.07-Windows-x86.exe
+    * amd64: https://repo.anaconda.com/archive/Anaconda3-2019.07-Windows-x86_64.exe
 
 
 Install only python and neccessary library
@@ -22,9 +22,9 @@ First we need install python3, from his `page <https://www.python.org/downloads/
 
 Now using the pip command shipped with python we can install dependencies easy. Open a cmd console and run:
 
-    * py -m pip install pyside2
+    * py -m pip install *
 
-Get jmbde-Python code
+Get jmbde-python code
 ---------------------
 
-To get jmbde-Python download the zip file from https://github.com/jmuelbert/jmbde-python/archive/master.zip and unzip whatever you want. To run doble click over the main script jmbde.py.
+To get jmbde-python download the zip file from https://codeload.github.com/jmuelbert/jmbde-python/zip/master and unzip whatever you want. To run doble click over the main script jmopenorders.py.

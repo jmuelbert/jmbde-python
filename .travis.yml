@@ -1,7 +1,12 @@
-language: python
-dist: xenial
+# We set the language to c because python isn't supported on the MacOS X nodes
+# on Travis. However, the language ends up being irrelevant anyway, since we
+# install Python ourselves using conda.
+language: c
 
-# Setting sudo to false opts in to Travis-CI container-based builds.
+os:
+  - linux
+
+# Use Travis' container-based architecture
 sudo: false
 
 # Turn off email notifications
@@ -10,134 +15,50 @@ notifications:
 
 env:
   global:
-    # used by ci-helpers
-    - DEPS="pytest pytest-qt tox coveralls six"
+    # The following versions are the 'default' for tests, unless
+    # overidden underneath. They are defined here in order to save having
+    # to repeat them for all configurations.
+    - PYTHON_VERSION=3.7
+    - PIP_DEPENDENCIES='tox'
+    - RUN_CMD='pytest'
     - MINICONDA_VERSION=latest
     - DISPLAY=":99.0"
 
+  matrix:
+    - PYTHON_VERSION=3.5
+    - PYTHON_VERSION=3.6
+    - PYTHON_VERSION=3.7
+
 matrix:
+  fast_finish: true
   include:
-    - os: linux
-      env: PYTHON_VERSION="3.5"
-    - os: linux
-      env: PYTHON_VERSION="3.6"
-    - os: linux
-      env: PYTHON_VERSION="3.7"
+    - env: PIP_DEPENDENCIES='tox twine' TWINE_CHECK=1
+
+    # Try a run on OSX
+    # Try a run on OSX
     - os: osx
-      osx_image: xcode9.4
-      env: PYTHON_VERSION="3.5"
-    - os: osx
-      osx_image: xcode9.4
-      env: PYTHON_VERSION="3.6"
-    - os: osx
-      osx_image: xcode9.4
-      env: PYTHON_VERSION="3.7"
+      env: PYTHON_VERSION=3.7
 
-services:
-  - xvfb
+    # Run a series of tests on Windows
+    - os: windows
+      env: PYTHON_VERSION=3.5
 
-before_install:
-  - wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
-  - bash miniconda.sh -b -p $HOME/miniconda
-  - export PATH="$HOME/miniconda/bin:$PATH"
-  - hash -r
+    - os: windows
+      env: PYTHON_VERSION=3.6
 
-  - conda config --set always_yes yes --set changeps1 no
-  - conda config --add channels conda-forge
-  - conda update -q conda --yes
-  - conda info -a # for debug reasons
-
-  # to aid in debugging
-  - echo ${TRAVIS_BRANCH}
-  - echo ${TRAVIS_REPO_SLUG}
-  - echo ${GIT_TARGET_EXTRA}
-  - echo ${GIT_SOURCE_EXTRA}
-
+    - os: windows
+      env: PYTHON_VERSION=3.7
 install:
-  - export GIT_FULL_HASH=`git rev-parse HEAD`
-  - conda env create -f environment.yml python=${PYTHON_VERSION}
-  - source activate testenv
-  - conda list # for debug reasons
+  - git clone git://github.com/astropy/ci-helpers.git
+  - source ci-helpers/travis/setup_conda.sh
+  - pip install .
 
-before_script:
-  # We need to create a (fake) display on Travis, let's use a funny resolution
-  - export DISPLAY=:99.0
-  - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 1400x900x24 -ac +extension GLX +render
-
-  # Make sure everyone uses the correct python (this is handled by conda)
-  - which python
-  - python --version
-  - pwd
-  - ls
-  # Help color output from each test
-  - RESET='\033[0m';
-    RED='\033[00;31m';
-    GREEN='\033[00;32m';
-    YELLOW='\033[00;33m';
-    BLUE='\033[00;34m';
-    PURPLE='\033[00;35m';
-    CYAN='\033[00;36m';
-    WHITE='\033[00;37m';
-    start_test() {
-    echo -e "${BLUE}======== Starting $1 ========${RESET}";
-    };
-    check_output() {
-    ret=$?;
-    if [ $ret == 0 ]; then
-    echo -e "${GREEN}>>>>>>    $1 passed    <<<<<<${RESET}";
-    else
-    echo -e "${RED}>>>>>>    $1 FAILED    <<<<<<${RESET}";
-    fi;
-    return $ret;
-    };
-
-  - if [ "${TEST}" == "extra" ]; then
-    start_test "repo size check";
-    mkdir ~/repo-clone && cd ~/repo-clone &&
-    git init && git remote add -t ${TRAVIS_BRANCH} origin git://github.com/${TRAVIS_REPO_SLUG}.git &&
-    git fetch origin ${GIT_TARGET_EXTRA} &&
-    git checkout -qf FETCH_HEAD &&
-    git tag travis-merge-target &&
-    git gc --aggressive &&
-    TARGET_SIZE=`du -s . | sed -e "s/\t.*//"` &&
-    git pull origin ${GIT_SOURCE_EXTRA} &&
-    git gc --aggressive &&
-    MERGE_SIZE=`du -s . | sed -e "s/\t.*//"` &&
-    if [ "${MERGE_SIZE}" != "${TARGET_SIZE}" ]; then
-    SIZE_DIFF=`expr \( ${MERGE_SIZE} - ${TARGET_SIZE} \)`;
-    else
-    SIZE_DIFF=0;
-    fi;
-    fi;
-
-script:
-  - source activate test_env
-  - tox -e lint
-  - tox -e ${PYTHON}
-  - tox -e docs
-
-after_success:
-  - conda install -c conda-forge codecov
-  - conda install conda-build anaconda-client pytest pytest-cov
-  - codecov
-  - coveralls
-
-before_deploy:
-  # Conda deploy if on tag
-  # ANACONDA_TOKEN should be provided by Travis
-  # How to generate ANACONDA_TOKEN: https://docs.anaconda.com/anaconda-cloud/user-guide/tasks/work-with-accounts#creating-access-tokens
-
-  # https://conda.io/docs/user-guide/tasks/build-packages/install-conda-build.html
-  - conda install -y conda-build conda-verify anaconda-client
-  - conda config --set anaconda_upload no
-  - travis_wait 60 conda build --quiet --no-test --output-folder conda_build conda.recipe
-
-  # Convert to other platforms: OSX, WIN
-  - conda convert --platform win-64 conda_build/linux-64/*.tar.bz2 -o conda_build/
-  - conda convert --platform osx-64 conda_build/linux-64/*.tar.bz2 -o conda_build/
-  # Upload to Anaconda
-  # We could use --all but too much platforms to uploaded
-  - ls conda_build/*/*.tar.bz2 | xargs -I {} anaconda -v -t $ANACONDA_TOKEN upload -u jmuelbert {}
+script: if [[ $TWINE_CHECK ]]; then
+  python setup.py build sdist;
+  twine check dist/*;
+  else
+  $RUN_CMD;
+  fi
 
 deploy:
   provider: pypi
@@ -145,7 +66,7 @@ deploy:
   user: jmuelbert
   password:
     secure: "blWLOCNJ/UuEK2tg4dpgd2pkRvIXlvJmFSv7vF06k+BSacTtRVn5L+syXkcJDjB8eOm1FLBAwlcqt2W6/KACrV0NnfyNj8kuBaIUVrJhWJ+7osoMGJR2tH/TqIFxYFgRs0ZcolfhCVWX0ApRt127526vhUR5m+BLlCRfMlGT4fRgK3Wd7x4YNabjk+t2AHAzDu2v43r95ozxFQALTZHwRg06DrVxuE1eU6QRA6k1mx68DVDmKjjjDVCMCHeTuiqXJ8yPF4btO9mo88B6lMlUQ/grIbY9XTCncscgrZyvuiToERbOeTsQllvVSbl1E2HXcDRBIQR/+M/gy0583Fwf33+cIrITaEtKhe5XU8jykAnW05kcTN81TEKPCxuJYRfkzyZ6+1TDtixniI9/sofwED8cN85yql8xhO44GPPeMfSBLHNAzScd73KhSMz2xDXfWxF9oBjtt3KoEM/v7CVHc+wSuxR/hT/++w2tJgxxxsnX8ntC8zkA7JgAMZn2rgRefYXeR24EQmmWiWJBABlfijYM7SqBEYrEVrV8TOQpfJ09X2CbqNlTMOlqzZBSNHGrMRR4+UsRgAvoYlUXifwRCYr/qY3XJqW8baGRogRYL6ASSTXO/DTC/QVpWqWg57Ey6gejG+NRhCeJsJCm0dzDGTuc3qw/kEHWimY+bX2Xgh0="
-  distributions: "sdist bdist_wheel"
+  distributions: sdist bdist_wheel
   on:
     tags: true
-    condition: $TRAVIS_TAG =~ v[0-9]+\.[0-9]+\.[0-9]+ && $BUILD_SDIST=true
+    repo: jmuelbert/jmbde-python

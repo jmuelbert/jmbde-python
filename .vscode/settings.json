@@ -1,5 +1,5 @@
 {
-  "python.pythonPath": "/miniconda3/envs/testenv/bin/python",
+  "python.pythonPath": "/Users/juergen/Documents/Projects/GitHub/openorders-py/master/conda-env/bin/python",
   "python.linting.pylintEnabled": true,
   "python.linting.pylintArgs": [
     "--reports",
@@ -12,7 +12,7 @@
     "--ignore=E24,W504",
     "--verbose"
   ],
-  "python.linting.pep8Enabled": false,
+  "python.linting.pycodestyleEnabled": false,
   "python.linting.pydocstyleEnabled": true,
   "python.linting.pydocstyleArgs": [
     "--ignore=D400",

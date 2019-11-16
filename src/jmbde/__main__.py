@@ -45,15 +45,23 @@ import configparser
 import os
 import sys
 
-# Third party imports
-from jmbde.views.ui_mainwindow import Ui_MainWindow
-from PySide2 import QtCore, QtGui
-from PySide2.QtCore import QLocale, Qt, QTranslator
-from PySide2.QtGui import QColor, QGuiApplication, QIcon
-from PySide2.QtWidgets import QApplication, QMainWindow, QMenu, QSystemTrayIcon
 import versioneer
+from jmbde.views.ui_mainwindow import Ui_MainWindow
+from PySide2 import QtCore
+from PySide2 import QtGui
+from PySide2.QtCore import QLocale
+from PySide2.QtCore import Qt
+from PySide2.QtCore import QTranslator
+from PySide2.QtGui import QColor
+from PySide2.QtGui import QGuiApplication
+from PySide2.QtGui import QIcon
+from PySide2.QtWidgets import QApplication
+from PySide2.QtWidgets import QMainWindow
+from PySide2.QtWidgets import QMenu
+from PySide2.QtWidgets import QSystemTrayIcon
 
 from .logger import Logger
+# Third party imports
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -88,7 +96,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # QtCore.QCoreApplication.setOrginazationDomain("io.jmuelbert.github")
         QtCore.QCoreApplication.setApplicationVersion(versioneer.get_version())
 
-        self.log.info("Set Appname to: " + QtCore.QCoreApplication.applicationName())
+        self.log.info("Set Appname to: {}".format(
+                      QtCore.QCoreApplication.applicationName()))
 
         QGuiApplication.setWindowIcon(QIcon(":/icons/app.svg"))
 
@@ -141,14 +150,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def connect_ui_to_functions(self) -> None:
         pass
 
-    def write_gui_config_options_to_config_file(self):
+    def write_gui_config_options_to_config_file(self) -> None:
         config = configparser.ConfigParser()
         config.read(self.config_filename)
 
         # config.set('cat', 'setting', value)
 
         with open(
-            os.path.join(os.path.expanduser("~"), "jmbde", "input_properties.cfg"), "w"
+            os.path.join(os.path.expanduser("~"), "jmbde",
+                         "input_properties.cfg"), "w"
         ) as configfile:
             config.write(configfile)
         self.log.info("Updated input_properties.cfg file with new settings.")
@@ -187,16 +197,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def set_instance_variables_from_config(self, config) -> None:
         pass
-        # self.tabWidget_serialIp.setCurrentIndex(1)  # TODO: Make this an actual config parameter
+        # TODO: Make this an actual config parameter
+        # self.tabWidget_serialIp.setCurrentIndex(1)
 
     @staticmethod
-    def str2bool(bool_string) -> bool:
+    def str2bool(bool_string: str) -> bool:
         if bool_string == "True":
             return True
         if bool_string == "False":
             return False
         raise ValueError(
-            'Can only accept exact strings "True" or "False". Was passed {}'.format(
+            'Can only accept exact strings "True" or "False".'
+            ' Was passed {}'.format(
                 bool_string
             )
         )

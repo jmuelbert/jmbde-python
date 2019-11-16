@@ -7,7 +7,7 @@
 # optionally run tests:
 #   python setup.py test
 
-name: testenv
+name: jmbde-python
 
 channels:
   - conda-forge

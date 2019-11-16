@@ -1,12 +1,57 @@
+[project]
+name = "jmopenorders"
+version = "0.2.0"
+description = "A BDE tool"
+authors = [
+    "Jürgen Mülbert <juergen.muelbert@gmail.com>"
+]
+license = "EUPL-1.2"
+readme = "README.rst"
+python = "^3.5"
+homepage = "https://jmbde-python.github.io/"
+repository = "https://github.com/jmuelbert/jmbde-python"
+documentation =  "https://readthedocs.org/projects/jmuelbert/jmbde-python"
+
+keywords = []
+
+classifiers = [
+        "Intended Audience:: End Users/Desktop",
+        "Intended Audience:: Developers",
+        "License:: OSI Approved:: European Union Public Licence 1.2 (EUPL 1.2)",
+        "Natural Language:: English",
+        "Operating System:: OS Independent",
+        "Operating System:: MacOS:: MacOS X",
+        "Operating System:: POSIX",
+        "Operating System:: POSIX:: BSD",
+        "Operating System:: POSIX:: Linux",
+        "Operating System:: Microsoft:: Windows",
+        "Programming Language:: Python",
+        "Programming Language:: Python:: 3",
+        "Programming Language:: Python:: 3:: Only",
+        "Programming Language:: Python:: 3.6",
+        "Programming Language:: Python:: 3.7",
+        "Programming Language:: Python:: Implementation:: CPython",
+        "Programming Language :: Python :: Implementation :: PyPy",
+        "Development Status:: 4 - Beta",
+        "Environment:: Console",
+        "Topic:: Office / Business",
+]
+
+# Requirements
+[dependencies]
+PySide2="^5.13.0"
+pip="^19.3.1"
+
+[dev-dependencies]
+black = { version = "^18,3-alpha.0", python = "^3.6" }
 [build-system]
 # Minimum requirements for the build system to execute.
+# See https://github.com/scipy/scipy/pull/10431 for the AIX issue.
 requires = [
-    "setuptools",
-    "wheel",
-    "PySide2"
+    "setuptools >= 40.0.4",
+    "wheel >= 0.29.0",
 ]
-requires-python="3"
+build-backend = 'setuptools.build_meta'
 
 [tool.black]
-target-version = ["py36", "py37", "py38"]
-exclude = 'generated'
+line-length = 99

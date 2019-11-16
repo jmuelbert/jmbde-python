@@ -1,0 +1,50 @@
+{% set name = "jmbde" %}
+{% set version = "0.2.0" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  sha256: "*"
+
+build:
+  noarch: python
+  number: 0
+  script: pip install . --no-deps --ignore-installed
+  entry_points:
+    - jmbde = jmbde.__main__:main
+
+# https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#export-runtime-requirements
+requirements:
+  build:
+    - pip
+    - python
+
+  run:
+    - python
+    - pyside2
+    - setuptools
+
+test:
+  imports:
+    - jmbde
+    - jmbde.forms
+
+  commands:
+      - jmbde --help
+
+
+about:
+  home: https://jmbde-python.github.io/
+  license: EUPL-1.2
+  license_family: NONE
+  license-file: LICENSE
+  summary: 'A BDE tool'
+  dev_url: https://github.com/jmuelbert/jmbde-python
+  doc_url: https://jmbde-python.readthedocs.io
+
+extra:
+  recipe-maintainers:
+    - jmuelbert

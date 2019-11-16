@@ -111,7 +111,7 @@ Documentation
     ``conda create -n build_docs -f environment.yml```
     ``conda activate build_docs```
     The docs can you build with the command:
-    ``make html``to build the web documentation
+    ``make html`` to build the web documentation
 
 
 License
@@ -119,6 +119,6 @@ License
 
 openorders is free software; you can redistribute ot and/or modify ir under the terms
 of the `European Public License Version 1.2 <https://joinup.ec.europa.eu/page/eupl-text-11-12>`_.
-Please read the `<https://github.com/jmuelbert/jmopenorders/blob/master/LICENSE>`_ for additional information.
+Please read the `<https://github.com/jmuelbert/jmbde-python/blob/master/LICENSE>`_ for additional information.
 
 EUPL-1.2 © Jürgen Mülbert
