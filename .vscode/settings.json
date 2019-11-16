@@ -20,7 +20,7 @@
   ],
   "python.linting.enabled": true,
   "python.linting.lintOnSave": true,
-  "python.formatting.provider": "black",
+  "python.formatting.provider": "autopep8",
   "python.testing.pytestEnabled": true,
   "python.testing.nosetestsEnabled": false,
   "qtForPython.path.designer": "${env:HOME}/Qt/5.12.3/clang_64/bin/Designer",

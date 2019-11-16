@@ -100,7 +100,7 @@ OPTIONS = {
 def parse_requirements(requirements: str):
     """ load requirements from a pip requirements file """
     # load from requirements.txt
-    with open(requirements) as f:
+    with open(os.path.join(here, requirements), "r") as f:
         lines = [l for l in f]
         # remove spaces
         stripped = map((lambda x: x.strip()), lines)
@@ -115,6 +115,7 @@ REQUIREMENTS = parse_requirements(os.path.join(here, "requirements.txt"))
 TESTS_REQUIRES = parse_requirements(os.path.join(here, "requirements_dev.txt"))
 
 setup(
+    name="jmbde",
     version=version,
     description="A generator to generate infos for the affected persons.",
     long_description=long_description,
@@ -153,8 +154,6 @@ setup(
 
     install_requirements=REQUIREMENTS,
 
-    package_dir={'': 'src'},
-
     packages=find_packages(
         exclude=["contrib", "docs", "tests*", "tasks"],
     ),
@@ -165,5 +164,5 @@ setup(
         ["jmbde=app.__main__:main"]
     },
     zip_safe=False,
-    python_requires='>=3.4.*',
+    python_requires='>=3.5.*',
 )
