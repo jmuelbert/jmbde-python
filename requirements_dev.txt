@@ -33,5 +33,5 @@ reorder-python-imports==1.7.0
 requests-mock==1.7.0
 rstcheck==3.3.1
 setup-cfg-fmt==1.5.0
-tox==3.14.0
+tox==3.14.1
 wheel==0.33.6
