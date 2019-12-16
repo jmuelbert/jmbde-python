@@ -20,7 +20,7 @@ mypy==0.750
 pip==19.3.1
 pre-commit==1.20.0
 pycodestyle==2.5.0
-pydocstyle==4.0.1
+pydocstyle==5.0.1
 pytest==5.3.0
 pytest-cov==2.8.1
 pytest-qt==3.3.0
