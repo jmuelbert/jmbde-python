@@ -23,6 +23,9 @@ env:
     - MINICONDA_VERSION=latest
     - DISPLAY=":99.0"
 
+services:
+  - xvfb
+
 matrix:
   fast_finish: true
   include:
@@ -67,12 +70,14 @@ install:
   - source ci-helpers/travis/setup_conda.sh
   - pip install .
 
-script: if [[ $TWINE_CHECK ]]; then
-  python setup.py build sdist;
-  twine check dist/*;
-  else
-  tox -e "${TOX_ENV}";
-  fi
+script:
+  - if [[ $TWINE_CHECK ]]; then
+    python setup.py build sdist;
+    twine check dist/*;
+    fi
+  - if [[ $TRAVIS_OS_NAME == "linux"]]; then
+    tox -e "${TOX_ENV}";
+    fi
 
 after_success:
   - conda install -c conda-forge codecov
