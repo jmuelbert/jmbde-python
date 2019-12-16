@@ -67,12 +67,21 @@ install:
   - source ci-helpers/travis/setup_conda.sh
   - pip install .
 
-script: if [[ $TWINE_CHECK ]]; then
-  python setup.py build sdist;
-  twine check dist/*;
-  else
-  tox -e "${TOX_ENV}";
-  fi
+before_script:
+  - if [[ $TRAVIS_OS_NAME == "linux"]]; then
+    export DISPLAY=:99.0;
+    sh -e /etc/init.d/xvfb start;
+    sleep 3;
+    fi
+
+script:
+  - if [[ $TWINE_CHECK ]]; then
+    python setup.py build sdist;
+    twine check dist/*;
+    fi
+  - if [[ $TRAVIS_OS_NAME == "linux"]]; then
+    tox -e "${TOX_ENV}";
+    fi
 
 after_success:
   - conda install -c conda-forge codecov
