@@ -1,5 +1,5 @@
 {
-  "python.pythonPath": "/Users/juergen/Documents/Projects/GitHub/openorders-py/master/conda-env/bin/python",
+  "python.pythonPath": "/Users/juergen/miniconda/envs/develop/bin/python",
   "python.linting.pylintEnabled": true,
   "python.linting.pylintArgs": [
     "--reports",
