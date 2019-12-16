@@ -41,15 +41,15 @@ environment:
       PYTHON_VERSION: "3.8.x" # currently 3.7.1
       PYTHON_ARCH: "64"
 
-  init:
-    - "%PYTHON%/python -V"
-    - mkdir C:\Users\appveyor\.conda
-    - call %MINICONDA%\Scripts\activate.bat
-    - python -V
-    - conda config --set always_yes yes --set changeps1 no
-    - conda update -q conda
-    - conda config --add channels conda-forge
-    - conda update --all
+init:
+  - "%PYTHON%/python -V"
+  - mkdir C:\Users\appveyor\.conda
+  - call %MINICONDA%\Scripts\activate.bat
+  - python -V
+  - conda config --set always_yes yes --set changeps1 no
+  - conda update -q conda
+  - conda config --add channels conda-forge
+  - conda update --all
 
 install:
   - conda env create python=%PYVER% -f environment.yml
