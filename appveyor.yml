@@ -1,32 +1,55 @@
 shallow_clone: false
 
 image:
-  - Visual Studio 2017
+  - Visual Studio 2019
 
 # What Python version is installed where:
 # http://www.appveyor.com/docs/installed-software#python
 
 environment:
-  PYTHONUNBUFFERED: 1
-  MINICONDA: C:\\Miniconda3-x64
+  global:
+    PYTHONUNBUFFERED: 1
+    MINICONDA: C:\\Miniconda3-x64
+
+    # SDK v7.0 MSVC Express 2008's SetEnv.cmd script will fail if the
+    # /E:ON and /V:ON options are not enabled in the batch script intepreter
+    # See: http://stackoverflow.com/a/13751649/163740
+    CMD_IN_ENV: "cmd /E:ON /V:ON /C .\\appveyor\\run_with_env.cmd"
+
   matrix:
     - PYTHON: "C:\\Python36"
-      TOX_ENV: "py36"
-      PYVER: "3.6"
+      PYTHON_VERSION: "3.6.x" # currently 3.6.6
+      PYTHON_ARCH: "32"
+
+    - PYTHON: "C:\\Python36-x64"
+      PYTHON_VERSION: "3.6.x" # currently 3.6.6
+      PYTHON_ARCH: "64"
 
     - PYTHON: "C:\\Python37"
-      TOX_ENV: "py37"
-      PYVER: "3.7"
+      PYTHON_VERSION: "3.7.x" # currently 3.7.1
+      PYTHON_ARCH: "32"
 
-init:
-  - "%PYTHON%/python -V"
-  - mkdir C:\Users\appveyor\.conda
-  - call %MINICONDA%\Scripts\activate.bat
-  - python -V
-  - conda config --set always_yes yes --set changeps1 no
-  - conda update -q conda
-  - conda config --add channels conda-forge
-  - conda update --all
+    - PYTHON: "C:\\Python37-x64"
+      PYTHON_VERSION: "3.7.x" # currently 3.7.1
+      PYTHON_ARCH: "64"
+
+    - PYTHON: "C:\\Python38"
+      PYTHON_VERSION: "3.8.x" # currently 3.7.1
+      PYTHON_ARCH: "32"
+
+    - PYTHON: "C:\\Python38-x64"
+      PYTHON_VERSION: "3.8.x" # currently 3.7.1
+      PYTHON_ARCH: "64"
+
+  init:
+    - "%PYTHON%/python -V"
+    - mkdir C:\Users\appveyor\.conda
+    - call %MINICONDA%\Scripts\activate.bat
+    - python -V
+    - conda config --set always_yes yes --set changeps1 no
+    - conda update -q conda
+    - conda config --add channels conda-forge
+    - conda update --all
 
 install:
   - conda env create python=%PYVER% -f environment.yml
@@ -39,9 +62,15 @@ install:
 build: false
 
 test_script:
+  - py.test tests/basic_test.py --cov=codecov
   # - "python -m tox -e %TOX_ENV%"
 
 after_test:
+  - rm -rf tests/coverages
+  - if not exist dist mkdir dist
+  - if exist .coverage (cp .coverage dist\) else (echo no .coverage)
+  - codecov
+  - if exist coverage.xml (cp coverage.xml dist\) else (echo no coverage.xml)
   - "python setup.py bdist_wheel"
   - conda install -c conda-forge codecov
   - conda install conda-build anaconda-client pytest pytest-cov
@@ -56,3 +85,4 @@ artifacts:
 
 on_success:
   - codecov
+  - CODECOV_TOKEN="71a0c88c-1ddb-499d-be40-b1f6b0db78a3"
