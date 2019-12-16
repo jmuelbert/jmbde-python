@@ -23,6 +23,9 @@ env:
     - MINICONDA_VERSION=latest
     - DISPLAY=":99.0"
 
+services:
+  - xvfb
+
 matrix:
   fast_finish: true
   include:
@@ -33,13 +36,11 @@ matrix:
       env: PYTHON_VERSION=3.6
         MINICONDA_VERSION=latest
         TOX_ENV=py36
-        DISPLAY=:99.0
 
     - os: linux
       env: PYTHON_VERSION=3.7
         MINICONDA_VERSION=latest
         TOX_ENV=py37
-        DISPLAY=:99.0
 
     # Try a run on OSX
     - os: osx
@@ -68,12 +69,6 @@ install:
   - git clone git://github.com/astropy/ci-helpers.git
   - source ci-helpers/travis/setup_conda.sh
   - pip install .
-
-before_script:
-  - if [[ $TRAVIS_OS_NAME == "linux"]]; then
-    "sh -e /etc/init.d/xvfb start";
-    sleep 3;
-    fi
 
 script:
   - if [[ $TWINE_CHECK ]]; then
