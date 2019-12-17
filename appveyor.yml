@@ -88,7 +88,6 @@ test_script:
   - set LINK=/LIBPATH:%cd%\lib
   - pip install -ve .
   - tox -e %TOXENV%
-  - tox -e
 
 after_test:
   - rm -rf tests/coverages
