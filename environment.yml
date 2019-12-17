@@ -25,6 +25,7 @@ dependencies:
   - ca-certificates
   - certifi
   - click
+  - codecov
   - configparser
   - contextlib2
   - entrypoints

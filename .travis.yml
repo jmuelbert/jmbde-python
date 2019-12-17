@@ -51,6 +51,7 @@ jobs:
 install:
   - pip3 install --upgrade pip # all three OSes agree about 'pip3'
   - pip3 install tox
+  - pip3 install codecov
 
 script:
   - tox -e $TOX_ENV
