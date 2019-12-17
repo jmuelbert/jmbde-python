@@ -40,14 +40,14 @@ jobs:
       language: shell # 'language: python' is an error on Travis CI macOS
       env: TOX_ENV=py37
 
-    - name: "Python 3.8.0 on Windows"
-      os: windows
-      before_install:
-        - choco install python --version 3.8.0
-        - python -m pip install --upgrade PIP_DEPENDENCIES='tox'
-      env:
-        - PATH=/c/Python38:/c/Python38/Scripts:$PATH
-        - TOX_ENV=py38
+    # - name: "Python 3.8.0 on Windows"
+    #  os: windows
+    #  before_install:
+    #    - choco install python --version 3.8.0
+    #    - python -m pip install --upgrade PIP_DEPENDENCIES='tox'
+    #  env:
+    #    - PATH=/c/Python38:/c/Python38/Scripts:$PATH
+    #    - TOX_ENV=py38
 
 install:
   - pip3 install --upgrade pip # all three OSes agree about 'pip3'
@@ -55,7 +55,9 @@ install:
   - pip3 install codecov
 
 script:
-  - tox -e $TOX_ENV
+  - if [["$TRAVIS_OS_NAME" == "linux"]]; then
+    tox -e $TOX_ENV
+    fi
 
 after_success:
   - tox -e release
