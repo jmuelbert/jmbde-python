@@ -56,7 +56,7 @@ install:
 
 script:
   - if [["$TRAVIS_OS_NAME" == "linux"]]; then
-    tox -e $TOX_ENV
+    tox -e $TOX_ENV;
     fi
 
 after_success:

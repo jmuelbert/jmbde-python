@@ -25,8 +25,8 @@ environment:
     # In theory we could use a single CONDA_INSTALL_LOCN because we construct
     # the envs anyway. But using one for the right python version hopefully
     # making things faster due to package caching.
-    - PYTHON_VERSION: "3.8"
-      CONDA_INSTALL_LOCN: "C:\\Miniconda38-x64"
+    - PYTHON_VERSION: "3.7"
+      CONDA_INSTALL_LOCN: "C:\\Miniconda3-x64"
       TEST_ALL: "no"
       TOXENV: py38
 
@@ -37,9 +37,6 @@ platform:
 
 # all our python builds have to happen in tests_script...
 build: false
-
-cache:
-  - '%LOCALAPPDATA%\pip\Cache'
 
 init:
   - echo %PYTHON_VERSION% %CONDA_INSTALL_LOCN%
