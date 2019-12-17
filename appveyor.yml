@@ -28,12 +28,17 @@ environment:
     - PYTHON_VERSION: "3.6"
       CONDA_INSTALL_LOCN: "C:\\Miniconda36-x64"
       TEST_ALL: "no"
+      TOXENV: py36
+
     - PYTHON_VERSION: "3.7"
       CONDA_INSTALL_LOCN: "C:\\Miniconda37-x64"
       TEST_ALL: "no"
+      TOXENV: p37
+
     - PYTHON_VERSION: "3.8"
       CONDA_INSTALL_LOCN: "C:\\Miniconda38-x64"
       TEST_ALL: "no"
+      TOXENV: py38
 
       # We always use a 64-bit machine, but can build x86 distributions
 # with the PYTHON_ARCH variable
@@ -82,12 +87,14 @@ test_script:
   # Now build the thing..
   - set LINK=/LIBPATH:%cd%\lib
   - pip install -ve .
-  - tox
-  - tox -e report
+  - tox -e %TOXENV%
+  - tox -e
 
 after_test:
   - rm -rf tests/coverages
   - if not exist dist mkdir dist
+  - tox -e release
+  - tox -e report
   - if exist .coverage (cp .coverage dist\) else (echo no .coverage)
   - codecov
   - if exist coverage.xml (cp coverage.xml dist\) else (echo no coverage.xml)
