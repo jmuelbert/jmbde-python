@@ -1,5 +1,8 @@
 shallow_clone: false
 
+matrix:
+  fast_finish: true
+
 image:
   - Visual Studio 2019
 
@@ -10,6 +13,8 @@ environment:
   global:
     PYTHONUNBUFFERED: 1
     MINICONDA: C:\\Miniconda3-x64
+    PYTHONFAULTHANDLER: 1
+    PYTHONIOENCODING: UTF-8
 
     # SDK v7.0 MSVC Express 2008's SetEnv.cmd script will fail if the
     # /E:ON and /V:ON options are not enabled in the batch script intepreter
@@ -17,53 +22,67 @@ environment:
     CMD_IN_ENV: "cmd /E:ON /V:ON /C .\\appveyor\\run_with_env.cmd"
 
   matrix:
-    - PYTHON: "C:\\Python36"
-      PYTHON_VERSION: "3.6.x" # currently 3.6.6
-      PYTHON_ARCH: "32"
+    # In theory we could use a single CONDA_INSTALL_LOCN because we construct
+    # the envs anyway. But using one for the right python version hopefully
+    # making things faster due to package caching.
+    - PYTHON_VERSION: "3.6"
+      CONDA_INSTALL_LOCN: "C:\\Miniconda36-x64"
+      TEST_ALL: "no"
+    - PYTHON_VERSION: "3.7"
+      CONDA_INSTALL_LOCN: "C:\\Miniconda37-x64"
+      TEST_ALL: "no"
+    - PYTHON_VERSION: "3.8"
+      CONDA_INSTALL_LOCN: "C:\\Miniconda38-x64"
+      TEST_ALL: "no"
 
-    - PYTHON: "C:\\Python36-x64"
-      PYTHON_VERSION: "3.6.x" # currently 3.6.6
-      PYTHON_ARCH: "64"
+      # We always use a 64-bit machine, but can build x86 distributions
+# with the PYTHON_ARCH variable
+platform:
+  - x64
 
-    - PYTHON: "C:\\Python37"
-      PYTHON_VERSION: "3.7.x" # currently 3.7.1
-      PYTHON_ARCH: "32"
+# all our python builds have to happen in tests_script...
+build: false
 
-    - PYTHON: "C:\\Python37-x64"
-      PYTHON_VERSION: "3.7.x" # currently 3.7.1
-      PYTHON_ARCH: "64"
-
-    - PYTHON: "C:\\Python38"
-      PYTHON_VERSION: "3.8.x" # currently 3.7.1
-      PYTHON_ARCH: "32"
-
-    - PYTHON: "C:\\Python38-x64"
-      PYTHON_VERSION: "3.8.x" # currently 3.7.1
-      PYTHON_ARCH: "64"
+cache:
+  - '%LOCALAPPDATA%\pip\Cache'
 
 init:
-  - "%PYTHON%/python -V"
-  - mkdir C:\Users\appveyor\.conda
-  - call %MINICONDA%\Scripts\activate.bat
-  - python -V
-  - conda config --set always_yes yes --set changeps1 no
-  - conda update -q conda
-  - conda config --add channels conda-forge
-  - conda update --all
+  - echo %PYTHON_VERSION% %CONDA_INSTALL_LOCN%
 
 install:
+  - set PATH=%CONDA_INSTALL_LOCN%;%CONDA_INSTALL_LOCN%\scripts;%PATH%;
+  - set PYTHONUNBUFFERED=1
+  - conda config --set always_yes true
+  - conda update --all
+  - conda config --set show_channel_urls yes
+  - conda config --prepend channels conda-forge
+  # this is now the downloaded conda...
+  - activate
+  - conda info -a
+
+  # For building, use a new environment which only includes the requirements for mpl
+  # if conda-forge gets a new pyqt, it might be nice to install it as well to have more backends
+  # https://github.com/conda-forge/conda-forge.github.io/issues/157#issuecomment-223536381
   - conda env create python=%PYVER% -f environment.yml
   - conda activate jmbde-python
+  - echo %PYTHON_VERSION% %TARGET_ARCH%
 
+  # Apply patch to `subprocess` on Python versions > 2 and < 3.6.3
+  # https://github.com/matplotlib/matplotlib/issues/9176
+  - python -c "import sys; sys.exit(not (3,) < sys.version_info < (3,6,3))" && (
+    curl -sL https://github.com/python/cpython/pull/1224.patch |
+    patch -fsup 1 -d %CONDA_PREFIX% ) || cmd /c "exit /b 0"
+
+  # Show the installed packages + versions
+  - conda list
   - conda update --all
   - conda list # for debug reason
 
-# Not a .NET project, we build in the install step instead
-build: false
-
 test_script:
-  - py.test tests/basic_test.py --cov=codecov
-  # - "python -m tox -e %TOX_ENV%"
+  # Now build the thing..
+  - set LINK=/LIBPATH:%cd%\lib
+  - pip install -ve .
+  - tox
 
 after_test:
   - rm -rf tests/coverages
@@ -74,15 +93,18 @@ after_test:
   - "python setup.py bdist_wheel"
   - conda install -c conda-forge codecov
   - conda install conda-build anaconda-client pytest pytest-cov
-  - codecov
-  - coveralls
   - conda build recipe --no-test
   - conda install --use-local jmbde
   - conda info -a
 
 artifacts:
   - path: dist\*
+    name: packages
 
-on_success:
-  - codecov
-  - CODECOV_TOKEN="71a0c88c-1ddb-499d-be40-b1f6b0db78a3"
+  - path: result_images\*
+    name: result_images
+    type: zip
+
+on_finish:
+  - pip install codecov
+  - codecov -e PYTHON_VERSION PLATFORM

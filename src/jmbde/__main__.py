@@ -46,6 +46,7 @@ import os
 import sys
 
 import versioneer
+from jmbde.views.ui_mainwindow import Ui_MainWindow
 from PySide2 import QtCore
 from PySide2 import QtGui
 from PySide2.QtCore import QLocale
@@ -60,7 +61,6 @@ from PySide2.QtWidgets import QMenu
 from PySide2.QtWidgets import QSystemTrayIcon
 
 from .logger import Logger
-from jmbde.views.ui_mainwindow import Ui_MainWindow
 # Third party imports
 
 

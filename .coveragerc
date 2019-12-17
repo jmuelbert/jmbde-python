@@ -1,7 +1,18 @@
 # .coveragerc to control coverage.py
+[paths]
+source =
+    src/*
+
 [run]
 branch = True
-
+omit =
+    # omit anything in a .local directory anywhere
+    */.local/*
+    # omit everything in /usr
+    /usr/*
+    .tox/*
+    # omit this single file
+    utils/tirefire.py
 
 [report]
 # Regexes for lines to exclude from consideration
@@ -21,9 +32,7 @@ exclude_lines =
     if 0:
     if __name__ == .__main__.:
 
-# Paths to omit from consideration
-omit =
-    # __main__.py exists only as a very basic wrapper
-    #   and exists only to provide setuptools and python -m a place to point
-    #   at.
-    */jmbde/__main__.py
+ignore_errors = True
+
+[html]
+directory = coverage_html_report

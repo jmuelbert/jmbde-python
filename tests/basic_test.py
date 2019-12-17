@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 """Tests for `jmbde-python` package."""
 # Third party imports
+import jmbde
 import pytest
 
 
@@ -21,3 +22,7 @@ def content_test(response) -> None:
 def command_line_interface_test() -> None:
     """Sample pytest test function with the pytest fixture as an argument."""
     pass
+
+
+def test_main_window(response) -> None:
+    assert jmbde.test() == 'Hello'

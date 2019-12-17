@@ -9,10 +9,6 @@ jmbde
         :target: https://pypi.python.org/pypi/jmbde-python/
         :alt: Wheel
 
-.. image:: https://img.shields.io/pypi/pyversions/jmbde-python.svg
-        :target: https://pypi.python.org/pypi/jmbde-python/
-        :alt: PyPi-Versions
-
 .. image:: https://pyup.io/repos/github/jmuelbert/jmbde-python/shield.svg
      :target: https://pyup.io/repos/github/jmuelbert/jmbde-python/
      :alt: Updates

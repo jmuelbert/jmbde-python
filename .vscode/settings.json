@@ -61,5 +61,6 @@
   "editor.suggest.localityBonus": true,
   "editor.suggestSelection": "recentlyUsed",
   "editor.wordBasedSuggestions": true,
-  "editor.parameterHints.enabled": true
+  "editor.parameterHints.enabled": true,
+  "python.testing.unittestEnabled": false
 }
