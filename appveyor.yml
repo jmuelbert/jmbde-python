@@ -85,9 +85,9 @@ after_test:
   - rm -rf tests/coverages
   - if not exist dist mkdir dist
   - tox -e release
-  - tox -e report
-  - if exist .coverage (cp .coverage dist\) else (echo no .coverage)
-  - codecov
+  # - tox -e report
+  # - if exist .coverage (cp .coverage dist\) else (echo no .coverage)
+  # - codecov
   - if exist coverage.xml (cp coverage.xml dist\) else (echo no coverage.xml)
   - "python setup.py bdist_wheel"
   - conda install -c conda-forge codecov
@@ -105,5 +105,5 @@ artifacts:
     type: zip
 
 on_finish:
-  - pip install codecov
-  - codecov -e PYTHON_VERSION PLATFORM
+  # - pip install codecov
+  # - codecov -e PYTHON_VERSION PLATFORM
