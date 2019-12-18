@@ -52,16 +52,6 @@ jobs:
         - PATH=/c/Python38:/c/Python38/Scripts:$PATH
         - TOX_ENV=py38
 
-    - name: "PyPy on Windows"
-      os: windows
-      language: shell
-      before_install:
-        - choco install pypy3
-        - pip3 install --upgrade pip
-      env:
-        - PATH=/c/Python38:/c/Python38/Scripts:$PATH
-        - TOX_ENV=pypy3
-
 install:
   - pip3 install --upgrade pip # all three OSes agree about 'pip3'
   - pip3 install tox

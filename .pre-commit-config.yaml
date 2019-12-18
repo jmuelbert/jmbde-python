@@ -15,7 +15,6 @@ repos:
         exclude: recipe/meta.yaml
       - id: check-json
       - id: pretty-format-json
-        argument: autofix
         exclude: .vscode/*
       - id: check-xml
       - id: check-merge-conflict
