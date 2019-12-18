@@ -31,7 +31,7 @@ environment:
       TOXENV: "py36"
 
     - PYTHON_VERSION: "3.7"
-      CONDA_INSTALL_LOCN: "C:\\Miniconda37-x64"
+      CONDA_INSTALL_LOCN: "C:\\Miniconda3-x64"
       TEST_ALL: "no"
       TOXENV: "py37"
 
@@ -60,7 +60,7 @@ install:
   # For building, use a new environment which only includes the requirements for mpl
   # if conda-forge gets a new pyqt, it might be nice to install it as well to have more backends
   # https://github.com/conda-forge/conda-forge.github.io/issues/157#issuecomment-223536381
-  - conda env create python=%PYVER% -f environment.yml
+  - conda env create python=%PYTHON_VERSION% -f environment.yml
   - conda activate jmbde-python
   - echo %PYTHON_VERSION% %TARGET_ARCH%
 
