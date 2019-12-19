@@ -1,20 +1,14 @@
-# .coveragerc to control coverage.py
-[paths]
-source =
-    src/jmbde/*
-
 [run]
 branch = True
-omit =
-    # omit anything in a .local directory anywhere
-    */.local/*
-    # omit everything in /usr
-    /usr/*
-    .tox/*
-    # omit this single file
-    utils/tirefire.py
+source = .
+# Wrong warning caused by include used in [report] (Coveragepy 4.4.2)
+# Ref: https://bitbucket.org/ned/coveragepy/issues/621
+disable_warnings = include-ignored
+parallel = true
 
 [report]
+show_missing = true
+include = jmbde/*,tests/*
 # Regexes for lines to exclude from consideration
 exclude_lines =
     # Have to re-enable the standard pragma
@@ -28,8 +22,7 @@ exclude_lines =
     raise AssertionError
     raise NotImplementedError
 
-    # Don't complain if non-runnable code isn't run:
-    if 0:
+    # Don't complain if non-runnable code isn't run
     if __name__ == .__main__.:
 
 ignore_errors = True
