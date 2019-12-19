@@ -46,15 +46,15 @@ jobs:
       os: windows
       language: shell
       before_install:
-        - choco install python --version 3.8.0
+        - choco install python3
         - python -m pip install --upgrade pip
       env:
-        - PATH=/c/Python38:/c/Python38/Scripts:$PATH
-        - TOX_ENV=py38
+        - PATH=/PATH=/c/Python37:/c/Python37/Scripts:/c/Python38:/c/Python38/Scripts:/c/Python39:/c/Python39/Scripts:$PATH;
+        - TOXENV=py38
 
 install:
   - pip3 install --upgrade pip # all three OSes agree about 'pip3'
-  - pip3 install tox
+  - pip3 install --upgrade tox tox-venv virtualenv
   - pip3 install codecov
 
 script:
