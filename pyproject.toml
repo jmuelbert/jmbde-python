@@ -7,7 +7,7 @@ authors = [
 ]
 license = "EUPL-1.2"
 readme = "README.rst"
-python = "^3.5"
+python = "^3.6"
 homepage = "https://jmbde-python.github.io/"
 repository = "https://github.com/jmuelbert/jmbde-python"
 documentation =  "https://readthedocs.org/projects/jmuelbert/jmbde-python"
@@ -39,8 +39,8 @@ classifiers = [
 
 # Requirements
 [dependencies]
-PySide2="^5.13.0"
-pip="^19.3.1"
+PySide2="^5.12.5"
+pip="^19.0.1"
 
 [dev-dependencies]
 black = { version = "^18,3-alpha.0", python = "^3.6" }
@@ -49,9 +49,31 @@ black = { version = "^18,3-alpha.0", python = "^3.6" }
 # See https://github.com/scipy/scipy/pull/10431 for the AIX issue.
 requires = [
     "setuptools >= 40.0.4",
+    "setuptools_scm >= 2.0.0, <3",
     "wheel >= 0.29.0",
 ]
 build-backend = 'setuptools.build_meta'
 
 [tool.black]
-line-length = 99
+line-length = 88
+target_version = ['py36']
+include = '\.pyi?$'
+exclude = '''
+
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+  | foo.py           # also separately exclude a file named foo.py in
+                     # the root of the project
+)
+'''
