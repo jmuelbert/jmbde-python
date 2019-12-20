@@ -1,9 +1,5 @@
-jmbde
-=====
-
-.. image:: https://img.shields.io/pypi/v/jmbde-python.svg
-        :target: https://pypi.python.org/pypi/jmbde-python/
-        :alt: PyPi
+jmbde-python
+============
 
 .. image:: https://img.shields.io/pypi/wheel/jmbde-python.svg
         :target: https://pypi.python.org/pypi/jmbde-python/
