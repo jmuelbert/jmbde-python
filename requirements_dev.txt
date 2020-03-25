@@ -30,6 +30,6 @@ pytest-xvfb==1.2.0
 reorder-python-imports==1.8.0
 requests-mock==1.7.0
 rstcheck==3.3.1
-setup-cfg-fmt==1.6.0
+setup-cfg-fmt==1.8.2
 tox==3.14.3
 wheel==0.34.2
