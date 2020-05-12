@@ -14,7 +14,7 @@ pyup/update-blacken-docs-1.4.0-to-1.6.0
 codecov==2.0.22
 coverage==5.1
 coverage==5.1
-flake8==3.7.9
+flake8==3.8.0
 flake8-docstrings==1.5.0
 mock-open==1.4.0
 mypy==0.761
