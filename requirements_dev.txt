@@ -11,7 +11,7 @@ black==19.10b0
 blacken-docs==1.7.0
 bump2version==1.0.0
 pyup/update-blacken-docs-1.4.0-to-1.6.0
-codecov==2.0.22
+codecov==2.1.0
 coverage==5.1
 coverage==5.1
 flake8==3.7.9
