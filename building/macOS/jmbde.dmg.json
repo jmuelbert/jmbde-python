@@ -1,0 +1,27 @@
+{
+  "title": "jm BDE",
+  "icon": "../../images/jmbde-dmg.icns",
+  "icon-size": 100,
+  "background": "../../images/jmbde-dmg-backgroud.png",
+  "format": "UDBZ",
+  "window": {
+    "size": {
+      "width": 600,
+      "height": 400
+    }
+  },
+  "contents": [
+    {
+      "x": 100,
+      "y": 150,
+      "type": "file",
+      "path": "../../dist/jmbde.app"
+    },
+    {
+      "x": 300,
+      "y": 150,
+      "type": "link",
+      "path": "/Applications"
+    }
+  ]
+}

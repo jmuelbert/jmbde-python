@@ -337,3 +337,4 @@ compile_commands.json
 *.db
 *.db3
 *.sqlite
+*.sqlite3

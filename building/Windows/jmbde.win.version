@@ -1,0 +1,28 @@
+VSVersionInfo(
+  ffi=FixedFileInfo(
+    filevers=(4, 0, 1, 0),
+    prodvers=(4, 0, 1, 0),
+    mask=0x3f,
+    flags=0x0,
+    OS=0x4,
+    fileType=0x1,
+    subtype=0x0,
+    date=(0, 0)
+    ),
+  kids=[
+    StringFileInfo(
+      [
+      StringTable(
+        u'040904B0',
+        [StringStruct(u'CompanyName', u'Jürgen Mülbert'),
+        StringStruct(u'FileDescription', u'jm BDE'),
+        StringStruct(u'FileVersion', u'0.1.0.0'),
+        StringStruct(u'InternalName', u'jmBDE'),
+        StringStruct(u'LegalCopyright', u'\xa9 2018-2020 Jürgen Mülbert.'),
+        StringStruct(u'OriginalFilename', u'jmbde.exe'),
+        StringStruct(u'ProductName', u'jm BDE'),
+        StringStruct(u'ProductVersion', u'0.1.0.0')])
+      ]),
+    VarFileInfo([VarStruct(u'Translation', [1033, 1200])])
+  ]
+)

@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>style.qss</file>
+        <file>icons/demo.svg</file>
+        <file>icons/app.icns</file>
+        <file>icons/app.ico</file>
+        <file>icons/app.svg</file>
+        <file>qml/main.qml</file>
+        <file>data/script.sql</file>
+    </qresource>
+</RCC>
