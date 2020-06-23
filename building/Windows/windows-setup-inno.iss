@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "jmbde"
-#define MyAppVersion "0.1"
+#define MyAppVersion "0.2.0"
 #define MyAppPublisher "Jürgen Mülbert"
 #define MyAppURL "http://github.com/jmuelbert/jmbde-python"
 #define MyAppExeName "jmbde.exe"
@@ -44,8 +44,8 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "dist\jmbde\jmbde.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "dist\jmbde\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\..\dist\jmbde\jmbde.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\dist\jmbde\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

@@ -1,12 +1,1 @@
-doc8==0.8.0
-readme-renderer==26.0
-releases==1.6.3
-
-# workaround for #492
-semantic-version==2.8.4
-Sphinx==3.0.2
-sphinx-autodoc-annotation==1.0.post1
-sphinx-autodoc-typehints==1.10.3
-sphinx_rtd_theme>=0.2.4
-tox>=2.9.1
-twine>=1.10.0
+Sphinx==3.1.0
