@@ -1,27 +1,27 @@
 {
-  "title": "jm BDE",
-  "icon": "../../images/jmbde-dmg.icns",
-  "icon-size": 100,
   "background": "../../images/jmbde-dmg-backgroud.png",
-  "format": "UDBZ",
-  "window": {
-    "size": {
-      "width": 600,
-      "height": 400
-    }
-  },
   "contents": [
     {
-      "x": 100,
-      "y": 150,
+      "path": "../../dist/jmbde.app",
       "type": "file",
-      "path": "../../dist/jmbde.app"
+      "x": 100,
+      "y": 150
     },
     {
-      "x": 300,
-      "y": 150,
+      "path": "/Applications",
       "type": "link",
-      "path": "/Applications"
+      "x": 300,
+      "y": 150
     }
-  ]
+  ],
+  "format": "UDBZ",
+  "icon": "../../images/jmbde-dmg.icns",
+  "icon-size": 100,
+  "title": "jm BDE",
+  "window": {
+    "size": {
+      "height": 400,
+      "width": 600
+    }
+  }
 }

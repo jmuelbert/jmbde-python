@@ -1,112 +1,173 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-"""
-    JMBDe app.
-"""
-# Standard library imports
 #
-# Copyright (c) 2019 Jürgen Mülbert. All rights reserved.
+#   jmbde a BDE Tool for datacontext
+#   Copyright (C) 2018-2020  Jürgen Mülbert
 #
-# Licensed under the EUPL, Version 1.2 or – as soon they
-# will be approved by the European Commission - subsequent
-# versions of the EUPL (the "Licence");
-# You may not use this work except in compliance with the
-# Licence.
-# You may obtain a copy of the Licence at:
+#   This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
 #
-# https://joinup.ec.europa.eu/page/eupl-text-11-12
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
 #
-# Unless required by applicable law or agreed to in
-# writing, software distributed under the Licence is
-# distributed on an "AS IS" basis,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-# express or implied.
-# See the Licence for the specific language governing
-# permissions and limitations under the Licence.
-#
-# Lizenziert unter der EUPL, Version 1.2 oder - sobald
-#  diese von der Europäischen Kommission genehmigt wurden -
-# Folgeversionen der EUPL ("Lizenz");
-# Sie dürfen dieses Werk ausschließlich gemäß
-# dieser Lizenz nutzen.
-# Eine Kopie der Lizenz finden Sie hier:
-#
-# https://joinup.ec.europa.eu/page/eupl-text-11-12
-#
-# Sofern nicht durch anwendbare Rechtsvorschriften
-# gefordert oder in schriftlicher Form vereinbart, wird
-# die unter der Lizenz verbreitete Software "so wie sie
-# ist", OHNE JEGLICHE GEWÄHRLEISTUNG ODER BEDINGUNGEN -
-# ausdrücklich oder stillschweigend - verbreitet.
-# Die sprachspezifischen Genehmigungen und Beschränkungen
-# unter der Lizenz sind dem Lizenztext zu entnehmen.
-#
-import configparser
-import os
+"""JMBDe app."""
 import sys
+from typing import Any
 
-from PySide2 import QtCore
+import click
+from PySide2.QtCore import QCoreApplication
 from PySide2.QtCore import QLocale
-from PySide2.QtCore import Qt
+from PySide2.QtCore import QThread
 from PySide2.QtCore import QTranslator
-
+from PySide2.QtCore import Signal
 from PySide2.QtGui import QGuiApplication
-from PySide2.QtGui import QIcon
-from PySide2.QtQml import QQmlApplicationEngine
+from PySide2.QtWidgets import QApplication
+from PySide2.QtWidgets import QMainWindow
+from PySide2.QtWidgets import QMessageBox
 
-from .rcs import *
-
-from jmbde.models.datacontext import DataContext
-from jmbde.models.employee import EmployeeModel
-from .logger import Logger
-# Third party imports
+from .qrc_resources import *  # noqa
+from jmbde.ui.ui_mainwindow import Ui_MainWindow
 
 
-class MainWindow():
-    def __init__(self) -> None:
-        # super(MainWindow, self).__init__()
+class ApplicationWindow(QMainWindow):
+    """Main Window."""
 
-        self.config_filename = None
-        self.base_output_filename = None
+    def __init__(self, parent: Any = None) -> None:
+        """Init the class.
 
-        self.log = Logger().create_log()
-        self.log.info("Launched jmbde")
+        Args:
+            parent: The initializer for the parent QMainWindow.
+        """
+        super(ApplicationWindow, self).__init__(parent)
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
 
-        self.set_application_constants()
+        # Create Widgets
+        # self.clipboard = QApplication.clipboard()
+        # Create widgets
+        # self.clipboard = QApplication.clipboard()
 
-    def set_application_constants(self) -> None:
-        if sys.platform == "darwin":
-            QGuiApplication.setAttribute(Qt.AA_DontShowIconsInMenus)
+        # Connect signals and slots
+        # self.ui.actionSave.triggered.connect(self.save_content)
+        # self.ui.actionQuit.triggered.connect(self.quit_app)
+        # self.ui.actionCopy.triggered.connect(self.clipboard_copy)
+        # self.ui.actionAbout.triggered.connect(self.about)
 
-        QtCore.QCoreApplication.setApplicationName("jmbde")
-        QtCore.QCoreApplication.setOrganizationName("io.jmuelbert.github")
-        QtCore.QCoreApplication.setOrganizationDomain("Jürgen Mülbert")
-        QtCore.QCoreApplication.setApplicationVersion("0.4.0")
+        # self.ui.okButton.clicked.connect(self.quit_app)
+        # self.ui.cancelButton.clicked.connect(self.quit_app)
 
-        self.log.info("Set Appname to: {}".format(
-                      QtCore.QCoreApplication.applicationName()))
+        # Configure widgets
+        # self.ui.textBrowser.setOpenExternalLinks(True)
 
-        QGuiApplication.setWindowIcon(QIcon(":/icons/app.svg"))
+        # Start thread
+        # self.worker = Worker()
+        # self.worker.send_text.connect(self.receive_text)
+        # self.worker.start()
 
-        translator = QTranslator()
-        translator.load(":/translations/" + QLocale.system().name() + ".qm")
-        QGuiApplication.installTranslator(translator)
+    def quit_app(self) -> None:
+        """Close application.
+
+        Here is the option to popup a dialog...
+        """
+        # answer = QMessageBox.question(self, 'Quit program', 'Are you sure?',
+        #                               QMessageBox.Yes | QMessageBox.No)
+        # if answer == QMessageBox.Yes:
+        #     self.close()
+        self.close()
+
+    def save_content(self) -> None:
+        """Save content of text to a file."""
+        # TODO Save to file
+        print("Save")
+
+    def clipboard_copy(self) -> None:
+        """Copy text box content to the clipboard."""
+        # text = self.ui.textBrowser.toPlainText()
+        # self.clipboard.setText(text,  QClipboard.Clipboard)
+        pass
+
+    def receive_text(self, some_string: str) -> None:
+        """Add some_string at the end of textBrowser.
+
+        Args:
+            some_string: Add some string
+        """
+        # self.ui.textBrowser.append(some_string)
+        pass
+
+    def about(self) -> None:
+        """Help/About message box."""
+        QMessageBox.about(self, "jmbde - A BDE tool", "juergen.muelbert@gmail.com")
 
 
+class Worker(QThread):
+    """Worker Thread.
+
+    Runs work method, and create signals:
+
+    Finished.
+        No data
+
+    Error.
+        tuple (exctype, value, traceback.format_exc() )
+
+    Result.
+        object data returned from processing, anything
+
+    Progress.
+        in indicating % progress
+
+    Send_text.
+        str send text to textBrowser
+    """
+
+    finished = Signal()
+    error = Signal(tuple)
+    result = Signal(object)
+    progress = Signal(int)
+    send_text = Signal(str)
+
+    def __init__(self, parent: Any = None) -> None:
+        """Init the class.
+
+        Args:
+            parent: The initializer for the parent oject.
+        """
+        super(Worker, self).__init__(parent)
+
+    def run(self) -> None:
+        """Start work method and take care about run-time errors in thread."""
+        result = self.work()
+        self.result.emit(result)
+
+    def work(self) -> None:
+        """Emit program arguments as 'send_text' signal."""
+        arguments = QCoreApplication.arguments()
+        if len(arguments) > 1:
+            for arg in arguments[1:]:
+                self.send_text.emit(arg)
+
+
+@click.command()
+@click.version_option()
 def main() -> None:
-    app = QGuiApplication(sys.argv)
-    mainWin = MainWindow()
+    """The Application main function."""
+    app = QApplication(sys.argv)
 
-    engine = QQmlApplicationEngine()
+    # QGuiApplication.setWindowIcon(QIcon("qrc:/icons/app.svg"))
 
-    # Export pertinent objects to QML
-    engine.rootContext().setContextProperty("employee_model", EmployeeModel)
-    engine.load(":/qml/main.qml")
-    dc = DataContext()
-    dc.createConnection()
-    ret = app.exec_()
-    sys.exit(ret)
+    translator = QTranslator()
+    translator.load("qrc:/translations/" + QLocale.system().name() + ".qm")
+    QGuiApplication.installTranslator(translator)
+
+    application = ApplicationWindow()
+    application.show()
+    sys.exit(app.exec_())
 
 
 if __name__ == "__main__":
-    main()
+    main(prog_name="jmbde-python")  # pragma: no cover

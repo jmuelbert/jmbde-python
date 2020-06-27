@@ -1,2 +1,2 @@
 # -*- coding: utf-8 -*-
-"""Unit test package for jmbde-python."""
+"""Test suite for the jmbde-python package."""
