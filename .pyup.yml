@@ -31,7 +31,7 @@ label_prs: update
 # requires private repo permissions, even on public repos
 # default: empty
 assignees:
- - jmuelbert
+  - jmuelbert
 
 # configure the branch prefix the bot is using
 # default: pyup-

@@ -1,28 +1,43 @@
-# Git will handle the files in whatever way it thinks is best
-* text=auto
+    # Don't count the translation files in the language stats
+    translations/*      linguist-vendored
 
-# Always convert line endings to LF on checkout
-*.py text eol=lf
-*.coffee text eol=lf
-*.js text eol=lf
-*.scss text eol=lf
-*.css text eol=lf
-*.html text eol=lf
-*.md text eol=lf
-*.rst text eol=lf
-*.text text eol=lf
-*.yml text eol=lf
-*.po text eol=lf
+    *                   text=auto
 
-# fix bootstrap.sh on Windows MSYS
-*.sh eol=lf
-*.bat eol=crlf
+    # Source files
+    *.cpp               text eol=lf
+    *.h                 text eol=lf
+    *.ui                text eol=lf
+    *.py                text eol=lf
+    *.coffee            text eol=lf
+    *.js                text eol=lf
+    *.scss              text eol=lf
+    *.css               text eol=lf
+    *.html              text eol=lf
+    *.md                text eol=lf
+    *.rst               text eol=lf
+    *.text              text eol=lf
+    *.yml               text eol=lf
+    *.po                text eol=lf
+    # Fix GitHub thinking our translations are TypeScript
+    *.ts                linguist-language=XML eol=lf
 
-# Files that are truly binary and should not be modified
-*.png binary
-*.jpg binary
-*.ico binary
-*.svg binary
-*.ttf binary
-*.woff binary
-*.mo binary
+    # fix bootstrap.sh on Windows MSYS
+    *.sh                text eol=lf
+    *.bat               text eol=crlf
+
+    # Files that are truly binary and should not be modified
+    *.png               binary
+    *.jpg               binary
+    *.ico               binary
+    *.svg               binary
+    *.ttf               binary
+    *.woff              binary
+    *.mo                binary
+
+    .tag                export-subst
+    .gitignore          export-ignore
+    .gitattributes      export-ignore
+    .mailmap            export-ignore
+    .tx                 export-ignore
+    .LICENSE-HEADER     export-ignore
+    .travis.yml         export-ignore

@@ -1,7 +1,28 @@
 {
     "files": [
-        "jmbde/__main__.py",
-        "jmbde/__main__.py",
-        "jmbde/forms/MainWindow.py"
+        "src/jmbde/__main__.py",
+        "src/jmbde/__init__.py",
+        "src/jmbde/logger.py",
+        "src/jmbde/models/__init__.py",
+        "src/jmbde/models/datacontext.py",
+        "src/jmbde/models/employee.py",
+        "src/jmbde/models/script.sql",
+        "src/qml/EmployeeList.qml",
+        "src/qml/Login.qml",
+        "src/qml/main.qml",
+        "tests/__init__.py",
+        "tests/basic_test.py",
+        "tests/generate_data_test.py",
+        "tests/pytest.ini",
+        "resources/resources.qrc",
+        "resources/resources_generator.sh",
+        "resources/style.qss",
+        "resources/translation_files.pro",
+        "resources/breeze/apps/32/systemsettings.svg",
+        "resources/breeze-dark/apps/32/systemsettings.svg",
+        "resources/icons/app.icns",
+        "resources/icons/app.ico",
+        "resources/icons/app.svg",
+        "resources/icons/demo.svg"
         ]
 }
