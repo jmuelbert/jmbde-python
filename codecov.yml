@@ -1,30 +1,9 @@
-codecov:
-  branch: master
-  bot: null
-
+comment: false
 coverage:
-  precision: 2
-  round: down
-  range: "60...100"
-
   status:
     project:
       default:
-        target: auto
-        threshold: null
-        branches: null
-
+        target: "100"
     patch:
       default:
-        target: auto
-        branches: null
-
-    changes:
-      default:
-        branches: null
-
-  ignore: null
-  fixes:
-    - .tox
-
-comment: off
+        target: "100"

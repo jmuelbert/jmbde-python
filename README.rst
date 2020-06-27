@@ -1,116 +1,97 @@
-jmbde-python
-============
+{%- macro heading(text) -%}
+{{text}}
+{% for _ in text %}={% endfor %}
+{%- endmacro -%}
+{{ heading(cookiecutter.friendly_name) }}
 
-.. image:: https://img.shields.io/pypi/wheel/jmbde-python.svg
-        :target: https://pypi.python.org/pypi/jmbde-python/
-        :alt: Wheel
+|Tests| |Codecov| |PyPI| |Python Version| |Read the Docs| |License| |Black| |pre-commit| |Dependabot|
 
-.. image:: https://pyup.io/repos/github/jmuelbert/jmbde-python/shield.svg
-     :target: https://pyup.io/repos/github/jmuelbert/jmbde-python/
-     :alt: Updates
+.. |Tests| image:: https://github.com/jmuelbert/jmbde-python/workflows/Tests/badge.svg
+   :target: https://github.com/jmuelbert/jmbde-python/actions?workflow=Tests
+   :alt: Tests
+.. |Codecov| image:: https://codecov.io/gh/jmuelbert/jmbde-python/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/jmuelbert/jmbde-python
+   :alt: Codecov
+.. |PyPI| image:: https://img.shields.io/pypi/v/jmbde-python.svg
+   :target: https://pypi.org/project/jmbde-python/
+   :alt: PyPI
+.. |Python Version| image:: https://img.shields.io/pypi/pyversions/jmbde-python
+   :target: https://pypi.org/project/jmbde-python
+   :alt: Python Version
+.. |Read the Docs| image:: https://readthedocs.org/projects/jmbde-python/badge/
+   :target: https://jmbde-python.readthedocs.io/
+   :alt: Read the Docs
+.. |License| image:: https://img.shields.io/pypi/l/jmbde-python
+   :target: https://opensource.org/licenses/GPLV3
+   :alt: License
+.. |Black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
+   :target: https://github.com/psf/black
+   :alt: Black
+.. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
+   :target: https://github.com/pre-commit/pre-commit
+   :alt: pre-commit
+.. |Dependabot| image:: https://api.dependabot.com/badges/status?host=github&repo=jmuelbert/jmbde-python
+   :target: https://dependabot.com
+   :alt: Dependabot
 
-.. image:: https://pyup.io/repos/github/jmuelbert/jmbde-python/python-3-shield.svg
-     :target: https://pyup.io/repos/github/jmuelbert/jmbde-python/
-     :alt: Python 3
-
-..  image:: https://img.shields.io/badge/license-EUPL-blue.svg
-    :alt: GitHub license
-    :target: https://joinup.ec.europa.eu/page/eupl-text-11-12
-
-.. image:: https://travis-ci.org/jmuelbert/jmbde-python.svg?branch=master
-    :alt: Build Status
-    :target: https://travis-ci.org/jmuelbert/jmbde-python
-
-..  image:: https://ci.appveyor.com/api/projects/status/vmqd5y83u390tsrg?svg=true
-    :alt: Build status
-    :target: https://ci.appveyor.com/project/jmuelbert/jmbde-python
+Features
+--------
 
 jmbde is a program to collect data for the IT. The database contains employees, departments, functions, phones, mobiles, computers, printers, faxes and accounts.
 
-jmbde use the cross-platform frameworks `python <https://www.python.org>`_
-and `QT <https://www.qt.io>`_
-with the `PySide2 <https://pypi.org/project/PySide2/>`_.
+Requirements
+------------
+
+jmbde use the cross-platform frameworks [python](https://www.python.org)
+and [QT](https://www.qt.io)
+with the [PySide2](https://pypi.org/project/PySide2/).
 which means it works with the most operating systems.
 
-Sources
--------
+Installation
+------------
 
-The master branch represents the latest pre-release code.
+You can install *jmbde-python* via pip_ from PyPI_:
 
-- `Releases <https://github.com/jmuelbert/jmbde-python/releases>`_.
+.. code:: console
 
-- `Milestones <https://github.com/jmuelbert/jmbde-python/milestones>`_.
+   $ pip install jmbde-python
 
-Requests and Bug reports
--------------------------
+Usage
+-----
 
-- `GitHub issues (preferred) <https://github.com/jmuelbert/jmbde-python/issues>`_.
+* TODO
 
-Questions or Comments
----------------------
+Contributing
+------------
 
-Wiki
-----
-
-- `Main Page <https://github.com/jmuelbert/jmbde-python/wiki>`_.
-- `User Manual <http://jmuelbert.github.io/jmbde-python/>`_.
-
-Installing
-----------
-
-An install script is preferred. You can you the latest release or build the newest version with the command:
-
-    ``./setup.py setup_qt sdist``
-
-or
-    ``python setup.py setup_qt sdist``
-
-This build an python installer
-
-Resources and translations
---------------------------
-
-In order to ease the development process, the Qt Creator project ``app.pro`` is
-provided. You can open it to edit the UI files or to manage resources.
-Translations can be edited using Qt Linguist, part of the Qt SDK. In order to
-build the translations, you will need to have the ``lrelease`` command on your
-``PATH`` or set its full path to the ``LRELEASE_BIN`` environment variable.
-UI files, translations and resources can be built like this::
-
-    ``python setup.py setup_qt sdist bdist_wheel``
-
-Note that this command is automatically run before running ``sdist`` and
-``bdist_app`` commands.
-
-Compiled application
---------------------
-
-You can generate a *compiled* application so that end-users do not need to
-install anything. You can tweak some settings on the ``app.spec`` file. It can
-be generated like this::
-
-    ``python pyinstaller``
-
-Documentation
--------------
-
-`Sphinx <https://sphinx.readthedocs.io/en/master/>`_ is used for documentation purposes. You can tweak its configuration in
-``docs/conf.py`` and the documentation can be built like this::
-
-    ``cd docs``
-    ``pip install -r requirements.txt```
-    or
-    ``conda create -n build_docs -f environment.yml```
-    ``conda activate build_docs```
-    The docs can you build with the command:
-    ``make html`` to build the web documentation
+Contributions are very welcome.
+To learn more, see the `Contributor Guide`_.
 
 
 License
 -------
+Distributed under the terms of the GPLV3_ license,
+*jmbde_python* is free and open source software.
 
-openorders is free software; you can redistribute ot and/or modify ir under the terms
-of the `European Public License Version 1.2 <https://joinup.ec.europa.eu/page/eupl-text-11-12>`_.
-Please read the `<https://github.com/jmuelbert/jmbde-python/blob/master/LICENSE>`_ for additional information.
+Issues
+------
 
-EUPL-1.2 © Jürgen Mülbert
+If you encounter any problems,
+please `file an issue`_ along with a detailed description.
+
+
+Credits
+-------
+
+This project was generated from `@cjolowicz`_'s `Hypermodern Python Cookiecutter`_ template.
+
+
+.. _@cjolowicz: https://github.com/cjolowicz
+.. _Cookiecutter: https://github.com/audreyr/cookiecutter
+.. _GPLV3: http://opensource.org/licenses/GPL-3.0
+.. _PyPI: https://pypi.org/
+.. _Hypermodern Python Cookiecutter: https://github.com/cjolowicz/cookiecutter-hypermodern-python
+.. _file an issue: https://github.com/jmuelbert/jmbde-python/issues
+.. _pip: https://pip.pypa.io/
+.. github-only
+.. _Contributor Guide: CONTRIBUTING.rst
