@@ -1,8 +1,5 @@
-{%- macro heading(text) -%}
-{{text}}
-{% for _ in text %}={% endfor %}
-{%- endmacro -%}
-{{ heading(cookiecutter.friendly_name) }}
+jmbde
+=====
 
 |Tests| |Codecov| |PyPI| |Python Version| |Read the Docs| |License| |Black| |pre-commit| |Dependabot|
 
@@ -22,7 +19,7 @@
    :target: https://jmbde-python.readthedocs.io/
    :alt: Read the Docs
 .. |License| image:: https://img.shields.io/pypi/l/jmbde-python
-   :target: https://opensource.org/licenses/GPLV3
+   :target: https://opensource.org/licenses/GPL-3.0
    :alt: License
 .. |Black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
    :target: https://github.com/psf/black

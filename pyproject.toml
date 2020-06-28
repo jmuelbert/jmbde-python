@@ -35,7 +35,7 @@ classifiers=[
 Changelog = "https://github.com/jmuelbert/jmbde-python/releases"
 
 [tool.poetry.dependencies]
-Python = ">=3.6.1, <4"
+python = ">=3.6.1, <4"
 click = "^7.1.2"
 pyside2 = ">=5.13.2, <6"
 

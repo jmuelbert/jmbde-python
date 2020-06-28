@@ -141,7 +141,7 @@ def mypy(session: Session) -> None:
 def tests(session: Session) -> None:
     """Run the test suite."""
     install_package(session)
-    install(session, "coverage[toml]", "pytest", "faker", "openpyxl")
+    install(session, "coverage[toml]", "pytest", "faker")
     try:
         session.run("coverage", "run", "--parallel", "-m", "pytest", *session.posargs)
     finally:
@@ -167,7 +167,7 @@ def coverage(session: Session) -> None:
 def typeguard(session: Session) -> None:
     """Runtime type checking using Typeguard."""
     install_package(session)
-    install(session, "pytest", "typeguard")
+    install(session, "pytest", "typeguard", "faker", "openpyxl")
     session.run("pytest", f"--typeguard-packages={package}", *session.posargs)
 
 
