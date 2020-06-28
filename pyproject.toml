@@ -28,30 +28,29 @@ classifiers=[
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: Implementation :: CPython",
-        "Programming Language :: Python :: Implementation :: PyPy",
         "Topic :: Office/Business",
 ]
 
 [tool.poetry.urls]
-Changelog = "https://github.com/jmuelbert/jmopenorders/releases"
+Changelog = "https://github.com/jmuelbert/jmbde-python/releases"
 
 [tool.poetry.dependencies]
-python = "^3.6.1"
-click = "^7.0"
-pyside2 = "^5.14"
+Python = ">=3.6.1, <4"
+click = "^7.1.2"
+pyside2 = ">=5.13.2, <6"
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.4.3"
 coverage = {extras = ["toml"], version = "^5.1"}
 safety = "^1.9.0"
 mypy = "^0.780"
 typeguard = "^2.9.1"
 xdoctest = "^0.12.0"
-sphinx = "^3.1.0"
+sphinx = "^3.1.1"
 sphinx-autobuild = "^0.7.1"
+pytest = "^5.4.3"
 pre-commit = "^2.5.1"
-faker = "^4.1.0"
+faker = "^4.1.1"
+openpyxl = "^3.0.4"
 
 [tool.poetry.scripts]
 # Entry points for the package https://python-poetry.org/docs/pyproject/#scripts
@@ -66,7 +65,7 @@ source = ["jmbde"]
 
 [tool.coverage.report]
 show_missing = true
-fail_under = 1
+fail_under = 12
 
 [build-system]
 requires = ["poetry>=0.12"]

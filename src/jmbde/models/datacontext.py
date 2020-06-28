@@ -36,7 +36,7 @@ class DataContext(QObject):
 
     def __init__(self) -> None:
         """The class initializer."""
-        self.database: QSqlDatabase = 0
+        self.database: QSqlDatabase = QSqlDatabase()
         self.dbType: str = "sqlite"
         self.database_name: str = ""
         self.database_hostname: str = ""

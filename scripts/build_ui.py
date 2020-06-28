@@ -75,7 +75,11 @@ print("Rebuilding PyQt resource files in source directory...")
 for f in glob("{}/*.qrc".format(source_dir)):
     os.subprocess.run(
         ["rcc"],
-        ["-g python -o {}/qrc_{}.py {}".format(package, os.path.basename(f[:-4]), f)],
+        [
+            "-g python -o {}/resources/qrc_{}.py {}".format(
+                package, os.path.basename(f[:-4]), f
+            )
+        ],
     )
 
 print("Rebuilding PyQt resource files in resources_dir directory...")

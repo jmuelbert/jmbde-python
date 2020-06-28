@@ -19,17 +19,14 @@ import sys
 from typing import Any
 
 import click
-from PySide2.QtCore import QCoreApplication
 from PySide2.QtCore import QLocale
-from PySide2.QtCore import QThread
 from PySide2.QtCore import QTranslator
-from PySide2.QtCore import Signal
 from PySide2.QtGui import QGuiApplication
 from PySide2.QtWidgets import QApplication
 from PySide2.QtWidgets import QMainWindow
 from PySide2.QtWidgets import QMessageBox
 
-from .qrc_resources import *  # noqa
+from .resources.qrc_resources import *  # noqa
 from jmbde.ui.ui_mainwindow import Ui_MainWindow
 
 
@@ -102,54 +99,6 @@ class ApplicationWindow(QMainWindow):
     def about(self) -> None:
         """Help/About message box."""
         QMessageBox.about(self, "jmbde - A BDE tool", "juergen.muelbert@gmail.com")
-
-
-class Worker(QThread):
-    """Worker Thread.
-
-    Runs work method, and create signals:
-
-    Finished.
-        No data
-
-    Error.
-        tuple (exctype, value, traceback.format_exc() )
-
-    Result.
-        object data returned from processing, anything
-
-    Progress.
-        in indicating % progress
-
-    Send_text.
-        str send text to textBrowser
-    """
-
-    finished = Signal()
-    error = Signal(tuple)
-    result = Signal(object)
-    progress = Signal(int)
-    send_text = Signal(str)
-
-    def __init__(self, parent: Any = None) -> None:
-        """Init the class.
-
-        Args:
-            parent: The initializer for the parent oject.
-        """
-        super(Worker, self).__init__(parent)
-
-    def run(self) -> None:
-        """Start work method and take care about run-time errors in thread."""
-        result = self.work()
-        self.result.emit(result)
-
-    def work(self) -> None:
-        """Emit program arguments as 'send_text' signal."""
-        arguments = QCoreApplication.arguments()
-        if len(arguments) > 1:
-            for arg in arguments[1:]:
-                self.send_text.emit(arg)
 
 
 @click.command()
