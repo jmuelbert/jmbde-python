@@ -77,5 +77,6 @@
   "ruby.format": "rubocop",
   "ruby.intellisense": "rubyLocate",
   "ruby.codeCompletion": "rcodetools",
-  "restructuredtext.confPath": "${workspaceFolder}/docs"
+  "restructuredtext.confPath": "${workspaceFolder}/docs",
+  "cmake.configureOnOpen": false
 }

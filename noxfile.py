@@ -141,7 +141,7 @@ def mypy(session: Session) -> None:
 def tests(session: Session) -> None:
     """Run the test suite."""
     install_package(session)
-    install(session, "coverage[toml]", "pytest", "faker")
+    install(session, "coverage[toml]", "pytest", "faker", "openpyxl")
     try:
         session.run("coverage", "run", "--parallel", "-m", "pytest", *session.posargs)
     finally:

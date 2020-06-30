@@ -3,7 +3,7 @@
 import pytest
 from click.testing import CliRunner
 
-# from jmbde import __main__
+from jmbde import __main__
 
 
 @pytest.fixture
@@ -14,6 +14,5 @@ def runner() -> CliRunner:
 
 def test_version(runner: CliRunner) -> None:
     """Test the main version."""
-    # response = runner.invoke(__main__.main, ["--version"])
-    # assert response.exit_code == 0
-    pass
+    response = runner.invoke(__main__.main, ["--version"])
+    assert response.exit_code == 0
