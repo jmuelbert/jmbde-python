@@ -1,6 +1,10 @@
 jmbde
 =====
 
+.. image:: https://api.codacy.com/project/badge/Grade/fa5a32decc4b4412858e9d27086175a9
+   :alt: Codacy Badge
+   :target: https://app.codacy.com/manual/jmuelbert/jmbde-python?utm_source=github.com&utm_medium=referral&utm_content=jmuelbert/jmbde-python&utm_campaign=Badge_Grade_Dashboard
+
 |Tests| |Codecov| |PyPI| |Python Version| |Read the Docs| |License| |Black| |pre-commit| |Dependabot|
 
 .. |Tests| image:: https://github.com/jmuelbert/jmbde-python/workflows/Tests/badge.svg
