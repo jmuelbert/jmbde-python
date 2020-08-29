@@ -143,9 +143,9 @@
         <file>qml/Preferences.qml</file>
         <file>qml/AboutBox.qml</file>
         <file>qml/main.qml</file>
-
-        <file>data/script.sql</file>
         -->
+        <file>data/script.sql</file>
+
 
         <file>translations/jmbde_ui_ar_DZ.qm</file>
         <file>translations/jmbde_ui_bg.qm</file>

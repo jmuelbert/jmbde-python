@@ -1,35 +1,7 @@
 jmbde
 =====
 
-|Tests| |Codecov| |PyPI| |Python Version| |Read the Docs| |License| |Black| |pre-commit| |Dependabot|
-
-.. |Tests| image:: https://github.com/jmuelbert/jmbde-python/workflows/Tests/badge.svg
-   :target: https://github.com/jmuelbert/jmbde-python/actions?workflow=Tests
-   :alt: Tests
-.. |Codecov| image:: https://codecov.io/gh/jmuelbert/jmbde-python/branch/master/graph/badge.svg
-   :target: https://codecov.io/gh/jmuelbert/jmbde-python
-   :alt: Codecov
-.. |PyPI| image:: https://img.shields.io/pypi/v/jmbde-python.svg
-   :target: https://pypi.org/project/jmbde-python/
-   :alt: PyPI
-.. |Python Version| image:: https://img.shields.io/pypi/pyversions/jmbde-python
-   :target: https://pypi.org/project/jmbde-python
-   :alt: Python Version
-.. |Read the Docs| image:: https://readthedocs.org/projects/jmbde-python/badge/
-   :target: https://jmbde-python.readthedocs.io/
-   :alt: Read the Docs
-.. |License| image:: https://img.shields.io/pypi/l/jmbde-python
-   :target: https://opensource.org/licenses/GPL-3.0
-   :alt: License
-.. |Black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
-   :target: https://github.com/psf/black
-   :alt: Black
-.. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
-   :target: https://github.com/pre-commit/pre-commit
-   :alt: pre-commit
-.. |Dependabot| image:: https://api.dependabot.com/badges/status?host=github&repo=jmuelbert/jmbde-python
-   :target: https://dependabot.com
-   :alt: Dependabot
+|Gitpod| |LGTM| |Tests| |Codecov| |PyPI| |Python Version| |Read the Docs| |License| |Black| |pre-commit| |Dependabot|
 
 Features
 --------
@@ -92,3 +64,38 @@ This project was generated from `@cjolowicz`_'s `Hypermodern Python Cookiecutter
 .. _pip: https://pip.pypa.io/
 .. github-only
 .. _Contributor Guide: CONTRIBUTING.rst
+
+
+.. |Gitpod| image:: https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod
+    :target: https://gitpod.io/#https://github.com/jmuelbert/jmbde-python
+    :alt: Gitpod-Ready-Code
+.. |LGTM| image:: https://img.shields.io/lgtm/alerts/g/jmuelbert/jmbde-python.svg?logo=lgtm&logoWidth=18
+    :target: https://lgtm.com/projects/g/jmuelbert/jmbde-python/alerts/
+    :alt: Total alerts
+.. |Tests| image:: https://github.com/jmuelbert/jmbde-python/workflows/Tests/badge.svg
+   :target: https://github.com/jmuelbert/jmbde-python/actions?workflow=Tests
+   :alt: Tests
+.. |Codecov| image:: https://codecov.io/gh/jmuelbert/jmbde-python/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/jmuelbert/jmbde-python
+   :alt: Codecov
+.. |PyPI| image:: https://img.shields.io/pypi/v/jmbde-python.svg
+   :target: https://pypi.org/project/jmbde-python/
+   :alt: PyPI
+.. |Python Version| image:: https://img.shields.io/pypi/pyversions/jmbde-python
+   :target: https://pypi.org/project/jmbde-python
+   :alt: Python Version
+.. |Read the Docs| image:: https://readthedocs.org/projects/jmbde-python/badge/
+   :target: https://jmbde-python.readthedocs.io/
+   :alt: Read the Docs
+.. |License| image:: https://img.shields.io/badge/license-GPL%20v3.0-brightgreen.svg
+   :target: LICENSE.rst
+   :alt: Repository License
+.. |Black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
+   :target: https://github.com/psf/black
+   :alt: Black
+.. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
+   :target: https://github.com/pre-commit/pre-commit
+   :alt: pre-commit
+.. |Dependabot| image:: https://api.dependabot.com/badges/status?host=github&repo=jmuelbert/jmbde-python
+   :target: https://dependabot.com
+   :alt: Dependabot

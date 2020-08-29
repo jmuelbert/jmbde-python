@@ -1,0 +1,20 @@
+image:
+  file: .gitpod.Dockerfile
+ports:
+  - port: 6080
+    onOpen: open-preview
+  - port: 5900
+    onOpen: ignore
+  - port: 35900
+    onOpen: ignore
+tasks:
+  - init: |
+      pip3 install poetry
+      poetry install
+    command: |
+      clear
+      cd src
+      python -m jmopenorders
+    name: Split terminal
+  - openMode: split-right
+    command: echo SplitTerminal && clear

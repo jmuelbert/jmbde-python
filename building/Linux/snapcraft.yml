@@ -1,0 +1,19 @@
+name: jmbde
+version: stable
+version-script: git -C parts/jmbde/build describe --abbrev=0 --tags
+summary: A BDE application
+description: |
+  A BDE application
+grade: stable
+confinement: classic
+
+apps:
+  jmbde:
+    command: bin/jmbde
+    environment:
+      PYTHONIOENCODING: utf-8
+
+parts:
+  jmbde:
+    source: https://github.com/jmuelbert/jmbde.git
+    plugin: python

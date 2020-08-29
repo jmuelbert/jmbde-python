@@ -17,6 +17,7 @@
 """The qt ui builder."""
 import os
 import shutil
+import subprocess
 from glob import glob
 
 package = "jmbde"
@@ -51,45 +52,52 @@ languages = [
 
 print("Rebuilding PyQt UI files...")
 for f in glob("{}/forms/*.ui".format(resources_dir)):
-    os.subprocess.run(
-        ["uic"],
+    print(
+        "-g python",
+        "-o {}{}/ui/ui_{}.py {}".format(
+            source_dir, package, os.path.basename(f[:-3]), f
+        ),
+    )
+    subprocess.call(
         [
-            "-g python -o {}{}/ui/ui_{}.py {}".format(
+            "uic",
+            "-g python",
+            "-o {}{}/ui/ui_{}.py {}".format(
                 source_dir, package, os.path.basename(f[:-3]), f
-            )
-        ],
+            ),
+        ]
     )
 
 print("Updating translations...")
-os.subprocess.run(["lupdate jmbde.pro"])
+subprocess.run(["lupdate", "jmbde.pro"])
 lang_files = " ".join(
     "{}/translations/{}_{}.ts".format(resources_dir, package, lang)
     for lang in languages
 )
-os.subprocess.run(
-    ["pyside2-lupdate"], ["{}{}/*.py -ts {}".format(source_dir, package, lang_files)]
+subprocess.run(
+    ["pyside2-lupdate", "{}{}/*.py -ts {}".format(source_dir, package, lang_files)]
 )
-os.subprocess.run(["lrelease"], ["{}/translations/*.ts".format(resources_dir)])
+subprocess.run(["lrelease", "{}/translations/*.ts".format(resources_dir)])
 
 print("Rebuilding PyQt resource files in source directory...")
 for f in glob("{}/*.qrc".format(source_dir)):
-    os.subprocess.run(
-        ["rcc"],
+    subprocess.run(
         [
-            "-g python -o {}/resources/qrc_{}.py {}".format(
+            "rcc",
+            " -g python -o {}/resources/qrc_{}.py {}".format(
                 package, os.path.basename(f[:-4]), f
-            )
+            ),
         ],
     )
 
 print("Rebuilding PyQt resource files in resources_dir directory...")
 for f in glob("{}/*.qrc".format(resources_dir)):
-    os.subprocess.run(
-        ["rcc"],
+    subprocess.run(
         [
-            "-g python --verbose -o {}{}/qrc_{}.py {}".format(
+            "rcc",
+            " -g python --verbose -o {}{}/qrc_{}.py {}".format(
                 source_dir, package, os.path.basename(f[:-4]), f
-            )
+            ),
         ],
     )
 

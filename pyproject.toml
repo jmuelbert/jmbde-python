@@ -27,7 +27,6 @@ classifiers=[
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8",
         "Topic :: Office/Business",
 ]
 
@@ -35,7 +34,7 @@ classifiers=[
 Changelog = "https://github.com/jmuelbert/jmbde-python/releases"
 
 [tool.poetry.dependencies]
-python = ">=3.6.1, <4"
+python = ">=3.6.5, <4.0"
 click = "^7.1.2"
 pyside2 = ">=5.13.2, <6"
 

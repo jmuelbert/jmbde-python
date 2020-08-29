@@ -1,0 +1,49 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+#
+#   jmbde a BDE Tool for datacontext
+#   Copyright (C) 2018-2020  Jürgen Mülbert
+#
+#   This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+"""JMBDe app."""
+import locale
+import os
+import sys
+from typing import Any
+
+import click
+from PySide2.QtCore import QLocale
+from PySide2.QtCore import QTranslator
+from PySide2.QtGui import QGuiApplication
+from PySide2.QtWidgets import QApplication
+from PySide2.QtWidgets import QMainWindow
+from PySide2.QtWidgets import QMessageBox
+
+from .resources.qrc_resources import *  # noqa
+from .utils import *  # noqa
+from jmbde.ui.ui_mainwindow import Ui_MainWindow
+
+
+if hasattr(Qt, "AA_EnableHighDpiScaling"):
+    QGuiApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
+if hasattr(Qt, "AA_UseHighDpiPixmaps"):
+    QGuiApplication.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
+
+
+@click.command()
+@click.version_option()
+def main() -> None:
+    """The Application main function."""
+
+
+if __name__ == "__main__":
+    main(prog_name="jmbde-python")  # pragma: no cover

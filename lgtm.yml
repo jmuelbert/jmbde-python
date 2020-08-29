@@ -1,0 +1,8 @@
+extraction:
+  cpp:
+    before_index:
+      - pip3 install poetry
+      - poetry install
+    index:
+      build_command:
+        - poetry build

@@ -1,45 +1,26 @@
-#!/usr/bin/python3
 # -*- coding: utf-8 -*-
-#
-#   jmbde a BDE Tool for datacontext
-#   Copyright (C) 2018-2020  Jürgen Mülbert
-#
-#   This program is free software: you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation, either version 3 of the License, or
-#   (at your option) any later version.
-#
-#   This program is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-#
-"""JMBDe app."""
+import os
 import sys
-from typing import Any
 
-import click
-from PySide2.QtCore import QLocale
-from PySide2.QtCore import QTranslator
-from PySide2.QtGui import QGuiApplication
-from PySide2.QtWidgets import QApplication
+from PySide2.QtWidgets import QFileDialog
 from PySide2.QtWidgets import QMainWindow
-from PySide2.QtWidgets import QMessageBox
 
-from .resources.qrc_resources import *  # noqa
-from jmbde.ui.ui_mainwindow import Ui_MainWindow
+from ..ui.ui_mainwindow import Ui_MainWindow
 
 
-class ApplicationWindow(QMainWindow):
+class MainWindow(QMainWindow):
     """Main Window."""
 
-    def __init__(self, parent: Any = None) -> None:
+    def __init__(self, app, translator, parent: Any = None) -> None:
         """Init the class.
 
         Args:
             parent: The initializer for the parent QMainWindow.
         """
-        super(ApplicationWindow, self).__init__(parent)
+        super(MainWindow, self).__init__(parent)
+
+        self._app = app
+        self._translator = translator
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
@@ -99,24 +80,3 @@ class ApplicationWindow(QMainWindow):
     def about(self) -> None:
         """Help/About message box."""
         QMessageBox.about(self, "jmbde - A BDE tool", "juergen.muelbert@gmail.com")
-
-
-@click.command()
-@click.version_option()
-def main() -> None:
-    """The Application main function."""
-    app = QApplication(sys.argv)
-
-    # QGuiApplication.setWindowIcon(QIcon("qrc:/icons/app.svg"))
-
-    translator = QTranslator()
-    translator.load("qrc:/translations/" + QLocale.system().name() + ".qm")
-    QGuiApplication.installTranslator(translator)
-
-    application = ApplicationWindow()
-    application.show()
-    sys.exit(app.exec_())
-
-
-if __name__ == "__main__":
-    main(prog_name="jmbde-python")  # pragma: no cover

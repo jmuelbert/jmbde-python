@@ -28,7 +28,7 @@ from PySide2.QtSql import QSqlQuery
 from ..logger import Logger
 
 
-class DataContext(QObject):
+class DataContext:
     """The DataContext Class.
 
     Provide the communication with the database
