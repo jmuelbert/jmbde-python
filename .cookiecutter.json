@@ -2,9 +2,9 @@
   "_template": "gh:cjolowicz/cookiecutter-hypermodern-python",
   "author": "J\u00fcrgen M\u00fclbert",
   "email": "juergen.muelbert@gmail.com",
-  "friendly_name": "jmbde",
+  "friendly_name": "Jmopenorders",
   "github_user": "jmuelbert",
-  "package_name": "jmbde-python",
-  "project_name": "jmbde-python",
-  "version": "0.2.2"
+  "package_name": "jmopenorders",
+  "project_name": "jmopenorders",
+  "version": "0.1.0"
 }

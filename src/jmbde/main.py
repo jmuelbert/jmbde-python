@@ -15,28 +15,7 @@
 #   GNU General Public License for more details.
 #
 """JMBDe app."""
-import locale
-import os
-import sys
-from typing import Any
-
 import click
-from PySide2.QtCore import QLocale
-from PySide2.QtCore import QTranslator
-from PySide2.QtGui import QGuiApplication
-from PySide2.QtWidgets import QApplication
-from PySide2.QtWidgets import QMainWindow
-from PySide2.QtWidgets import QMessageBox
-
-from .resources.qrc_resources import *  # noqa
-from .utils import *  # noqa
-from jmbde.ui.ui_mainwindow import Ui_MainWindow
-
-
-if hasattr(Qt, "AA_EnableHighDpiScaling"):
-    QGuiApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
-if hasattr(Qt, "AA_UseHighDpiPixmaps"):
-    QGuiApplication.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
 
 
 @click.command()

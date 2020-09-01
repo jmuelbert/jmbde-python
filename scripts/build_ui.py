@@ -17,8 +17,8 @@
 """The qt ui builder."""
 import os
 import shutil
-import subprocess
 from glob import glob
+from subprocess import Popen
 
 package = "jmbde"
 resources_dir = "resources"
@@ -58,7 +58,7 @@ for f in glob("{}/forms/*.ui".format(resources_dir)):
             source_dir, package, os.path.basename(f[:-3]), f
         ),
     )
-    subprocess.call(
+    Popen(
         [
             "uic",
             "-g python",
@@ -69,19 +69,17 @@ for f in glob("{}/forms/*.ui".format(resources_dir)):
     )
 
 print("Updating translations...")
-subprocess.run(["lupdate", "jmbde.pro"])
+Popen(["lupdate", "jmbde.pro"])
 lang_files = " ".join(
     "{}/translations/{}_{}.ts".format(resources_dir, package, lang)
     for lang in languages
 )
-subprocess.run(
-    ["pyside2-lupdate", "{}{}/*.py -ts {}".format(source_dir, package, lang_files)]
-)
-subprocess.run(["lrelease", "{}/translations/*.ts".format(resources_dir)])
+Popen(["pyside2-lupdate", "{}{}/*.py -ts {}".format(source_dir, package, lang_files)])
+Popen(["lrelease", "{}/translations/*.ts".format(resources_dir)])
 
 print("Rebuilding PyQt resource files in source directory...")
 for f in glob("{}/*.qrc".format(source_dir)):
-    subprocess.run(
+    Popen(
         [
             "rcc",
             " -g python -o {}/resources/qrc_{}.py {}".format(
@@ -92,7 +90,7 @@ for f in glob("{}/*.qrc".format(source_dir)):
 
 print("Rebuilding PyQt resource files in resources_dir directory...")
 for f in glob("{}/*.qrc".format(resources_dir)):
-    subprocess.run(
+    Popen(
         [
             "rcc",
             " -g python --verbose -o {}{}/qrc_{}.py {}".format(

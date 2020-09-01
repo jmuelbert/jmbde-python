@@ -18,7 +18,6 @@ from PySide2.QtCore import QCoreApplication
 from PySide2.QtCore import QDir
 from PySide2.QtCore import QFile
 from PySide2.QtCore import QIODevice
-from PySide2.QtCore import QObject
 from PySide2.QtCore import QStandardPaths
 from PySide2.QtCore import QTextStream
 from PySide2.QtCore import Slot

@@ -1,14 +1,34 @@
 # -*- coding: utf-8 -*-
+#
+#   jmbde a BDE Tool for datacontext
+#   Copyright (C) 2018-2020  Jürgen Mülbert
+#
+#   This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+"""The Application Class."""
+import locale
+import os
 import sys
 
 from gui.mainwindow import MainWindow
-from PySide2.QtCore import QLocale
 from PySide2.QtCore import QTranslator
 from PySide2.QtWidgets import QApplication
+from PySide2.QtWidgets import QIcon
+from utils import CONF_DIR
+from utils import IMAGES_DIR
+from utils import TRANSLATION_DIR
 
 
 def run():
-    app_path = os.path.abspath(os.path.dirname(sys.argv[0]))
+    """Run the Gui."""
     os.environ["QT_QUICK_CONTROLS_CONF"] = (
         (CONF_DIR / "qtquickcontrols2.conf").resolve().as_posix()
     )

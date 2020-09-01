@@ -15,13 +15,12 @@
 #   GNU General Public License for more details.
 #
 """Tests for `jmbde-python` package."""
-import pytest
-
 import jmbde.models.datacontext as dc
 
 
-def test_init():
+def test_init() -> None:
+    """Sample Test."""
     datacontext = dc.DataContext()
 
     result = datacontext.init()
-    assert result == True
+    assert result

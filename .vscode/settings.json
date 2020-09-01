@@ -78,5 +78,7 @@
   "ruby.intellisense": "rubyLocate",
   "ruby.codeCompletion": "rcodetools",
   "restructuredtext.confPath": "${workspaceFolder}/docs",
-  "cmake.configureOnOpen": false
+  "cmake.configureOnOpen": false,
+  "cSpell.words": ["jmbde"],
+  "powershell.codeFormatting.addWhitespaceAroundPipe": true
 }

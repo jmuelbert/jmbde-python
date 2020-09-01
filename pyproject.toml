@@ -36,20 +36,32 @@ Changelog = "https://github.com/jmuelbert/jmbde-python/releases"
 [tool.poetry.dependencies]
 python = ">=3.6.5, <4.0"
 click = "^7.1.2"
-pyside2 = ">=5.13.2, <6"
+pyside2 = "^5.13.2"
+
 
 [tool.poetry.dev-dependencies]
 coverage = {extras = ["toml"], version = "^5.1"}
+pytest = "^6.0.1"
 safety = "^1.9.0"
 mypy = "^0.782"
 typeguard = "^2.9.1"
-xdoctest = "^0.12.0"
-sphinx = "^3.1.1"
+xdoctest = "^0.14.0"
+sphinx = "^3.2.1"
 sphinx-autobuild = "^0.7.1"
-pytest = "^5.4.3"
-pre-commit = "^2.5.1"
-faker = "^4.1.1"
-openpyxl = "^3.0.4"
+pre-commit = "^2.7.1"
+black = "^20.8b1"
+flake8 = "^3.8.3"
+flake8-bandit = "^2.1.2"
+flake8-bugbear = "^20.1.4"
+flake8-docstrings = "^1.5.0"
+flake8-rst-docstrings = "^0.0.13"
+pep8-naming = "^0.11.1"
+darglint = "^1.5.3"
+reorder-python-imports = "^2.3.5"
+pre-commit-hooks = "^3.2.0"
+faker = "^4.1.2"
+openpyxl = "^3.0.5"
+
 
 [tool.poetry.scripts]
 # Entry points for the package https://python-poetry.org/docs/pyproject/#scripts

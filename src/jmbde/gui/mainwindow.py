@@ -1,8 +1,24 @@
 # -*- coding: utf-8 -*-
-import os
-import sys
+#
+#   jmbde a BDE Tool for datacontext
+#   Copyright (C) 2018-2020  Jürgen Mülbert
+#
+#   This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+"""The MainWindow Class."""
+from typing import Any
 
-from PySide2.QtWidgets import QFileDialog
+from PySide2.QtCore import Qt
+from PySide2.QtGui import QGuiApplication
+from PySide2.QtGui import QMessageBox
 from PySide2.QtWidgets import QMainWindow
 
 from ..ui.ui_mainwindow import Ui_MainWindow
@@ -12,12 +28,19 @@ class MainWindow(QMainWindow):
     """Main Window."""
 
     def __init__(self, app, translator, parent: Any = None) -> None:
-        """Init the class.
+        """Init the MainWindow Class.
 
         Args:
-            parent: The initializer for the parent QMainWindow.
+            app ([type]): [description]
+            translator ([type]): [description]
+            parent (Any): [description]. Defaults to None.
         """
         super(MainWindow, self).__init__(parent)
+
+        if hasattr(Qt, "AA_EnableHighDpiScaling"):
+            QGuiApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
+        if hasattr(Qt, "AA_UseHighDpiPixmaps"):
+            QGuiApplication.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
 
         self._app = app
         self._translator = translator
