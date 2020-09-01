@@ -14,14 +14,14 @@ test_safety:
     - nox -rs "safety"
 
 test_typeguard:
-    stage: test
-      - nox -rs "typeguard"
+  stage: test
+    - nox -rs "typeguard"
 
 test_mypy:
-    stage: test
-      - nox -rs  "mypy"
+  stage: test
+    - nox -rs  "mypy"
 
 test_tests:
-    stage: test
-      - nox -rs "tests"
+  stage: test
+    - nox -rs "tests"
 
