@@ -59,7 +59,7 @@ pep8-naming = "^0.11.1"
 darglint = "^1.5.8"
 reorder-python-imports = "^2.3.6"
 pre-commit-hooks = "^3.2.0"
-faker = "^4.14.2"
+faker = "^4.17.1"
 openpyxl = "^3.0.5"
 
 
