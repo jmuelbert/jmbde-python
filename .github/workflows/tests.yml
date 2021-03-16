@@ -62,7 +62,7 @@ jobs:
           python = "py{}.{}".format(*sys.version_info[:2])
           payload = sys.version.encode() + sys.executable.encode()
           digest = hashlib.sha256(payload).hexdigest()
-          result = {{ '"${{ runner.os }}-{}-{}-pre-commit".format(python, digest[:8])' }}
+          result = '"${{ runner.os }}-{}-{}-pre-commit".format(python, digest[:8])' 
           print("::set-output name=result::{}".format(result))
       - name: Restore pre-commit cache
         uses: actions/cache@v2.1.4
@@ -74,7 +74,7 @@ jobs:
             "${{ steps.pre-commit-cache.outputs.result }}-" 
       - name: Run Nox
         run: |
-          nox --force-color --python=${{ "{{" }} matrix.python-version {{ "}}" }}
+          nox --force-color --python="${{ matrix.python-version }}"
       - name: Upload coverage data
         if: always() && matrix.session == 'tests'
         uses: "actions/upload-artifact@v2.2.2"
