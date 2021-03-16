@@ -71,7 +71,7 @@ jobs:
           path: ~/.cache/pre-commit
           key: "${{ steps.pre-commit-cache.outputs.result }}-${{ hashFiles('.pre-commit-config.yaml') }}" 
           restore-keys: |
-            {{ "${{ steps.pre-commit-cache.outputs.result }}-" }}
+            "${{ steps.pre-commit-cache.outputs.result }}-" 
       - name: Run Nox
         run: |
           nox --force-color --python=${{ "{{" }} matrix.python-version {{ "}}" }}
