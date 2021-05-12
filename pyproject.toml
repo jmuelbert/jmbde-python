@@ -35,7 +35,7 @@ Changelog = "https://github.com/jmuelbert/jmbde-python/releases"
 
 [tool.poetry.dependencies]
 python = ">=3.6.5, <4.0"
-click = "^7.1.2"
+click = "^8.0.0"
 pyside2 = "^5.13.2"
 
 
