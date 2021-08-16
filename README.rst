@@ -1,7 +1,7 @@
 jmbde
 =====
 
-|Gitpod| |Tests| |Code Quality| |LGTM| |Codecov| |PyPI| |Python Version| |Read the Docs|  |Black| |pre-commit| |Dependabot| |License|
+|Gitpod| |Tests| |Code Quality| |Codecov| |PyPI| |Python Version| |Read the Docs|  |Black| |pre-commit| |Dependabot| |License|
 
 
 Features
@@ -77,6 +77,9 @@ This project was generated from `@cjolowicz`_'s `Hypermodern Python Cookiecutter
 .. _Milestones: https://github.com/jmuelbert/jmopenorders/milestones
 
 
+.. |CodeQL| image:: https://github.com/jmuelbert/jmbde-python/actions/workflows/codeql-analysis.yml/badge.svg
+   :target: https://github.com/jmuelbert/jmbde-python/actions/workflows/codeql-analysis.yml
+   :alt: CodeQL
 .. |Tests| image:: https://github.com/jmuelbert/jmbde-python/workflows/Tests/badge.svg
    :target: https://github.com/jmuelbert/jmbde-python/actions?workflow=Tests
    :alt: Tests
