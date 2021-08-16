@@ -76,10 +76,14 @@ This project was generated from `@cjolowicz`_'s `Hypermodern Python Cookiecutter
 .. _Releases: https://github.com/jmuelbert/jmopenorders/releases
 .. _Milestones: https://github.com/jmuelbert/jmopenorders/milestones
 
+.. |Gitpod| image:: https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod
+    :target: https://gitpod.io/#https://github.com/jmuelbert/jmbde-python
+    :alt: Gitpod
 
 .. |CodeQL| image:: https://github.com/jmuelbert/jmbde-python/actions/workflows/codeql-analysis.yml/badge.svg
    :target: https://github.com/jmuelbert/jmbde-python/actions/workflows/codeql-analysis.yml
    :alt: CodeQL
+   
 .. |Tests| image:: https://github.com/jmuelbert/jmbde-python/workflows/Tests/badge.svg
    :target: https://github.com/jmuelbert/jmbde-python/actions?workflow=Tests
    :alt: Tests
