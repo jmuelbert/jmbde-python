@@ -51,7 +51,7 @@ class DataContext:
         For the Moment just SQLite
 
         Returns:
-            Return true is the database successfull initialized.
+            Return true is the database successful initialized.
         """
         self.database = QSqlDatabase.database()
 
@@ -112,7 +112,7 @@ class DataContext:
             insert_data: the new data to insert int the table.
 
         Returns:
-            True is the insertion successfull.
+            True is the insertion successful.
         """
         return True
 
@@ -215,7 +215,7 @@ class DataContext:
         The DDL is a script that provided as QResource
 
         Returns:
-            True if creation succesful.
+            True if creation successful.
         """
         if not self.database.isValid():
             self.log.warning("The Database is not valid, reopen")
