@@ -13,6 +13,8 @@
 
 **Merged pull requests:**
 
+- Bump codacy/codacy-analysis-cli-action from 1.1.0 to 4.0.0 [\#417](https://github.com/jmuelbert/jmbde-python/pull/417)
+- Fix typos by misspell-fixer for refs/heads/master [\#416](https://github.com/jmuelbert/jmbde-python/pull/416)
 - Bump poetry from 1.1.7 to 1.1.8 in /.github/workflows [\#413](https://github.com/jmuelbert/jmbde-python/pull/413)
 - Bump pip from 21.2.3 to 21.2.4 in /.github/workflows [\#412](https://github.com/jmuelbert/jmbde-python/pull/412)
 - Bump virtualenv from 20.7.1 to 20.7.2 in /.github/workflows [\#411](https://github.com/jmuelbert/jmbde-python/pull/411)
