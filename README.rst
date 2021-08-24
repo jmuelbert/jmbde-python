@@ -1,7 +1,7 @@
 jmbde
 =====
 
-|Gitpod| |Tests| |Code Quality| |Codecov| |PyPI| |Python Version| |Read the Docs|  |Black| |pre-commit| |Dependabot| |License|
+|Gitpod| |Tests|  |PyPI| |Python Version| |Read the Docs| |License|
 
 
 Features
@@ -80,10 +80,6 @@ This project was generated from `@cjolowicz`_'s `Hypermodern Python Cookiecutter
     :target: https://gitpod.io/#https://github.com/jmuelbert/jmbde-python
     :alt: Gitpod
 
-.. |CodeQL| image:: https://github.com/jmuelbert/jmbde-python/actions/workflows/codeql-analysis.yml/badge.svg
-   :target: https://github.com/jmuelbert/jmbde-python/actions/workflows/codeql-analysis.yml
-   :alt: CodeQL
-   
 .. |Tests| image:: https://github.com/jmuelbert/jmbde-python/workflows/Tests/badge.svg
    :target: https://github.com/jmuelbert/jmbde-python/actions?workflow=Tests
    :alt: Tests
@@ -108,6 +104,4 @@ This project was generated from `@cjolowicz`_'s `Hypermodern Python Cookiecutter
 .. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
    :target: https://github.com/pre-commit/pre-commit
    :alt: pre-commit
-.. |Dependabot| image:: https://api.dependabot.com/badges/status?host=github&repo=jmuelbert/jmbde-python
-   :target: https://dependabot.com
-   :alt: Dependabot
+
