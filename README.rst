@@ -98,10 +98,4 @@ This project was generated from `@cjolowicz`_'s `Hypermodern Python Cookiecutter
 .. |License| image:: https://img.shields.io/pypi/l/jmbde-python
    :target: https://opensource.org/licenses/GPL-3.0
    :alt: License
-.. |Black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
-   :target: https://github.com/psf/black
-   :alt: Black
-.. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
-   :target: https://github.com/pre-commit/pre-commit
-   :alt: pre-commit
 
