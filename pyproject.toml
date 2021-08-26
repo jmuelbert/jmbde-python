@@ -27,6 +27,8 @@ classifiers=[
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "Topic :: Office/Business",
 ]
 
@@ -37,7 +39,6 @@ Changelog = "https://github.com/jmuelbert/jmbde-python/releases"
 python = ">=3.6.5, <4.0"
 click = "^8.0.0"
 pyside2 = "^5.13.2"
-
 
 [tool.poetry.dev-dependencies]
 coverage = {extras = ["toml"], version = "^5.3"}

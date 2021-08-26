@@ -45,21 +45,16 @@
   "docker-linter.debug": true,
   "docker-linter.flake8.enable": true,
   "docker-linter.rubocop.enable": true,
-  "editor.acceptSuggestionOnEnter": "on",
-  "editor.quickSuggestionsDelay": 10,
-  "editor.suggestOnTriggerCharacters": true,
-  "editor.tabCompletion": "on",
-  "editor.suggest.localityBonus": true,
-  "editor.suggestSelection": "recentlyUsed",
-  "editor.wordBasedSuggestions": true,
-  "editor.parameterHints.enabled": true,
-  "editor.quickSuggestions": {
-    "comments": false,
-    "other": true,
-    "strings": false
-  },
+  "editor.formatOnSave": true,
+  "files.encoding": "utf8",
+  "files.eol": "\n",
   "files.autoSave": "afterDelay",
   "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "**/*.7z": true,
+    "**/*.rar": true,
+    "**/Thumbs.db": true    
     "**/*.js.map": true,
     "**/*.min.js": true,
     "**/*.pyc": true,
@@ -72,13 +67,8 @@
     "build": true,
     "htmlcov": true
   },
-  "files.trimTrailingWhitespace": true,
   "restructuredtext.linter.executablePath": "doc8",
-  "ruby.format": "rubocop",
-  "ruby.intellisense": "rubyLocate",
-  "ruby.codeCompletion": "rcodetools",
   "restructuredtext.confPath": "${workspaceFolder}/docs",
-  "cmake.configureOnOpen": false,
   "cSpell.words": ["jmbde"],
   "powershell.codeFormatting.addWhitespaceAroundPipe": true
 }
