@@ -13,6 +13,7 @@
 
 **Merged pull requests:**
 
+- Update project structur [\#420](https://github.com/jmuelbert/jmbde-python/pull/420)
 - Bump peter-evans/create-pull-request from 3.10.0 to 3.10.1 [\#419](https://github.com/jmuelbert/jmbde-python/pull/419)
 - Fix typos by misspell-fixer for refs/heads/master [\#418](https://github.com/jmuelbert/jmbde-python/pull/418)
 - Bump codacy/codacy-analysis-cli-action from 1.1.0 to 4.0.0 [\#417](https://github.com/jmuelbert/jmbde-python/pull/417)
@@ -181,10 +182,6 @@
 - PyUp Update pre-commit to 1.21.0 [\#76](https://github.com/jmuelbert/jmbde-python/pull/76)
 - PyUp Update tox to 3.14.3 [\#75](https://github.com/jmuelbert/jmbde-python/pull/75)
 - PyUp Update sphinx to 2.3.1 [\#74](https://github.com/jmuelbert/jmbde-python/pull/74)
-- PyUp Update mypy to 0.761 [\#72](https://github.com/jmuelbert/jmbde-python/pull/72)
-- PyUp Update pytest-cov to 2.8.1 [\#71](https://github.com/jmuelbert/jmbde-python/pull/71)
-- PyUp Update readme-renderer to 24.0 [\#70](https://github.com/jmuelbert/jmbde-python/pull/70)
-- PyUp Update semantic-version to 2.8.4 [\#69](https://github.com/jmuelbert/jmbde-python/pull/69)
 
 
 
