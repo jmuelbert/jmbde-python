@@ -181,7 +181,6 @@
 - PyUp Update coverage to 5.0.2 [\#77](https://github.com/jmuelbert/jmbde-python/pull/77)
 - PyUp Update pre-commit to 1.21.0 [\#76](https://github.com/jmuelbert/jmbde-python/pull/76)
 - PyUp Update tox to 3.14.3 [\#75](https://github.com/jmuelbert/jmbde-python/pull/75)
-- PyUp Update sphinx to 2.3.1 [\#74](https://github.com/jmuelbert/jmbde-python/pull/74)
 
 
 
