@@ -161,10 +161,10 @@
 - PyUp Update coverage to 5.1 [\#134](https://github.com/jmuelbert/jmbde-python/pull/134)
 - PyUp Update codecov to 2.0.22 [\#133](https://github.com/jmuelbert/jmbde-python/pull/133)
 - PyUp Update setup-cfg-fmt to 1.9.0 [\#132](https://github.com/jmuelbert/jmbde-python/pull/132)
+- PyUp Update tox to 3.14.6 [\#131](https://github.com/jmuelbert/jmbde-python/pull/131)
 - PyUp Update bump2version to 1.0.0 [\#130](https://github.com/jmuelbert/jmbde-python/pull/130)
 - PyUp Update codecov to 2.0.22 [\#129](https://github.com/jmuelbert/jmbde-python/pull/129)
 - PyUp Update blacken-docs to 1.6.0 [\#128](https://github.com/jmuelbert/jmbde-python/pull/128)
-- PyUp Update readme-renderer to 26.0 [\#126](https://github.com/jmuelbert/jmbde-python/pull/126)
 
 
 
