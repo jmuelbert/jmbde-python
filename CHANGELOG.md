@@ -13,6 +13,10 @@
 
 **Merged pull requests:**
 
+- Bump poetry from 1.1.8 to 1.1.9 in /.github/workflows [\#429](https://github.com/jmuelbert/jmbde-python/pull/429)
+- Bump virtualenv from 20.7.2 to 20.8.0 in /.github/workflows [\#428](https://github.com/jmuelbert/jmbde-python/pull/428)
+- Bump tomwhross/write-good-action from 1.2 to 1.5 [\#427](https://github.com/jmuelbert/jmbde-python/pull/427)
+- Bump codecov/codecov-action from 2.0.3 to 2.1.0 [\#426](https://github.com/jmuelbert/jmbde-python/pull/426)
 - Bump sphinx from 4.1.2 to 4.2.0 in /docs [\#425](https://github.com/jmuelbert/jmbde-python/pull/425)
 - Update sphinx to 4.2.0 [\#424](https://github.com/jmuelbert/jmbde-python/pull/424)
 - Bump david-a-wheeler/flawfinder from 2.0.19.pre.alpha1 to 2.0.19 [\#423](https://github.com/jmuelbert/jmbde-python/pull/423)
@@ -157,14 +161,6 @@
 - PyUp Update reorder-python-imports to 2.3.1 [\#160](https://github.com/jmuelbert/jmbde-python/pull/160)
 - PyUp Update pre-commit to 2.4.0 [\#158](https://github.com/jmuelbert/jmbde-python/pull/158)
 - PyUp Update blacken-docs to 1.7.0 [\#156](https://github.com/jmuelbert/jmbde-python/pull/156)
-- PyUp Update tox to 3.14.6 [\#137](https://github.com/jmuelbert/jmbde-python/pull/137)
-- PyUp Update coverage to 5.1 [\#134](https://github.com/jmuelbert/jmbde-python/pull/134)
-- PyUp Update codecov to 2.0.22 [\#133](https://github.com/jmuelbert/jmbde-python/pull/133)
-- PyUp Update setup-cfg-fmt to 1.9.0 [\#132](https://github.com/jmuelbert/jmbde-python/pull/132)
-- PyUp Update tox to 3.14.6 [\#131](https://github.com/jmuelbert/jmbde-python/pull/131)
-- PyUp Update bump2version to 1.0.0 [\#130](https://github.com/jmuelbert/jmbde-python/pull/130)
-- PyUp Update codecov to 2.0.22 [\#129](https://github.com/jmuelbert/jmbde-python/pull/129)
-- PyUp Update blacken-docs to 1.6.0 [\#128](https://github.com/jmuelbert/jmbde-python/pull/128)
 
 
 
