@@ -160,7 +160,6 @@
 - PyUp Update tox to 3.15.1 [\#163](https://github.com/jmuelbert/jmbde-python/pull/163)
 - PyUp Update reorder-python-imports to 2.3.1 [\#160](https://github.com/jmuelbert/jmbde-python/pull/160)
 - PyUp Update pre-commit to 2.4.0 [\#158](https://github.com/jmuelbert/jmbde-python/pull/158)
-- PyUp Update blacken-docs to 1.7.0 [\#156](https://github.com/jmuelbert/jmbde-python/pull/156)
 
 
 
