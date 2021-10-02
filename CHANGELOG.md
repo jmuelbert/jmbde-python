@@ -13,6 +13,9 @@
 
 **Merged pull requests:**
 
+- Bump poetry from 1.1.9 to 1.1.10 in /.github/workflows [\#437](https://github.com/jmuelbert/jmbde-python/pull/437)
+- Bump virtualenv from 20.7.2 to 20.8.1 in /.github/workflows [\#436](https://github.com/jmuelbert/jmbde-python/pull/436)
+- Bump codecov/codecov-action from 2.0.3 to 2.1.0 [\#435](https://github.com/jmuelbert/jmbde-python/pull/435)
 - Bump poetry from 1.1.8 to 1.1.9 in /.github/workflows [\#429](https://github.com/jmuelbert/jmbde-python/pull/429)
 - Bump virtualenv from 20.7.2 to 20.8.0 in /.github/workflows [\#428](https://github.com/jmuelbert/jmbde-python/pull/428)
 - Bump tomwhross/write-good-action from 1.2 to 1.5 [\#427](https://github.com/jmuelbert/jmbde-python/pull/427)
@@ -154,12 +157,6 @@
 - Update sphinx to 3.1.2 [\#199](https://github.com/jmuelbert/jmbde-python/pull/199)
 - Bump mypy from 0.780 to 0.782 [\#198](https://github.com/jmuelbert/jmbde-python/pull/198)
 - PyUp Update sphinx to 3.1.1 [\#197](https://github.com/jmuelbert/jmbde-python/pull/197)
-- PyUp Update pytest-cov to 2.9.0 [\#166](https://github.com/jmuelbert/jmbde-python/pull/166)
-- PyUp Update flake8 to 3.8.2 [\#165](https://github.com/jmuelbert/jmbde-python/pull/165)
-- PyUp Update codecov to 2.1.3 [\#164](https://github.com/jmuelbert/jmbde-python/pull/164)
-- PyUp Update tox to 3.15.1 [\#163](https://github.com/jmuelbert/jmbde-python/pull/163)
-- PyUp Update reorder-python-imports to 2.3.1 [\#160](https://github.com/jmuelbert/jmbde-python/pull/160)
-- PyUp Update pre-commit to 2.4.0 [\#158](https://github.com/jmuelbert/jmbde-python/pull/158)
 
 
 
