@@ -156,8 +156,6 @@
 - Add a Codacy badge to README.rst [\#200](https://github.com/jmuelbert/jmbde-python/pull/200)
 - Update sphinx to 3.1.2 [\#199](https://github.com/jmuelbert/jmbde-python/pull/199)
 - Bump mypy from 0.780 to 0.782 [\#198](https://github.com/jmuelbert/jmbde-python/pull/198)
-- PyUp Update sphinx to 3.1.1 [\#197](https://github.com/jmuelbert/jmbde-python/pull/197)
-- PyUp Update flake8 to 3.8.2 [\#165](https://github.com/jmuelbert/jmbde-python/pull/165)
 
 
 
