@@ -41,7 +41,7 @@ click = "^8.0.0"
 pyside2 = "^5.13.2"
 
 [tool.poetry.dev-dependencies]
-coverage = {extras = ["toml"], version = "^5.3"}
+coverage = {extras = ["toml"], version = "^6.0"}
 pytest = "^6.1.2"
 safety = "^1.9.0"
 mypy = "^0.910"
