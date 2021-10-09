@@ -13,6 +13,8 @@
 
 **Merged pull requests:**
 
+- Update coverage requirement from ^5.3 to ^6.0 [\#439](https://github.com/jmuelbert/jmbde-python/pull/439)
+- Bump nox from 2021.6.12 to 2021.10.1 in /.github/workflows [\#438](https://github.com/jmuelbert/jmbde-python/pull/438)
 - Bump poetry from 1.1.9 to 1.1.10 in /.github/workflows [\#437](https://github.com/jmuelbert/jmbde-python/pull/437)
 - Bump virtualenv from 20.7.2 to 20.8.1 in /.github/workflows [\#436](https://github.com/jmuelbert/jmbde-python/pull/436)
 - Bump codecov/codecov-action from 2.0.3 to 2.1.0 [\#435](https://github.com/jmuelbert/jmbde-python/pull/435)
@@ -154,8 +156,6 @@
 - Bump pypa/gh-action-pypi-publish from v1.2.2 to v1.3.1 [\#203](https://github.com/jmuelbert/jmbde-python/pull/203)
 - Update sphinx to 3.2.1 [\#202](https://github.com/jmuelbert/jmbde-python/pull/202)
 - Add a Codacy badge to README.rst [\#200](https://github.com/jmuelbert/jmbde-python/pull/200)
-- Update sphinx to 3.1.2 [\#199](https://github.com/jmuelbert/jmbde-python/pull/199)
-- Bump mypy from 0.780 to 0.782 [\#198](https://github.com/jmuelbert/jmbde-python/pull/198)
 
 
 
