@@ -155,7 +155,6 @@
 - Bump salsify/action-detect-and-tag-new-version from v1.0.3 to v2.0.1 [\#204](https://github.com/jmuelbert/jmbde-python/pull/204)
 - Bump pypa/gh-action-pypi-publish from v1.2.2 to v1.3.1 [\#203](https://github.com/jmuelbert/jmbde-python/pull/203)
 - Update sphinx to 3.2.1 [\#202](https://github.com/jmuelbert/jmbde-python/pull/202)
-- Add a Codacy badge to README.rst [\#200](https://github.com/jmuelbert/jmbde-python/pull/200)
 
 
 
