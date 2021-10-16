@@ -13,6 +13,9 @@
 
 **Merged pull requests:**
 
+- Update flake8 requirement from ^3.8.3 to ^4.0.1 [\#442](https://github.com/jmuelbert/jmbde-python/pull/442)
+- Update faker requirement from ^8.0.0 to ^9.3.0 [\#441](https://github.com/jmuelbert/jmbde-python/pull/441)
+- Bump poetry from 1.1.10 to 1.1.11 in /.github/workflows [\#440](https://github.com/jmuelbert/jmbde-python/pull/440)
 - Update coverage requirement from ^5.3 to ^6.0 [\#439](https://github.com/jmuelbert/jmbde-python/pull/439)
 - Bump nox from 2021.6.12 to 2021.10.1 in /.github/workflows [\#438](https://github.com/jmuelbert/jmbde-python/pull/438)
 - Bump poetry from 1.1.9 to 1.1.10 in /.github/workflows [\#437](https://github.com/jmuelbert/jmbde-python/pull/437)
@@ -150,11 +153,6 @@
 - Bump codecov/codecov-action from v1.0.12 to v1.0.13 [\#209](https://github.com/jmuelbert/jmbde-python/pull/209)
 - Bump actions/stale from v1 to v3.0.10 [\#208](https://github.com/jmuelbert/jmbde-python/pull/208)
 - Bump codecov/codecov-action from v1.0.12 to v1.0.13 [\#207](https://github.com/jmuelbert/jmbde-python/pull/207)
-- Bump actions/checkout from v2.2.0 to v2.3.2 [\#206](https://github.com/jmuelbert/jmbde-python/pull/206)
-- Bump codecov/codecov-action from v1.0.7 to v1.0.12 [\#205](https://github.com/jmuelbert/jmbde-python/pull/205)
-- Bump salsify/action-detect-and-tag-new-version from v1.0.3 to v2.0.1 [\#204](https://github.com/jmuelbert/jmbde-python/pull/204)
-- Bump pypa/gh-action-pypi-publish from v1.2.2 to v1.3.1 [\#203](https://github.com/jmuelbert/jmbde-python/pull/203)
-- Update sphinx to 3.2.1 [\#202](https://github.com/jmuelbert/jmbde-python/pull/202)
 
 
 
