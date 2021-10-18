@@ -152,7 +152,6 @@
 - Bump sphinx-autobuild from 0.7.1 to 2020.9.1 [\#210](https://github.com/jmuelbert/jmbde-python/pull/210)
 - Bump codecov/codecov-action from v1.0.12 to v1.0.13 [\#209](https://github.com/jmuelbert/jmbde-python/pull/209)
 - Bump actions/stale from v1 to v3.0.10 [\#208](https://github.com/jmuelbert/jmbde-python/pull/208)
-- Bump codecov/codecov-action from v1.0.12 to v1.0.13 [\#207](https://github.com/jmuelbert/jmbde-python/pull/207)
 
 
 
