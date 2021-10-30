@@ -13,6 +13,7 @@
 
 **Merged pull requests:**
 
+- Bump pip from 21.2.4 to 21.3 in /.github/workflows [\#443](https://github.com/jmuelbert/jmbde-python/pull/443)
 - Update flake8 requirement from ^3.8.3 to ^4.0.1 [\#442](https://github.com/jmuelbert/jmbde-python/pull/442)
 - Update faker requirement from ^8.0.0 to ^9.3.0 [\#441](https://github.com/jmuelbert/jmbde-python/pull/441)
 - Bump poetry from 1.1.10 to 1.1.11 in /.github/workflows [\#440](https://github.com/jmuelbert/jmbde-python/pull/440)
@@ -151,7 +152,6 @@
 - Bump darglint from 1.5.3 to 1.5.4 [\#211](https://github.com/jmuelbert/jmbde-python/pull/211)
 - Bump sphinx-autobuild from 0.7.1 to 2020.9.1 [\#210](https://github.com/jmuelbert/jmbde-python/pull/210)
 - Bump codecov/codecov-action from v1.0.12 to v1.0.13 [\#209](https://github.com/jmuelbert/jmbde-python/pull/209)
-- Bump actions/stale from v1 to v3.0.10 [\#208](https://github.com/jmuelbert/jmbde-python/pull/208)
 
 
 
