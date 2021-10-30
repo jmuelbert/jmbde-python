@@ -146,8 +146,6 @@
 - Bump pypa/gh-action-pypi-publish from v1.3.1 to v1.4.1 [\#219](https://github.com/jmuelbert/jmbde-python/pull/219)
 - Bump actions/checkout from v2.3.2 to v2.3.3 [\#218](https://github.com/jmuelbert/jmbde-python/pull/218)
 - Bump faker from 4.1.2 to 4.1.3 [\#217](https://github.com/jmuelbert/jmbde-python/pull/217)
-- Bump xdoctest from 0.14.0 to 0.15.0 [\#215](https://github.com/jmuelbert/jmbde-python/pull/215)
-- Bump coverage from 5.2.1 to 5.3 [\#214](https://github.com/jmuelbert/jmbde-python/pull/214)
 
 
 
