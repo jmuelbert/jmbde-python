@@ -1,74 +1,8 @@
 {
-  "python.pythonPath": "/Users/juergen/Library/Caches/pypoetry/virtualenvs/jmbde-Y5PItABN-py3.8/bin/python",
-  "python.workspaceSymbols.enabled": false,
-  "python.linter": "flake8",
-  "python.linting.enabled": true,
-  "python.linting.lintOnSave": true,
-  "python.linting.pylintUseMinimalCheckers": false,
-  "python.linting.pylintEnabled": false,
-  "python.linting.pylintArgs": ["--reports", "12", "--disable-msg", "I0011"],
-  "python.linting.mypyEnabled": false,
-  "python.linting.pylamaEnabled": false,
-  "python.linting.flake8Enabled": true,
-  "python.linting.flake8Args": [
-    "--select=ANN,B,B9,BLK,C,D,DAR,E,F,I,S,W",
-    "--ignore=E203,E501,W503,ANN101",
-    "--verbose",
-    "--max-line-length = 80",
-    "--max-complexity = 11"
-  ],
-  "python.linting.pycodestyleEnabled": false,
-  "python.linting.pydocstyleEnabled": false,
-  "python.linting.pydocstyleArgs": [
-    "--ignore=D100",
-    "--ignore=D203",
-    "--ignore=D405"
-  ],
-  "python.linting.ignorePatterns": [
-    "**/site-packages/**/*.py",
-    ".mypy_cache/*",
-    ".nox/*",
-    ".pytest_cache/*",
-    ".py_type/*",
-    ".scratch/*",
-    ".vscode/*.py",
-    "_vendor/*",
-    "__pycache__",
-    "build/*",
-    "data/*"
-  ],
-  "python.formatting.provider": "black",
-  "python.formatting.blackArgs": ["--line-length 80"],
-  "pythonTestExplorer.testFramework": "pytest",
-  "python.testing.pytestEnabled": true,
-  "python.condaPath": "~/opt//miniconda/bin/conda",
-  "docker-linter.debug": true,
-  "docker-linter.flake8.enable": true,
-  "docker-linter.rubocop.enable": true,
-  "editor.formatOnSave": true,
-  "files.encoding": "utf8",
-  "files.eol": "\n",
-  "files.autoSave": "afterDelay",
-  "files.exclude": {
-    "**/.git": true,
-    "**/.DS_Store": true,
-    "**/*.7z": true,
-    "**/*.rar": true,
-    "**/Thumbs.db": true    
-    "**/*.js.map": true,
-    "**/*.min.js": true,
-    "**/*.pyc": true,
-    "**/.classpath": true,
-    "**/.factorypath": true,
-    "**/.project": true,
-    "**/.settings": true,
-    "*.egg-info": true,
-    "*.log": true,
-    "build": true,
-    "htmlcov": true
+  "component.configuration": "value",
+  "[language]": {
+    "component.configuration": "value"
   },
-  "restructuredtext.linter.executablePath": "doc8",
-  "restructuredtext.confPath": "${workspaceFolder}/docs",
-  "cSpell.words": ["jmbde"],
-  "powershell.codeFormatting.addWhitespaceAroundPipe": true
+  "cSpell.words": ["jmopenorders"],
+  "python.pythonPath": "/Users/juergen/Projects/py-venv/bin/python"
 }
