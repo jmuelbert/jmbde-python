@@ -13,6 +13,7 @@
 
 **Merged pull requests:**
 
+- Bump virtualenv from 20.8.1 to 20.9.0 in /.github/workflows [\#444](https://github.com/jmuelbert/jmbde-python/pull/444)
 - Bump pip from 21.2.4 to 21.3 in /.github/workflows [\#443](https://github.com/jmuelbert/jmbde-python/pull/443)
 - Update flake8 requirement from ^3.8.3 to ^4.0.1 [\#442](https://github.com/jmuelbert/jmbde-python/pull/442)
 - Update faker requirement from ^8.0.0 to ^9.3.0 [\#441](https://github.com/jmuelbert/jmbde-python/pull/441)
@@ -147,11 +148,6 @@
 - Bump faker from 4.1.2 to 4.1.3 [\#217](https://github.com/jmuelbert/jmbde-python/pull/217)
 - Bump xdoctest from 0.14.0 to 0.15.0 [\#215](https://github.com/jmuelbert/jmbde-python/pull/215)
 - Bump coverage from 5.2.1 to 5.3 [\#214](https://github.com/jmuelbert/jmbde-python/pull/214)
-- Bump actions/stale from v3.0.10 to v3.0.11 [\#213](https://github.com/jmuelbert/jmbde-python/pull/213)
-- Bump pip from 20.2.2 to 20.2.3 in /.github/workflows [\#212](https://github.com/jmuelbert/jmbde-python/pull/212)
-- Bump darglint from 1.5.3 to 1.5.4 [\#211](https://github.com/jmuelbert/jmbde-python/pull/211)
-- Bump sphinx-autobuild from 0.7.1 to 2020.9.1 [\#210](https://github.com/jmuelbert/jmbde-python/pull/210)
-- Bump codecov/codecov-action from v1.0.12 to v1.0.13 [\#209](https://github.com/jmuelbert/jmbde-python/pull/209)
 
 
 
