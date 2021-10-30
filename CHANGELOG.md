@@ -136,9 +136,6 @@
 - Bump virtualenv from 20.0.32 to 20.0.34 in /.github/workflows [\#237](https://github.com/jmuelbert/jmbde-python/pull/237)
 - Bump mypy from 0.782 to 0.790 [\#236](https://github.com/jmuelbert/jmbde-python/pull/236)
 - Bump actions/stale from v3.0.11 to v3.0.12 [\#235](https://github.com/jmuelbert/jmbde-python/pull/235)
-- Bump poetry from 1.0.10 to 1.1.2 in /.github/workflows [\#233](https://github.com/jmuelbert/jmbde-python/pull/233)
-- Bump pytest from 6.1.0 to 6.1.1 [\#228](https://github.com/jmuelbert/jmbde-python/pull/228)
-- Bump darglint from 1.5.4 to 1.5.5 [\#226](https://github.com/jmuelbert/jmbde-python/pull/226)
 
 
 
