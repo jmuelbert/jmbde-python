@@ -141,9 +141,6 @@
 - Bump darglint from 1.5.4 to 1.5.5 [\#226](https://github.com/jmuelbert/jmbde-python/pull/226)
 - Bump virtualenv from 20.0.31 to 20.0.32 in /.github/workflows [\#224](https://github.com/jmuelbert/jmbde-python/pull/224)
 - Bump faker from 4.1.3 to 4.1.6 [\#223](https://github.com/jmuelbert/jmbde-python/pull/223)
-- Bump flake8-rst-docstrings from 0.0.13 to 0.0.14 [\#221](https://github.com/jmuelbert/jmbde-python/pull/221)
-- Bump pytest from 6.0.1 to 6.1.0 [\#220](https://github.com/jmuelbert/jmbde-python/pull/220)
-- Bump pypa/gh-action-pypi-publish from v1.3.1 to v1.4.1 [\#219](https://github.com/jmuelbert/jmbde-python/pull/219)
 
 
 
