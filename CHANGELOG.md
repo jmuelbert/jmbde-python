@@ -139,8 +139,6 @@
 - Bump poetry from 1.0.10 to 1.1.2 in /.github/workflows [\#233](https://github.com/jmuelbert/jmbde-python/pull/233)
 - Bump pytest from 6.1.0 to 6.1.1 [\#228](https://github.com/jmuelbert/jmbde-python/pull/228)
 - Bump darglint from 1.5.4 to 1.5.5 [\#226](https://github.com/jmuelbert/jmbde-python/pull/226)
-- Bump virtualenv from 20.0.31 to 20.0.32 in /.github/workflows [\#224](https://github.com/jmuelbert/jmbde-python/pull/224)
-- Bump faker from 4.1.3 to 4.1.6 [\#223](https://github.com/jmuelbert/jmbde-python/pull/223)
 
 
 
