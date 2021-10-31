@@ -134,8 +134,6 @@
 - Bump codecov/codecov-action from v1.0.13 to v1.0.14 [\#241](https://github.com/jmuelbert/jmbde-python/pull/241)
 - Bump poetry from 1.1.2 to 1.1.3 in /.github/workflows [\#239](https://github.com/jmuelbert/jmbde-python/pull/239)
 - Bump virtualenv from 20.0.32 to 20.0.34 in /.github/workflows [\#237](https://github.com/jmuelbert/jmbde-python/pull/237)
-- Bump mypy from 0.782 to 0.790 [\#236](https://github.com/jmuelbert/jmbde-python/pull/236)
-- Bump actions/stale from v3.0.11 to v3.0.12 [\#235](https://github.com/jmuelbert/jmbde-python/pull/235)
 
 
 
