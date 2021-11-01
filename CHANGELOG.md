@@ -133,7 +133,6 @@
 - Bump pip from 20.2.3 to 20.2.4 in /.github/workflows [\#242](https://github.com/jmuelbert/jmbde-python/pull/242)
 - Bump codecov/codecov-action from v1.0.13 to v1.0.14 [\#241](https://github.com/jmuelbert/jmbde-python/pull/241)
 - Bump poetry from 1.1.2 to 1.1.3 in /.github/workflows [\#239](https://github.com/jmuelbert/jmbde-python/pull/239)
-- Bump virtualenv from 20.0.32 to 20.0.34 in /.github/workflows [\#237](https://github.com/jmuelbert/jmbde-python/pull/237)
 
 
 
