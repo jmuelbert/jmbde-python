@@ -1,7 +1,4 @@
-{%- macro heading(text) -%}
-{{text}}
-{% for _ in text %}-{% endfor %}
-{%- endmacro -%}
+
 Reference
 =========
 
@@ -10,7 +7,7 @@ Reference
     :backlinks: none
 
 
-{{ heading(jmbde + ".__main__") }}
+jmbde.main
 
 .. automodule:: jmbde.__main__
    :members:

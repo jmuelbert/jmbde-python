@@ -1,11 +1,12 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource prefix="/">
-        <file>icons/demo.svg</file>
+        <file>data/script.sql</file>
         <file>icons/app.icns</file>
         <file>icons/app.ico</file>
         <file>icons/app.svg</file>
-
+        <file>icons/jmbde.png</file>
+        <file>icons/jmbde.svg</file>
         <file>icons/tango/16x16/accessories-text-editor.png</file>
         <file>icons/tango/16x16/document-new.png</file>
         <file>icons/tango/16x16/document-open.png</file>
@@ -69,133 +70,40 @@
 
         <file>style.qss</file>
         <file>quickcontrols2.conf</file>
-        <!---
-        <file>breeze/about.svg</file>
-        <file>breeze/add.svg</file>
-        <file>breeze/exit.svg</file>
-        <file>breeze/folder.svg</file>
-        <file>breeze/minimize.svg</file>
-        <file>breeze/ok.svg</file>
-        <file>breeze/pause.svg</file>
-        <file>breeze/play.svg</file>
-        <file>breeze/apps/32/systemsettings.svg</file>
-        <file>breeze/remove.svg</file>
-        <file>breeze/setting.svg</file>
-        <file>breeze/stop.svg</file>
-        <file>breeze/stop_all.svg</file>
-        <file>breeze/trash.svg</file>
-        <file>breeze/window.svg</file>
-        <file>breeze/file.svg</file>
-        <file>breeze/multi_remove.svg</file>
-        <file>breeze/multi_trash.svg</file>
-        <file>breeze/select_all.svg</file>
-        <file>breeze/add_queue.svg</file>
-        <file>breeze/start_queue.svg</file>
-        <file>breeze/stop_queue.svg</file>
-        <file>breeze/pause_queue.svg</file>
-        <file>breeze/remove_queue.svg</file>
-        <file>breeze/menu.svg</file>
-        <file>breeze/up.svg</file>
-        <file>breeze/down.svg</file>
-        <file>breeze/multi_up.svg</file>
-        <file>breeze/multi_down.svg</file>
-        <file>breeze/clipboard.svg</file>
-        <file>breeze/refresh.svg</file>
-        <file>breeze/video_finder.svg</file>
 
-        <file>breeze-dark/about.svg</file>
-        <file>breeze-dark/add.svg</file>
-        <file>breeze-dark/exit.svg</file>
-        <file>breeze-dark/folder.svg</file>
-        <file>breeze-dark/minimize.svg</file>
-        <file>breeze-dark/ok.svg</file>
-        <file>breeze-dark/pause.svg</file>
-        <file>breeze-dark/play.svg</file>
-        <file>breeze-dark/apps/32/systemsettings.svg</file>
-        <file>breeze-dark/remove.svg</file>
-        <file>breeze-dark/setting.svg</file>
-        <file>breeze-dark/stop.svg</file>
-        <file>breeze-dark/stop_all.svg</file>
-        <file>breeze-dark/trash.svg</file>
-        <file>breeze-dark/window.svg</file>
-        <file>breeze-dark/file.svg</file>
-        <file>breeze-dark/multi_remove.svg</file>
-        <file>breeze-dark/multi_trash.svg</file>
-        <file>breeze-dark/select_all.svg</file>
-        <file>breeze-dark/add_queue.svg</file>
-        <file>breeze-dark/start_queue.svg</file>
-        <file>breeze-dark/stop_queue.svg</file>
-        <file>breeze-dark/pause_queue.svg</file>
-        <file>breeze-dark/remove_queue.svg</file>
-        <file>breeze-dark/menu.svg</file>
-        <file>breeze-dark/up.svg</file>
-        <file>breeze-dark/down.svg</file>
-        <file>breeze-dark/multi_up.svg</file>
-        <file>breeze-dark/multi_down.svg</file>
-        <file>breeze-dark/clipboard.svg</file>
-        <file>breeze-dark/refresh.svg</file>
-        <file>breeze-dark/video_finder.svg</file>
-        -->
-
-
-
-        <!--
-        <file>qml/Preferences.qml</file>
         <file>qml/AboutBox.qml</file>
+        <file>qml/EmployeeList.qml</file>
+        <file>qml/Login.qml</file>
+        <file>qml/Preferences.qml</file>
         <file>qml/main.qml</file>
-        -->
-        <file>data/script.sql</file>
 
-
-        <file>translations/jmbde_ui_ar_DZ.qm</file>
-        <file>translations/jmbde_ui_bg.qm</file>
-        <file>translations/jmbde_ui_ca_ES.qm</file>
-        <file>translations/jmbde_ui_cs.qm</file>
-        <file>translations/jmbde_ui_de.qm</file>
-        <file>translations/jmbde_ui_en.qm</file>
-        <file>translations/jmbde_ui_es.qm</file>
-        <file>translations/jmbde_ui_en_US.qm</file>
-        <file>translations/jmbde_ui_fr.qm</file>
-        <file>translations/jmbde_ui_he.qm</file>
-        <file>translations/jmbde_ui_hu.qm</file>
-        <file>translations/jmbde_ui_it.qm</file>
-        <file>translations/jmbde_ui_ja.qm</file>
-        <file>translations/jmbde_ui_js.qm</file>
-        <file>translations/jmbde_ui_nb.qm</file>
-        <file>translations/jmbde_ui_nl.qm</file>
-        <file>translations/jmbde_ui_pl.qm</file>
-        <file>translations/jmbde_ui_pt.qm</file>
-        <file>translations/jmbde_ui_pt_PT.qm</file>
-        <file>translations/jmbde_ui_ru.qm</file>
-        <file>translations/jmbde_ui_tr.qm</file>
-        <file>translations/jmbde_ui_uk.qm</file>
-        <file>translations/jmbde_ui_zh_CN.qm</file>
-        <file>translations/jmbde_ui_zh_TW.qm</file>
-
-        <file>translations/jmbde_ar_DZ.qm</file>
+        <file>translations/jmbde_ar.qm</file>
         <file>translations/jmbde_bg.qm</file>
-        <file>translations/jmbde_ca_ES.qm</file>
+        <file>translations/jmbde_ca.qm</file>
         <file>translations/jmbde_cs.qm</file>
         <file>translations/jmbde_de.qm</file>
         <file>translations/jmbde_en.qm</file>
         <file>translations/jmbde_es.qm</file>
-        <file>translations/jmbde_en_US.qm</file>
+        <file>translations/jmbde_fa.qm</file>
+        <file>translations/jmbde_fi.qm</file>
         <file>translations/jmbde_fr.qm</file>
+        <file>translations/jmbde_gd.qm</file>
+        <file>translations/jmbde_gl.qm</file>
         <file>translations/jmbde_he.qm</file>
         <file>translations/jmbde_hu.qm</file>
         <file>translations/jmbde_it.qm</file>
         <file>translations/jmbde_ja.qm</file>
-        <file>translations/jmbde_js.qm</file>
-        <file>translations/jmbde_nb.qm</file>
+        <file>translations/jmbde_ko.qm</file>
+        <file>translations/jmbde_lt.qm</file>
+        <file>translations/jmbde_lv.qm</file>
         <file>translations/jmbde_nl.qm</file>
         <file>translations/jmbde_pl.qm</file>
         <file>translations/jmbde_pt.qm</file>
-        <file>translations/jmbde_pt_PT.qm</file>
         <file>translations/jmbde_ru.qm</file>
+        <file>translations/jmbde_sk.qm</file>
         <file>translations/jmbde_tr.qm</file>
         <file>translations/jmbde_uk.qm</file>
         <file>translations/jmbde_zh_CN.qm</file>
         <file>translations/jmbde_zh_TW.qm</file>
-
     </qresource>
 </RCC>

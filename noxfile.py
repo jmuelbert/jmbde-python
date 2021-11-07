@@ -14,7 +14,7 @@ import nox
 from nox_poetry import Session
 from nox_poetry import session
 
-package = "jmbde-python"
+package = "jmbde"
 python_versions = ["3.9", "3.8", "3.7", "3.6"]
 nox.needs_version = ">= 2021.6.6"
 nox.options.sessions = (
@@ -37,6 +37,7 @@ def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
 
     Args:
         session: The Session object.
+
     """
     if session.bin is None:
         return
@@ -112,7 +113,7 @@ def safety(session: Session) -> None:
 @session(python=python_versions)
 def mypy(session: Session) -> None:
     """Type-check using mypy."""
-    args = session.posargs or ["src", "tests", "docs/conf.py"]
+    args = session.posargs or ["jmbde", "tests", "docs/conf.py"]
     session.install(".")
     session.install(
         "mypy",

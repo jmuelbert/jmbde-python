@@ -1,4 +1,4 @@
-image: "python: 3.8"
+image: 'python: 3.8'
 
 stages:
   - test
@@ -24,4 +24,3 @@ test_mypy:
 test_tests:
   stage: test
     - nox -rs "tests"
-

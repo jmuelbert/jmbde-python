@@ -4,5 +4,6 @@
     "component.configuration": "value"
   },
   "cSpell.words": ["jmopenorders"],
-  "python.pythonPath": "/Users/juergen/Projects/py-venv/bin/python"
+  "python.pythonPath": "/Users/juergen/Projects/GitHub/jmbde-python/.venv/bin/python",
+  "qtForPython.uic.path": "/Users/juergen/Projects/GitHub/jmbde-python/.venv/lib/python3.9/site-packages/PySide6/Qt/libexec/uic"
 }
