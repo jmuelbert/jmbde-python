@@ -36,9 +36,9 @@ classifiers=[
 Changelog = "https://github.com/jmuelbert/jmbde-python/releases"
 
 [tool.poetry.dependencies]
-python = ">=3.6.5, <4.0"
+python = ">=3.6.5, <3.10"
 click = "^8.0.0"
-pyside2 = "^5.13.2"
+PySide6 = "^6.2.1"
 
 [tool.poetry.dev-dependencies]
 coverage = {extras = ["toml"], version = "^6.0"}
@@ -66,10 +66,10 @@ openpyxl = "^3.0.5"
 
 [tool.poetry.scripts]
 # Entry points for the package https://python-poetry.org/docs/pyproject/#scripts
-jmbde = "jmbde.__main__:main"
+jmbde = "jmbde.main:main"
 
 [tool.coverage.paths]
-source = ["src", "*/site-packages"]
+source = ["jmbde", "*/site-packages"]
 
 [tool.coverage.run]
 branch = true

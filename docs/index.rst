@@ -1,9 +1,21 @@
-.. toctree::
-   :hidden:
-   :maxdepth: 1
+Welcome to jmbde-python documentation
+=====================================
 
+Contents:
+
+.. toctree::
+   :maxdepth: 2
+
+   usage
    reference
    contributing
    Code of Conduct <codeofconduct>
    License <license>
    Changelog <https://github.com/jmuelbert/jmbde-python/releases>
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
