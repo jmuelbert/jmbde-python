@@ -323,6 +323,9 @@ compile_commands.json
 # QtCreator local machine specific files for imported projects
 *creator.user*
 
+# PySide6
+.qt_for_python
+
 # Sqlite
 *.db
 *.db3

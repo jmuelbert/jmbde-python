@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 #
 #   jmbde a BDE Tool for datacontext
 #   Copyright (C) 2018-2020  Jürgen Mülbert

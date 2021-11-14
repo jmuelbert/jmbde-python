@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # SPDX-FileCopyrightText: 2019-2021 Project jmbde-python, Jürgen Mülbert
 #
@@ -11,16 +10,24 @@ from pathlib import Path
 from textwrap import dedent
 
 import nox
-from nox_poetry import Session
-from nox_poetry import session
+
+try:
+    from nox_poetry import Session
+    from nox_poetry import session
+except ImportError:
+    message = f"""\
+    Nox failed to import the 'nox-poetry' package.
+    Please install it using the following command:
+    {sys.executable} -m pip install nox-poetry"""
+    raise SystemExit(dedent(message)) from None
+
 
 package = "jmbde"
-python_versions = ["3.9", "3.8", "3.7", "3.6"]
+python_versions = ["3.10", "3.9", "3.8", "3.7"]
 nox.needs_version = ">= 2021.6.6"
 nox.options.sessions = (
     "pre-commit",
     "safety",
-    "mypy",
     "tests",
     "typeguard",
     "xdoctest",
@@ -39,8 +46,7 @@ def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
         session: The Session object.
 
     """
-    if session.bin is None:
-        return
+    assert session.bin is not None  # noqa: S101
 
     virtualenv = session.env.get("VIRTUAL_ENV")
     if virtualenv is None:
@@ -80,7 +86,7 @@ def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
         hook.write_text("\n".join(lines))
 
 
-@session(name="pre-commit", python="3.9")
+@session(name="pre-commit", python="3.10")
 def precommit(session: Session) -> None:
     """Lint using pre-commit."""
     args = session.posargs or ["run", "--all-files", "--show-diff-on-failure"]
@@ -95,6 +101,7 @@ def precommit(session: Session) -> None:
         "pep8-naming",
         "pre-commit",
         "pre-commit-hooks",
+        "pyupgrade",
         "reorder-python-imports",
     )
     session.run("pre-commit", *args)
@@ -102,7 +109,7 @@ def precommit(session: Session) -> None:
         activate_virtualenv_in_precommit_hooks(session)
 
 
-@session(python="3.9")
+@session(python="3.10")
 def safety(session: Session) -> None:
     """Scan dependencies for insecure packages."""
     requirements = session.poetry.export_requirements()
@@ -113,7 +120,7 @@ def safety(session: Session) -> None:
 @session(python=python_versions)
 def mypy(session: Session) -> None:
     """Type-check using mypy."""
-    args = session.posargs or ["jmbde", "tests", "docs/conf.py"]
+    args = session.posargs or ["src", "docs/conf.py"]
     session.install(".")
     session.install(
         "mypy",
@@ -180,12 +187,12 @@ def xdoctest(session: Session) -> None:
     session.run("python", "-m", "xdoctest", package, *args)
 
 
-@nox.session(name="docs-build", python="3.9")
+@nox.session(name="docs-build", python="3.10")
 def docs_build(session: Session) -> None:
     """Build the documentation."""
     args = session.posargs or ["docs", "docs/_build"]
     session.install(".")
-    session.install("sphinx", "sphinx-click", "sphinx-rtd-theme")
+    session.install("sphinx", "sphinx-click", "furo")
 
     build_dir = Path("docs", "_build")
     if build_dir.exists():
@@ -194,12 +201,12 @@ def docs_build(session: Session) -> None:
     session.run("sphinx-build", *args)
 
 
-@nox.session(python="3.9")
+@nox.session(python="3.10")
 def docs(session: Session) -> None:
     """Build and serve the documentation with live reloading on file changes."""
     args = session.posargs or ["--open-browser", "docs", "docs/_build"]
     session.install(".")
-    session.install("sphinx", "sphinx-autobuild", "sphinx-click", "sphinx-rtd-theme")
+    session.install("sphinx", "sphinx-autobuild", "sphinx-click", "furo")
 
     build_dir = Path("docs", "_build")
     if build_dir.exists():

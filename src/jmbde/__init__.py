@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 #
 #   jmbde a BDE Tool for datacontext
 #   Copyright (C) 2018-2020  Jürgen Mülbert
@@ -13,13 +13,6 @@
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #   GNU General Public License for more details.
 #
-"""Tests for `jmbde-python` package."""
-import jmbde.models.datacontext as dc
+"""The jmbde package."""
 
-
-def test_init() -> None:
-    """Sample Test."""
-    datacontext = dc.DataContext()
-
-    result = datacontext.init()
-    assert result
+__version__ = "0.1.0"

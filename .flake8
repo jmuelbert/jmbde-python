@@ -1,10 +1,10 @@
 [flake8]
 select = B,B9,C,D,DAR,E,F,N,RST,S,W
-ignore = E203,E501,W503
+ignore = E203,E501,RST201,RST203,RST301,W503
 max-line-length = 80
 max-complexity = 11
 docstring-convention = google
 per-file-ignores = tests/*:S101
-exclude = .git,__pycache__,build,dist,ui_*.py,qrc_*.py
+exclude = .git,__pycache__,build,dist,ui_*.py,resources_rc.py
 rst-roles = class,const,func,meth,mod,ref
 rst-directives = deprecated

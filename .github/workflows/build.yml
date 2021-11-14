@@ -25,7 +25,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2.2.2
         with:
-          python-version: '3.9'
+          python-version: '3.10'
 
       - name: Upgrade pip
         run: |
@@ -74,15 +74,21 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { python-version: 3.9, os: ubuntu-latest, session: 'pre-commit' }
-          - { python-version: 3.9, os: ubuntu-latest, session: 'safety' }
-          - { python-version: 3.9, os: ubuntu-latest, session: 'mypy' }
-          - { python-version: 3.9, os: ubuntu-latest, session: 'tests' }
-          - { python-version: 3.9, os: windows-latest, session: 'tests' }
-          - { python-version: 3.9, os: macos-latest, session: 'tests' }
-          - { python-version: 3.9, os: ubuntu-latest, session: 'typeguard' }
-          - { python-version: 3.9, os: ubuntu-latest, session: 'xdoctest' }
-          - { python-version: 3.9, os: ubuntu-latest, session: 'docs-build' }
+          - { python-version: '3.10', os: ubuntu-latest, session: 'pre-commit' }
+          - { python-version: '3.10', os: ubuntu-latest, session: 'safety' }
+          - { python-version: '3.10', os: ubuntu-latest, session: 'mypy' }
+          - { python-version: '3.9', os: ubuntu-latest, session: 'mypy' }
+          - { python-version: '3.8', os: ubuntu-latest, session: 'mypy' }
+          - { python-version: '3.7', os: ubuntu-latest, session: 'mypy' }
+          - { python-version: '3.10', os: ubuntu-latest, session: 'tests' }
+          - { python-version: '3.9', os: ubuntu-latest, session: 'tests' }
+          - { python-version: '3.8', os: ubuntu-latest, session: 'tests' }
+          - { python-version: '3.7', os: ubuntu-latest, session: 'tests' }
+          - { python-version: '3.10', os: windows-latest, session: 'tests' }
+          - { python-version: '3.10', os: macos-latest, session: 'tests' }
+          - { python-version: '3.10', os: ubuntu-latest, session: 'typeguard' }
+          - { python-version: '3.10', os: ubuntu-latest, session: 'xdoctest' }
+          - { python-version: '3.10', os: ubuntu-latest, session: 'docs-build' }
 
     env:
       NOXSESSION: ${{ matrix.session }}
@@ -102,15 +108,14 @@ jobs:
           pip --version
       - name: Install Poetry
         run: |
-          pip install --constraint=.github/workflows/constraints.txt poetry
+          pipx install --pip-args=--constraint=.github/workflows/constraints.txt poetry
           poetry --version
       - name: Install Nox
         run: |
-          pip install --constraint=.github/workflows/constraints.txt nox
+          pipx install --pip-args=--constraint=.github/workflows/constraints.txt nox
+          pipx inject --pip-args=--constraint=.github/workflows/constraints.txt nox nox-poetry
           nox --version
-      - name: Install nox-poetry
-        run: |
-          pip install --constraint=.github/workflows/constraints.txt nox-poetry
+
       - name: Compute pre-commit cache key
         if: matrix.session == 'pre-commit'
         id: pre-commit-cache
@@ -123,6 +128,7 @@ jobs:
           digest = hashlib.sha256(payload).hexdigest()
           result = "${{ runner.os }}-{}-{}-pre-commit".format(python, digest[:8])
           print("::set-output name=result::{}".format(result))
+
       - name: Restore pre-commit cache
         uses: actions/cache@v2.1.6
         if: matrix.session == 'pre-commit'
@@ -131,9 +137,11 @@ jobs:
           key: ${{ steps.pre-commit-cache.outputs.result }}-${{ hashFiles('.pre-commit-config.yaml') }}
           restore-keys: |
             ${{ steps.pre-commit-cache.outputs.result }}-
+
       - name: Run Nox
         run: |
           nox --force-color --python=${{ matrix.python-version }}
+
       - name: Upload coverage data
         if: always() && matrix.session == 'tests'
         uses: 'actions/upload-artifact@v2.2.4'
@@ -160,21 +168,17 @@ jobs:
         with:
           python-version: 3.9
 
-      - name: Upgrade pip
-        run: |
-          pip install --constraint=.github/workflows/constraints.txt pip
-          pip --version
       - name: Install Poetry
         run: |
-          pip install --constraint=.github/workflows/constraints.txt poetry
+          pipx install --pip-args=--constraint=.github/workflows/constraints.txt poetry
           poetry --version
+
       - name: Install Nox
         run: |
-          pip install --constraint=.github/workflows/constraints.txt nox
+          pipx install --pip-args=--constraint=.github/workflows/constraints.txt nox
+          pipx inject --pip-args=--constraint=.github/workflows/constraints.txt nox nox-poetry
           nox --version
-      - name: Install nox-poetry
-        run: |
-          pip install --constraint=.github/workflows/constraints.txt nox-poetry
+
       - name: Download coverage data
         uses: actions/download-artifact@v2.0.10
         with:
@@ -183,6 +187,7 @@ jobs:
       - name: Combine coverage data and display human readable report
         run: |
           nox --force-color --session=coverage
+
       - name: Create coverage report
         run: |
           nox --force-color --session=coverage -- xml
@@ -222,15 +227,13 @@ jobs:
           GITHUB_TOKEN: $${{ secrets.GITHUB_TOKEN }}
 
   deployPrereleases:
-    name: Deploy deployPrereleases
+    name: Deploy Pre-Release
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-20.04
     environment: PreRelease
     needs:
       - build
       - tests
-      - changeLog
-      - releaseNotes
     steps:
       - name: Restore Build Python Module
         uses: actions/download-articfact@v2

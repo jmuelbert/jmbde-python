@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (c) 2019-2020 Jürgen Mülbert. All rights reserved.
 #
 # Licensed under the EUPL, Version 1.2 or – as soon they
@@ -44,7 +43,6 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
     "sphinx_click",
-    "sphinx_rtd_theme",
 ]
 autodoc_typehints = "description"
-html_theme = "sphinx_rtd_theme"
+html_theme = "furo"
