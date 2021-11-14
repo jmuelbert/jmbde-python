@@ -3,6 +3,6 @@ version: 2.0
 id: action-dependabot-auto-merge
 
 about:
-  title: "GitHub Action: Dependabot Auto Merge"
+  title: 'GitHub Action: Dependabot Auto Merge'
   description: Automatically merge Dependabot PRs when version comparison is within range.
   repository: ahmadnassri/action-dependabot-auto-merge
