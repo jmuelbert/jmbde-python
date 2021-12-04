@@ -45,7 +45,7 @@ PySide6 = "^6.2"
 
 
 [tool.poetry.dev-dependencies]
-coverage = {extras = ["toml"], version = "^6.1"}
+coverage = {extras = ["toml"], version = "^6.2"}
 pytest = "^6.2.5"
 safety = "^1.10.3"
 mypy = "^0.910"
