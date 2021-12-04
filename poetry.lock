@@ -304,7 +304,7 @@ pycodestyle = "*"
 
 [[package]]
 name = "flake8-bugbear"
-version = "21.11.29"
+version = "21.11.28"
 description = "A plugin for flake8 finding likely bugs and design problems in your program. Contains warnings that don't belong in pyflakes and pycodestyle."
 category = "dev"
 optional = false
@@ -1072,7 +1072,7 @@ python-versions = "*"
 
 [[package]]
 name = "typeguard"
-version = "2.13.0"
+version = "2.13.2"
 description = "Run-time type checker for Python"
 category = "dev"
 optional = false
@@ -1311,8 +1311,8 @@ flake8-bandit = [
     {file = "flake8_bandit-2.1.2.tar.gz", hash = "sha256:687fc8da2e4a239b206af2e54a90093572a60d0954f3054e23690739b0b0de3b"},
 ]
 flake8-bugbear = [
-    {file = "flake8-bugbear-21.11.29.tar.gz", hash = "sha256:8b04cb2fafc6a78e1a9d873bd3988e4282f7959bb6b0d7c1ae648ec09b937a7b"},
-    {file = "flake8_bugbear-21.11.29-py36.py37.py38-none-any.whl", hash = "sha256:179e41ddae5de5e3c20d1f61736feeb234e70958fbb56ab3c28a67739c8e9a82"},
+    {file = "flake8-bugbear-21.11.28.tar.gz", hash = "sha256:5d7aad75b270ab93d64d479f4285909aaceae177b3fee482a80d2affe904ab01"},
+    {file = "flake8_bugbear-21.11.28-py36.py37.py38-none-any.whl", hash = "sha256:35e6333c37d9e9806d9919acd10740cd4de111c180afe9921c8f4410fbb76e1c"},
 ]
 flake8-docstrings = [
     {file = "flake8-docstrings-1.6.0.tar.gz", hash = "sha256:9fe7c6a306064af8e62a055c2f61e9eb1da55f84bb39caef2b84ce53708ac34b"},
@@ -1835,8 +1835,8 @@ typed-ast = [
     {file = "typed_ast-1.4.3.tar.gz", hash = "sha256:fb1bbeac803adea29cedd70781399c99138358c26d05fcbd23c13016b7f5ec65"},
 ]
 typeguard = [
-    {file = "typeguard-2.13.0-py3-none-any.whl", hash = "sha256:0bc44d1ff865b522eda969627868b0e001c8329296ce50aededbea03febc79ee"},
-    {file = "typeguard-2.13.0.tar.gz", hash = "sha256:04e38f92eb59410c9375d3be23df65e0a7643f2e8bcbd421423d808d2f9e99df"},
+    {file = "typeguard-2.13.2-py3-none-any.whl", hash = "sha256:4f7da3d80dda5e42d6973f11f33da3542b8bf86edc12ba926b2dbad62adf3fcf"},
+    {file = "typeguard-2.13.2.tar.gz", hash = "sha256:7e50071590ab997509aa0977609eb5cf9d73d84c1f416cb4fab78b77a9d15326"},
 ]
 typing-extensions = [
     {file = "typing_extensions-3.10.0.2-py2-none-any.whl", hash = "sha256:d8226d10bc02a29bcc81df19a26e56a9647f8b0a6d4a83924139f4a8b01f17b7"},
