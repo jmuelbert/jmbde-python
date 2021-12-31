@@ -48,7 +48,7 @@ PySide6 = "^6.2"
 coverage = {extras = ["toml"], version = "^6.2"}
 pytest = "^6.2.5"
 safety = "^1.10.3"
-mypy = "^0.920"
+mypy = "^0.930"
 typeguard = "^2.13.3"
 xdoctest = {extras = ["colors"], version = "^0.15.10"}
 sphinx-autobuild = "^2021.3.14"
