@@ -46,7 +46,7 @@ PySide6 = "^6.2"
 
 [tool.poetry.dev-dependencies]
 coverage = {extras = ["toml"], version = "^6.2"}
-pytest = "^6.2.5"
+pytest = "^7.0.0"
 safety = "^1.10.3"
 mypy = "^0.931"
 typeguard = "^2.13.3"
