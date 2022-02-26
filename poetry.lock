@@ -246,7 +246,7 @@ python-versions = ">=3.6"
 
 [[package]]
 name = "faker"
-version = "12.3.3"
+version = "13.0.0"
 description = "Faker is a Python package that generates fake data for you."
 category = "dev"
 optional = false
@@ -349,7 +349,7 @@ restructuredtext-lint = "*"
 
 [[package]]
 name = "furo"
-version = "2022.1.2"
+version = "2022.2.14.1"
 description = "A clean customisable Sphinx documentation theme."
 category = "dev"
 optional = false
@@ -1137,7 +1137,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.6.5, <3.11"
-content-hash = "2229c885a44c689f65f86701d66dd52e7cba6530ec7245126f1828ab856afb82"
+content-hash = "16a53d38e277b9df00cb2683c9160a0f470371502df68e4e630b77d2e0201cd5"
 
 [metadata.files]
 alabaster = [
@@ -1295,8 +1295,8 @@ et-xmlfile = [
     {file = "et_xmlfile-1.1.0.tar.gz", hash = "sha256:8eb9e2bc2f8c97e37a2dc85a09ecdcdec9d8a396530a6d5a33b30b9a92da0c5c"},
 ]
 faker = [
-    {file = "Faker-12.3.3-py3-none-any.whl", hash = "sha256:a7244b7f25503811072122d98918f445df276ea80c5e38448f51a3b765665ece"},
-    {file = "Faker-12.3.3.tar.gz", hash = "sha256:dc46ddaf9bd33998c49c69dc68273bb5b11e41820b38f05296d3241c7d681597"},
+    {file = "Faker-13.0.0-py3-none-any.whl", hash = "sha256:ee8d9181137cdd2b198bd3d0653b0a3b7b385213862348e15ba8a423324b702b"},
+    {file = "Faker-13.0.0.tar.gz", hash = "sha256:f545b2a1ba5f7effc4ed71af0a5204d939445f0190838d41bee6bc160958bfbe"},
 ]
 filelock = [
     {file = "filelock-3.3.2-py3-none-any.whl", hash = "sha256:bb2a1c717df74c48a2d00ed625e5a66f8572a3a30baacb7657add1d7bac4097b"},
@@ -1326,8 +1326,8 @@ flake8-rst-docstrings = [
     {file = "flake8_rst_docstrings-0.2.5-py3-none-any.whl", hash = "sha256:b99d9041b769b857efe45a448dc8c71b1bb311f9cacbdac5de82f96498105082"},
 ]
 furo = [
-    {file = "furo-2022.1.2-py3-none-any.whl", hash = "sha256:958016bfe1387c1e8ddf5b9d71696b69c4eaa5cd8afc9492abfb008aba2d300c"},
-    {file = "furo-2022.1.2.tar.gz", hash = "sha256:b217f218cbcd423ffbfe69baa79389d4ecebf2d86f0d593c44ef31da7b5aed30"},
+    {file = "furo-2022.2.14.1-py3-none-any.whl", hash = "sha256:d7cb8126034637212332350ec8490cb95732d36506b024318a58cee2e7de0fda"},
+    {file = "furo-2022.2.14.1.tar.gz", hash = "sha256:1af3a3053e594666e27eefd347b84beae5d74d6d20f6294cc47777d46f5761a7"},
 ]
 gitdb = [
     {file = "gitdb-4.0.9-py3-none-any.whl", hash = "sha256:8033ad4e853066ba6ca92050b9df2f89301b8fc8bf7e9324d412a63f8bf1a8fd"},
