@@ -5,5 +5,6 @@
   },
   "cSpell.words": ["jmopenorders"],
   "python.pythonPath": "/usr/local/Caskroom/miniconda/base/envs/develop310/bin/python",
-  "qtForPython.uic.path": "/Users/juergen/Projects/GitHub/jmbde-python/.venv/lib/python3.9/site-packages/PySide6/Qt/libexec/uic"
+  "qtForPython.designer.path": "/usr/local/Cellar/qt/6.2.1/libexec/Designer.app/Contents/MacOS/Designer",
+  "qtForPython.lupdate.path": "/usr/local/Cellar/qt/6.2.1/bin/lupdate"
 }
