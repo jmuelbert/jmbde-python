@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 ################################################################################
 ## Form generated from reading UI file 'mainwindow.ui'
 ##
@@ -5,58 +7,25 @@
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
-from PySide6.QtCore import QCoreApplication
-from PySide6.QtCore import QDate
-from PySide6.QtCore import QDateTime
-from PySide6.QtCore import QLocale
-from PySide6.QtCore import QMetaObject
-from PySide6.QtCore import QObject
-from PySide6.QtCore import QPoint
-from PySide6.QtCore import QRect
-from PySide6.QtCore import QSize
-from PySide6.QtCore import Qt
-from PySide6.QtCore import QTime
-from PySide6.QtCore import QUrl
-from PySide6.QtGui import QAction
-from PySide6.QtGui import QBrush
-from PySide6.QtGui import QColor
-from PySide6.QtGui import QConicalGradient
-from PySide6.QtGui import QCursor
-from PySide6.QtGui import QFont
-from PySide6.QtGui import QFontDatabase
-from PySide6.QtGui import QGradient
-from PySide6.QtGui import QIcon
-from PySide6.QtGui import QImage
-from PySide6.QtGui import QKeySequence
-from PySide6.QtGui import QLinearGradient
-from PySide6.QtGui import QPainter
-from PySide6.QtGui import QPalette
-from PySide6.QtGui import QPixmap
-from PySide6.QtGui import QRadialGradient
-from PySide6.QtGui import QTransform
-from PySide6.QtWidgets import QAbstractItemView
-from PySide6.QtWidgets import QApplication
-from PySide6.QtWidgets import QHeaderView
-from PySide6.QtWidgets import QListView
-from PySide6.QtWidgets import QMainWindow
-from PySide6.QtWidgets import QMenu
-from PySide6.QtWidgets import QMenuBar
-from PySide6.QtWidgets import QScrollArea
-from PySide6.QtWidgets import QSizePolicy
-from PySide6.QtWidgets import QSplitter
-from PySide6.QtWidgets import QStatusBar
-from PySide6.QtWidgets import QToolBar
-from PySide6.QtWidgets import QTreeView
-from PySide6.QtWidgets import QVBoxLayout
-from PySide6.QtWidgets import QWidget
 
-import jmbde.gui.resources_rc
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+    QMetaObject, QObject, QPoint, QRect,
+    QSize, QTime, QUrl, Qt)
+from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
+    QCursor, QFont, QFontDatabase, QGradient,
+    QIcon, QImage, QKeySequence, QLinearGradient,
+    QPainter, QPalette, QPixmap, QRadialGradient,
+    QTransform)
+from PySide6.QtWidgets import (QAbstractItemView, QApplication, QHeaderView, QListView,
+    QMainWindow, QMenu, QMenuBar, QScrollArea,
+    QSizePolicy, QSplitter, QStatusBar, QToolBar,
+    QTreeView, QVBoxLayout, QWidget)
+import resources_rc
 
-
-class Ui_MainWindow:
+class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
-            MainWindow.setObjectName("MainWindow")
+            MainWindow.setObjectName(u"MainWindow")
         MainWindow.setWindowModality(Qt.NonModal)
         MainWindow.resize(881, 525)
         sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
@@ -67,305 +36,132 @@ class Ui_MainWindow:
         MainWindow.setMinimumSize(QSize(500, 250))
         MainWindow.setBaseSize(QSize(500, 250))
         self.actionPreferences = QAction(MainWindow)
-        self.actionPreferences.setObjectName("actionPreferences")
+        self.actionPreferences.setObjectName(u"actionPreferences")
         icon = QIcon()
-        icon.addFile(
-            ":/icons/tango-icon/ApplicationPreferences.png",
-            QSize(),
-            QIcon.Normal,
-            QIcon.Off,
-        )
+        icon.addFile(u":/icons/tango-icon/ApplicationPreferences.png", QSize(), QIcon.Normal, QIcon.Off)
         self.actionPreferences.setIcon(icon)
         self.actionAbout = QAction(MainWindow)
-        self.actionAbout.setObjectName("actionAbout")
+        self.actionAbout.setObjectName(u"actionAbout")
         self.actionNew = QAction(MainWindow)
-        self.actionNew.setObjectName("actionNew")
+        self.actionNew.setObjectName(u"actionNew")
         self.actionNew.setEnabled(True)
         icon1 = QIcon()
-        iconThemeName = "tango-icon"
+        iconThemeName = u"tango-icon"
         if QIcon.hasThemeIcon(iconThemeName):
             icon1 = QIcon.fromTheme(iconThemeName)
         else:
-            icon1.addFile(
-                ":/icons/tango-icon/22x22/document-new.png",
-                QSize(),
-                QIcon.Normal,
-                QIcon.Off,
-            )
-            icon1.addFile(
-                ":/icons/tango-icon/22x22/document-new.png",
-                QSize(),
-                QIcon.Normal,
-                QIcon.On,
-            )
-            icon1.addFile(
-                ":/icons/tango-icon/22x22/document-new.png",
-                QSize(),
-                QIcon.Disabled,
-                QIcon.Off,
-            )
-            icon1.addFile(
-                ":/icons/tango-icon/22x22/document-new.png",
-                QSize(),
-                QIcon.Disabled,
-                QIcon.On,
-            )
-            icon1.addFile(
-                ":/icons/tango-icon/22x22/document-new.png",
-                QSize(),
-                QIcon.Active,
-                QIcon.Off,
-            )
-            icon1.addFile(
-                ":/icons/tango-icon/22x22/document-new.png",
-                QSize(),
-                QIcon.Active,
-                QIcon.On,
-            )
-            icon1.addFile(
-                ":/icons/tango-icon/22x22/document-new.png",
-                QSize(),
-                QIcon.Selected,
-                QIcon.Off,
-            )
-            icon1.addFile(
-                ":/icons/tango-icon/22x22/document-new.png",
-                QSize(),
-                QIcon.Selected,
-                QIcon.On,
-            )
-
+            icon1.addFile(u":/icons/tango-icon/22x22/document-new.png", QSize(), QIcon.Normal, QIcon.Off)
+            icon1.addFile(u":/icons/tango-icon/22x22/document-new.png", QSize(), QIcon.Normal, QIcon.On)
+            icon1.addFile(u":/icons/tango-icon/22x22/document-new.png", QSize(), QIcon.Disabled, QIcon.Off)
+            icon1.addFile(u":/icons/tango-icon/22x22/document-new.png", QSize(), QIcon.Disabled, QIcon.On)
+            icon1.addFile(u":/icons/tango-icon/22x22/document-new.png", QSize(), QIcon.Active, QIcon.Off)
+            icon1.addFile(u":/icons/tango-icon/22x22/document-new.png", QSize(), QIcon.Active, QIcon.On)
+            icon1.addFile(u":/icons/tango-icon/22x22/document-new.png", QSize(), QIcon.Selected, QIcon.Off)
+            icon1.addFile(u":/icons/tango-icon/22x22/document-new.png", QSize(), QIcon.Selected, QIcon.On)
+        
         self.actionNew.setIcon(icon1)
         self.actionQuit = QAction(MainWindow)
-        self.actionQuit.setObjectName("actionQuit")
+        self.actionQuit.setObjectName(u"actionQuit")
         self.actionOpen = QAction(MainWindow)
-        self.actionOpen.setObjectName("actionOpen")
+        self.actionOpen.setObjectName(u"actionOpen")
         self.actionOpen.setEnabled(True)
         icon2 = QIcon()
-        iconThemeName = "tango-icon"
+        iconThemeName = u"tango-icon"
         if QIcon.hasThemeIcon(iconThemeName):
             icon2 = QIcon.fromTheme(iconThemeName)
         else:
-            icon2.addFile(
-                ":/icons/tango-icon/22x22/document-open.png",
-                QSize(),
-                QIcon.Normal,
-                QIcon.Off,
-            )
-            icon2.addFile(
-                ":/icons/tango-icon/22x22/document-open.png",
-                QSize(),
-                QIcon.Normal,
-                QIcon.On,
-            )
-            icon2.addFile(
-                ":/icons/tango-icon/22x22/document-open.png",
-                QSize(),
-                QIcon.Disabled,
-                QIcon.Off,
-            )
-            icon2.addFile(
-                ":/icons/tango-icon/22x22/document-open.png",
-                QSize(),
-                QIcon.Active,
-                QIcon.Off,
-            )
-            icon2.addFile(
-                ":/icons/tango-icon/22x22/document-open.png",
-                QSize(),
-                QIcon.Active,
-                QIcon.On,
-            )
-            icon2.addFile(
-                ":/icons/tango-icon/22x22/document-open.png",
-                QSize(),
-                QIcon.Selected,
-                QIcon.Off,
-            )
-            icon2.addFile(
-                ":/icons/tango-icon/22x22/document-open.png",
-                QSize(),
-                QIcon.Selected,
-                QIcon.On,
-            )
-
+            icon2.addFile(u":/icons/tango-icon/22x22/document-open.png", QSize(), QIcon.Normal, QIcon.Off)
+            icon2.addFile(u":/icons/tango-icon/22x22/document-open.png", QSize(), QIcon.Normal, QIcon.On)
+            icon2.addFile(u":/icons/tango-icon/22x22/document-open.png", QSize(), QIcon.Disabled, QIcon.Off)
+            icon2.addFile(u":/icons/tango-icon/22x22/document-open.png", QSize(), QIcon.Active, QIcon.Off)
+            icon2.addFile(u":/icons/tango-icon/22x22/document-open.png", QSize(), QIcon.Active, QIcon.On)
+            icon2.addFile(u":/icons/tango-icon/22x22/document-open.png", QSize(), QIcon.Selected, QIcon.Off)
+            icon2.addFile(u":/icons/tango-icon/22x22/document-open.png", QSize(), QIcon.Selected, QIcon.On)
+        
         self.actionOpen.setIcon(icon2)
         self.actionImport = QAction(MainWindow)
-        self.actionImport.setObjectName("actionImport")
+        self.actionImport.setObjectName(u"actionImport")
         self.actionImport.setEnabled(False)
         self.actionExport = QAction(MainWindow)
-        self.actionExport.setObjectName("actionExport")
+        self.actionExport.setObjectName(u"actionExport")
         self.actionExport.setEnabled(False)
         self.actionPrint = QAction(MainWindow)
-        self.actionPrint.setObjectName("actionPrint")
+        self.actionPrint.setObjectName(u"actionPrint")
         icon3 = QIcon()
-        iconThemeName = "tango-icon"
+        iconThemeName = u"tango-icon"
         if QIcon.hasThemeIcon(iconThemeName):
             icon3 = QIcon.fromTheme(iconThemeName)
         else:
-            icon3.addFile(
-                ":/icons/tango/32x32/document-print.png",
-                QSize(),
-                QIcon.Normal,
-                QIcon.Off,
-            )
-            icon3.addFile(
-                ":/icons/tango-icon/32x32/document-print.png",
-                QSize(),
-                QIcon.Normal,
-                QIcon.On,
-            )
-            icon3.addFile(
-                ":/icons/tango-icon/32x32/document-print.png",
-                QSize(),
-                QIcon.Disabled,
-                QIcon.Off,
-            )
-            icon3.addFile(
-                ":/icons/tango-icon/32x32/document-print.png",
-                QSize(),
-                QIcon.Active,
-                QIcon.Off,
-            )
-            icon3.addFile(
-                ":/icons/tango-icon/32x32/document-print.png",
-                QSize(),
-                QIcon.Active,
-                QIcon.On,
-            )
-            icon3.addFile(
-                ":/icons/tango-icon/32x32/document-print.png",
-                QSize(),
-                QIcon.Selected,
-                QIcon.Off,
-            )
-            icon3.addFile(
-                ":/icons/tango-icon/32x32/document-print.png",
-                QSize(),
-                QIcon.Selected,
-                QIcon.On,
-            )
-
+            icon3.addFile(u":/icons/tango/32x32/document-print.png", QSize(), QIcon.Normal, QIcon.Off)
+            icon3.addFile(u":/icons/tango-icon/32x32/document-print.png", QSize(), QIcon.Normal, QIcon.On)
+            icon3.addFile(u":/icons/tango-icon/32x32/document-print.png", QSize(), QIcon.Disabled, QIcon.Off)
+            icon3.addFile(u":/icons/tango-icon/32x32/document-print.png", QSize(), QIcon.Active, QIcon.Off)
+            icon3.addFile(u":/icons/tango-icon/32x32/document-print.png", QSize(), QIcon.Active, QIcon.On)
+            icon3.addFile(u":/icons/tango-icon/32x32/document-print.png", QSize(), QIcon.Selected, QIcon.Off)
+            icon3.addFile(u":/icons/tango-icon/32x32/document-print.png", QSize(), QIcon.Selected, QIcon.On)
+        
         self.actionPrint.setIcon(icon3)
         self.actionPrint_Preview = QAction(MainWindow)
-        self.actionPrint_Preview.setObjectName("actionPrint_Preview")
+        self.actionPrint_Preview.setObjectName(u"actionPrint_Preview")
         icon4 = QIcon()
-        iconThemeName = "tango-icon"
+        iconThemeName = u"tango-icon"
         if QIcon.hasThemeIcon(iconThemeName):
             icon4 = QIcon.fromTheme(iconThemeName)
         else:
-            icon4.addFile(
-                ":/icons/tango-icon/32x32/document-print-preview.png",
-                QSize(),
-                QIcon.Normal,
-                QIcon.Off,
-            )
-            icon4.addFile(
-                ":/icons/tango-icon/32x32/document-print-preview.png",
-                QSize(),
-                QIcon.Normal,
-                QIcon.On,
-            )
-            icon4.addFile(
-                ":/icons/tango-icon/32x32/document-print-preview.png",
-                QSize(),
-                QIcon.Disabled,
-                QIcon.Off,
-            )
-            icon4.addFile(
-                ":/icons/tango-icon/32x32/document-print-preview.png",
-                QSize(),
-                QIcon.Active,
-                QIcon.Off,
-            )
-            icon4.addFile(
-                ":/icons/tango-icon/32x32/document-print-preview.png",
-                QSize(),
-                QIcon.Active,
-                QIcon.On,
-            )
-            icon4.addFile(
-                ":/icons/tango-icon/32x32/document-print-preview.png",
-                QSize(),
-                QIcon.Selected,
-                QIcon.Off,
-            )
-            icon4.addFile(
-                ":/icons/tango-icon/32x32/document-print-preview.png",
-                QSize(),
-                QIcon.Selected,
-                QIcon.On,
-            )
-
+            icon4.addFile(u":/icons/tango-icon/32x32/document-print-preview.png", QSize(), QIcon.Normal, QIcon.Off)
+            icon4.addFile(u":/icons/tango-icon/32x32/document-print-preview.png", QSize(), QIcon.Normal, QIcon.On)
+            icon4.addFile(u":/icons/tango-icon/32x32/document-print-preview.png", QSize(), QIcon.Disabled, QIcon.Off)
+            icon4.addFile(u":/icons/tango-icon/32x32/document-print-preview.png", QSize(), QIcon.Active, QIcon.Off)
+            icon4.addFile(u":/icons/tango-icon/32x32/document-print-preview.png", QSize(), QIcon.Active, QIcon.On)
+            icon4.addFile(u":/icons/tango-icon/32x32/document-print-preview.png", QSize(), QIcon.Selected, QIcon.Off)
+            icon4.addFile(u":/icons/tango-icon/32x32/document-print-preview.png", QSize(), QIcon.Selected, QIcon.On)
+        
         self.actionPrint_Preview.setIcon(icon4)
         self.actionPrint_Preview.setIconVisibleInMenu(True)
         self.action_Export_Pdf = QAction(MainWindow)
-        self.action_Export_Pdf.setObjectName("action_Export_Pdf")
+        self.action_Export_Pdf.setObjectName(u"action_Export_Pdf")
         icon5 = QIcon()
-        icon5.addFile(
-            ":/icons/tango/32x32/document-print-preview.png",
-            QSize(),
-            QIcon.Normal,
-            QIcon.Off,
-        )
-        icon5.addFile(
-            ":/icons/tango/32x32/document-print-preview.png",
-            QSize(),
-            QIcon.Normal,
-            QIcon.On,
-        )
+        icon5.addFile(u":/icons/tango/32x32/document-print-preview.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon5.addFile(u":/icons/tango/32x32/document-print-preview.png", QSize(), QIcon.Normal, QIcon.On)
         self.action_Export_Pdf.setIcon(icon5)
         self.action_Export_Pdf.setVisible(False)
         self.actionHelp = QAction(MainWindow)
-        self.actionHelp.setObjectName("actionHelp")
+        self.actionHelp.setObjectName(u"actionHelp")
         icon6 = QIcon()
-        icon6.addFile(
-            ":/icons/tango-icon/icons/tango-icon/16x16/help-browser.png",
-            QSize(),
-            QIcon.Normal,
-            QIcon.Off,
-        )
+        icon6.addFile(u":/icons/tango-icon/icons/tango-icon/16x16/help-browser.png", QSize(), QIcon.Normal, QIcon.Off)
         self.actionHelp.setIcon(icon6)
         self.actionEditAdd = QAction(MainWindow)
-        self.actionEditAdd.setObjectName("actionEditAdd")
+        self.actionEditAdd.setObjectName(u"actionEditAdd")
         icon7 = QIcon()
-        icon7.addFile(
-            ":/icons/tango/white/FileNew.png", QSize(), QIcon.Normal, QIcon.Off
-        )
+        icon7.addFile(u":/icons/tango/white/FileNew.png", QSize(), QIcon.Normal, QIcon.Off)
         self.actionEditAdd.setIcon(icon7)
         self.actionEditEdit = QAction(MainWindow)
-        self.actionEditEdit.setObjectName("actionEditEdit")
+        self.actionEditEdit.setObjectName(u"actionEditEdit")
         icon8 = QIcon()
-        icon8.addFile(
-            ":/icons/tango/white/TaskEdit.png", QSize(), QIcon.Normal, QIcon.Off
-        )
+        icon8.addFile(u":/icons/tango/white/TaskEdit.png", QSize(), QIcon.Normal, QIcon.Off)
         self.actionEditEdit.setIcon(icon8)
         self.actionEditDelete = QAction(MainWindow)
-        self.actionEditDelete.setObjectName("actionEditDelete")
+        self.actionEditDelete.setObjectName(u"actionEditDelete")
         icon9 = QIcon()
-        icon9.addFile(
-            ":/icons/tango/white/TaskDelete.png", QSize(), QIcon.Normal, QIcon.Off
-        )
+        icon9.addFile(u":/icons/tango/white/TaskDelete.png", QSize(), QIcon.Normal, QIcon.Off)
         self.actionEditDelete.setIcon(icon9)
         self.centralWidget = QWidget(MainWindow)
-        self.centralWidget.setObjectName("centralWidget")
+        self.centralWidget.setObjectName(u"centralWidget")
         sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         sizePolicy1.setHorizontalStretch(2)
         sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(
-            self.centralWidget.sizePolicy().hasHeightForWidth()
-        )
+        sizePolicy1.setHeightForWidth(self.centralWidget.sizePolicy().hasHeightForWidth())
         self.centralWidget.setSizePolicy(sizePolicy1)
         self.centralWidget.setMinimumSize(QSize(300, 0))
         self.verticalLayout = QVBoxLayout(self.centralWidget)
         self.verticalLayout.setSpacing(6)
         self.verticalLayout.setContentsMargins(11, 11, 11, 11)
-        self.verticalLayout.setObjectName("verticalLayout")
+        self.verticalLayout.setObjectName(u"verticalLayout")
         self.splitter = QSplitter(self.centralWidget)
-        self.splitter.setObjectName("splitter")
+        self.splitter.setObjectName(u"splitter")
         self.splitter.setOrientation(Qt.Horizontal)
         self.treeView = QTreeView(self.splitter)
-        self.treeView.setObjectName("treeView")
+        self.treeView.setObjectName(u"treeView")
         sizePolicy2 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
@@ -380,7 +176,7 @@ class Ui_MainWindow:
         self.splitter.addWidget(self.treeView)
         self.treeView.header().setVisible(False)
         self.listView = QListView(self.splitter)
-        self.listView.setObjectName("listView")
+        self.listView.setObjectName(u"listView")
         sizePolicy3 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
         sizePolicy3.setHorizontalStretch(0)
         sizePolicy3.setVerticalStretch(0)
@@ -394,12 +190,12 @@ class Ui_MainWindow:
         self.listView.setAlternatingRowColors(True)
         self.splitter.addWidget(self.listView)
         self.scrollArea = QScrollArea(self.splitter)
-        self.scrollArea.setObjectName("scrollArea")
+        self.scrollArea.setObjectName(u"scrollArea")
         self.scrollArea.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.scrollArea.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
-        self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
+        self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
         self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 485, 388))
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.splitter.addWidget(self.scrollArea)
@@ -408,20 +204,20 @@ class Ui_MainWindow:
 
         MainWindow.setCentralWidget(self.centralWidget)
         self.menuBar = QMenuBar(MainWindow)
-        self.menuBar.setObjectName("menuBar")
+        self.menuBar.setObjectName(u"menuBar")
         self.menuBar.setGeometry(QRect(0, 0, 881, 24))
         self.menuFile = QMenu(self.menuBar)
-        self.menuFile.setObjectName("menuFile")
+        self.menuFile.setObjectName(u"menuFile")
         self.menuEdit = QMenu(self.menuBar)
-        self.menuEdit.setObjectName("menuEdit")
+        self.menuEdit.setObjectName(u"menuEdit")
         self.menuHelp = QMenu(self.menuBar)
-        self.menuHelp.setObjectName("menuHelp")
+        self.menuHelp.setObjectName(u"menuHelp")
         MainWindow.setMenuBar(self.menuBar)
         self.mainToolBar = QToolBar(MainWindow)
-        self.mainToolBar.setObjectName("mainToolBar")
+        self.mainToolBar.setObjectName(u"mainToolBar")
         MainWindow.addToolBar(Qt.TopToolBarArea, self.mainToolBar)
         self.statusBar = QStatusBar(MainWindow)
-        self.statusBar.setObjectName("statusBar")
+        self.statusBar.setObjectName(u"statusBar")
         MainWindow.setStatusBar(self.statusBar)
 
         self.menuBar.addAction(self.menuFile.menuAction())
@@ -452,70 +248,35 @@ class Ui_MainWindow:
         self.retranslateUi(MainWindow)
 
         QMetaObject.connectSlotsByName(MainWindow)
-
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(
-            QCoreApplication.translate(
-                "MainWindow", "JMBDE Version 0.4.0 (c) J\u00fcrgen M\u00fclbert", None
-            )
-        )
-        self.actionPreferences.setText(
-            QCoreApplication.translate("MainWindow", "Einstellungen...", None)
-        )
-        self.actionAbout.setText(
-            QCoreApplication.translate("MainWindow", "\u00dcber...", None)
-        )
-        self.actionNew.setText(QCoreApplication.translate("MainWindow", "Neu", None))
-        # if QT_CONFIG(shortcut)
-        self.actionNew.setShortcut(
-            QCoreApplication.translate("MainWindow", "Ctrl+N", None)
-        )
-        # endif // QT_CONFIG(shortcut)
-        self.actionQuit.setText(
-            QCoreApplication.translate("MainWindow", "jmbde beenden", None)
-        )
-        self.actionOpen.setText(
-            QCoreApplication.translate("MainWindow", "\u00d6ffnen...", None)
-        )
-        # if QT_CONFIG(shortcut)
-        self.actionOpen.setShortcut(
-            QCoreApplication.translate("MainWindow", "Ctrl+O", None)
-        )
-        # endif // QT_CONFIG(shortcut)
-        self.actionImport.setText(
-            QCoreApplication.translate("MainWindow", "Importieren...", None)
-        )
-        self.actionExport.setText(
-            QCoreApplication.translate("MainWindow", "Exportieren..", None)
-        )
-        self.actionPrint.setText(
-            QCoreApplication.translate("MainWindow", "Drucken...", None)
-        )
-        # if QT_CONFIG(shortcut)
-        self.actionPrint.setShortcut(
-            QCoreApplication.translate("MainWindow", "Ctrl+P", None)
-        )
-        # endif // QT_CONFIG(shortcut)
-        self.actionPrint_Preview.setText(
-            QCoreApplication.translate("MainWindow", "Drucken Vorschau...", None)
-        )
-        self.action_Export_Pdf.setText(
-            QCoreApplication.translate("MainWindow", "&Exportieren Pdf", None)
-        )
-        self.actionHelp.setText(QCoreApplication.translate("MainWindow", "Hilfe", None))
-        self.actionEditAdd.setText(
-            QCoreApplication.translate("MainWindow", "Hinzuf\u00fcgen", None)
-        )
-        self.actionEditEdit.setText(
-            QCoreApplication.translate("MainWindow", "Bearbeiten", None)
-        )
-        self.actionEditDelete.setText(
-            QCoreApplication.translate("MainWindow", "L\u00f6schen", None)
-        )
-        self.menuFile.setTitle(QCoreApplication.translate("MainWindow", "Datei", None))
-        self.menuEdit.setTitle(QCoreApplication.translate("MainWindow", "Edit", None))
-        self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", "Help", None))
-
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"JMBDE Version 0.4.0 (c) J\u00fcrgen M\u00fclbert", None))
+        self.actionPreferences.setText(QCoreApplication.translate("MainWindow", u"Einstellungen...", None))
+        self.actionAbout.setText(QCoreApplication.translate("MainWindow", u"\u00dcber...", None))
+        self.actionNew.setText(QCoreApplication.translate("MainWindow", u"Neu", None))
+#if QT_CONFIG(shortcut)
+        self.actionNew.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+N", None))
+#endif // QT_CONFIG(shortcut)
+        self.actionQuit.setText(QCoreApplication.translate("MainWindow", u"jmbde beenden", None))
+        self.actionOpen.setText(QCoreApplication.translate("MainWindow", u"\u00d6ffnen...", None))
+#if QT_CONFIG(shortcut)
+        self.actionOpen.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+O", None))
+#endif // QT_CONFIG(shortcut)
+        self.actionImport.setText(QCoreApplication.translate("MainWindow", u"Importieren...", None))
+        self.actionExport.setText(QCoreApplication.translate("MainWindow", u"Exportieren..", None))
+        self.actionPrint.setText(QCoreApplication.translate("MainWindow", u"Drucken...", None))
+#if QT_CONFIG(shortcut)
+        self.actionPrint.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+P", None))
+#endif // QT_CONFIG(shortcut)
+        self.actionPrint_Preview.setText(QCoreApplication.translate("MainWindow", u"Drucken Vorschau...", None))
+        self.action_Export_Pdf.setText(QCoreApplication.translate("MainWindow", u"&Exportieren Pdf", None))
+        self.actionHelp.setText(QCoreApplication.translate("MainWindow", u"Hilfe", None))
+        self.actionEditAdd.setText(QCoreApplication.translate("MainWindow", u"Hinzuf\u00fcgen", None))
+        self.actionEditEdit.setText(QCoreApplication.translate("MainWindow", u"Bearbeiten", None))
+        self.actionEditDelete.setText(QCoreApplication.translate("MainWindow", u"L\u00f6schen", None))
+        self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"Datei", None))
+        self.menuEdit.setTitle(QCoreApplication.translate("MainWindow", u"Edit", None))
+        self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", u"Help", None))
     # retranslateUi
+
