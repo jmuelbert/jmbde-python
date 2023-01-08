@@ -1,11 +1,6 @@
 ---
 name-template: 'v$RESOLVED_VERSION 🌈'
 tag-template: 'v$RESOLVED_VERSION'
-template: |
-  ## Changes
-
-  $CHANGES
-
 categories:
   - title: ':boom: Breaking Changes'
     label: 'breaking'
@@ -49,3 +44,8 @@ version-resolver:
 
 exclude-labels:
   - 'skip-changelog'
+
+template: |
+  ## Changes
+
+  $CHANGES
