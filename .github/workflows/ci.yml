@@ -132,6 +132,7 @@ jobs:
         shell: pwsh
         run: |
           (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
+          PATH=C:\Users\runneradmin\AppData\Roaming\Python\Scripts;%PATH%
 
       - name: Install Nox
         run: |
