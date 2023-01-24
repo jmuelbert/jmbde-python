@@ -13,21 +13,6 @@ files = [
 ]
 
 [[package]]
-name = "aspy-refactor-imports"
-version = "2.3.0"
-description = "Utilities for refactoring imports in python-like syntax."
-category = "dev"
-optional = false
-python-versions = ">=3.7"
-files = [
-    {file = "aspy.refactor_imports-2.3.0-py2.py3-none-any.whl", hash = "sha256:a60432fc0c0b948aa371da520b896ddcbbee71b1820eeda6d2c04f039bac13b9"},
-    {file = "aspy.refactor_imports-2.3.0.tar.gz", hash = "sha256:5a7775b31e55a762f807c218a3f9f1a7ff1313d766605a301f2ed937cdfa242a"},
-]
-
-[package.dependencies]
-cached-property = "*"
-
-[[package]]
 name = "attrs"
 version = "22.2.0"
 description = "Classes Without Boilerplate"
@@ -141,18 +126,6 @@ jupyter = ["ipython (>=7.8.0)", "tokenize-rt (>=3.2.0)"]
 uvloop = ["uvloop (>=0.15.2)"]
 
 [[package]]
-name = "cached-property"
-version = "1.5.2"
-description = "A decorator for caching properties in classes."
-category = "dev"
-optional = false
-python-versions = "*"
-files = [
-    {file = "cached-property-1.5.2.tar.gz", hash = "sha256:9fa5755838eecbb2d234c3aa390bd80fbd3ac6b6869109bfc1b499f7bd89a130"},
-    {file = "cached_property-1.5.2-py2.py3-none-any.whl", hash = "sha256:df4f613cf7ad9a588cc381aaf4a512d26265ecebd5eb9e1ba12f1319eb85a6a0"},
-]
-
-[[package]]
 name = "certifi"
 version = "2022.12.7"
 description = "Python package for providing Mozilla's CA Bundle."
@@ -190,6 +163,18 @@ files = [
 
 [package.extras]
 unicode-backport = ["unicodedata2"]
+
+[[package]]
+name = "classify-imports"
+version = "4.2.0"
+description = "Utilities for refactoring imports in python-like syntax."
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "classify_imports-4.2.0-py2.py3-none-any.whl", hash = "sha256:dbbc264b70a470ed8c6c95976a11dfb8b7f63df44ed1af87328bbed2663f5161"},
+    {file = "classify_imports-4.2.0.tar.gz", hash = "sha256:7abfb7ea92149b29d046bd34573d247ba6e68cc28100c801eba4af17964fc40e"},
+]
 
 [[package]]
 name = "click"
@@ -1180,18 +1165,18 @@ files = [
 
 [[package]]
 name = "reorder-python-imports"
-version = "2.8.0"
+version = "3.9.0"
 description = "Tool for reordering python imports"
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "reorder_python_imports-2.8.0-py2.py3-none-any.whl", hash = "sha256:03354608c610a25cba75a352ad86552849dcf3c90849fcb415298efc911a4ecf"},
-    {file = "reorder_python_imports-2.8.0.tar.gz", hash = "sha256:435af2a6feb39de3c4b7a415079f85b4b0052d3a7ed9ea7b269b0aff725abdaf"},
+    {file = "reorder_python_imports-3.9.0-py2.py3-none-any.whl", hash = "sha256:3f9c16e8781f54c944756d0d1eb34a8c863554f7a4eb3693f574fe19b1a29b56"},
+    {file = "reorder_python_imports-3.9.0.tar.gz", hash = "sha256:49292ed537829a6bece9fb3746fc1bbe98f52643be5de01a4e13680268a5b0ec"},
 ]
 
 [package.dependencies]
-"aspy.refactor-imports" = ">=2.3.0,<3"
+classify-imports = ">=4.1"
 
 [[package]]
 name = "requests"
