@@ -15,18 +15,17 @@ repos:
         language: system
         types: [python]
         require_serial: true
-        exclude: |
-        /(
-          \.git
-          | \.mypy_chache
-          | \.tox
-          | \.venv
-          | _build
-          | build
-          | dist
-          | src/gui/forms
-          | src/gui/resources_rc.py
-        )/
+        exclude: (
+              \.git
+              | \.mypy_chache
+              | \.tox
+              | \.venv
+              | _build
+              | build
+              | dist
+              | src/gui/forms
+              | src/gui/resources_rc.py
+              )
         
       - id: check-added-large-files
         name: Check for added large files
