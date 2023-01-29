@@ -1,8 +1,5 @@
 {
-  "[language]": {
-    "component.configuration": "value"
-  },
-  "cSpell.words": [
-    "jmbde-python"
-  ],
+    "cSpell.words": [
+        "jmbde-python"
+    ],
 }

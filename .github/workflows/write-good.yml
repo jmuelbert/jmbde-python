@@ -1,13 +1,13 @@
 ---
-name: 'Write good'
+name: "Write good"
 
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
   write_good_job:
@@ -28,5 +28,5 @@ jobs:
           message: |
             ${{ steps.write-good.outputs.result }}
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
+          repo-token-user-login: "github-actions[bot]" # The user.login for temporary GitHub tokens
           allow-repeats: false # This is the default
