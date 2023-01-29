@@ -1,10 +1,8 @@
 {
-  "component.configuration": "value",
   "[language]": {
     "component.configuration": "value"
   },
-  "cSpell.words": ["jmopenorders"],
-  "python.pythonPath": "/usr/local/Caskroom/miniconda/base/envs/develop310/bin/python",
-  "qtForPython.designer.path": "/usr/local/Cellar/qt/6.2.1/libexec/Designer.app/Contents/MacOS/Designer",
-  "qtForPython.lupdate.path": "/usr/local/Cellar/qt/6.2.1/bin/lupdate"
+  "cSpell.words": [
+    "jmbde-python"
+  ],
 }
