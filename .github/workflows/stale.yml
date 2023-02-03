@@ -10,7 +10,7 @@ name: Mark stale issues and pull requests
 on:
   # yamllint enable
   schedule:
-    - cron: '20 12 * * *'
+    - cron: "20 12 * * *"
 
 jobs:
   stale:
@@ -23,7 +23,7 @@ jobs:
       - uses: actions/stale@v7
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          stale-issue-message: 'Stale issue message'
-          stale-pr-message: 'Stale pull request message'
-          stale-issue-label: 'no-issue-activity'
-          stale-pr-label: 'no-pr-activity'
+          stale-issue-message: "Stale issue message"
+          stale-pr-message: "Stale pull request message"
+          stale-issue-label: "no-issue-activity"
+          stale-pr-label: "no-pr-activity"

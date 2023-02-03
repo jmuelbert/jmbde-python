@@ -6,66 +6,66 @@
 
 version: 2
 updates:
-  - package-ecosystem: 'github-actions' # See documentation for possible values
-    directory: '/' # Location of package manifests
+  - package-ecosystem: "github-actions" # See documentation for possible values
+    directory: "/" # Location of package manifests
     schedule:
-      interval: 'weekly'
-      day: 'friday'
+      interval: "weekly"
+      day: "friday"
     commit-message:
-      prefix: ':rocket: gha'
+      prefix: ":rocket: gha"
 
-  - package-ecosystem: 'docker' # See documentation for possible values
-    directory: '/' # Location of package manifests
+  - package-ecosystem: "docker" # See documentation for possible values
+    directory: "/" # Location of package manifests
     schedule:
-      interval: 'weekly'
-      day: 'friday'
+      interval: "weekly"
+      day: "friday"
     commit-message:
-      prefix: ':rocket: docker'
+      prefix: ":rocket: docker"
 
-  - package-ecosystem: 'bundler' # See documentation for possible values
-    directory: '/' # Location of package manifests
+  - package-ecosystem: "bundler" # See documentation for possible values
+    directory: "/" # Location of package manifests
     schedule:
-      interval: 'weekly'
-      day: 'friday'
+      interval: "weekly"
+      day: "friday"
     commit-message:
-      prefix: ':rocket: bundler'
+      prefix: ":rocket: bundler"
 
-  - package-ecosystem: 'npm' # See documentation for possible values
-    directory: '/' # Location of package manifests
+  - package-ecosystem: "npm" # See documentation for possible values
+    directory: "/" # Location of package manifests
     schedule:
-      interval: 'weekly'
-      day: 'friday'
+      interval: "weekly"
+      day: "friday"
     commit-message:
-      prefix: ':rocket: npm'
+      prefix: ":rocket: npm"
 
-  - package-ecosystem: 'pip' # See documentation for possible values
-    directory: '/**' # Location of package manifests
+  - package-ecosystem: "pip" # See documentation for possible values
+    directory: "/**" # Location of package manifests
     schedule:
-      interval: 'weekly'
-      day: 'friday'
+      interval: "weekly"
+      day: "friday"
     commit-message:
-      prefix: ':rocket: pip'
+      prefix: ":rocket: pip"
 
-  - package-ecosystem: 'pipenv' # See documentation for possible values
-    directory: '/' # Location of package manifests
+  - package-ecosystem: "pipenv" # See documentation for possible values
+    directory: "/" # Location of package manifests
     schedule:
-      interval: 'weekly'
-      day: 'friday'
+      interval: "weekly"
+      day: "friday"
     commit-message:
-      prefix: ':rocket: pipenv'
+      prefix: ":rocket: pipenv"
 
-  - package-ecosystem: 'poetry' # See documentation for possible values
-    directory: '/' # Location of package manifests
+  - package-ecosystem: "poetry" # See documentation for possible values
+    directory: "/" # Location of package manifests
     schedule:
-      interval: 'weekly'
-      day: 'friday'
+      interval: "weekly"
+      day: "friday"
     commit-message:
-      prefix: ':rocket: poetry'
+      prefix: ":rocket: poetry"
 
-  - package-ecosystem: 'yarn' # See documentation for possible values
-    directory: '/' # Location of package manifests
+  - package-ecosystem: "yarn" # See documentation for possible values
+    directory: "/" # Location of package manifests
     schedule:
-      interval: 'weekly'
-      day: 'friday'
+      interval: "weekly"
+      day: "friday"
     commit-message:
-      prefix: ':rocket: yarn'
+      prefix: ":rocket: yarn"
