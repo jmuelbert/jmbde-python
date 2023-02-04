@@ -19,7 +19,7 @@ insert_final_newline = true
 # https://github.com/npm/npm/pull/3180#issuecomment-16336516
 [{*.yml,*.yaml,package.json}]
 indent_style = space
-indent_size = 2
+indent_size = 4 
 
 # Makefiles
 [Makefile, *.mk]
