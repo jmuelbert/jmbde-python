@@ -2,7 +2,7 @@
 rules:
   # id, pattern, message are required attributes.
   - id: com.github.jmuelbert.qt_boilerpalte_template
-    pattern: Github
+    pattern: GitHub
     severity: warning
     message: Do you want to write GitHub?
     glob:
