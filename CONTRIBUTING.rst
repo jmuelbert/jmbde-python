@@ -13,9 +13,10 @@ Here is a list of important resources for contributors:
 - `Code of Conduct`_
 
 .. _MIT license: https://opensource.org/licenses/MIT
-.. _Source Code: https://github.com/{{cookiecutter.github_user}}/{{cookiecutter.project_name}}
-.. _Documentation: https://{{cookiecutter.project_name}}.readthedocs.io/
-.. _Issue Tracker: https://github.com/{{cookiecutter.github_user}}/{{cookiecutter.project_name}}/issues
+.. _EUPL-1.2 license: https://opensurce.org/licenses/EUPL-1.2
+.. _Source Code: https://github.com/jmuelbert/jmbde-python
+.. _Documentation: https://jmbde-python.readthedocs.io/
+.. _Issue Tracker: https://github.com/jmuelbert/jmbde-python/issues
 
 How to report a bug
 -------------------

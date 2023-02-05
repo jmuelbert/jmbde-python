@@ -2,27 +2,9 @@
 version: '0.2'
 files:
   - '**/*'
-dictionaryDefinitions:
-  - name: cmake-refined
-    path: ./config/cmake-refined-words.txt
-    addWords: false
-  - name: qt
-    path: ./config/qt-words.txt
-    addWords: false
-  - name: linux-package
-    path: ./config/linux-package-words.txt
-    addWords: false
-  - name: taskfile
-    path: ./config/taskfile-words.txt
-    addWords: false
 dictionaries:
-  - qt
-  - taskfile
   - bash
-  - cmake-refined
-  - cpp-refined
   - docker
-  - linux-package
   - python-common
 ignorePaths:
   - s**/node_modules/**
@@ -30,12 +12,8 @@ ignorePaths:
   - '**/.git/**'
   - '.github/actions/**'
   - '.github/workflows/**'
-  - 'cmake/modules/**'
   - 'docs/api-docs/**'
   - 'cspell.config.yaml'
-  - '.clang-tidy'
-  - '.cmake-format.yaml'
-  - '.cmake-lint.yaml'
   - '.codespell.rc'
   - '*.gz'
   - '*.lock'
@@ -51,10 +29,6 @@ ignorePaths:
   - build/**
   - out/**
   - /project-words.txt
-  - ./qt-words.txt
-  - ./taskfile-words.txt
-  - ./cmake-refined-words.txt
-  - ./linux-package-words.txt
 useGitignore: true
 language: en, en-GB, de, de-DE
 allowCompoundWords: true
@@ -70,9 +44,6 @@ words:
   - cmakelang
   - Codacy
   - codecov
-  - cppcheck
-  - cppstd
-  - cpptools
   - cschlosser.doxdocgen
   - Devel
   - DCOMPONENT
@@ -130,8 +101,6 @@ words:
   - pthreads
   - pylance
   - pyyaml
-  - qtconanboilerplate
-  - qtwidgettest
   - REDIST
   - SAST
   - sectnums
@@ -149,11 +118,3 @@ words:
   - Wextra
   - Wignored
   - winver
-  - Wmaybe
-  - Wmissing
-  - Wpedantic
-  - Wreorder
-  - Wreturn
-  - Wuninitialized
-  - Wunused
-  - xcodeproj
