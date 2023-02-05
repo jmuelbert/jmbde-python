@@ -5,7 +5,7 @@ files:
 dictionaries:
   - bash
   - docker
-  - python-common
+  - dict-python
 ignorePaths:
   - s**/node_modules/**
   - '**/vscode-extension/**'
@@ -34,87 +34,8 @@ language: en, en-GB, de, de-DE
 allowCompoundWords: true
 enableGlobDot: true
 words:
-  - aqtinstall
-  - APPL
-  - ARGN
-  - cbproj
-  - ccache
-  - ccmake
-  - clangd
-  - cmakelang
-  - Codacy
-  - codecov
-  - cschlosser.doxdocgen
-  - Devel
-  - DCOMPONENT
-  - DOPTION*
-  - DPROJECT
-  - eamodio
-  - fasterer
-  - FILEOS
-  - fips
-  - ftest
-  - fprofile
-  - furo
-  - Fuzzer
-  - Gcov
-  - giticket
-  - groupproj
-  - gtest
-  - hmarr
-  - hwrap
-  - icns
-  - IHELP
-  - IOPTIONS
-  - IQUIT
-  - IWYU
-  - jamf
-  - jinja
-  - jmuelbert
-  - juergen
-  - kwarg
-  - kwargs
-  - LCOV
-  - libcxx
-  - libfmt
-  - libgmp
-  - libmpfr
-  - libspdlog
-  - lstrip
-  - muelbert
-  - Mülbert
-  - munki
-  - munkiadmin
-  - munkipkg
-  - myclass
-  - noqa
-  - oclint
-  - parg
-  - pargs
-  - Pavlik
-  - Pboard
-  - plists
-  - pipenv
-  - pkgsinfo
-  - PTRACE
-  - pthread
-  - pthreads
-  - pylance
-  - pyyaml
-  - REDIST
-  - SAST
-  - sectnums
-  - socat
-  - sonarqube
-  - spdlog
-  - svgz
-  - SYSREQUIRES
-  - rubocop
-  - twxs
-  - uncrustify
-  - venv
-  - VRAC
-  - webp
-  - Wextra
-  - Wignored
-  - winver
+  - MSYS
+  - mypy
+  - pycache
+  - PYPI
+  - VIRTUALENVS
