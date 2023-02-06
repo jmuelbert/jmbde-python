@@ -3,9 +3,10 @@ import click
 
 
 @click.command()
-@click.version_option()
+@click.help_option()
 def main() -> None:
+    print("Hello, world!")
 
-    if __name__ == "__main__":
-        main(prog_name="jmbde-python")  # pragma: no cover
-        print("Hello, world!")
+
+main()
+

@@ -18,24 +18,72 @@ ignorePaths:
   - '*.gz'
   - '*.lock'
   - '*.svg'
-  - .gitignore
-  - .devcontainer/.dockerignore
-  - .vscode
-  - megalinter
-  - package-lock.json
-  - report
-  - pnpm-lock.yaml
-  - dist/**
-  - build/**
-  - out/**
-  - /project-words.txt
+  - '.gitignore'
+  - '.devcontainer/.dockerignore'
+  - '.vscode'
+  - 'megalinter'
+  - 'package-lock.json'
+  - 'report'
+  - 'npm-lock.yaml'
+  - 'dist/**'
+  - 'build/**'
+  - 'out/**'
 useGitignore: true
 language: en, en-GB, de, de-DE
 allowCompoundWords: true
 enableGlobDot: true
 words:
+  - ahmadnassri
+  - Akismet
+  - aarch
+  - asdict
+  - Authentiq
+  - cjolowicz
+  - [Cc]odecov
+  - cython
+  - envrc
+  - furo
+  - Gitaly
+  - GPLV
+  - HADOLINT
+  - idiv
+  - itertools 
+  - ipynb
+  - isort
+  - jmbde
+  - jmuelbert
+  - jquery
+  - Kantive
+  - kondo
+  - mkdocs
+  - Mülbert
+  - msvs
+  - mymodule
   - MSYS
+  - mypackage
   - mypy
+  - noxfile
+  - nojekyll
+  - paren
+  - pautodoc
   - pycache
+  - pygtk
+  - PyLint
+  - pylint
   - PYPI
+  - PYRIGHT
+  - pytest
+  - pyupgrade
+  - rdiv  
+  - rgxs
+  - runit
+  - Sidekiq
+  - Signup
+  - TEKTON
+  - tkinter  
+  - TRIVY
+  - venv
   - VIRTUALENVS
+  - xdoctest
+  - xrange
+  - xreadlines  
