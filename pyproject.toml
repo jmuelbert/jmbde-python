@@ -8,14 +8,14 @@
 # https://snarky.ca/what-the-heck-is-pyproject-toml/.
 
 [tool.poetry]
-name = "jmbde_python"
+name = "jmbde-python"
 version = "0.1.0"
 description = "A bde written with python an tkinter"
 authors = ["Jürgen Mülbert <juergen.muelbert@web.de>"]
 documentation = "http://github.com/jmuelbert//jmbde-python"
 keywords = ["jmbde_python", "tkinter", "python3", "poetry"]
 license = "EUPL-1.2"
-readme = "README.rst"
+readme = "README.md"
 
 packages = [{include = "jmbde", from = "src"}, ]
 

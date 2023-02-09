@@ -1,3 +1,8 @@
+#
+# SPDX-FileCopyrightText: 2023 Jürgen Mülbert <juergen.muelbert@web.de>
+#
+# SPDX-License-Identifier: EUPL-1.2
+#
 """Command-line interface."""
 import click
 
@@ -8,5 +13,5 @@ def main() -> None:
     print("Hello, world!")
 
 
-main()
-
+if __name__ == "__main__":
+    main()

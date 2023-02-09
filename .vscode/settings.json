@@ -1,4 +1,12 @@
 {
-    "cSpell.words": ["jmbde-python"],
-    "python.formatting.provider": "black"
+    "cSpell.words": [
+        "jmbde",
+        "jmbde-python",
+        "Mülbert"
+    ],
+    "python.formatting.provider": "black",
+    "sonarlint.connectedMode.project": {
+        "connectionId": "jmuelbert",
+        "projectKey": "jmuelbert_jmbde-python"
+    }
 }
