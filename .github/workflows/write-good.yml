@@ -4,10 +4,10 @@ name: "Write good"
 on:
   push:
     branches:
-      - Tkinter
+      - main
   pull_request:
     branches:
-      - Tkinter
+      - main
 
 jobs:
   write_good_job:

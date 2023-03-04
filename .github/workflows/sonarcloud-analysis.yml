@@ -2,7 +2,7 @@ name: SonarCloud Analysis
 on:
   push:
     branches:
-      - Tkinter
+      - main
   pull_request:
     types: [opened, synchronize, reopened]
 
