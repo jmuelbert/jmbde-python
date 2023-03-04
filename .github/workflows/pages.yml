@@ -5,7 +5,7 @@ name: Deploy Jekyll with GitHub Pages dependencies preinstalled
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ['main']
+    branches: ["main"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -18,7 +18,7 @@ permissions:
 
 # Allow one concurrent deployment
 concurrency:
-  group: 'pages'
+  group: "pages"
   cancel-in-progress: true
 
 jobs:
@@ -26,14 +26,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: '🧰 Checkout'
+      - name: "🧰 Checkout"
         uses: actions/checkout@v3
         with:
           # Full git history is needed to get a proper list of changed files within `super-linter`
           fetch-depth: 0
 
       - name: Setup Pages
-        uses: actions/configure-pages@v3.0.4
+        uses: actions/configure-pages@v3.0.0
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:

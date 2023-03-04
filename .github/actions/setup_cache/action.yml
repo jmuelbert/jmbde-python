@@ -1,6 +1,6 @@
 ---
-name: 'setup_cache'
-description: 'sets up the shared cache'
+name: "setup_cache"
+description: "sets up the shared cache"
 inputs:
   build_type:
     required: true
@@ -10,7 +10,7 @@ inputs:
     type: string
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Cache
       uses: actions/cache@v3

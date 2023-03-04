@@ -1,1 +1,1 @@
-"""Test suite for the jmbde-python package."""
+"""Test suite for the jmbde package."""

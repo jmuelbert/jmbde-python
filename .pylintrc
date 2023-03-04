@@ -55,7 +55,7 @@ confidence=
 # can either give multiple identifiers separated by comma (,) or put this
 # option multiple times (only on the command line, not in the configuration
 # file where it should appear only once). You can also use "--disable=all" to
-# disable everything first and then reenable specific checks. For example, if
+# disable everything first and then re-enable specific checks. For example, if
 # you want to run only the similarities checker, you can use "--disable=all
 # --enable=similarities". If you want to run only the classes checker, but have
 # no Warning level messages displayed, use "--disable=all --enable=classes
@@ -205,12 +205,13 @@ attr-naming-style=camelCase
 #attr-rgx=
 
 # Bad variable names which should always be refused, separated by a comma.
-bad-names=foo,
-          bar,
-          baz,
-          toto,
-          tutu,
-          tata
+bad-names=
+        foo,
+        bar,
+        baz,
+        toto,
+        tutu,
+        tata
 
 # Bad variable names regexes, separated by a comma. If names match any regex,
 # they will always be refused
@@ -249,12 +250,13 @@ function-naming-style=camelCase
 #function-rgx=
 
 # Good variable names which should always be accepted, separated by a comma.
-good-names=i,
-           j,
-           k,
-           ex,
-           Run,
-           _
+good-names=
+        i,
+        j,
+        k,
+        ex,
+        Run,
+        _
 
 # Good variable names regexes, separated by a comma. If names match any regex,
 # they will always be accepted
@@ -349,9 +351,10 @@ logging-modules=logging
 [MISCELLANEOUS]
 
 # List of note tags to take in consideration, separated by a comma.
-notes=FIXME,
-      XXX,
-      TODO
+notes=
+        FIXME,
+        XXX,
+        TODO
 
 # Regular expression of note tags to take in consideration.
 #notes-rgx=
@@ -474,8 +477,9 @@ allow-global-unused-variables=yes
 
 # List of strings which can identify a callback function by name. A callback
 # name must start or end with one of those strings.
-callbacks=cb_,
-          _cb
+callbacks=
+        cb_,
+        _cb
 
 # A regular expression matching the name of dummy variables (i.e. expected to
 # not be used).
@@ -496,18 +500,20 @@ redefining-builtins-modules=six.moves,past.builtins,future.builtins,builtins,io
 [CLASSES]
 
 # List of method names used to declare (i.e. assign) instance attributes.
-defining-attr-methods=__init__,
-                      __new__,
-                      setUp,
-                      __post_init__
+defining-attr-methods=
+        __init__,
+        __new__,
+        setUp,
+        __post_init__
 
 # List of member names, which should be excluded from the protected access
 # warning.
-exclude-protected=_asdict,
-                  _fields,
-                  _replace,
-                  _source,
-                  _make
+exclude-protected=
+        _asdict,
+        _fields,
+        _replace,
+        _source,
+        _make
 
 # List of valid names for the first argument in a class method.
 valid-classmethod-first-arg=cls
@@ -593,5 +599,6 @@ preferred-modules=
 
 # Exceptions that will emit a warning when being caught. Defaults to
 # "BaseException, Exception".
-overgeneral-exceptions=BaseException,
-                       Exception
+overgeneral-exceptions=
+        BaseException,
+         Exception

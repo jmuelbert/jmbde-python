@@ -11,10 +11,10 @@ name: Codacy Security Scan
 
 on:
   push:
-    branches: [main]
+    branches: [Tkinter]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [main]
+    branches: [Tkinter]
   schedule:
     - cron: "34 11 * * 4"
 

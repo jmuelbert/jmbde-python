@@ -3,7 +3,7 @@ name: "Misspell fixer"
 
 on:
   push:
-    branches: [main]
+    branches: [Tkinter]
   pull_request:
     # The branches below must be a subset of the branches above
     types: [opened, synchronize, reopened]
