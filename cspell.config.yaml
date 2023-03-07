@@ -39,7 +39,7 @@ words:
   - asdict
   - Authentiq
   - cjolowicz
-  - [Cc]odecov
+  - codecov
   - cython
   - envrc
   - furo
