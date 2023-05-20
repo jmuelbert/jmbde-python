@@ -3,10 +3,8 @@
 # SPDX-License-Identifier: EUPL-1.2
 #
 
-# Git
-.git
-.gitignore
-.github
+
+
 
 # Docker
 .dockerignore
