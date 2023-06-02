@@ -11,32 +11,37 @@ updates:
     schedule:
       interval: "daily"
     commit-message:
-      prefix: ":rocket: gha"
+      prefix: "fix: :rocket: gha"
+    open-pull-requests-limit: 10
+    # The actions in triage-issues.yml are updated in the Homebrew/.github repo
+    ignore:
+      - dependency-name: actions/stale
+      - dependency-name: dessant/lock-threads
 
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
       interval: "daily"
     commit-message:
-      prefix: ":rocket: docker"
+      prefix: "fix: :rocket: docker"
 
   - package-ecosystem: "bundler"
     directory: "/"
     schedule:
       interval: "daily"
     commit-message:
-      prefix: ":rocket: bundler"
+      prefix: "fix: :rocket: bundler"
 
   - package-ecosystem: "npm"
-    directory: "/"
+    directory: "/docs"
     schedule:
       interval: "daily"
     commit-message:
-      prefix: ":rocket: npm"
+      prefix: "fix: :rocket: npm for astro-docs"
 
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
       interval: "daily"
     commit-message:
-      prefix: ":rocket: pip"
+      prefix: "fix: :rocket: pip"
