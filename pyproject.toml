@@ -44,7 +44,7 @@ pyupgrade = "^3.10.1"
 safety = "^2.3.5"
 sphinx = "^7.1"
 sphinx-autobuild = "^2021.3.14"
-typeguard = "^4.0.0"
+typeguard = "^4.1.0"
 xdoctest = {extras = ["colors"], version = ">=0.15.10"}
 myst-parser = "^2.0.0"
 
