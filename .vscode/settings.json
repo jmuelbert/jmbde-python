@@ -1,84 +1,30 @@
 {
-  "python.pythonPath": "/Users/juergen/Library/Caches/pypoetry/virtualenvs/jmbde-Y5PItABN-py3.8/bin/python",
-  "python.workspaceSymbols.enabled": false,
-  "python.linter": "flake8",
-  "python.linting.enabled": true,
-  "python.linting.lintOnSave": true,
-  "python.linting.pylintUseMinimalCheckers": false,
-  "python.linting.pylintEnabled": false,
-  "python.linting.pylintArgs": ["--reports", "12", "--disable-msg", "I0011"],
-  "python.linting.mypyEnabled": false,
-  "python.linting.pylamaEnabled": false,
-  "python.linting.flake8Enabled": true,
-  "python.linting.flake8Args": [
-    "--select=ANN,B,B9,BLK,C,D,DAR,E,F,I,S,W",
-    "--ignore=E203,E501,W503,ANN101",
-    "--verbose",
-    "--max-line-length = 80",
-    "--max-complexity = 11"
-  ],
-  "python.linting.pycodestyleEnabled": false,
-  "python.linting.pydocstyleEnabled": false,
-  "python.linting.pydocstyleArgs": [
-    "--ignore=D100",
-    "--ignore=D203",
-    "--ignore=D405"
-  ],
-  "python.linting.ignorePatterns": [
-    "**/site-packages/**/*.py",
-    ".mypy_cache/*",
-    ".nox/*",
-    ".pytest_cache/*",
-    ".py_type/*",
-    ".scratch/*",
-    ".vscode/*.py",
-    "_vendor/*",
-    "__pycache__",
-    "build/*",
-    "data/*"
-  ],
-  "python.formatting.provider": "black",
-  "python.formatting.blackArgs": ["--line-length 80"],
-  "pythonTestExplorer.testFramework": "pytest",
-  "python.testing.pytestEnabled": true,
-  "python.condaPath": "~/opt//miniconda/bin/conda",
-  "docker-linter.debug": true,
-  "docker-linter.flake8.enable": true,
-  "docker-linter.rubocop.enable": true,
-  "editor.acceptSuggestionOnEnter": "on",
-  "editor.quickSuggestionsDelay": 10,
-  "editor.suggestOnTriggerCharacters": true,
-  "editor.tabCompletion": "on",
-  "editor.suggest.localityBonus": true,
-  "editor.suggestSelection": "recentlyUsed",
-  "editor.wordBasedSuggestions": true,
-  "editor.parameterHints.enabled": true,
-  "editor.quickSuggestions": {
-    "comments": false,
-    "other": true,
-    "strings": false
+  "code-runner.executorMapByFileExtension": {
+    ".qml": "qml",
+    ".qrc": "qtcreator -client",
+    ".ui": "qtcreator -client"
   },
-  "files.autoSave": "afterDelay",
+  "files.associations": {
+    "*.ts": "xml"
+  },
+
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/TingPing/flatpak-manifest-schema/master/flatpak-manifest.schema": [
+      "com.github.Desktop.yaml"
+    ]
+  },
+  "esbonio.server.enabled": true,
   "files.exclude": {
-    "**/*.js.map": true,
-    "**/*.min.js": true,
-    "**/*.pyc": true,
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
     "**/.classpath": true,
     "**/.factorypath": true,
     "**/.project": true,
-    "**/.settings": true,
-    "*.egg-info": true,
-    "*.log": true,
-    "build": true,
-    "htmlcov": true
+    "**/.settings": true
   },
-  "files.trimTrailingWhitespace": true,
-  "restructuredtext.linter.executablePath": "doc8",
-  "ruby.format": "rubocop",
-  "ruby.intellisense": "rubyLocate",
-  "ruby.codeCompletion": "rcodetools",
-  "restructuredtext.confPath": "${workspaceFolder}/docs",
-  "cmake.configureOnOpen": false,
-  "cSpell.words": ["jmbde"],
-  "powershell.codeFormatting.addWhitespaceAroundPipe": true
+  "explorerExclude.backup": {}
 }
