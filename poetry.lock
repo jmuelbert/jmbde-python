@@ -1685,17 +1685,17 @@ test = ["cython (>=3.0)", "defusedxml (>=0.7.1)", "pytest (>=8.0)", "setuptools 
 
 [[package]]
 name = "sphinx-autobuild"
-version = "2024.4.16"
+version = "2024.10.2"
 description = "Rebuild Sphinx documentation on changes, with hot reloading in the browser."
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "sphinx_autobuild-2024.4.16-py3-none-any.whl", hash = "sha256:f2522779d30fcbf0253e09714f274ce8c608cb6ebcd67922b1c54de59faba702"},
-    {file = "sphinx_autobuild-2024.4.16.tar.gz", hash = "sha256:1c0ed37a1970eed197f9c5a66d65759e7c4e4cba7b5a5d77940752bf1a59f2c7"},
+    {file = "sphinx_autobuild-2024.10.2-py3-none-any.whl", hash = "sha256:8a3c4f19d4e0ba5995c23c973ad0538e7dc284f1918b85d919e73cd821a15223"},
+    {file = "sphinx_autobuild-2024.10.2.tar.gz", hash = "sha256:032fffb752ab8d99dfbde055968694da44b03862694f5a703be171362444456b"},
 ]
 
 [package.dependencies]
-colorama = "*"
+colorama = ">=0.4.6"
 sphinx = "*"
 starlette = ">=0.35"
 uvicorn = ">=0.25"
@@ -1703,7 +1703,7 @@ watchfiles = ">=0.20"
 websockets = ">=11"
 
 [package.extras]
-test = ["pytest (>=6)"]
+test = ["httpx", "pytest (>=6)"]
 
 [[package]]
 name = "sphinx-basic-ng"
@@ -2187,4 +2187,4 @@ test = ["big-O", "jaraco.functools", "jaraco.itertools", "jaraco.test", "more-it
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "eb3bd2999a54150550505341c4f5981f6e8da4eb93f137908cbbcaebb121902a"
+content-hash = "45ec1ebad3bc38383de68e60d0a8ddfedfc55e6e48f982bfa36e94b15617bda0"
