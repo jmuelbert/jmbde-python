@@ -18,26 +18,26 @@ date=$(date -R)
 find . -name "*.pyc" -exec rm -rf {} \;
 
 for suite in 'trusty' 'utopic' 'vivid'; do
-	# sign our package and prepare it for ppa upload
-	pushd deb_dist
-	pushd ${name}-${version}
+    # sign our package and prepare it for ppa upload
+    pushd deb_dist
+    pushd ${name}-${version}
 
-	# update changelog to include ubuntu release
-	changelog="${name} (${version}-1ppa1~${suite}1) ${suite}; urgency=low
+    # update changelog to include ubuntu release
+    changelog="${name} (${version}-1ppa1~${suite}1) ${suite}; urgency=low
   * Initial release
  -- Jürgen Mülbert <juergen.muelbert@gmail.com  ${date}
 "
-	echo "$changelog" >debian/changelog
-	cat debian/changelog
+    echo "$changelog" >debian/changelog
+    cat debian/changelog
 
-	debuild -S -sa -k${gpg_key}
-	popd
+    debuild -S -sa -k${gpg_key}
+    popd
 
-	# upload to ppa
-	dput ${ppa} *.changes
-	rm -rf *.dsc *.changes
+    # upload to ppa
+    dput ${ppa} *.changes
+    rm -rf *.dsc *.changes
 
-	popd
+    popd
 done
 
 # cleanup

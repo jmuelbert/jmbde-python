@@ -9,10 +9,10 @@
     conda activate python37
     ```
 
-2. Install requierements.
+2. Install requirements.
 
     ```bash
-    pip install -r requierments.txt
+    pip install -r requirements.txt
     ```
 
 3. Update the translations. Install Qt first and make sure you can run `lupdate` and `lrelease` commands.
@@ -33,7 +33,7 @@
     ```bash
     # Install the latest develop version of PyInstaller
 
-    # You may need rebuild the bootloader of PyInstaller againt 10.14 SDK to fully support dark theme
+    # You may need rebuild the bootloader of PyInstaller against 10.14 SDK to fully support dark theme
     # See: https://pyinstaller.readthedocs.io/en/latest/bootloader-building.html
 
     rm -rf build

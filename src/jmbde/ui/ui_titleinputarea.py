@@ -1,53 +1,57 @@
 # -*- coding: utf-8 -*-
 ################################################################################
-## Form generated from reading UI file 'titleinputarea.ui'
+# Form generated from reading UI file 'titleinputarea.ui'
 ##
-## Created by: Qt User Interface Compiler version 5.15.0
+# Created by: Qt User Interface Compiler version 5.15.0
 ##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
+# WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
-from PySide2.QtCore import QCoreApplication
-from PySide2.QtCore import QDate
-from PySide2.QtCore import QDateTime
-from PySide2.QtCore import QMetaObject
-from PySide2.QtCore import QObject
-from PySide2.QtCore import QPoint
-from PySide2.QtCore import QRect
-from PySide2.QtCore import QSize
-from PySide2.QtCore import Qt
-from PySide2.QtCore import QTime
-from PySide2.QtCore import QUrl
-from PySide2.QtGui import QBrush
-from PySide2.QtGui import QColor
-from PySide2.QtGui import QConicalGradient
-from PySide2.QtGui import QCursor
-from PySide2.QtGui import QFont
-from PySide2.QtGui import QFontDatabase
-from PySide2.QtGui import QIcon
-from PySide2.QtGui import QKeySequence
-from PySide2.QtGui import QLinearGradient
-from PySide2.QtGui import QPainter
-from PySide2.QtGui import QPalette
-from PySide2.QtGui import QPixmap
-from PySide2.QtGui import QRadialGradient
+from PySide2.QtCore import (
+    QCoreApplication,
+    QDate,
+    QDateTime,
+    QMetaObject,
+    QObject,
+    QPoint,
+    QRect,
+    QSize,
+    Qt,
+    QTime,
+    QUrl,
+)
+from PySide2.QtGui import (
+    QBrush,
+    QColor,
+    QConicalGradient,
+    QCursor,
+    QFont,
+    QFontDatabase,
+    QIcon,
+    QKeySequence,
+    QLinearGradient,
+    QPainter,
+    QPalette,
+    QPixmap,
+    QRadialGradient,
+)
 from PySide2.QtWidgets import *
 
 
 class Ui_TitleInputArea(object):
     def setupUi(self, TitleInputArea):
         if not TitleInputArea.objectName():
-            TitleInputArea.setObjectName(u"TitleInputArea")
+            TitleInputArea.setObjectName("TitleInputArea")
         TitleInputArea.resize(730, 600)
         self.verticalLayout_3 = QVBoxLayout(TitleInputArea)
-        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.formLayoutWidget = QWidget(TitleInputArea)
-        self.formLayoutWidget.setObjectName(u"formLayoutWidget")
+        self.formLayoutWidget.setObjectName("formLayoutWidget")
         self.verticalLayout_2 = QVBoxLayout(self.formLayoutWidget)
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.verticalLayout = QVBoxLayout()
-        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setObjectName("verticalLayout")
         self.label_Header = QLabel(self.formLayoutWidget)
-        self.label_Header.setObjectName(u"label_Header")
+        self.label_Header.setObjectName("label_Header")
         font = QFont()
         font.setPointSize(16)
         font.setBold(True)
@@ -66,34 +70,34 @@ class Ui_TitleInputArea(object):
         self.verticalLayout_2.addItem(self.verticalSpacer_2)
 
         self.gridLayout = QGridLayout()
-        self.gridLayout.setObjectName(u"gridLayout")
+        self.gridLayout.setObjectName("gridLayout")
         self.label_From = QLabel(self.formLayoutWidget)
-        self.label_From.setObjectName(u"label_From")
+        self.label_From.setObjectName("label_From")
 
         self.gridLayout.addWidget(self.label_From, 1, 0, 1, 1)
 
         self.label_To = QLabel(self.formLayoutWidget)
-        self.label_To.setObjectName(u"label_To")
+        self.label_To.setObjectName("label_To")
 
         self.gridLayout.addWidget(self.label_To, 2, 0, 1, 1)
 
         self.lineEdit_Title = QLineEdit(self.formLayoutWidget)
-        self.lineEdit_Title.setObjectName(u"lineEdit_Title")
+        self.lineEdit_Title.setObjectName("lineEdit_Title")
 
         self.gridLayout.addWidget(self.lineEdit_Title, 0, 2, 1, 1)
 
         self.dateEdit_From = QDateEdit(self.formLayoutWidget)
-        self.dateEdit_From.setObjectName(u"dateEdit_From")
+        self.dateEdit_From.setObjectName("dateEdit_From")
 
         self.gridLayout.addWidget(self.dateEdit_From, 1, 2, 1, 1)
 
         self.label_Title = QLabel(self.formLayoutWidget)
-        self.label_Title.setObjectName(u"label_Title")
+        self.label_Title.setObjectName("label_Title")
 
         self.gridLayout.addWidget(self.label_Title, 0, 0, 1, 1)
 
         self.dateEdit_To = QDateEdit(self.formLayoutWidget)
-        self.dateEdit_To.setObjectName(u"dateEdit_To")
+        self.dateEdit_To.setObjectName("dateEdit_To")
 
         self.gridLayout.addWidget(self.dateEdit_To, 2, 2, 1, 1)
 
@@ -106,9 +110,9 @@ class Ui_TitleInputArea(object):
         self.verticalLayout_2.addItem(self.verticalSpacer)
 
         self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalLayout.setObjectName("horizontalLayout")
         self.pushButton_Add = QPushButton(self.formLayoutWidget)
-        self.pushButton_Add.setObjectName(u"pushButton_Add")
+        self.pushButton_Add.setObjectName("pushButton_Add")
 
         self.horizontalLayout.addWidget(self.pushButton_Add)
 
@@ -119,7 +123,7 @@ class Ui_TitleInputArea(object):
         self.horizontalLayout.addItem(self.horizontalSpacer)
 
         self.pushButton_EditFinish = QPushButton(self.formLayoutWidget)
-        self.pushButton_EditFinish.setObjectName(u"pushButton_EditFinish")
+        self.pushButton_EditFinish.setObjectName("pushButton_EditFinish")
 
         self.horizontalLayout.addWidget(self.pushButton_EditFinish)
 
@@ -145,31 +149,31 @@ class Ui_TitleInputArea(object):
 
     def retranslateUi(self, TitleInputArea):
         TitleInputArea.setWindowTitle(
-            QCoreApplication.translate("TitleInputArea", u"Title", None)
+            QCoreApplication.translate("TitleInputArea", "Title", None)
         )
         # if QT_CONFIG(accessibility)
         TitleInputArea.setAccessibleName(
-            QCoreApplication.translate("TitleInputArea", u"TitleInputDialog", None)
+            QCoreApplication.translate("TitleInputArea", "TitleInputDialog", None)
         )
         # endif // QT_CONFIG(accessibility)
         TitleInputArea.setTitle(
-            QCoreApplication.translate("TitleInputArea", u"Title", None)
+            QCoreApplication.translate("TitleInputArea", "Title", None)
         )
         self.label_Header.setText(
-            QCoreApplication.translate("TitleInputArea", u"Title", None)
+            QCoreApplication.translate("TitleInputArea", "Title", None)
         )
         self.label_From.setText(
-            QCoreApplication.translate("TitleInputArea", u"From", None)
+            QCoreApplication.translate("TitleInputArea", "From", None)
         )
-        self.label_To.setText(QCoreApplication.translate("TitleInputArea", u"To", None))
+        self.label_To.setText(QCoreApplication.translate("TitleInputArea", "To", None))
         self.label_Title.setText(
-            QCoreApplication.translate("TitleInputArea", u"Title", None)
+            QCoreApplication.translate("TitleInputArea", "Title", None)
         )
         self.pushButton_Add.setText(
-            QCoreApplication.translate("TitleInputArea", u"+", None)
+            QCoreApplication.translate("TitleInputArea", "+", None)
         )
         self.pushButton_EditFinish.setText(
-            QCoreApplication.translate("TitleInputArea", u"Edit", None)
+            QCoreApplication.translate("TitleInputArea", "Edit", None)
         )
 
     # retranslateUi

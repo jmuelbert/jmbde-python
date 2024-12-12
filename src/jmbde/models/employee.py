@@ -14,14 +14,9 @@
 #   GNU General Public License for more details.
 #
 """The Employee Data Model."""
-from typing import Any
-from typing import Dict
+from typing import Any, Dict
 
-from PySide2.QtCore import QAbstractListModel
-from PySide2.QtCore import QModelIndex
-from PySide2.QtCore import Qt
-from PySide2.QtCore import Signal
-from PySide2.QtCore import Slot
+from PySide2.QtCore import QAbstractListModel, QModelIndex, Qt, Signal, Slot
 
 
 class EmployeeModel(QAbstractListModel):

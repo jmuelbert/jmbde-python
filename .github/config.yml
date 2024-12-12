@@ -30,7 +30,7 @@ checkPullRequestTemplate: true
 # *OPTIONAL* Only warn about insufficient information on these events type
 # Keys must be lowercase. Valid values are 'issue' and 'pullRequest'
 requestInfoOn:
-  pullRequest: true
+  pull request: true
   issue: true
 
 newPRWelcomeComment: >

@@ -9,7 +9,6 @@ from textwrap import dedent
 import nox
 from nox.sessions import Session
 
-
 package = "test"
 python_versions = ["3.8", "3.7", "3.6"]
 nox.options.sessions = (

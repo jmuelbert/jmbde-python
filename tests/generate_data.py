@@ -19,7 +19,7 @@
 # See the Licence for the specific language governing
 # permissions and limitations under the Licence.
 #
-# Lizenziert unter der EUPL, Version 1.2 oder - sobald
+# Lizenziert under der EUPL, Version 1.2 oder - sobald
 #  diese von der Europäischen Kommission genehmigt wurden -
 # Folgeversionen der EUPL ("Lizenz");
 # Sie dürfen dieses Werk ausschließlich gemäß
@@ -30,11 +30,11 @@
 #
 # Sofern nicht durch anwendbare Rechtsvorschriften
 # gefordert oder in schriftlicher Form vereinbart, wird
-# die unter der Lizenz verbreitete Software "so wie sie
+# die under der Lizenz verbreitete Software "so wie sie
 # ist", OHNE JEGLICHE GEWÄHRLEISTUNG ODER BEDINGUNGEN -
 # ausdrücklich oder stillschweigend - verbreitet.
 # Die sprachspezifischen Genehmigungen und Beschränkungen
-# unter der Lizenz sind dem Lizenztext zu entnehmen.
+# under der Lizenz sind dem Lizenztext zu entnehmen.
 #
 """Generator for fake data for testing."""
 import csv
@@ -108,7 +108,7 @@ class CreateFakeOrders:
             "Auftrag Nr.",
             "Hauptbereich",
             "Auftragsdatum",
-            "Tage offen",
+            "Tage often",
             "Deb.-Nr.",
             "Deb.-Name",
             "Verkäufer Serviceberater",
@@ -228,13 +228,13 @@ class CreateFakeOrders:
             name: The name for the output file.
         """
         wb = Workbook()
-        ws = wb.active
+        was = wb.active
         column_num = 1
         row_num = 1
 
         for row in self.order_list:
             for cell in row:
-                ws.cell(row_num, column_num).value = cell
+                was.cell(row_num, column_num).value = cell
                 column_num += 1
             row_num += 1
             column_num = 1

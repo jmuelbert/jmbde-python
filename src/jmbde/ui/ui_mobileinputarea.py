@@ -1,53 +1,57 @@
 # -*- coding: utf-8 -*-
 ################################################################################
-## Form generated from reading UI file 'mobileinputarea.ui'
+# Form generated from reading UI file 'mobileinputarea.ui'
 ##
-## Created by: Qt User Interface Compiler version 5.15.0
+# Created by: Qt User Interface Compiler version 5.15.0
 ##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
+# WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
-from PySide2.QtCore import QCoreApplication
-from PySide2.QtCore import QDate
-from PySide2.QtCore import QDateTime
-from PySide2.QtCore import QMetaObject
-from PySide2.QtCore import QObject
-from PySide2.QtCore import QPoint
-from PySide2.QtCore import QRect
-from PySide2.QtCore import QSize
-from PySide2.QtCore import Qt
-from PySide2.QtCore import QTime
-from PySide2.QtCore import QUrl
-from PySide2.QtGui import QBrush
-from PySide2.QtGui import QColor
-from PySide2.QtGui import QConicalGradient
-from PySide2.QtGui import QCursor
-from PySide2.QtGui import QFont
-from PySide2.QtGui import QFontDatabase
-from PySide2.QtGui import QIcon
-from PySide2.QtGui import QKeySequence
-from PySide2.QtGui import QLinearGradient
-from PySide2.QtGui import QPainter
-from PySide2.QtGui import QPalette
-from PySide2.QtGui import QPixmap
-from PySide2.QtGui import QRadialGradient
+from PySide2.QtCore import (
+    QCoreApplication,
+    QDate,
+    QDateTime,
+    QMetaObject,
+    QObject,
+    QPoint,
+    QRect,
+    QSize,
+    Qt,
+    QTime,
+    QUrl,
+)
+from PySide2.QtGui import (
+    QBrush,
+    QColor,
+    QConicalGradient,
+    QCursor,
+    QFont,
+    QFontDatabase,
+    QIcon,
+    QKeySequence,
+    QLinearGradient,
+    QPainter,
+    QPalette,
+    QPixmap,
+    QRadialGradient,
+)
 from PySide2.QtWidgets import *
 
 
 class Ui_MobileInputArea(object):
     def setupUi(self, MobileInputArea):
         if not MobileInputArea.objectName():
-            MobileInputArea.setObjectName(u"MobileInputArea")
+            MobileInputArea.setObjectName("MobileInputArea")
         MobileInputArea.resize(730, 600)
         self.verticalLayout_3 = QVBoxLayout(MobileInputArea)
-        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.formLayoutWidget = QWidget(MobileInputArea)
-        self.formLayoutWidget.setObjectName(u"formLayoutWidget")
+        self.formLayoutWidget.setObjectName("formLayoutWidget")
         self.verticalLayout_2 = QVBoxLayout(self.formLayoutWidget)
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.verticalLayout = QVBoxLayout()
-        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setObjectName("verticalLayout")
         self.label_Header = QLabel(self.formLayoutWidget)
-        self.label_Header.setObjectName(u"label_Header")
+        self.label_Header.setObjectName("label_Header")
         font = QFont()
         font.setPointSize(16)
         font.setBold(True)
@@ -66,125 +70,125 @@ class Ui_MobileInputArea(object):
         self.verticalLayout_2.addItem(self.verticalSpacer)
 
         self.gridLayout = QGridLayout()
-        self.gridLayout.setObjectName(u"gridLayout")
+        self.gridLayout.setObjectName("gridLayout")
         self.comboBox_Place = QComboBox(self.formLayoutWidget)
-        self.comboBox_Place.setObjectName(u"comboBox_Place")
+        self.comboBox_Place.setObjectName("comboBox_Place")
 
         self.gridLayout.addWidget(self.comboBox_Place, 3, 5, 1, 1)
 
         self.label_DeviceName = QLabel(self.formLayoutWidget)
-        self.label_DeviceName.setObjectName(u"label_DeviceName")
+        self.label_DeviceName.setObjectName("label_DeviceName")
 
         self.gridLayout.addWidget(self.label_DeviceName, 4, 0, 1, 1)
 
         self.label_Department = QLabel(self.formLayoutWidget)
-        self.label_Department.setObjectName(u"label_Department")
+        self.label_Department.setObjectName("label_Department")
 
         self.gridLayout.addWidget(self.label_Department, 3, 0, 1, 1)
 
         self.lineEdit_CardNumber = QLineEdit(self.formLayoutWidget)
-        self.lineEdit_CardNumber.setObjectName(u"lineEdit_CardNumber")
+        self.lineEdit_CardNumber.setObjectName("lineEdit_CardNumber")
 
         self.gridLayout.addWidget(self.lineEdit_CardNumber, 1, 5, 1, 1)
 
         self.label_Inventory = QLabel(self.formLayoutWidget)
-        self.label_Inventory.setObjectName(u"label_Inventory")
+        self.label_Inventory.setObjectName("label_Inventory")
 
         self.gridLayout.addWidget(self.label_Inventory, 5, 3, 1, 1)
 
         self.comboBox_Department = QComboBox(self.formLayoutWidget)
-        self.comboBox_Department.setObjectName(u"comboBox_Department")
+        self.comboBox_Department.setObjectName("comboBox_Department")
 
         self.gridLayout.addWidget(self.comboBox_Department, 3, 2, 1, 1)
 
         self.label_Employee = QLabel(self.formLayoutWidget)
-        self.label_Employee.setObjectName(u"label_Employee")
+        self.label_Employee.setObjectName("label_Employee")
 
         self.gridLayout.addWidget(self.label_Employee, 2, 0, 1, 1)
 
         self.label_Manufacturer = QLabel(self.formLayoutWidget)
-        self.label_Manufacturer.setObjectName(u"label_Manufacturer")
+        self.label_Manufacturer.setObjectName("label_Manufacturer")
 
         self.gridLayout.addWidget(self.label_Manufacturer, 5, 0, 1, 1)
 
         self.lineEdit_Pin = QLineEdit(self.formLayoutWidget)
-        self.lineEdit_Pin.setObjectName(u"lineEdit_Pin")
+        self.lineEdit_Pin.setObjectName("lineEdit_Pin")
         self.lineEdit_Pin.setClearButtonEnabled(True)
 
         self.gridLayout.addWidget(self.lineEdit_Pin, 0, 5, 1, 1)
 
         self.checkBox_Replace = QCheckBox(self.formLayoutWidget)
-        self.checkBox_Replace.setObjectName(u"checkBox_Replace")
+        self.checkBox_Replace.setObjectName("checkBox_Replace")
 
         self.gridLayout.addWidget(self.checkBox_Replace, 6, 2, 1, 1)
 
         self.label_Place = QLabel(self.formLayoutWidget)
-        self.label_Place.setObjectName(u"label_Place")
+        self.label_Place.setObjectName("label_Place")
 
         self.gridLayout.addWidget(self.label_Place, 3, 3, 1, 1)
 
         self.label_CardNumber = QLabel(self.formLayoutWidget)
-        self.label_CardNumber.setObjectName(u"label_CardNumber")
+        self.label_CardNumber.setObjectName("label_CardNumber")
 
         self.gridLayout.addWidget(self.label_CardNumber, 1, 3, 1, 1)
 
         self.lineEdit_Number = QLineEdit(self.formLayoutWidget)
-        self.lineEdit_Number.setObjectName(u"lineEdit_Number")
+        self.lineEdit_Number.setObjectName("lineEdit_Number")
 
         self.gridLayout.addWidget(self.lineEdit_Number, 0, 2, 1, 1)
 
         self.label_Pin = QLabel(self.formLayoutWidget)
-        self.label_Pin.setObjectName(u"label_Pin")
+        self.label_Pin.setObjectName("label_Pin")
 
         self.gridLayout.addWidget(self.label_Pin, 0, 3, 1, 1)
 
         self.label_DeviceType = QLabel(self.formLayoutWidget)
-        self.label_DeviceType.setObjectName(u"label_DeviceType")
+        self.label_DeviceType.setObjectName("label_DeviceType")
 
         self.gridLayout.addWidget(self.label_DeviceType, 4, 3, 1, 1)
 
         self.comboBox_DeviceType = QComboBox(self.formLayoutWidget)
-        self.comboBox_DeviceType.setObjectName(u"comboBox_DeviceType")
+        self.comboBox_DeviceType.setObjectName("comboBox_DeviceType")
 
         self.gridLayout.addWidget(self.comboBox_DeviceType, 4, 5, 1, 1)
 
         self.checkBox_Active = QCheckBox(self.formLayoutWidget)
-        self.checkBox_Active.setObjectName(u"checkBox_Active")
+        self.checkBox_Active.setObjectName("checkBox_Active")
 
         self.gridLayout.addWidget(self.checkBox_Active, 6, 0, 1, 1)
 
         self.label_SerialNumber = QLabel(self.formLayoutWidget)
-        self.label_SerialNumber.setObjectName(u"label_SerialNumber")
+        self.label_SerialNumber.setObjectName("label_SerialNumber")
 
         self.gridLayout.addWidget(self.label_SerialNumber, 1, 0, 1, 1)
 
         self.comboBox_Manufacturer = QComboBox(self.formLayoutWidget)
-        self.comboBox_Manufacturer.setObjectName(u"comboBox_Manufacturer")
+        self.comboBox_Manufacturer.setObjectName("comboBox_Manufacturer")
 
         self.gridLayout.addWidget(self.comboBox_Manufacturer, 5, 2, 1, 1)
 
         self.label_Number = QLabel(self.formLayoutWidget)
-        self.label_Number.setObjectName(u"label_Number")
+        self.label_Number.setObjectName("label_Number")
 
         self.gridLayout.addWidget(self.label_Number, 0, 0, 1, 1)
 
         self.comboBox_DeviceName = QComboBox(self.formLayoutWidget)
-        self.comboBox_DeviceName.setObjectName(u"comboBox_DeviceName")
+        self.comboBox_DeviceName.setObjectName("comboBox_DeviceName")
 
         self.gridLayout.addWidget(self.comboBox_DeviceName, 4, 2, 1, 1)
 
         self.lineEdit_SerialNumber = QLineEdit(self.formLayoutWidget)
-        self.lineEdit_SerialNumber.setObjectName(u"lineEdit_SerialNumber")
+        self.lineEdit_SerialNumber.setObjectName("lineEdit_SerialNumber")
 
         self.gridLayout.addWidget(self.lineEdit_SerialNumber, 1, 2, 1, 1)
 
         self.comboBox_Employee = QComboBox(self.formLayoutWidget)
-        self.comboBox_Employee.setObjectName(u"comboBox_Employee")
+        self.comboBox_Employee.setObjectName("comboBox_Employee")
 
         self.gridLayout.addWidget(self.comboBox_Employee, 2, 2, 1, 1)
 
         self.comboBox_Inventory = QComboBox(self.formLayoutWidget)
-        self.comboBox_Inventory.setObjectName(u"comboBox_Inventory")
+        self.comboBox_Inventory.setObjectName("comboBox_Inventory")
 
         self.gridLayout.addWidget(self.comboBox_Inventory, 5, 5, 1, 1)
 
@@ -197,9 +201,9 @@ class Ui_MobileInputArea(object):
         self.verticalLayout_2.addItem(self.verticalSpacer_2)
 
         self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalLayout.setObjectName("horizontalLayout")
         self.pushButton_Add = QPushButton(self.formLayoutWidget)
-        self.pushButton_Add.setObjectName(u"pushButton_Add")
+        self.pushButton_Add.setObjectName("pushButton_Add")
 
         self.horizontalLayout.addWidget(self.pushButton_Add)
 
@@ -210,7 +214,7 @@ class Ui_MobileInputArea(object):
         self.horizontalLayout.addItem(self.horizontalSpacer)
 
         self.pushButton_EditFinish = QPushButton(self.formLayoutWidget)
-        self.pushButton_EditFinish.setObjectName(u"pushButton_EditFinish")
+        self.pushButton_EditFinish.setObjectName("pushButton_EditFinish")
 
         self.horizontalLayout.addWidget(self.pushButton_EditFinish)
 
@@ -254,63 +258,63 @@ class Ui_MobileInputArea(object):
 
     def retranslateUi(self, MobileInputArea):
         MobileInputArea.setWindowTitle(
-            QCoreApplication.translate("MobileInputArea", u"Mobile", None)
+            QCoreApplication.translate("MobileInputArea", "Mobile", None)
         )
         # if QT_CONFIG(accessibility)
         MobileInputArea.setAccessibleName(
-            QCoreApplication.translate("MobileInputArea", u"MobileInputDialog", None)
+            QCoreApplication.translate("MobileInputArea", "MobileInputDialog", None)
         )
         # endif // QT_CONFIG(accessibility)
         MobileInputArea.setTitle(
-            QCoreApplication.translate("MobileInputArea", u"Mobile", None)
+            QCoreApplication.translate("MobileInputArea", "Mobile", None)
         )
         self.label_Header.setText(
-            QCoreApplication.translate("MobileInputArea", u"Mobile", None)
+            QCoreApplication.translate("MobileInputArea", "Mobile", None)
         )
         self.label_DeviceName.setText(
-            QCoreApplication.translate("MobileInputArea", u"Devicename", None)
+            QCoreApplication.translate("MobileInputArea", "Devicename", None)
         )
         self.label_Department.setText(
-            QCoreApplication.translate("MobileInputArea", u"Department", None)
+            QCoreApplication.translate("MobileInputArea", "Department", None)
         )
         self.label_Inventory.setText(
-            QCoreApplication.translate("MobileInputArea", u"Inventory", None)
+            QCoreApplication.translate("MobileInputArea", "Inventory", None)
         )
         self.label_Employee.setText(
-            QCoreApplication.translate("MobileInputArea", u"Employee", None)
+            QCoreApplication.translate("MobileInputArea", "Employee", None)
         )
         self.label_Manufacturer.setText(
-            QCoreApplication.translate("MobileInputArea", u"Manufacturer", None)
+            QCoreApplication.translate("MobileInputArea", "Manufacturer", None)
         )
         self.checkBox_Replace.setText(
-            QCoreApplication.translate("MobileInputArea", u"Replace", None)
+            QCoreApplication.translate("MobileInputArea", "Replace", None)
         )
         self.label_Place.setText(
-            QCoreApplication.translate("MobileInputArea", u"Place", None)
+            QCoreApplication.translate("MobileInputArea", "Place", None)
         )
         self.label_CardNumber.setText(
-            QCoreApplication.translate("MobileInputArea", u"Card Number", None)
+            QCoreApplication.translate("MobileInputArea", "Card Number", None)
         )
         self.label_Pin.setText(
-            QCoreApplication.translate("MobileInputArea", u"Pin", None)
+            QCoreApplication.translate("MobileInputArea", "Pin", None)
         )
         self.label_DeviceType.setText(
-            QCoreApplication.translate("MobileInputArea", u"Devicetype", None)
+            QCoreApplication.translate("MobileInputArea", "Devicetype", None)
         )
         self.checkBox_Active.setText(
-            QCoreApplication.translate("MobileInputArea", u"Active", None)
+            QCoreApplication.translate("MobileInputArea", "Active", None)
         )
         self.label_SerialNumber.setText(
-            QCoreApplication.translate("MobileInputArea", u"Serial Number", None)
+            QCoreApplication.translate("MobileInputArea", "Serial Number", None)
         )
         self.label_Number.setText(
-            QCoreApplication.translate("MobileInputArea", u"Number", None)
+            QCoreApplication.translate("MobileInputArea", "Number", None)
         )
         self.pushButton_Add.setText(
-            QCoreApplication.translate("MobileInputArea", u"+", None)
+            QCoreApplication.translate("MobileInputArea", "+", None)
         )
         self.pushButton_EditFinish.setText(
-            QCoreApplication.translate("MobileInputArea", u"Edit", None)
+            QCoreApplication.translate("MobileInputArea", "Edit", None)
         )
 
     # retranslateUi

@@ -1,53 +1,57 @@
 # -*- coding: utf-8 -*-
 ################################################################################
-## Form generated from reading UI file 'functioninputarea.ui'
+# Form generated from reading UI file 'functioninputarea.ui'
 ##
-## Created by: Qt User Interface Compiler version 5.15.0
+# Created by: Qt User Interface Compiler version 5.15.0
 ##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
+# WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
-from PySide2.QtCore import QCoreApplication
-from PySide2.QtCore import QDate
-from PySide2.QtCore import QDateTime
-from PySide2.QtCore import QMetaObject
-from PySide2.QtCore import QObject
-from PySide2.QtCore import QPoint
-from PySide2.QtCore import QRect
-from PySide2.QtCore import QSize
-from PySide2.QtCore import Qt
-from PySide2.QtCore import QTime
-from PySide2.QtCore import QUrl
-from PySide2.QtGui import QBrush
-from PySide2.QtGui import QColor
-from PySide2.QtGui import QConicalGradient
-from PySide2.QtGui import QCursor
-from PySide2.QtGui import QFont
-from PySide2.QtGui import QFontDatabase
-from PySide2.QtGui import QIcon
-from PySide2.QtGui import QKeySequence
-from PySide2.QtGui import QLinearGradient
-from PySide2.QtGui import QPainter
-from PySide2.QtGui import QPalette
-from PySide2.QtGui import QPixmap
-from PySide2.QtGui import QRadialGradient
+from PySide2.QtCore import (
+    QCoreApplication,
+    QDate,
+    QDateTime,
+    QMetaObject,
+    QObject,
+    QPoint,
+    QRect,
+    QSize,
+    Qt,
+    QTime,
+    QUrl,
+)
+from PySide2.QtGui import (
+    QBrush,
+    QColor,
+    QConicalGradient,
+    QCursor,
+    QFont,
+    QFontDatabase,
+    QIcon,
+    QKeySequence,
+    QLinearGradient,
+    QPainter,
+    QPalette,
+    QPixmap,
+    QRadialGradient,
+)
 from PySide2.QtWidgets import *
 
 
 class Ui_FunctionInputArea(object):
     def setupUi(self, FunctionInputArea):
         if not FunctionInputArea.objectName():
-            FunctionInputArea.setObjectName(u"FunctionInputArea")
+            FunctionInputArea.setObjectName("FunctionInputArea")
         FunctionInputArea.resize(730, 600)
         self.verticalLayout_3 = QVBoxLayout(FunctionInputArea)
-        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.formLayoutWidget = QWidget(FunctionInputArea)
-        self.formLayoutWidget.setObjectName(u"formLayoutWidget")
+        self.formLayoutWidget.setObjectName("formLayoutWidget")
         self.verticalLayout_2 = QVBoxLayout(self.formLayoutWidget)
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.verticalLayout = QVBoxLayout()
-        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setObjectName("verticalLayout")
         self.label_Header = QLabel(self.formLayoutWidget)
-        self.label_Header.setObjectName(u"label_Header")
+        self.label_Header.setObjectName("label_Header")
         font = QFont()
         font.setPointSize(16)
         font.setBold(True)
@@ -66,24 +70,24 @@ class Ui_FunctionInputArea(object):
         self.verticalLayout_2.addItem(self.verticalSpacer)
 
         self.gridLayout = QGridLayout()
-        self.gridLayout.setObjectName(u"gridLayout")
+        self.gridLayout.setObjectName("gridLayout")
         self.label_Priority = QLabel(self.formLayoutWidget)
-        self.label_Priority.setObjectName(u"label_Priority")
+        self.label_Priority.setObjectName("label_Priority")
 
         self.gridLayout.addWidget(self.label_Priority, 1, 0, 1, 1)
 
         self.lineEdit_Name = QLineEdit(self.formLayoutWidget)
-        self.lineEdit_Name.setObjectName(u"lineEdit_Name")
+        self.lineEdit_Name.setObjectName("lineEdit_Name")
 
         self.gridLayout.addWidget(self.lineEdit_Name, 0, 3, 1, 1)
 
         self.label_Name = QLabel(self.formLayoutWidget)
-        self.label_Name.setObjectName(u"label_Name")
+        self.label_Name.setObjectName("label_Name")
 
         self.gridLayout.addWidget(self.label_Name, 0, 0, 1, 1)
 
         self.spinBox_Priotity = QSpinBox(self.formLayoutWidget)
-        self.spinBox_Priotity.setObjectName(u"spinBox_Priotity")
+        self.spinBox_Priotity.setObjectName("spinBox_Priotity")
 
         self.gridLayout.addWidget(self.spinBox_Priotity, 1, 3, 1, 1)
 
@@ -96,9 +100,9 @@ class Ui_FunctionInputArea(object):
         self.verticalLayout_2.addItem(self.verticalSpacer_2)
 
         self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalLayout.setObjectName("horizontalLayout")
         self.pushButton_Add = QPushButton(self.formLayoutWidget)
-        self.pushButton_Add.setObjectName(u"pushButton_Add")
+        self.pushButton_Add.setObjectName("pushButton_Add")
 
         self.horizontalLayout.addWidget(self.pushButton_Add)
 
@@ -109,7 +113,7 @@ class Ui_FunctionInputArea(object):
         self.horizontalLayout.addItem(self.horizontalSpacer)
 
         self.pushButton_EditFinish = QPushButton(self.formLayoutWidget)
-        self.pushButton_EditFinish.setObjectName(u"pushButton_EditFinish")
+        self.pushButton_EditFinish.setObjectName("pushButton_EditFinish")
 
         self.horizontalLayout.addWidget(self.pushButton_EditFinish)
 
@@ -133,32 +137,30 @@ class Ui_FunctionInputArea(object):
 
     def retranslateUi(self, FunctionInputArea):
         FunctionInputArea.setWindowTitle(
-            QCoreApplication.translate("FunctionInputArea", u"Function", None)
+            QCoreApplication.translate("FunctionInputArea", "Function", None)
         )
         # if QT_CONFIG(accessibility)
         FunctionInputArea.setAccessibleName(
-            QCoreApplication.translate(
-                "FunctionInputArea", u"FunctionInputDialog", None
-            )
+            QCoreApplication.translate("FunctionInputArea", "FunctionInputDialog", None)
         )
         # endif // QT_CONFIG(accessibility)
         FunctionInputArea.setTitle(
-            QCoreApplication.translate("FunctionInputArea", u"Function", None)
+            QCoreApplication.translate("FunctionInputArea", "Function", None)
         )
         self.label_Header.setText(
-            QCoreApplication.translate("FunctionInputArea", u"Function", None)
+            QCoreApplication.translate("FunctionInputArea", "Function", None)
         )
         self.label_Priority.setText(
-            QCoreApplication.translate("FunctionInputArea", u"Priority", None)
+            QCoreApplication.translate("FunctionInputArea", "Priority", None)
         )
         self.label_Name.setText(
-            QCoreApplication.translate("FunctionInputArea", u"Name", None)
+            QCoreApplication.translate("FunctionInputArea", "Name", None)
         )
         self.pushButton_Add.setText(
-            QCoreApplication.translate("FunctionInputArea", u"+", None)
+            QCoreApplication.translate("FunctionInputArea", "+", None)
         )
         self.pushButton_EditFinish.setText(
-            QCoreApplication.translate("FunctionInputArea", u"Edit", None)
+            QCoreApplication.translate("FunctionInputArea", "Edit", None)
         )
 
     # retranslateUi

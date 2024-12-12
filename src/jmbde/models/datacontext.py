@@ -14,15 +14,16 @@
 #   GNU General Public License for more details.
 #
 """The datacontext module."""
-from PySide2.QtCore import QCoreApplication
-from PySide2.QtCore import QDir
-from PySide2.QtCore import QFile
-from PySide2.QtCore import QIODevice
-from PySide2.QtCore import QStandardPaths
-from PySide2.QtCore import QTextStream
-from PySide2.QtCore import Slot
-from PySide2.QtSql import QSqlDatabase
-from PySide2.QtSql import QSqlQuery
+from PySide2.QtCore import (
+    QCoreApplication,
+    QDir,
+    QFile,
+    QIODevice,
+    QStandardPaths,
+    QTextStream,
+    Slot,
+)
+from PySide2.QtSql import QSqlDatabase, QSqlQuery
 
 from ..logger import Logger
 
@@ -178,7 +179,7 @@ class DataContext:
     def __get_sqlite_name(self) -> str:
         """Create the name for the SqliteDB.
 
-        Therefor combine the Qt Application Defs:
+        Therefore combine the Qt Application Defs:
         QStandardPaths.DataLocation + QtCoreApplication.applicationName + .sqlite3
 
         * *on Mac is this*
@@ -246,9 +247,9 @@ class DataContext:
         string_list: list = []
         read_line: list = []
 
-        self.log.info("File at end: {}".format(ts.atEnd()))
+        self.log.info("File at end: {}".format(ts.attend()))
 
-        while not ts.atEnd():
+        while not ts.attend():
             has_text: bool = False
             line = ""
             string_list.clear()

@@ -1,113 +1,117 @@
 # -*- coding: utf-8 -*-
 ################################################################################
-## Form generated from reading UI file 'preferencesdialog.ui'
+# Form generated from reading UI file 'preferencesdialog.ui'
 ##
-## Created by: Qt User Interface Compiler version 5.15.0
+# Created by: Qt User Interface Compiler version 5.15.0
 ##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
+# WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
-from PySide2.QtCore import QCoreApplication
-from PySide2.QtCore import QDate
-from PySide2.QtCore import QDateTime
-from PySide2.QtCore import QMetaObject
-from PySide2.QtCore import QObject
-from PySide2.QtCore import QPoint
-from PySide2.QtCore import QRect
-from PySide2.QtCore import QSize
-from PySide2.QtCore import Qt
-from PySide2.QtCore import QTime
-from PySide2.QtCore import QUrl
-from PySide2.QtGui import QBrush
-from PySide2.QtGui import QColor
-from PySide2.QtGui import QConicalGradient
-from PySide2.QtGui import QCursor
-from PySide2.QtGui import QFont
-from PySide2.QtGui import QFontDatabase
-from PySide2.QtGui import QIcon
-from PySide2.QtGui import QKeySequence
-from PySide2.QtGui import QLinearGradient
-from PySide2.QtGui import QPainter
-from PySide2.QtGui import QPalette
-from PySide2.QtGui import QPixmap
-from PySide2.QtGui import QRadialGradient
+from PySide2.QtCore import (
+    QCoreApplication,
+    QDate,
+    QDateTime,
+    QMetaObject,
+    QObject,
+    QPoint,
+    QRect,
+    QSize,
+    Qt,
+    QTime,
+    QUrl,
+)
+from PySide2.QtGui import (
+    QBrush,
+    QColor,
+    QConicalGradient,
+    QCursor,
+    QFont,
+    QFontDatabase,
+    QIcon,
+    QKeySequence,
+    QLinearGradient,
+    QPainter,
+    QPalette,
+    QPixmap,
+    QRadialGradient,
+)
 from PySide2.QtWidgets import *
 
 
 class Ui_PreferencesDialog(object):
     def setupUi(self, PreferencesDialog):
         if not PreferencesDialog.objectName():
-            PreferencesDialog.setObjectName(u"PreferencesDialog")
+            PreferencesDialog.setObjectName("PreferencesDialog")
         PreferencesDialog.resize(422, 277)
         PreferencesDialog.setMaximumSize(QSize(422, 277))
         self.verticalLayout = QVBoxLayout(PreferencesDialog)
-        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setObjectName("verticalLayout")
         self.gridLayout = QGridLayout()
-        self.gridLayout.setObjectName(u"gridLayout")
+        self.gridLayout.setObjectName("gridLayout")
         self.comboBoxDatabaseType = QComboBox(PreferencesDialog)
-        self.comboBoxDatabaseType.setObjectName(u"comboBoxDatabaseType")
+        self.comboBoxDatabaseType.setObjectName("comboBoxDatabaseType")
         self.comboBoxDatabaseType.setEnabled(True)
 
         self.gridLayout.addWidget(self.comboBoxDatabaseType, 1, 2, 1, 1)
 
         self.lineEditPassword = QLineEdit(PreferencesDialog)
-        self.lineEditPassword.setObjectName(u"lineEditPassword")
+        self.lineEditPassword.setObjectName("lineEditPassword")
         self.lineEditPassword.setEnabled(True)
 
         self.gridLayout.addWidget(self.lineEditPassword, 5, 2, 1, 1)
 
         self.pushButtonDBForceFileDialog = QPushButton(PreferencesDialog)
-        self.pushButtonDBForceFileDialog.setObjectName(u"pushButtonDBForceFileDialog")
+        self.pushButtonDBForceFileDialog.setObjectName("pushButtonDBForceFileDialog")
         self.pushButtonDBForceFileDialog.setEnabled(True)
 
         self.gridLayout.addWidget(self.pushButtonDBForceFileDialog, 2, 3, 1, 1)
 
         self.labelPassword = QLabel(PreferencesDialog)
-        self.labelPassword.setObjectName(u"labelPassword")
+        self.labelPassword.setObjectName("labelPassword")
 
         self.gridLayout.addWidget(self.labelPassword, 5, 0, 1, 1)
 
         self.lineEditDatabaseConnection = QLineEdit(PreferencesDialog)
-        self.lineEditDatabaseConnection.setObjectName(u"lineEditDatabaseConnection")
+        self.lineEditDatabaseConnection.setObjectName("lineEditDatabaseConnection")
         self.lineEditDatabaseConnection.setEnabled(False)
 
         self.gridLayout.addWidget(self.lineEditDatabaseConnection, 2, 2, 1, 1)
 
         self.labelUserName = QLabel(PreferencesDialog)
-        self.labelUserName.setObjectName(u"labelUserName")
+        self.labelUserName.setObjectName("labelUserName")
 
         self.gridLayout.addWidget(self.labelUserName, 4, 0, 1, 1)
 
         self.labelDatabaseType = QLabel(PreferencesDialog)
-        self.labelDatabaseType.setObjectName(u"labelDatabaseType")
+        self.labelDatabaseType.setObjectName("labelDatabaseType")
 
         self.gridLayout.addWidget(self.labelDatabaseType, 1, 0, 1, 1)
 
         self.lineEditUserName = QLineEdit(PreferencesDialog)
-        self.lineEditUserName.setObjectName(u"lineEditUserName")
+        self.lineEditUserName.setObjectName("lineEditUserName")
         self.lineEditUserName.setEnabled(True)
 
         self.gridLayout.addWidget(self.lineEditUserName, 4, 2, 1, 1)
 
         self.labelDatabaseConnection = QLabel(PreferencesDialog)
-        self.labelDatabaseConnection.setObjectName(u"labelDatabaseConnection")
+        self.labelDatabaseConnection.setObjectName("labelDatabaseConnection")
 
         self.gridLayout.addWidget(self.labelDatabaseConnection, 2, 0, 1, 1)
 
         self.lineEditHostName = QLineEdit(PreferencesDialog)
-        self.lineEditHostName.setObjectName(u"lineEditHostName")
+        self.lineEditHostName.setObjectName("lineEditHostName")
         self.lineEditHostName.setEnabled(True)
 
         self.gridLayout.addWidget(self.lineEditHostName, 3, 2, 1, 1)
 
         self.labelHostName = QLabel(PreferencesDialog)
-        self.labelHostName.setObjectName(u"labelHostName")
+        self.labelHostName.setObjectName("labelHostName")
 
         self.gridLayout.addWidget(self.labelHostName, 3, 0, 1, 1)
 
         self.verticalLayout.addLayout(self.gridLayout)
 
         self.buttonBox = QDialogButtonBox(PreferencesDialog)
-        self.buttonBox.setObjectName(u"buttonBox")
+        self.buttonBox.setObjectName("buttonBox")
         self.buttonBox.setOrientation(Qt.Horizontal)
         self.buttonBox.setStandardButtons(QDialogButtonBox.Cancel | QDialogButtonBox.Ok)
 
@@ -138,25 +142,25 @@ class Ui_PreferencesDialog(object):
 
     def retranslateUi(self, PreferencesDialog):
         PreferencesDialog.setWindowTitle(
-            QCoreApplication.translate("PreferencesDialog", u"Dialog", None)
+            QCoreApplication.translate("PreferencesDialog", "Dialog", None)
         )
         self.pushButtonDBForceFileDialog.setText(
-            QCoreApplication.translate("PreferencesDialog", u"...", None)
+            QCoreApplication.translate("PreferencesDialog", "...", None)
         )
         self.labelPassword.setText(
-            QCoreApplication.translate("PreferencesDialog", u"Password", None)
+            QCoreApplication.translate("PreferencesDialog", "Password", None)
         )
         self.labelUserName.setText(
-            QCoreApplication.translate("PreferencesDialog", u"Username", None)
+            QCoreApplication.translate("PreferencesDialog", "Username", None)
         )
         self.labelDatabaseType.setText(
-            QCoreApplication.translate("PreferencesDialog", u"Database Type", None)
+            QCoreApplication.translate("PreferencesDialog", "Database Type", None)
         )
         self.labelDatabaseConnection.setText(
-            QCoreApplication.translate("PreferencesDialog", u"Database Connc.", None)
+            QCoreApplication.translate("PreferencesDialog", "Database Connc.", None)
         )
         self.labelHostName.setText(
-            QCoreApplication.translate("PreferencesDialog", u"Hostname", None)
+            QCoreApplication.translate("PreferencesDialog", "Hostname", None)
         )
 
     # retranslateUi

@@ -17,8 +17,7 @@
 from typing import Any
 
 from PySide2.QtCore import Qt
-from PySide2.QtGui import QGuiApplication
-from PySide2.QtGui import QMessageBox
+from PySide2.QtGui import QGuiApplication, QMessageBox
 from PySide2.QtWidgets import QMainWindow
 
 from ..ui.ui_mainwindow import Ui_MainWindow

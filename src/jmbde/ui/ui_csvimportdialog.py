@@ -1,53 +1,57 @@
 # -*- coding: utf-8 -*-
 ################################################################################
-## Form generated from reading UI file 'csvimportdialog.ui'
+# Form generated from reading UI file 'csvimportdialog.ui'
 ##
-## Created by: Qt User Interface Compiler version 5.15.0
+# Created by: Qt User Interface Compiler version 5.15.0
 ##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
+# WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
-from PySide2.QtCore import QCoreApplication
-from PySide2.QtCore import QDate
-from PySide2.QtCore import QDateTime
-from PySide2.QtCore import QMetaObject
-from PySide2.QtCore import QObject
-from PySide2.QtCore import QPoint
-from PySide2.QtCore import QRect
-from PySide2.QtCore import QSize
-from PySide2.QtCore import Qt
-from PySide2.QtCore import QTime
-from PySide2.QtCore import QUrl
-from PySide2.QtGui import QBrush
-from PySide2.QtGui import QColor
-from PySide2.QtGui import QConicalGradient
-from PySide2.QtGui import QCursor
-from PySide2.QtGui import QFont
-from PySide2.QtGui import QFontDatabase
-from PySide2.QtGui import QIcon
-from PySide2.QtGui import QKeySequence
-from PySide2.QtGui import QLinearGradient
-from PySide2.QtGui import QPainter
-from PySide2.QtGui import QPalette
-from PySide2.QtGui import QPixmap
-from PySide2.QtGui import QRadialGradient
+from PySide2.QtCore import (
+    QCoreApplication,
+    QDate,
+    QDateTime,
+    QMetaObject,
+    QObject,
+    QPoint,
+    QRect,
+    QSize,
+    Qt,
+    QTime,
+    QUrl,
+)
+from PySide2.QtGui import (
+    QBrush,
+    QColor,
+    QConicalGradient,
+    QCursor,
+    QFont,
+    QFontDatabase,
+    QIcon,
+    QKeySequence,
+    QLinearGradient,
+    QPainter,
+    QPalette,
+    QPixmap,
+    QRadialGradient,
+)
 from PySide2.QtWidgets import *
 
 
 class Ui_CsvImportDialog(object):
     def setupUi(self, CsvImportDialog):
         if not CsvImportDialog.objectName():
-            CsvImportDialog.setObjectName(u"CsvImportDialog")
+            CsvImportDialog.setObjectName("CsvImportDialog")
         CsvImportDialog.resize(671, 318)
         CsvImportDialog.setSizeGripEnabled(False)
         self.verticalLayout = QVBoxLayout(CsvImportDialog)
-        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setObjectName("verticalLayout")
         self.tableView = QTableView(CsvImportDialog)
-        self.tableView.setObjectName(u"tableView")
+        self.tableView.setObjectName("tableView")
 
         self.verticalLayout.addWidget(self.tableView)
 
         self.buttonBox = QDialogButtonBox(CsvImportDialog)
-        self.buttonBox.setObjectName(u"buttonBox")
+        self.buttonBox.setObjectName("buttonBox")
         self.buttonBox.setOrientation(Qt.Horizontal)
         self.buttonBox.setStandardButtons(QDialogButtonBox.Cancel | QDialogButtonBox.Ok)
 
@@ -63,7 +67,7 @@ class Ui_CsvImportDialog(object):
 
     def retranslateUi(self, CsvImportDialog):
         CsvImportDialog.setWindowTitle(
-            QCoreApplication.translate("CsvImportDialog", u"CSV Import", None)
+            QCoreApplication.translate("CsvImportDialog", "CSV Import", None)
         )
 
     # retranslateUi

@@ -20,11 +20,8 @@ import sys
 
 from gui.mainwindow import MainWindow
 from PySide2.QtCore import QTranslator
-from PySide2.QtWidgets import QApplication
-from PySide2.QtWidgets import QIcon
-from utils import CONF_DIR
-from utils import IMAGES_DIR
-from utils import TRANSLATION_DIR
+from PySide2.QtWidgets import QApplication, QIcon
+from utils import CONF_DIR, IMAGES_DIR, TRANSLATION_DIR
 
 
 def run():

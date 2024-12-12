@@ -373,7 +373,7 @@
     </message>
     <message>
         <location filename="../forms/employeeinputarea.ui" line="264"/>
-        <source>Titel</source>
+        <source>Title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
