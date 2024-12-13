@@ -22,7 +22,7 @@ jobs:
           fetch-depth: 2
       - name: "⚙️ Install Python"
         id: python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           # Read python version from a file .python-version
           # python-version-file: ".python-version"
@@ -93,7 +93,7 @@ jobs:
           sudo apt-get --no-install-recommends --assume-yes install \
             libegl1
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
@@ -164,7 +164,7 @@ jobs:
           sudo apt-get --no-install-recommends --assume-yes install \
             libegl1
       - name: Set up Python 3.9
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: 3.9
       - name: Install Poetry
@@ -207,7 +207,7 @@ jobs:
     steps:
       - name: Build ChangeLog
         id: github_changelog
-        uses: mikepenz/release-changelog-builder-action@v3
+        uses: mikepenz/release-changelog-builder-action@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Release
