@@ -177,7 +177,7 @@ jobs:
           pipx inject --pip-args=--constraint=.github/workflows/constraints.txt nox nox-poetry
           nox --version
       - name: Download coverage data
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v4
         with:
           name: coverage-data
       - name: Combine coverage data and display human readable report
@@ -228,7 +228,7 @@ jobs:
       - tests
     steps:
       - name: Restore Build Python Module
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v4
         with:
           name: PythonModule
           path: dist/
@@ -250,7 +250,7 @@ jobs:
       - changeLog
     steps:
       - name: Restore Build Python Module
-        uses: actions/download-articfact@v7
+        uses: actions/download-artifact@v4
         with:
           name: PythonModule
           path: dist/
