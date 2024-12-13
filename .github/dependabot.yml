@@ -9,34 +9,61 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "monthly"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+    open-pull-requests-limit: 10
     commit-message:
-      prefix: ":rocket: gha"
+      include: scope
+      prefix: "fix(gha)"
 
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "monthly"
     commit-message:
-      prefix: ":rocket: docker"
+      prefix: "fix(docker)"
 
   - package-ecosystem: "bundler"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "monthly"
     commit-message:
-      prefix: ":rocket: bundler"
+      prefix: "fix(bundler)"
 
   - package-ecosystem: "npm"
-    directory: "/"
+    directory: "/docs"
     schedule:
-      interval: "daily"
+      interval: "monthly"
     commit-message:
-      prefix: ":rocket: npm"
+      prefix: "fix(npm+docs)"
 
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "monthly"
+    groups:
+      python-requirements:
+        patterns:
+          - "*"
     commit-message:
-      prefix: ":rocket: pip"
+      prefix: "fix(pip prod)"
+      prefix-development: "fix(pip dev)"
+      include: "scope"
+
+      
+  - package-ecosystem: "pip"
+    directory: "/.github/workflows"
+    schedule:
+      interval: "monthly"
+    groups:
+      python-requirements:
+        patterns:
+          - "*"
+    commit-message:
+      prefix: "fix(pip prod)"
+      prefix-development: "fix(pip dev)"
+      include: "scope"
+      
