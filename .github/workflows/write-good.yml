@@ -14,10 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     name: A job to lint Markdown files
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: write-good action step
         id: write-good
-        uses: tomwhross/write-good-action@v1.5
+        uses: tomwhross/write-good-action@v1.6
       # Use the output from the `write-good` step
       - name: Get the write-good output
         run: echo "${{ steps.write-good.outputs.result }}"
