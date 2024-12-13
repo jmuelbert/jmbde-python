@@ -3,4 +3,3 @@ docs/node_modules
 coverage
 app/templates
 **/templates
-resources/translations
