@@ -15,33 +15,45 @@
 #
 """The Employee Data Model."""
 from typing import Any, Dict
+from typing import Optional, List
+from datetime import datetime
+
 
 from PySide2.QtCore import QAbstractListModel, QModelIndex, Qt, Signal, Slot
 
 
 class EmployeeModel(QAbstractListModel):
-    """The Model for the Employees.
+  """
+  Represents an employee in the system.
 
-    Args:
-        QAbstractListModel ([type]): [description]
+  Attributes:
+      name (str): Full name of the employee
+      email (str): Email address
+      hire_date (datetime): Date when employee was hired
+  """
+  def __init__(self, parent: Any = None) -> None:
+      """The initializer for the Employee Model.
 
-    Returns:
-        [type]: [description]
-    """
+      Args:
+          parent: The parent QObject. Defaults to None.
+      """
+      super().__init__(parent)
+      self.persons = [{"name": "jon", "age": 20}, {"name": "jane", "age": 25}]
+
+  def init_employee(self, name: str, email: str, hire_date (datetime): None) -> None:
+    self.name = name
+    self.email = email
+    self.hire_date = hire_date or datetime(now)
+
+  def get_employment_duration(self) -> int:
+    """Calculate the employment duration in days."""
+    return (datetime.now() - self.hire_date).days
 
     NameRole = Qt.UserRole + 1
     AgeRole = Qt.UserRole + 2
 
     person_changed = Signal()
 
-    def __init__(self, parent: Any = None) -> None:
-        """The initializer for the Employee Model.
-
-        Args:
-            parent: The parent QObject. Defaults to None.
-        """
-        super().__init__(parent)
-        self.persons = [{"name": "jon", "age": 20}, {"name": "jane", "age": 25}]
 
     def data(self, index: Any, role: Any = Qt.DisplayRole) -> Any:
         """The data generator for Employee.

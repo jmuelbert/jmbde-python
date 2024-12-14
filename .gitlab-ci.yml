@@ -1,27 +1,120 @@
-image: "python: 3.8"
+# Use a more recent Python version and multi-stage builds
+image: python:3.11-slim
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.pip-cache"
+  PRE_COMMIT_HOME: "$CI_PROJECT_DIR/.cache/pre-commit"
+  PYTHONPATH: "$CI_PROJECT_DIR/src"
+  HATCH_ENV_TYPE_VIRTUAL_PATH: "$CI_PROJECT_DIR/.venv"
+
+# Define cache for pip and pre-commit
+cache:
+  paths:
+    - .pip-cache/
+    - .cache/pre-commit/
+    - .venv/
 
 stages:
+  - lint
   - test
+  - security
+  - build
+  - deploy
 
-before_script:
-  - python3 -V | ts
-  - pip install -r .github/workflow/constraints.txt | ts
-  - poetry install | ts
+# Default settings for all jobs
+default:
+  interruptible: true
+  before_script:
+    - python -V
+    - pip install --upgrade pip
+    - pip install hatch pre-commit
+    - hatch env create
 
-test_safety:
+# Linting Stage
+lint:
+  stage: lint
+  script:
+    - hatch run lint:style  # Runs black, isort, ruff
+    - hatch run lint:typing  # Runs mypy
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+# Testing Stage
+test:
+  stage: test
+  parallel:
+    matrix:
+      - PYTHON_VERSION: ["3.9", "3.10", "3.11"]
+  image: python:$PYTHON_VERSION-slim
+  coverage: '/TOTAL.+ ([0-9]{1,3}%)/'
+  script:
+    - hatch run test:cov
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.xml
+      junit: junit.xml
+    paths:
+      - htmlcov
+    expire_in: 1 week
+
+# Security Checks
+security:
+  stage: security
+  script:
+    - hatch run security:check  # Runs bandit and safety
+    - hatch run security:audit  # Runs pip-audit
+  allow_failure: true
+
+# Type Checking
+typeguard:
   stage: test
   script:
-    - nox -rs "safety"
+    - hatch run test:typeguard
+  allow_failure: true
 
-test_typeguard:
-  stage: test
-    - nox -rs "typeguard"
+# Build Package
+build:
+  stage: build
+  script:
+    - hatch build
+  artifacts:
+    paths:
+      - dist/*
+    expire_in: 1 week
+  rules:
+    - if: $CI_COMMIT_TAG
 
-test_mypy:
-  stage: test
-    - nox -rs  "mypy"
+# Deploy to PyPI
+deploy:
+  stage: deploy
+  script:
+    - hatch publish
+  rules:
+    - if: $CI_COMMIT_TAG
+  environment:
+    name: pypi
+    url: https://pypi.org/project/jmbde/
 
-test_tests:
-  stage: test
-    - nox -rs "tests"
+# Pages for documentation and coverage reports
+pages:
+  stage: deploy
+  script:
+    - hatch run docs:build
+    - mv site public
+    - mv htmlcov public/coverage
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
+# Workflow rules
+workflow:
+  rules:
+    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_MERGE_REQUEST_ID

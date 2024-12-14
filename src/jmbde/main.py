@@ -16,13 +16,18 @@
 #
 """JMBDe app."""
 import click
-
+import logging
+from jmbde import create_app
 
 @click.command()
 @click.version_option()
 def main() -> None:
     """The Application main function."""
+    app = create_app()
+    app.run()
 
 
 if __name__ == "__main__":
-    main(prog_name="jmbde-python")  # pragma: no cover
+    main(prog_name="jmbde-python")
+    logger = logging.getLogger(__name__)
+    logger.info("Operation completed successfully")  # pragma: no cover

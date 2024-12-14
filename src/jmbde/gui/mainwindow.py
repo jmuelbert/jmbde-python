@@ -15,6 +15,7 @@
 #
 """The MainWindow Class."""
 from typing import Any
+import logging
 
 from PySide2.QtCore import Qt
 from PySide2.QtGui import QGuiApplication, QMessageBox
@@ -67,6 +68,9 @@ class MainWindow(QMainWindow):
         # self.worker = Worker()
         # self.worker.send_text.connect(self.receive_text)
         # self.worker.start()
+        #
+        logger = logging.getLogger(__name__)
+        logger.info("initialized")
 
     def quit_app(self) -> None:
         """Close application.
