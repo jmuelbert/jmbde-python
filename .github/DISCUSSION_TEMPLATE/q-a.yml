@@ -3,7 +3,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for your interest in jmbde-QT 🦜️🔗!
+        Thanks for your interest in jmbde-python 🦜️🔗!
 
         Please follow these instructions, fill every question, and do every step. 🙏
 
@@ -21,11 +21,11 @@ body:
         Relevant links to check before opening a question to see if your question has already been answered, fixed or
         if there's another way to solve your problem:
 
-        [jmbde-QT documentation with the integrated search](https://jmuelbert.github.io/jmbde-QT/),
-        [API Reference](https://jmuelbert.github.io/jmbde-QT/developerapi/),
-        [GitHub search](https://github.com/jmuelbert/jmbde-QT],
-        [jmbde-java Github Discussions](https://github.com/jmuelbert/jmbde-QT/discussions),
-        [jmbde-java Github Issues](https://github.com/jmuelbert/jmbde-QT/issues?q=is%3Aissue),
+        [jmbde-python documentation with the integrated search](https://jmuelbert.github.io/jmbde-python/),
+        [API Reference](https://jmuelbert.github.io/jmbde-python/developer-api/),
+        [GitHub search](https://github.com/jmuelbert/jmbde-python],
+        [jmbde-python Github Discussions](https://github.com/jmuelbert/jmbde-python/discussions),
+        [jmbde-python Github Issues](https://github.com/jmuelbert/jmbde-python/issues?q=is%3Aissue),
   - type: checkboxes
     id: checks
     attributes:
@@ -34,7 +34,7 @@ body:
       options:
         - label: I added a very descriptive title to this question.
           required: true
-        - label: I searched the jmbde-QT documentation with the integrated search.
+        - label: I searched the jmbde-python documentation with the integrated search.
           required: true
         - label: I used the GitHub search to find a similar question and didn't find it.
           required: true
@@ -82,7 +82,7 @@ body:
 
         Write a short description explaining what you are doing, what you expect to happen, and what is currently happening.
       placeholder: |
-        * I'm trying to use the `jmbde-java` library to do X.
+        * I'm trying to use the `jmbde-python` library to do X.
         * I expect to see Y.
         * Instead, it does Z.
     validations:
@@ -97,7 +97,7 @@ body:
         "mvn --version" - Get the Java Version, the maven version and the OS version
         platform (windows / linux / mac)
 
-        OR if you're on a recent version of jmbde-QT you can paste the output of:
+        OR if you're on a recent version of jmbde-python you can paste the output of:
 
       placeholder: |
         "mvn -v"

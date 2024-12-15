@@ -1,63 +1,66 @@
 # Poetry pyproject.toml: https://python-poetry.org/docs/pyproject
 
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling>=1.18.0"]
 build-backend = "hatchling.build"
 
 [project]
 name = "jmbde"
 dynamic = ["version"]
 description = "JM BDE - Management of the inventory the computer equipment"
-readme = "README.rst"
+readme = "README.md"
 requires-python = ">=3.9"
 license = "GPL-3.0-or-later"
-authors = [{ name = "Jürgen Mülbert", email = "juergen.muelbert@gmail.com" }]
+authors = [{ name = "Jürgen Mülbert", email = "juergen.muelbert@outlook.de" }]
 # Pypi classifiers: https://pypi.org/classifiers/
 classifiers = [
-  "Development Status :: 5 - Production/Stable",
-  "Environment :: X11 Applications :: Qt",
-  "Intended Audience :: End Users/Desktop",
-  "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
-  "Operating System :: OS Independent",
-  "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.9",
-  "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.11",
-  "Topic :: Office/Business",
+    "Development Status :: 4 - Beta",
+    "Environment :: X11 Applications :: Qt",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Office/Business",
 ]
-
-[dependencies]
-python = ">=3.9, <4.0"
-click = "^8.0"
-pyside6 = "^6.0"       # Updated to Qt 6.x
-sqlalchemy = "^2.0.0"
-pydantic = "^2.0.0"
-
-[project.urls]
-Homepage = "https://github.com/jmuelbert/jmbde-python"
-Documentation = "https://jmbde-python.readthedocs.io"
-Repository = "https://github.com/jmuelbert/jmbde-python.git"
-"Bug Tracker" = "https://github.com/jmuelbert/jmbde-python/issues"
-Changelog = "https://github.com/jmuelbert/jmbde-python/blob/master/CHANGELOG.md"
 
 # Keywords description: https://python-poetry.org/docs/pyproject/#keywords
 keywords = [
-  "jmbde",
-  "business-data-extraction",
-  "BDE",
-  "database",
-  "python-tool",
+    "jmbde",
+    "business-data-extraction",
+    "BDE",
+    "database",
+    "python-tool",
 ]
+
+dependencies = [
+    "click>=8.0",
+    "pyside6>=6.0",
+    "sqlalchemy>=2.0.0",
+    "pydantic>=2.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/jmuelbert/jmbde-python"
+Documentation = "https://github.com/Jürgen Mülbert/test#readme"
+Repository = "https://github.com/jmuelbert/jmbde-python.git"
+Issues = "https://github.com/jmuelbert/jmbde-python/issues"
+Changelog = "https://github.com/jmuelbert/jmbde-python/blob/main/CHANGELOG.md"
+Source = "https://github.com/jmuelbert/jmbde-python"
+
 
 [project.optional-dependencies]
 dev = [
-  "black>=23.7.0",
-  "isort>=5.12.0",
-  "mypy>=1.6.1",
-  "pylint>=3.0.1",
-  "pytest>=7.4.0",
-  "pytest-cov>=4.1.0",
-  "ruff>=0.1.3",
+    "black>=23.7.0",
+    "isort>=5.12.0",
+    "mypy>=1.6.1",
+    "pylint>=3.0.1",
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "ruff>=0.1.3",
 ]
 
 [tool.hatch.version]
@@ -70,19 +73,10 @@ packages = ["src/jmbde"]
 dependencies = ["pytest", "pytest-cov"]
 
 [tool.hatch.envs.lint]
-dependencies = [
-    "black>=23.7.0", 
-    "mypy>=1.6.1", 
-    "isort>=5.12.0",
-    "ruff>=0.1.3"]
+dependencies = ["black>=23.7.0", "mypy>=1.6.1", "isort>=5.12.0", "ruff>=0.1.3"]
 
 [tool.hatch.envs.lint.scripts]
-style = [
-    "ruff check .",
-    "ruff format .",
-    "black --check .",
-    "isort .",
-]
+style = ["ruff check .", "ruff format .", "black --check .", "isort ."]
 typing = "mypy src tests"
 
 [tool.hatch.envs.test]
@@ -98,48 +92,57 @@ dependencies = [
 [tool.hatch.envs.test.scripts]
 test = "pytest tests/"
 cov = [
- "pytest --cov-report=xml --cov-report=html --cov-report=term-missing --cov=src tests/",
- "coverage report",
- ]
+    "pytest --cov-report=xml --cov-report=html --cov-report=term-missing --cov=src tests/",
+    "coverage report",
+]
 typeguard = "pytest --typeguard-packages=src"
 
 [tool.hatch.envs.security]
-dependencies = [
-  "bandit>=1.7.5",
-  "safety>=2.3.5",
-  "pip-audit>=2.6.1",
-]
+dependencies = ["bandit>=1.7.5", "safety>=2.3.5", "pip-audit>=2.6.1"]
 
 [tool.hatch.envs.security.scripts]
-check = [
-  "bandit -r src/",
-  "safety check",
-]
+scan = ["bandit -r src/", "safety scan"]
 audit = "pip-audit"
 
 [tool.hatch.envs.docs]
 dependencies = [
-  "mkdocs>=1.5.3",
-  "mkdocs-material>=9.4.6",
+    "mkdocs>=1.5.3",
+    "mkdocs-material>=9.5.1",
+    "mkdocs-static-i18n>=1.2.2",
+    "mkdocstrings-python>=1.7.5",
+    # Extensions
+    # Validation
+    # https://github.com/linkchecker/linkchecker/pull/669#issuecomment-1267236287
+    "linkchecker @ git+https://github.com/linkchecker/linkchecker.git@d9265bb71c2054bf57b8c5734a4825d62505c779",
+
 ]
 
 [tool.hatch.envs.docs.scripts]
 build = "mkdocs build"
 serve = "mkdocs serve"
+validate-links = "linkchecker --config .linkcheckerrc site"
+# https://github.com/linkchecker/linkchecker/issues/678
+build-check = ["build --no-directory-urls", "validate"]
 
 [tool.coverage.paths]
+jmbde = ["src/jmbde", "*/src/jmbde"]
+tests = ["tests", "*/test/tests"]
 source = ["src", "*/site-packages"]
 
 [tool.coverage.run]
+source_pkgs = ["jmbde", "tests"]
 branch = true
-source = ["jmbde"]
+parallel = true
+omit = ["src/jmbde/__about__.py"]
+
 
 [tool.coverage.report]
 show_missing = true
-fail_under = 80     # Updated to a more ambitious threshold.
+fail_under = 80                                                               # Updated to a more ambitious threshold.
+exclude_lines = ["no cov", "if __name__ == .__main__.:", "if TYPE_CHECKING:"]
 
 [tool.black]
-include = '\.pyi?$'"""
+include = "\\.pyi?$"
 
 line-length = 88
 target-version = ['py39']
@@ -161,17 +164,17 @@ docstring-code-line-length = 100
 [tool.ruff.lint]
 select = ["ALL"]
 ignore = [
-  "B027",   # Allow non-abstract empty methods in abstract base classes.
-  "S101",   # Allow `assert` usage for testing.
-  "SIM105", # Suppress complex contextlib suggestions.
-  "RET503", # Missing explicit return at the end of functions.
-  "RET504", # Unnecessary assignments after return.
-  "RET505", # Unnecessary else after return.
-  "RET506", # Unnecessary elif after raise.
-  "S105",
-  "S106",   # Ignore password warnings.
-  "RUF012", # Ignore mutable class attribute annotations.
-  "UP007",  # Suppress type annotation updates for older versions.
+    "B027",   # Allow non-abstract empty methods in abstract base classes.
+    "S101",   # Allow `assert` usage for testing.
+    "SIM105", # Suppress complex contextlib suggestions.
+    "RET503", # Missing explicit return at the end of functions.
+    "RET504", # Unnecessary assignments after return.
+    "RET505", # Unnecessary else after return.
+    "RET506", # Unnecessary elif after raise.
+    "S105",
+    "S106",   # Ignore password warnings.
+    "RUF012", # Ignore mutable class attribute annotations.
+    "UP007",  # Suppress type annotation updates for older versions.
 ]
 
 [tool.ruff.per-file-ignores]
@@ -210,25 +213,8 @@ junit_family = "xunit2"
 filterwarnings = ["error"]
 log_cli_level = "info"
 markers = [
-  "save_engine: marks tests using an external package for saving charts (e.g., PNG). Run selectively in CI.",
+    "save_engine: marks tests using an external package for saving charts (e.g., PNG). Run selectively in CI.",
 ]
-
-[tool.coverage.run]
-branch = true
-source = ["src"]
-
-[tool.coverage.report]
-exclude_lines = [
-  "pragma: no cover",
-  "def __repr__",
-  "if self.debug:",
-  "raise NotImplementedError",
-  "if __name__ == .__main__.:",
-  "pass",
-  "raise ImportError",
-]
-ignore_errors = true
-omit = ["tests/*", "setup.py"]
 
 [tool.bandit]
 exclude_dirs = ["tests"]
@@ -240,9 +226,9 @@ max-branches = 20 # Reduced to encourage simpler methods.
 max-returns = 6 # Lowered to improve code clarity.
 max-statements = 50
 disable = [
-  "C0111", # missing-docstring
-  "C0103", # invalid-name
-  "C0330", # wrong-hanging-indentation
+    "C0111", # missing-docstring
+    "C0103", # invalid-name
+    "C0330", # wrong-hanging-indentation
 ]
 
 [tool.codespell]
@@ -251,15 +237,3 @@ write-changes = true
 count = true
 skip = "*.svg,pyproject.toml,LICENSE,LICENSES/*,.github/actions/*"
 ignore-words-list = "master"
-
-[tool.pylint]
-max-args = 12
-max-branches = 20 # Reduced to encourage simpler methods.
-max-returns = 6 # Lowered to improve code clarity.
-max-statements = 50
-disable = [
-  "C0111", # missing-docstring
-  "C0103", # invalid-name
-  "C0330", # wrong-hanging-indentation
-  "C0326", # bad-whitespace
-]

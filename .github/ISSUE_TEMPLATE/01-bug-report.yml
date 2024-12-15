@@ -10,11 +10,11 @@ body:
       value: |
         Thank you for taking the time to file a bug report! Please fill out this form as completely as possible.
 
-        ✅ I am using the **latest versions of jmbde-QT**.
+        ✅ I am using the **latest versions of jmbde-python**.
   - type: input
     id: jmbde-version
     attributes:
-      label: What version of `jmbde-QT` are you using?
+      label: What version of `jmbde-python` are you using?
       placeholder: 0.0.0
     validations:
       required: true
@@ -56,7 +56,7 @@ body:
     id: terms
     attributes:
       label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/jmuelbert/jmbde-QT/blob/main/CODE_OF_CONDUCT.md)
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/jmuelbert/jmbde-python/blob/main/CODE_OF_CONDUCT.md)
       options:
         - label: I agree to follow this project's Code of Conduct
           required: true

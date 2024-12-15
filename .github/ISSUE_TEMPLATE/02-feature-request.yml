@@ -10,11 +10,11 @@ body:
       value: |
         Thank you for getting in touch! Please fill out this form as completely as possible.
 
-        Want to report a bug instead? [Use our bug report form](https://github.com/jmuelbert/jmbde-QT/issues/new?assignees=&labels=&projects=&template=01-bug-report.yml)
+        Want to report a bug instead? [Use our bug report form](https://github.com/jmuelbert/jmbde-python/issues/new?assignees=&labels=&projects=&template=01-bug-report.yml)
   - type: input
-    id: jmbde-QT-version
+    id: jmbde-python-version
     attributes:
-      label: What version of `jmbde-QT` are you using?
+      label: What version of `jmbde-python` are you using?
       placeholder: 0.0.0
     validations:
       required: true
