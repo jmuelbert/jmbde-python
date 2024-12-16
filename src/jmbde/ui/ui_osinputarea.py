@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ################################################################################
 # Form generated from reading UI file 'osinputarea.ui'
 ##
@@ -8,36 +7,16 @@
 ################################################################################
 from PySide2.QtCore import (
     QCoreApplication,
-    QDate,
-    QDateTime,
     QMetaObject,
-    QObject,
-    QPoint,
-    QRect,
-    QSize,
     Qt,
-    QTime,
-    QUrl,
 )
 from PySide2.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QCursor,
     QFont,
-    QFontDatabase,
-    QIcon,
-    QKeySequence,
-    QLinearGradient,
-    QPainter,
-    QPalette,
-    QPixmap,
-    QRadialGradient,
 )
 from PySide2.QtWidgets import *
 
 
-class Ui_OSInputArea(object):
+class Ui_OSInputArea:
     def setupUi(self, OSInputArea):
         if not OSInputArea.objectName():
             OSInputArea.setObjectName("OSInputArea")
@@ -64,7 +43,7 @@ class Ui_OSInputArea(object):
         self.verticalLayout_2.addLayout(self.verticalLayout)
 
         self.verticalSpacer = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred,
         )
 
         self.verticalLayout_2.addItem(self.verticalSpacer)
@@ -114,7 +93,7 @@ class Ui_OSInputArea(object):
         self.verticalLayout_2.addLayout(self.gridLayout)
 
         self.verticalSpacer_2 = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding,
         )
 
         self.verticalLayout_2.addItem(self.verticalSpacer_2)
@@ -127,7 +106,7 @@ class Ui_OSInputArea(object):
         self.horizontalLayout.addWidget(self.pushButton_Add)
 
         self.horizontalSpacer = QSpacerItem(
-            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum
+            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum,
         )
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
@@ -161,32 +140,32 @@ class Ui_OSInputArea(object):
 
     def retranslateUi(self, OSInputArea):
         OSInputArea.setWindowTitle(
-            QCoreApplication.translate("OSInputArea", "Operation System", None)
+            QCoreApplication.translate("OSInputArea", "Operation System", None),
         )
         # if QT_CONFIG(accessibility)
         OSInputArea.setAccessibleName(
-            QCoreApplication.translate("OSInputArea", "OSInputDialog", None)
+            QCoreApplication.translate("OSInputArea", "OSInputDialog", None),
         )
         # endif // QT_CONFIG(accessibility)
         OSInputArea.setTitle(
-            QCoreApplication.translate("OSInputArea", "Operation System", None)
+            QCoreApplication.translate("OSInputArea", "Operation System", None),
         )
         self.label_Header.setText(
-            QCoreApplication.translate("OSInputArea", "Operation System", None)
+            QCoreApplication.translate("OSInputArea", "Operation System", None),
         )
         self.label_Version.setText(
-            QCoreApplication.translate("OSInputArea", "Version", None)
+            QCoreApplication.translate("OSInputArea", "Version", None),
         )
         self.label_Revision.setText(
-            QCoreApplication.translate("OSInputArea", "Revision", None)
+            QCoreApplication.translate("OSInputArea", "Revision", None),
         )
         self.label_Name.setText(QCoreApplication.translate("OSInputArea", "Name", None))
         self.label_Fix.setText(QCoreApplication.translate("OSInputArea", "Fix", None))
         self.pushButton_Add.setText(
-            QCoreApplication.translate("OSInputArea", "+", None)
+            QCoreApplication.translate("OSInputArea", "+", None),
         )
         self.pushButton_EditFinish.setText(
-            QCoreApplication.translate("OSInputArea", "Edit", None)
+            QCoreApplication.translate("OSInputArea", "Edit", None),
         )
 
     # retranslateUi

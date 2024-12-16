@@ -1,140 +1,88 @@
-import QtQuick 2.0
-import QtQuick.Layouts 1.12
-import QtQuick.Controls 2.12
-import QtQuick.Window 2.12
-import QtQuick.Controls.Material 2.12
+import QtQuick 6.2
+import QtQuick.Controls 6.2
 
 ApplicationWindow {
-    id: page
-    width: 800
-    height: 400
     visible: true
-    title: "jmbde"
+    width: 600
+    height: 400
+    title: "Employee Manager"
 
-    GridLayout {
-        id: grid
-        columns: 2
-        rows: 3
+    Column {
+        spacing: 10
+        anchors.fill: parent
+        anchors.margins: 20
 
-        ColumnLayout {
-            spacing: 2
-            Layout.preferredWidth: 400
+        // Header
+        Text {
+            text: "Employee Management"
+            font.pixelSize: 24
+            font.bold: true
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
 
-            Text {
-                id: leftlabel
-                Layout.alignment: Qt.AlignHCenter
-                color: "white"
-                font.pointSize: 16
-                text: "Qt for Python"
-                Layout.preferredHeight: 100
-                Material.accent: Material.Green
+        // Input Row
+        Row {
+            spacing: 10
+            TextField {
+                id: nameField
+                placeholderText: "Name"
+                width: 150
             }
-
-            RadioButton {
-                id: italic
-                text: "Italic"
-                onToggled: {
-                    leftlabel.font.italic = con.getItalic(italic.text)
-                    leftlabel.font.bold = con.getBold(italic.text)
-                    leftlabel.font.underline = con.getUnderline(italic.text)
-
-                }
+            TextField {
+                id: positionField
+                placeholderText: "Position"
+                width: 150
             }
-            RadioButton {
-                id: bold
-                text: "Bold"
-                onToggled: {
-                    leftlabel.font.italic = con.getItalic(bold.text)
-                    leftlabel.font.bold = con.getBold(bold.text)
-                    leftlabel.font.underline = con.getUnderline(bold.text)
-                }
-            }
-            RadioButton {
-                id: underline
-                text: "Underline"
-                onToggled: {
-                    leftlabel.font.italic = con.getItalic(underline.text)
-                    leftlabel.font.bold = con.getBold(underline.text)
-                    leftlabel.font.underline = con.getUnderline(underline.text)
-                }
-            }
-            RadioButton {
-                id: noneradio
-                text: "None"
-                checked: true
-                onToggled: {
-                    leftlabel.font.italic = con.getItalic(noneradio.text)
-                    leftlabel.font.bold = con.getBold(noneradio.text)
-                    leftlabel.font.underline = con.getUnderline(noneradio.text)
+            Button {
+                text: "Add Employee"
+                onClicked: {
+                    mainApp.add_employee(nameField.text, positionField.text);
+                    nameField.text = "";
+                    positionField.text = "";
                 }
             }
         }
 
-        ColumnLayout {
-            id: rightcolumn
-            spacing: 2
-            Layout.columnSpan: 1
-            Layout.preferredWidth: 400
-            Layout.preferredHeight: 400
-            Layout.fillWidth: true
-
-            RowLayout {
-                Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-
-
-                Button {
-                    id: red
-                    text: "Red"
-                    highlighted: true
-                    Material.accent: Material.Red
-                    onClicked: {
-                        leftlabel.color = con.getColor(red.text)
+        // Employee List
+        ListView {
+            id: employeeList
+            model: employeeModel
+            width: parent.width
+            height: 250
+            delegate: Rectangle {
+                width: parent.width
+                height: 50
+                color: index % 2 === 0 ? "#f0f0f0" : "#ffffff"
+                border.color: "#cccccc"
+                Row {
+                    spacing: 10
+                    anchors.verticalCenter: parent.verticalCenter
+                    Text {
+                        text: "ID: " + model.id
+                        width: 50
                     }
-                }
-                Button {
-                    id: green
-                    text: "Green"
-                    highlighted: true
-                    Material.accent: Material.Green
-                    onClicked: {
-                        leftlabel.color = con.getColor(green.text)
+                    Text {
+                        text: "Name: " + model.name
+                        width: 150
                     }
-                }
-                Button {
-                    id: blue
-                    text: "Blue"
-                    highlighted: true
-                    Material.accent: Material.Blue
-                    onClicked: {
-                        leftlabel.color = con.getColor(blue.text)
+                    Text {
+                        text: "Position: " + model.position
+                        width: 150
                     }
-                }
-                Button {
-                    id: nonebutton
-                    text: "None"
-                    highlighted: true
-                    Material.accent: Material.BlueGrey
-                    onClicked: {
-                        leftlabel.color = con.getColor(nonebutton.text)
+                    Button {
+                        text: "Edit"
+                        onClicked: {
+                            nameField.text = model.name;
+                            positionField.text = model.position;
+                            mainApp.update_employee(model.id, nameField.text, positionField.text);
+                            employeeModel.refresh();
+                        }
                     }
-                }
-            }
-            RowLayout {
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-                Text {
-                    id: rightlabel
-                    color: "white"
-                    text: "Font size"
-                    Material.accent: Material.White
-                }
-                Slider {
-                    width: rightcolumn.width*0.6
-                    Layout.alignment: Qt.AlignRight
-                    id: slider
-                    value: 0.5
-                    onValueChanged: {
-                        leftlabel.font.pointSize = con.getSize(value)
+                    Button {
+                        text: "Delete"
+                        onClicked: {
+                            mainApp.delete_employee(model.id);
+                        }
                     }
                 }
             }

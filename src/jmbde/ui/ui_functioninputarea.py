@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ################################################################################
 # Form generated from reading UI file 'functioninputarea.ui'
 ##
@@ -8,36 +7,16 @@
 ################################################################################
 from PySide2.QtCore import (
     QCoreApplication,
-    QDate,
-    QDateTime,
     QMetaObject,
-    QObject,
-    QPoint,
-    QRect,
-    QSize,
     Qt,
-    QTime,
-    QUrl,
 )
 from PySide2.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QCursor,
     QFont,
-    QFontDatabase,
-    QIcon,
-    QKeySequence,
-    QLinearGradient,
-    QPainter,
-    QPalette,
-    QPixmap,
-    QRadialGradient,
 )
 from PySide2.QtWidgets import *
 
 
-class Ui_FunctionInputArea(object):
+class Ui_FunctionInputArea:
     def setupUi(self, FunctionInputArea):
         if not FunctionInputArea.objectName():
             FunctionInputArea.setObjectName("FunctionInputArea")
@@ -64,7 +43,7 @@ class Ui_FunctionInputArea(object):
         self.verticalLayout_2.addLayout(self.verticalLayout)
 
         self.verticalSpacer = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred,
         )
 
         self.verticalLayout_2.addItem(self.verticalSpacer)
@@ -94,7 +73,7 @@ class Ui_FunctionInputArea(object):
         self.verticalLayout_2.addLayout(self.gridLayout)
 
         self.verticalSpacer_2 = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding,
         )
 
         self.verticalLayout_2.addItem(self.verticalSpacer_2)
@@ -107,7 +86,7 @@ class Ui_FunctionInputArea(object):
         self.horizontalLayout.addWidget(self.pushButton_Add)
 
         self.horizontalSpacer = QSpacerItem(
-            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum
+            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum,
         )
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
@@ -137,30 +116,30 @@ class Ui_FunctionInputArea(object):
 
     def retranslateUi(self, FunctionInputArea):
         FunctionInputArea.setWindowTitle(
-            QCoreApplication.translate("FunctionInputArea", "Function", None)
+            QCoreApplication.translate("FunctionInputArea", "Function", None),
         )
         # if QT_CONFIG(accessibility)
         FunctionInputArea.setAccessibleName(
-            QCoreApplication.translate("FunctionInputArea", "FunctionInputDialog", None)
+            QCoreApplication.translate("FunctionInputArea", "FunctionInputDialog", None),
         )
         # endif // QT_CONFIG(accessibility)
         FunctionInputArea.setTitle(
-            QCoreApplication.translate("FunctionInputArea", "Function", None)
+            QCoreApplication.translate("FunctionInputArea", "Function", None),
         )
         self.label_Header.setText(
-            QCoreApplication.translate("FunctionInputArea", "Function", None)
+            QCoreApplication.translate("FunctionInputArea", "Function", None),
         )
         self.label_Priority.setText(
-            QCoreApplication.translate("FunctionInputArea", "Priority", None)
+            QCoreApplication.translate("FunctionInputArea", "Priority", None),
         )
         self.label_Name.setText(
-            QCoreApplication.translate("FunctionInputArea", "Name", None)
+            QCoreApplication.translate("FunctionInputArea", "Name", None),
         )
         self.pushButton_Add.setText(
-            QCoreApplication.translate("FunctionInputArea", "+", None)
+            QCoreApplication.translate("FunctionInputArea", "+", None),
         )
         self.pushButton_EditFinish.setText(
-            QCoreApplication.translate("FunctionInputArea", "Edit", None)
+            QCoreApplication.translate("FunctionInputArea", "Edit", None),
         )
 
     # retranslateUi

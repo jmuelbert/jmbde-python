@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ################################################################################
 # Form generated from reading UI file 'cityinputarea.ui'
 ##
@@ -8,36 +7,16 @@
 ################################################################################
 from PySide2.QtCore import (
     QCoreApplication,
-    QDate,
-    QDateTime,
     QMetaObject,
-    QObject,
-    QPoint,
-    QRect,
-    QSize,
     Qt,
-    QTime,
-    QUrl,
 )
 from PySide2.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QCursor,
     QFont,
-    QFontDatabase,
-    QIcon,
-    QKeySequence,
-    QLinearGradient,
-    QPainter,
-    QPalette,
-    QPixmap,
-    QRadialGradient,
 )
 from PySide2.QtWidgets import *
 
 
-class Ui_CityInputArea(object):
+class Ui_CityInputArea:
     def setupUi(self, CityInputArea):
         if not CityInputArea.objectName():
             CityInputArea.setObjectName("CityInputArea")
@@ -64,7 +43,7 @@ class Ui_CityInputArea(object):
         self.verticalLayout_2.addLayout(self.verticalLayout)
 
         self.verticalSpacer = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred,
         )
 
         self.verticalLayout_2.addItem(self.verticalSpacer)
@@ -94,7 +73,7 @@ class Ui_CityInputArea(object):
         self.verticalLayout_2.addLayout(self.gridLayout)
 
         self.verticalSpacer_2 = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding,
         )
 
         self.verticalLayout_2.addItem(self.verticalSpacer_2)
@@ -107,7 +86,7 @@ class Ui_CityInputArea(object):
         self.horizontalLayout.addWidget(self.pushButton_Add)
 
         self.horizontalSpacer = QSpacerItem(
-            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum
+            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum,
         )
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
@@ -129,30 +108,30 @@ class Ui_CityInputArea(object):
 
     def retranslateUi(self, CityInputArea):
         CityInputArea.setWindowTitle(
-            QCoreApplication.translate("CityInputArea", "City", None)
+            QCoreApplication.translate("CityInputArea", "City", None),
         )
         # if QT_CONFIG(accessibility)
         CityInputArea.setAccessibleName(
-            QCoreApplication.translate("CityInputArea", "CityInputDialog", None)
+            QCoreApplication.translate("CityInputArea", "CityInputDialog", None),
         )
         # endif // QT_CONFIG(accessibility)
         CityInputArea.setTitle(
-            QCoreApplication.translate("CityInputArea", "City", None)
+            QCoreApplication.translate("CityInputArea", "City", None),
         )
         self.label_Header.setText(
-            QCoreApplication.translate("CityInputArea", "City", None)
+            QCoreApplication.translate("CityInputArea", "City", None),
         )
         self.label_ZipCode.setText(
-            QCoreApplication.translate("CityInputArea", "Zip Code", None)
+            QCoreApplication.translate("CityInputArea", "Zip Code", None),
         )
         self.label_CityName.setText(
-            QCoreApplication.translate("CityInputArea", "City Name", None)
+            QCoreApplication.translate("CityInputArea", "City Name", None),
         )
         self.pushButton_Add.setText(
-            QCoreApplication.translate("CityInputArea", "+", None)
+            QCoreApplication.translate("CityInputArea", "+", None),
         )
         self.pushButton_EditFinish.setText(
-            QCoreApplication.translate("CityInputArea", "Edit", None)
+            QCoreApplication.translate("CityInputArea", "Edit", None),
         )
 
     # retranslateUi

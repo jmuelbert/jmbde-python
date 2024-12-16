@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ################################################################################
 # Form generated from reading UI file 'departmentinputarea.ui'
 ##
@@ -8,36 +7,16 @@
 ################################################################################
 from PySide2.QtCore import (
     QCoreApplication,
-    QDate,
-    QDateTime,
     QMetaObject,
-    QObject,
-    QPoint,
-    QRect,
-    QSize,
     Qt,
-    QTime,
-    QUrl,
 )
 from PySide2.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QCursor,
     QFont,
-    QFontDatabase,
-    QIcon,
-    QKeySequence,
-    QLinearGradient,
-    QPainter,
-    QPalette,
-    QPixmap,
-    QRadialGradient,
 )
 from PySide2.QtWidgets import *
 
 
-class Ui_DepartmentInputArea(object):
+class Ui_DepartmentInputArea:
     def setupUi(self, DepartmentInputArea):
         if not DepartmentInputArea.objectName():
             DepartmentInputArea.setObjectName("DepartmentInputArea")
@@ -64,7 +43,7 @@ class Ui_DepartmentInputArea(object):
         self.verticalLayout_3.addLayout(self.verticalLayout)
 
         self.verticalSpacer = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred,
         )
 
         self.verticalLayout_3.addItem(self.verticalSpacer)
@@ -135,7 +114,7 @@ class Ui_DepartmentInputArea(object):
         self.verticalLayout_3.addLayout(self.gridLayout)
 
         self.verticalSpacer_2 = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding,
         )
 
         self.verticalLayout_3.addItem(self.verticalSpacer_2)
@@ -148,7 +127,7 @@ class Ui_DepartmentInputArea(object):
         self.horizontalLayout.addWidget(self.pushButton_Add)
 
         self.horizontalSpacer = QSpacerItem(
-            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum
+            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum,
         )
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
@@ -185,41 +164,41 @@ class Ui_DepartmentInputArea(object):
 
     def retranslateUi(self, DepartmentInputArea):
         DepartmentInputArea.setWindowTitle(
-            QCoreApplication.translate("DepartmentInputArea", "Department", None)
+            QCoreApplication.translate("DepartmentInputArea", "Department", None),
         )
         # if QT_CONFIG(accessibility)
         DepartmentInputArea.setAccessibleName(
             QCoreApplication.translate(
-                "DepartmentInputArea", "DepartmentInputDialog", None
-            )
+                "DepartmentInputArea", "DepartmentInputDialog", None,
+            ),
         )
         # endif // QT_CONFIG(accessibility)
         DepartmentInputArea.setTitle(
-            QCoreApplication.translate("DepartmentInputArea", "Department", None)
+            QCoreApplication.translate("DepartmentInputArea", "Department", None),
         )
         self.label_Header.setText(
-            QCoreApplication.translate("DepartmentInputArea", "Department", None)
+            QCoreApplication.translate("DepartmentInputArea", "Department", None),
         )
         self.label_Printer.setText(
-            QCoreApplication.translate("DepartmentInputArea", "Printer", None)
+            QCoreApplication.translate("DepartmentInputArea", "Printer", None),
         )
         self.label_Pri_Test.setText(
-            QCoreApplication.translate("DepartmentInputArea", "Pri-Test", None)
+            QCoreApplication.translate("DepartmentInputArea", "Pri-Test", None),
         )
         self.label_Priority.setText(
-            QCoreApplication.translate("DepartmentInputArea", "Priority", None)
+            QCoreApplication.translate("DepartmentInputArea", "Priority", None),
         )
         self.label_Name.setText(
-            QCoreApplication.translate("DepartmentInputArea", "Name", None)
+            QCoreApplication.translate("DepartmentInputArea", "Name", None),
         )
         self.label_Fax.setText(
-            QCoreApplication.translate("DepartmentInputArea", "Fax", None)
+            QCoreApplication.translate("DepartmentInputArea", "Fax", None),
         )
         self.pushButton_Add.setText(
-            QCoreApplication.translate("DepartmentInputArea", "+", None)
+            QCoreApplication.translate("DepartmentInputArea", "+", None),
         )
         self.pushButton_EditFinish.setText(
-            QCoreApplication.translate("DepartmentInputArea", "Edit", None)
+            QCoreApplication.translate("DepartmentInputArea", "Edit", None),
         )
 
     # retranslateUi

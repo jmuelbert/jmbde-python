@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-# -*- coding: utf-8 -*-
 #
 #   jmbde a BDE Tool for datacontext
 #   Copyright (C) 2018-2020  Jürgen Mülbert
@@ -25,4 +24,4 @@ CONF_DIR = os.path.join(BASE_DIR, "conf")
 TRANSLATION_DIR = os.path.join(BASE_DIR, "translations")
 UI_DIR = os.path.join(BASE_DIR, "ui")
 
-__all__ = ["BASE_DIR", "IMAGES_DIR", "CONF_DIR", "TRANSLATION_DIR", "UI_DIR"]
+__all__ = ["BASE_DIR", "CONF_DIR", "IMAGES_DIR", "TRANSLATION_DIR", "UI_DIR"]

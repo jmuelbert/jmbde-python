@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ################################################################################
 # Form generated from reading UI file 'csvimportdialog.ui'
 ##
@@ -8,36 +7,13 @@
 ################################################################################
 from PySide2.QtCore import (
     QCoreApplication,
-    QDate,
-    QDateTime,
     QMetaObject,
-    QObject,
-    QPoint,
-    QRect,
-    QSize,
     Qt,
-    QTime,
-    QUrl,
-)
-from PySide2.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QCursor,
-    QFont,
-    QFontDatabase,
-    QIcon,
-    QKeySequence,
-    QLinearGradient,
-    QPainter,
-    QPalette,
-    QPixmap,
-    QRadialGradient,
 )
 from PySide2.QtWidgets import *
 
 
-class Ui_CsvImportDialog(object):
+class Ui_CsvImportDialog:
     def setupUi(self, CsvImportDialog):
         if not CsvImportDialog.objectName():
             CsvImportDialog.setObjectName("CsvImportDialog")
@@ -67,7 +43,7 @@ class Ui_CsvImportDialog(object):
 
     def retranslateUi(self, CsvImportDialog):
         CsvImportDialog.setWindowTitle(
-            QCoreApplication.translate("CsvImportDialog", "CSV Import", None)
+            QCoreApplication.translate("CsvImportDialog", "CSV Import", None),
         )
 
     # retranslateUi

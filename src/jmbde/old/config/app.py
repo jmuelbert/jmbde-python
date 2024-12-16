@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 #   jmbde a BDE Tool for datacontext
 #   Copyright (C) 2018-2020  Jürgen Mülbert
@@ -34,7 +33,7 @@ def run():
 
     lang = locale.getdefaultlocale()[0]
     lang_file_path = (
-        (TRANSLATION_DIR / "jmbde_{lang}.qm".format(lang=lang)).resolve().as_posix()
+        (TRANSLATION_DIR / f"jmbde_{lang}.qm").resolve().as_posix()
     )
     translator = QTranslator()
     translator.load(lang_file_path)

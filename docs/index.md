@@ -4,7 +4,7 @@
 ![jmbde-python Logo](assets/images/logo.svg){ role="img" }
 
 |         |                                                                                                                                                                                                                                                  |
-|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | CI/ CD  | [![test][test-badge]{ loading=lazy .off-glb }][test-wf-url] [![CI - Build jmbde-python][ci-cd-badge]{ loading=lazy .off-glb }][ci-cd-wf-url]                                                                                                     |
 | Docs    | [![Docs][docs-badge]{ loading=lazy .off-glb }][docs-wf-url]                                                                                                                                                                                      |
 | Package | [![PyPI - Version][pypi-version-badge]{ loading=lazy .off-glb }][pypi-version-url] [![PyPI - Downloads][pypi-downloads-badge]{ loading=lazy .off-glb }][pypi-downloads-url] [![PyPI - Python Version][python-version-badge]][python-version-url] |
@@ -12,7 +12,7 @@
 
 </div>
 
-______________________________________________________________________
+---
 
 jmbde-python is a tool to check the availability of a website or ntp-server.
 
@@ -38,11 +38,10 @@ the dropdown on the top of every page. The `dev` version reflects changes
 that have not yet been released.
 
 | Keys                                                         | Action                          |
-|--------------------------------------------------------------|---------------------------------|
+| ------------------------------------------------------------ | ------------------------------- |
 | <ul><li><kbd>,</kbd> (comma)</li><li><kbd>p</kbd></li></ul>  | Navigate to the "previous" page |
 | <ul><li><kbd>.</kbd> (period)</li><li><kbd>n</kbd></li></ul> | Navigate to the "next" page     |
 | <ul><li><kbd>/</kbd></li><li><kbd>s</kbd></li></ul>          | Display the search modal        |
-
 
 [test-badge]: https://github.com/jmuelbert/jmbde-python/actions/workflows/test.yml/badge.svg
 [test-wf-url]: https://github.com/jmuelbert/jmbde-python/actions/workflows/test.yml

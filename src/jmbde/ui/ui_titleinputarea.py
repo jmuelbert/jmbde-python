@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ################################################################################
 # Form generated from reading UI file 'titleinputarea.ui'
 ##
@@ -8,36 +7,16 @@
 ################################################################################
 from PySide2.QtCore import (
     QCoreApplication,
-    QDate,
-    QDateTime,
     QMetaObject,
-    QObject,
-    QPoint,
-    QRect,
-    QSize,
     Qt,
-    QTime,
-    QUrl,
 )
 from PySide2.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QCursor,
     QFont,
-    QFontDatabase,
-    QIcon,
-    QKeySequence,
-    QLinearGradient,
-    QPainter,
-    QPalette,
-    QPixmap,
-    QRadialGradient,
 )
 from PySide2.QtWidgets import *
 
 
-class Ui_TitleInputArea(object):
+class Ui_TitleInputArea:
     def setupUi(self, TitleInputArea):
         if not TitleInputArea.objectName():
             TitleInputArea.setObjectName("TitleInputArea")
@@ -64,7 +43,7 @@ class Ui_TitleInputArea(object):
         self.verticalLayout_2.addLayout(self.verticalLayout)
 
         self.verticalSpacer_2 = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred,
         )
 
         self.verticalLayout_2.addItem(self.verticalSpacer_2)
@@ -104,7 +83,7 @@ class Ui_TitleInputArea(object):
         self.verticalLayout_2.addLayout(self.gridLayout)
 
         self.verticalSpacer = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding,
         )
 
         self.verticalLayout_2.addItem(self.verticalSpacer)
@@ -117,7 +96,7 @@ class Ui_TitleInputArea(object):
         self.horizontalLayout.addWidget(self.pushButton_Add)
 
         self.horizontalSpacer = QSpacerItem(
-            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum
+            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum,
         )
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
@@ -149,31 +128,31 @@ class Ui_TitleInputArea(object):
 
     def retranslateUi(self, TitleInputArea):
         TitleInputArea.setWindowTitle(
-            QCoreApplication.translate("TitleInputArea", "Title", None)
+            QCoreApplication.translate("TitleInputArea", "Title", None),
         )
         # if QT_CONFIG(accessibility)
         TitleInputArea.setAccessibleName(
-            QCoreApplication.translate("TitleInputArea", "TitleInputDialog", None)
+            QCoreApplication.translate("TitleInputArea", "TitleInputDialog", None),
         )
         # endif // QT_CONFIG(accessibility)
         TitleInputArea.setTitle(
-            QCoreApplication.translate("TitleInputArea", "Title", None)
+            QCoreApplication.translate("TitleInputArea", "Title", None),
         )
         self.label_Header.setText(
-            QCoreApplication.translate("TitleInputArea", "Title", None)
+            QCoreApplication.translate("TitleInputArea", "Title", None),
         )
         self.label_From.setText(
-            QCoreApplication.translate("TitleInputArea", "From", None)
+            QCoreApplication.translate("TitleInputArea", "From", None),
         )
         self.label_To.setText(QCoreApplication.translate("TitleInputArea", "To", None))
         self.label_Title.setText(
-            QCoreApplication.translate("TitleInputArea", "Title", None)
+            QCoreApplication.translate("TitleInputArea", "Title", None),
         )
         self.pushButton_Add.setText(
-            QCoreApplication.translate("TitleInputArea", "+", None)
+            QCoreApplication.translate("TitleInputArea", "+", None),
         )
         self.pushButton_EditFinish.setText(
-            QCoreApplication.translate("TitleInputArea", "Edit", None)
+            QCoreApplication.translate("TitleInputArea", "Edit", None),
         )
 
     # retranslateUi

@@ -17,7 +17,7 @@ jmbde uses the cross-platform frameworks [Python](https://www.python.org) and [Q
 
 ## Installation
 
-You can install *jmbde-python* via [pip](https://pip.pypa.io/) from [PyPI](https://pypi.org/):
+You can install _jmbde-python_ via [pip](https://pip.pypa.io/) from [PyPI](https://pypi.org/):
 
 ```bash
 $ pip install jmbde-python
@@ -30,7 +30,7 @@ The master branch represents the latest pre-release code.
 
 ## Usage
 
-* TODO
+- TODO
 
 ## Contributing
 
@@ -38,7 +38,7 @@ Contributions are very welcome. To learn more, see the [Contributor Guide](CONTR
 
 ## License
 
-Distributed under the terms of the [GPL-3.0](http://opensource.org/licenses/GPL-3.0) license, *jmbde_python* is free and open source software.
+Distributed under the terms of the [GPL-3.0](http://opensource.org/licenses/GPL-3.0) license, _jmbde_python_ is free and open source software.
 
 ## Issues
 

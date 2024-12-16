@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ################################################################################
 # Form generated from reading UI file 'softwareinputarea.ui'
 ##
@@ -8,36 +7,16 @@
 ################################################################################
 from PySide2.QtCore import (
     QCoreApplication,
-    QDate,
-    QDateTime,
     QMetaObject,
-    QObject,
-    QPoint,
-    QRect,
-    QSize,
     Qt,
-    QTime,
-    QUrl,
 )
 from PySide2.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QCursor,
     QFont,
-    QFontDatabase,
-    QIcon,
-    QKeySequence,
-    QLinearGradient,
-    QPainter,
-    QPalette,
-    QPixmap,
-    QRadialGradient,
 )
 from PySide2.QtWidgets import *
 
 
-class Ui_SoftwareInputArea(object):
+class Ui_SoftwareInputArea:
     def setupUi(self, SoftwareInputArea):
         if not SoftwareInputArea.objectName():
             SoftwareInputArea.setObjectName("SoftwareInputArea")
@@ -64,7 +43,7 @@ class Ui_SoftwareInputArea(object):
         self.verticalLayout_2.addLayout(self.verticalLayout)
 
         self.verticalSpacer = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred,
         )
 
         self.verticalLayout_2.addItem(self.verticalSpacer)
@@ -114,7 +93,7 @@ class Ui_SoftwareInputArea(object):
         self.verticalLayout_2.addLayout(self.gridLayout)
 
         self.verticalSpacer_2 = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding,
         )
 
         self.verticalLayout_2.addItem(self.verticalSpacer_2)
@@ -127,7 +106,7 @@ class Ui_SoftwareInputArea(object):
         self.horizontalLayout.addWidget(self.pushButton_Add)
 
         self.horizontalSpacer = QSpacerItem(
-            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum
+            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum,
         )
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
@@ -161,36 +140,36 @@ class Ui_SoftwareInputArea(object):
 
     def retranslateUi(self, SoftwareInputArea):
         SoftwareInputArea.setWindowTitle(
-            QCoreApplication.translate("SoftwareInputArea", "Software", None)
+            QCoreApplication.translate("SoftwareInputArea", "Software", None),
         )
         # if QT_CONFIG(accessibility)
         SoftwareInputArea.setAccessibleName(
-            QCoreApplication.translate("SoftwareInputArea", "SoftwareInputDialog", None)
+            QCoreApplication.translate("SoftwareInputArea", "SoftwareInputDialog", None),
         )
         # endif // QT_CONFIG(accessibility)
         SoftwareInputArea.setTitle(
-            QCoreApplication.translate("SoftwareInputArea", "Software", None)
+            QCoreApplication.translate("SoftwareInputArea", "Software", None),
         )
         self.label_Header.setText(
-            QCoreApplication.translate("SoftwareInputArea", "Software", None)
+            QCoreApplication.translate("SoftwareInputArea", "Software", None),
         )
         self.label_Revision.setText(
-            QCoreApplication.translate("SoftwareInputArea", "Revision", None)
+            QCoreApplication.translate("SoftwareInputArea", "Revision", None),
         )
         self.label_Version.setText(
-            QCoreApplication.translate("SoftwareInputArea", "Version", None)
+            QCoreApplication.translate("SoftwareInputArea", "Version", None),
         )
         self.label_Name.setText(
-            QCoreApplication.translate("SoftwareInputArea", "Name", None)
+            QCoreApplication.translate("SoftwareInputArea", "Name", None),
         )
         self.label_Fix.setText(
-            QCoreApplication.translate("SoftwareInputArea", "Fix", None)
+            QCoreApplication.translate("SoftwareInputArea", "Fix", None),
         )
         self.pushButton_Add.setText(
-            QCoreApplication.translate("SoftwareInputArea", "+", None)
+            QCoreApplication.translate("SoftwareInputArea", "+", None),
         )
         self.pushButton_EditFinish.setText(
-            QCoreApplication.translate("SoftwareInputArea", "Edit", None)
+            QCoreApplication.translate("SoftwareInputArea", "Edit", None),
         )
 
     # retranslateUi

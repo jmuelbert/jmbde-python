@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ################################################################################
 # Form generated from reading UI file 'printerinputarea.ui'
 ##
@@ -8,36 +7,17 @@
 ################################################################################
 from PySide2.QtCore import (
     QCoreApplication,
-    QDate,
-    QDateTime,
     QMetaObject,
-    QObject,
-    QPoint,
-    QRect,
     QSize,
     Qt,
-    QTime,
-    QUrl,
 )
 from PySide2.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QCursor,
     QFont,
-    QFontDatabase,
-    QIcon,
-    QKeySequence,
-    QLinearGradient,
-    QPainter,
-    QPalette,
-    QPixmap,
-    QRadialGradient,
 )
 from PySide2.QtWidgets import *
 
 
-class Ui_PrinterInputArea(object):
+class Ui_PrinterInputArea:
     def setupUi(self, PrinterInputArea):
         if not PrinterInputArea.objectName():
             PrinterInputArea.setObjectName("PrinterInputArea")
@@ -64,7 +44,7 @@ class Ui_PrinterInputArea(object):
         self.verticalLayout_2.addLayout(self.verticalLayout)
 
         self.verticalSpacer = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred,
         )
 
         self.verticalLayout_2.addItem(self.verticalSpacer)
@@ -230,7 +210,7 @@ class Ui_PrinterInputArea(object):
         self.verticalLayout_2.addLayout(self.gridLayout)
 
         self.verticalSpacer_2 = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding,
         )
 
         self.verticalLayout_2.addItem(self.verticalSpacer_2)
@@ -243,7 +223,7 @@ class Ui_PrinterInputArea(object):
         self.horizontalLayout.addWidget(self.pushButton_Add)
 
         self.horizontalSpacer = QSpacerItem(
-            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum
+            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum,
         )
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
@@ -293,75 +273,75 @@ class Ui_PrinterInputArea(object):
 
     def retranslateUi(self, PrinterInputArea):
         PrinterInputArea.setWindowTitle(
-            QCoreApplication.translate("PrinterInputArea", "Printer", None)
+            QCoreApplication.translate("PrinterInputArea", "Printer", None),
         )
         # if QT_CONFIG(accessibility)
         PrinterInputArea.setAccessibleName(
-            QCoreApplication.translate("PrinterInputArea", "PrinterInputDialog", None)
+            QCoreApplication.translate("PrinterInputArea", "PrinterInputDialog", None),
         )
         # endif // QT_CONFIG(accessibility)
         PrinterInputArea.setTitle(
-            QCoreApplication.translate("PrinterInputArea", "Printer", None)
+            QCoreApplication.translate("PrinterInputArea", "Printer", None),
         )
         self.label_Header.setText(
-            QCoreApplication.translate("PrinterInputArea", "Printer", None)
+            QCoreApplication.translate("PrinterInputArea", "Printer", None),
         )
         self.checkBox_Color.setText(
-            QCoreApplication.translate("PrinterInputArea", "Color", None)
+            QCoreApplication.translate("PrinterInputArea", "Color", None),
         )
         self.label_SerialNumber.setText(
-            QCoreApplication.translate("PrinterInputArea", "Serial Number", None)
+            QCoreApplication.translate("PrinterInputArea", "Serial Number", None),
         )
         self.label_Place.setText(
-            QCoreApplication.translate("PrinterInputArea", "Place", None)
+            QCoreApplication.translate("PrinterInputArea", "Place", None),
         )
         self.label_Name.setText(
-            QCoreApplication.translate("PrinterInputArea", "Name", None)
+            QCoreApplication.translate("PrinterInputArea", "Name", None),
         )
         self.label_Devicename.setText(
-            QCoreApplication.translate("PrinterInputArea", "Devicename", None)
+            QCoreApplication.translate("PrinterInputArea", "Devicename", None),
         )
         self.label_Papersize.setText(
-            QCoreApplication.translate("PrinterInputArea", "Papersize", None)
+            QCoreApplication.translate("PrinterInputArea", "Papersize", None),
         )
         self.label_Department.setText(
-            QCoreApplication.translate("PrinterInputArea", "Department", None)
+            QCoreApplication.translate("PrinterInputArea", "Department", None),
         )
         self.label_Inventory.setText(
-            QCoreApplication.translate("PrinterInputArea", "Inventory", None)
+            QCoreApplication.translate("PrinterInputArea", "Inventory", None),
         )
         self.label_DeviceType.setText(
-            QCoreApplication.translate("PrinterInputArea", "Devicetype", None)
+            QCoreApplication.translate("PrinterInputArea", "Devicetype", None),
         )
         self.label_Resources.setText(
-            QCoreApplication.translate("PrinterInputArea", "Resources", None)
+            QCoreApplication.translate("PrinterInputArea", "Resources", None),
         )
         self.label_Employee.setText(
-            QCoreApplication.translate("PrinterInputArea", "Employee", None)
+            QCoreApplication.translate("PrinterInputArea", "Employee", None),
         )
         self.checkBox_Active.setText(
-            QCoreApplication.translate("PrinterInputArea", "Active", None)
+            QCoreApplication.translate("PrinterInputArea", "Active", None),
         )
         self.label_Manufacturer.setText(
-            QCoreApplication.translate("PrinterInputArea", "Manufacturer", None)
+            QCoreApplication.translate("PrinterInputArea", "Manufacturer", None),
         )
         self.label_Network.setText(
-            QCoreApplication.translate("PrinterInputArea", "Network", None)
+            QCoreApplication.translate("PrinterInputArea", "Network", None),
         )
         self.label_IPAddress.setText(
-            QCoreApplication.translate("PrinterInputArea", "IP Address", None)
+            QCoreApplication.translate("PrinterInputArea", "IP Address", None),
         )
         self.checkBox_Replace.setText(
-            QCoreApplication.translate("PrinterInputArea", "Replace", None)
+            QCoreApplication.translate("PrinterInputArea", "Replace", None),
         )
         self.label_Computer.setText(
-            QCoreApplication.translate("PrinterInputArea", "Computer", None)
+            QCoreApplication.translate("PrinterInputArea", "Computer", None),
         )
         self.pushButton_Add.setText(
-            QCoreApplication.translate("PrinterInputArea", "+", None)
+            QCoreApplication.translate("PrinterInputArea", "+", None),
         )
         self.pushButton_EditFinish.setText(
-            QCoreApplication.translate("PrinterInputArea", "Edit", None)
+            QCoreApplication.translate("PrinterInputArea", "Edit", None),
         )
 
     # retranslateUi

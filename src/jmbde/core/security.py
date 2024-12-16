@@ -1,6 +1,8 @@
 # security.py
-from cryptography.fernet import Fernet
 from typing import Optional
+
+from cryptography.fernet import Fernet
+
 
 class SecurityManager:
     def __init__(self, key: Optional[bytes] = None):

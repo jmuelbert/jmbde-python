@@ -2,13 +2,13 @@ name: Tests
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main ]
     paths-ignore:
       - '**.md'
       - 'docs/**'
       - '.github/*.md'
   pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
   workflow_dispatch:
 
 concurrency:
@@ -23,7 +23,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: ['3.9', '3.10', '3.11']
+        python-version: ['3.9', '3.10', '3.11', '3.12']
         exclude:
           - os: macos-latest
             python-version: '3.9'
@@ -31,17 +31,20 @@ jobs:
             python-version: '3.9'
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      # Checkout the repository to the GitHub Actions runner
+      - name: '🧰 Checkout Source Code'
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
+          persist-credentials: false
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+      - name: '⚙️️ Set up Python'
+        uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
         with:
           python-version: ${{ matrix.python-version }}
+          check-latest: true
           cache: 'pip'
-          cache-dependency-path: 'pyproject.toml'
+
 
       - name: Install Hatch
         run: |
@@ -78,13 +81,14 @@ jobs:
     name: Security Checks
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: '🧰 Checkout Source Code'
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: '⚙️️ Set up Python'
+        uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
         with:
           python-version: '3.11'
+          check-latest: true
           cache: 'pip'
 
       - name: Install Hatch
@@ -101,13 +105,14 @@ jobs:
     name: Documentation
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: '🧰 Checkout Source Code'
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: '⚙️️ Set up Python'
+        uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
         with:
           python-version: '3.11'
+          check-latest: true
           cache: 'pip'
 
       - name: Install Hatch
@@ -126,20 +131,16 @@ jobs:
           path: site/
           retention-days: 7
 
-  notify:
-    needs: [test, security, docs]
-    runs-on: ubuntu-latest
-    if: always()
-    steps:
-      - uses: technote-space/workflow-conclusion-action@v3
 
-      - name: Send Notification
-        if: env.WORKFLOW_CONCLUSION != 'success'
-        uses: rtCamp/action-discord-notify@v2
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          DISCORD_USERNAME: GitHub Actions
-          DISCORD_AVATAR: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
-          DISCORD_TITLE: "Tests Workflow Failed"
-          DISCORD_COLOR: "#dc3545"
-          DISCORD_MESSAGE: "Tests workflow failed on ${{ github.repository }}"
+  # https://github.com/marketplace/actions/alls-green#why
+  release-all-green: # This job does nothing and is only used for the branch protection
+      if: always()
+      needs: [test, security, docs]
+
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: "Decide whether the needed jobs succeeded or failed"
+          uses: re-actors/alls-green@223e4bb7a751b91f43eda76992bcfbf23b8b0302 # v1.2.2
+          with:
+            jobs: ${{ toJSON(needs) }}

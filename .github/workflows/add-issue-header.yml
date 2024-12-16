@@ -34,14 +34,14 @@ jobs:
               'type-crash': 'Crash report',
               'type-feature': 'Feature or enhancement'
             };
-            
+
             try {
-              const { data: issue } = await 
+              const { data: issue } = await
               github.rest.issues.get({
                 ...context.repo,
                 issue_number: context.issue.number
               });
-            
+
               const matchedLabel = issue.labels
                 .map(label => typeof label === 'string' ? label : label.name)
                 .find(labelName => labelName in ISSUE_TYPES);
@@ -49,7 +49,7 @@ jobs:
               if (matchedLabel) {
                 const header = ISSUE_TYPES[matchedLabel];
                 console.log(`Adding header: ${header}`);
-                
+
                 await github.rest.issues.update({
                   ...context.repo,
                   issue_number: context.issue.number,

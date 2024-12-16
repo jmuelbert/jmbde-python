@@ -1,6 +1,6 @@
 # jmbde-python History
 
-______________________________________________________________________
+---
 
 All notable changes to jmbde-python will be documented in this file.
 

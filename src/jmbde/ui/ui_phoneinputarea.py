@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ################################################################################
 # Form generated from reading UI file 'phoneinputarea.ui'
 ##
@@ -8,36 +7,16 @@
 ################################################################################
 from PySide2.QtCore import (
     QCoreApplication,
-    QDate,
-    QDateTime,
     QMetaObject,
-    QObject,
-    QPoint,
-    QRect,
-    QSize,
     Qt,
-    QTime,
-    QUrl,
 )
 from PySide2.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QCursor,
     QFont,
-    QFontDatabase,
-    QIcon,
-    QKeySequence,
-    QLinearGradient,
-    QPainter,
-    QPalette,
-    QPixmap,
-    QRadialGradient,
 )
 from PySide2.QtWidgets import *
 
 
-class Ui_PhoneInputArea(object):
+class Ui_PhoneInputArea:
     def setupUi(self, PhoneInputArea):
         if not PhoneInputArea.objectName():
             PhoneInputArea.setObjectName("PhoneInputArea")
@@ -64,7 +43,7 @@ class Ui_PhoneInputArea(object):
         self.verticalLayout_2.addLayout(self.verticalLayout)
 
         self.verticalSpacer = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred,
         )
 
         self.verticalLayout_2.addItem(self.verticalSpacer)
@@ -100,7 +79,7 @@ class Ui_PhoneInputArea(object):
         self.label_DeviceType = QLabel(self.formLayoutWidget)
         self.label_DeviceType.setObjectName("label_DeviceType")
         self.label_DeviceType.setAlignment(
-            Qt.AlignBottom | Qt.AlignLeading | Qt.AlignLeft
+            Qt.AlignBottom | Qt.AlignLeading | Qt.AlignLeft,
         )
 
         self.gridLayout.addWidget(self.label_DeviceType, 6, 2, 1, 1)
@@ -133,7 +112,7 @@ class Ui_PhoneInputArea(object):
         self.label_Employee = QLabel(self.formLayoutWidget)
         self.label_Employee.setObjectName("label_Employee")
         self.label_Employee.setAlignment(
-            Qt.AlignBottom | Qt.AlignLeading | Qt.AlignLeft
+            Qt.AlignBottom | Qt.AlignLeading | Qt.AlignLeft,
         )
 
         self.gridLayout.addWidget(self.label_Employee, 3, 0, 1, 1)
@@ -146,7 +125,7 @@ class Ui_PhoneInputArea(object):
         self.lineEdit_Number = QLineEdit(self.formLayoutWidget)
         self.lineEdit_Number.setObjectName("lineEdit_Number")
         sizePolicy.setHeightForWidth(
-            self.lineEdit_Number.sizePolicy().hasHeightForWidth()
+            self.lineEdit_Number.sizePolicy().hasHeightForWidth(),
         )
         self.lineEdit_Number.setSizePolicy(sizePolicy)
 
@@ -175,7 +154,7 @@ class Ui_PhoneInputArea(object):
         self.label_DeviceName = QLabel(self.formLayoutWidget)
         self.label_DeviceName.setObjectName("label_DeviceName")
         self.label_DeviceName.setAlignment(
-            Qt.AlignBottom | Qt.AlignLeading | Qt.AlignLeft
+            Qt.AlignBottom | Qt.AlignLeading | Qt.AlignLeft,
         )
 
         self.gridLayout.addWidget(self.label_DeviceName, 6, 0, 1, 1)
@@ -203,7 +182,7 @@ class Ui_PhoneInputArea(object):
         self.verticalLayout_2.addLayout(self.gridLayout)
 
         self.verticalSpacer_2 = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding,
         )
 
         self.verticalLayout_2.addItem(self.verticalSpacer_2)
@@ -216,7 +195,7 @@ class Ui_PhoneInputArea(object):
         self.horizontalLayout.addWidget(self.pushButton_Add)
 
         self.horizontalSpacer = QSpacerItem(
-            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum
+            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum,
         )
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
@@ -251,60 +230,60 @@ class Ui_PhoneInputArea(object):
 
     def retranslateUi(self, PhoneInputArea):
         PhoneInputArea.setWindowTitle(
-            QCoreApplication.translate("PhoneInputArea", "Phone", None)
+            QCoreApplication.translate("PhoneInputArea", "Phone", None),
         )
         # if QT_CONFIG(accessibility)
         PhoneInputArea.setAccessibleName(
-            QCoreApplication.translate("PhoneInputArea", "PhoneInputDialog", None)
+            QCoreApplication.translate("PhoneInputArea", "PhoneInputDialog", None),
         )
         # endif // QT_CONFIG(accessibility)
         PhoneInputArea.setTitle(
-            QCoreApplication.translate("PhoneInputArea", "Phone", None)
+            QCoreApplication.translate("PhoneInputArea", "Phone", None),
         )
         self.label_Header.setText(
-            QCoreApplication.translate("PhoneInputArea", "Phone", None)
+            QCoreApplication.translate("PhoneInputArea", "Phone", None),
         )
         self.label_Department.setText(
-            QCoreApplication.translate("PhoneInputArea", "Department", None)
+            QCoreApplication.translate("PhoneInputArea", "Department", None),
         )
         self.label_Number.setText(
-            QCoreApplication.translate("PhoneInputArea", "Number", None)
+            QCoreApplication.translate("PhoneInputArea", "Number", None),
         )
         self.label_Place.setText(
-            QCoreApplication.translate("PhoneInputArea", "Place", None)
+            QCoreApplication.translate("PhoneInputArea", "Place", None),
         )
         self.label_Manufacturer.setText(
-            QCoreApplication.translate("PhoneInputArea", "Manufacturer", None)
+            QCoreApplication.translate("PhoneInputArea", "Manufacturer", None),
         )
         self.label_DeviceType.setText(
-            QCoreApplication.translate("PhoneInputArea", "Devicetype", None)
+            QCoreApplication.translate("PhoneInputArea", "Devicetype", None),
         )
         self.label_Employee.setText(
-            QCoreApplication.translate("PhoneInputArea", "Employee", None)
+            QCoreApplication.translate("PhoneInputArea", "Employee", None),
         )
         self.checkBox_Replace.setText(
-            QCoreApplication.translate("PhoneInputArea", "Replace", None)
+            QCoreApplication.translate("PhoneInputArea", "Replace", None),
         )
         self.label_Pin.setText(
-            QCoreApplication.translate("PhoneInputArea", "Pin", None)
+            QCoreApplication.translate("PhoneInputArea", "Pin", None),
         )
         self.label_DeviceName.setText(
-            QCoreApplication.translate("PhoneInputArea", "Devicename", None)
+            QCoreApplication.translate("PhoneInputArea", "Devicename", None),
         )
         self.checkBox_Active.setText(
-            QCoreApplication.translate("PhoneInputArea", "Active", None)
+            QCoreApplication.translate("PhoneInputArea", "Active", None),
         )
         self.label_Inventory.setText(
-            QCoreApplication.translate("PhoneInputArea", "Inventory", None)
+            QCoreApplication.translate("PhoneInputArea", "Inventory", None),
         )
         self.label_SerialNumber.setText(
-            QCoreApplication.translate("PhoneInputArea", "Serial Number", None)
+            QCoreApplication.translate("PhoneInputArea", "Serial Number", None),
         )
         self.pushButton_Add.setText(
-            QCoreApplication.translate("PhoneInputArea", "+", None)
+            QCoreApplication.translate("PhoneInputArea", "+", None),
         )
         self.pushButton_EditFinish.setText(
-            QCoreApplication.translate("PhoneInputArea", "Edit", None)
+            QCoreApplication.translate("PhoneInputArea", "Edit", None),
         )
 
     # retranslateUi

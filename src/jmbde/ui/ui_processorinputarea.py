@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ################################################################################
 # Form generated from reading UI file 'processorinputarea.ui'
 ##
@@ -8,36 +7,16 @@
 ################################################################################
 from PySide2.QtCore import (
     QCoreApplication,
-    QDate,
-    QDateTime,
     QMetaObject,
-    QObject,
-    QPoint,
-    QRect,
-    QSize,
     Qt,
-    QTime,
-    QUrl,
 )
 from PySide2.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QCursor,
     QFont,
-    QFontDatabase,
-    QIcon,
-    QKeySequence,
-    QLinearGradient,
-    QPainter,
-    QPalette,
-    QPixmap,
-    QRadialGradient,
 )
 from PySide2.QtWidgets import *
 
 
-class Ui_ProcessorInputArea(object):
+class Ui_ProcessorInputArea:
     def setupUi(self, ProcessorInputArea):
         if not ProcessorInputArea.objectName():
             ProcessorInputArea.setObjectName("ProcessorInputArea")
@@ -64,7 +43,7 @@ class Ui_ProcessorInputArea(object):
         self.verticalLayout_2.addLayout(self.verticalLayout)
 
         self.verticalSpacer = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred,
         )
 
         self.verticalLayout_2.addItem(self.verticalSpacer)
@@ -109,7 +88,7 @@ class Ui_ProcessorInputArea(object):
         self.verticalLayout_2.addLayout(self.gridLayout)
 
         self.verticalSpacer_2 = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding,
         )
 
         self.verticalLayout_2.addItem(self.verticalSpacer_2)
@@ -122,7 +101,7 @@ class Ui_ProcessorInputArea(object):
         self.horizontalLayout.addWidget(self.pushButton_Add)
 
         self.horizontalSpacer = QSpacerItem(
-            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum
+            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum,
         )
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
@@ -154,38 +133,38 @@ class Ui_ProcessorInputArea(object):
 
     def retranslateUi(self, ProcessorInputArea):
         ProcessorInputArea.setWindowTitle(
-            QCoreApplication.translate("ProcessorInputArea", "Processor", None)
+            QCoreApplication.translate("ProcessorInputArea", "Processor", None),
         )
         # if QT_CONFIG(accessibility)
         ProcessorInputArea.setAccessibleName(
             QCoreApplication.translate(
-                "ProcessorInputArea", "ProcessorInputDialog", None
-            )
+                "ProcessorInputArea", "ProcessorInputDialog", None,
+            ),
         )
         # endif // QT_CONFIG(accessibility)
         ProcessorInputArea.setTitle(
-            QCoreApplication.translate("ProcessorInputArea", "Processor", None)
+            QCoreApplication.translate("ProcessorInputArea", "Processor", None),
         )
         self.label_Header.setText(
-            QCoreApplication.translate("ProcessorInputArea", "Processor", None)
+            QCoreApplication.translate("ProcessorInputArea", "Processor", None),
         )
         self.label_Name.setText(
-            QCoreApplication.translate("ProcessorInputArea", "Name", None)
+            QCoreApplication.translate("ProcessorInputArea", "Name", None),
         )
         self.label_ClockRate.setText(
-            QCoreApplication.translate("ProcessorInputArea", "Clock Rate", None)
+            QCoreApplication.translate("ProcessorInputArea", "Clock Rate", None),
         )
         self.label_Frequeny.setText(
-            QCoreApplication.translate("ProcessorInputArea", "Ghz", None)
+            QCoreApplication.translate("ProcessorInputArea", "Ghz", None),
         )
         self.label_Cores.setText(
-            QCoreApplication.translate("ProcessorInputArea", "Cores", None)
+            QCoreApplication.translate("ProcessorInputArea", "Cores", None),
         )
         self.pushButton_Add.setText(
-            QCoreApplication.translate("ProcessorInputArea", "+", None)
+            QCoreApplication.translate("ProcessorInputArea", "+", None),
         )
         self.pushButton_EditFinish.setText(
-            QCoreApplication.translate("ProcessorInputArea", "Edit", None)
+            QCoreApplication.translate("ProcessorInputArea", "Edit", None),
         )
 
     # retranslateUi

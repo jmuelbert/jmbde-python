@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 #   jmbde a BDE Tool for datacontext
 #   Copyright (C) 201=-2020  Jürgen Mülbert
@@ -53,6 +52,7 @@ class DataContext:
 
         Returns:
             Return true is the database successful initialized.
+
         """
         self.database = QSqlDatabase.database()
 
@@ -69,12 +69,12 @@ class DataContext:
                 # When using the SQLite driver, open() will create the SQLite
                 # database if it doesn't exist.
                 self.log.info(
-                    "Try open the existing db : {}".format(self.database_name)
+                    f"Try open the existing db : {self.database_name}",
                 )
                 self.database.setDatabaseName(self.database_name)
             else:
                 self.database.setDatabaseName(self.database_name)
-                self.log.info("Try create db : {}".format(self.database_name))
+                self.log.info(f"Try create db : {self.database_name}")
                 self.prepare_db()
 
             if not self.database.open():
@@ -103,7 +103,6 @@ class DataContext:
 
     def open_db(self) -> None:
         """Open the database."""
-        pass
 
     def insert(self, table_name: str, insert_data: map) -> bool:
         """Insert data int a table.
@@ -114,11 +113,12 @@ class DataContext:
 
         Returns:
             True is the insertion successful.
+
         """
         return True
 
     def update(
-        self, table_name: str, column: str, new_value: str, op: str, id: str
+        self, table_name: str, column: str, new_value: str, op: str, id: str,
     ) -> bool:
         """Update data in the table.
 
@@ -133,6 +133,7 @@ class DataContext:
 
         Returns:
             return true is the update successful.
+
         """
         return True
 
@@ -145,6 +146,7 @@ class DataContext:
 
         Returns:
             return true is the removing successful.
+
         """
         return True
 
@@ -159,6 +161,7 @@ class DataContext:
 
         Returns:
             return true os the data into the database.
+
         """
         return True
 
@@ -173,6 +176,7 @@ class DataContext:
 
         Returns:
             A map with the data.
+
         """
         return map
 
@@ -191,10 +195,11 @@ class DataContext:
 
         Returns:
             The connection string fot the sqlite database.
+
         """
         db_data_path = QStandardPaths.writableLocation(QStandardPaths.DataLocation)
 
-        self.log.info("The Database: {}".format(db_data_path))
+        self.log.info(f"The Database: {db_data_path}")
 
         write_dir = QDir(db_data_path)
         if not write_dir.mkpath("."):
@@ -204,9 +209,7 @@ class DataContext:
             write_dir.mkpath(db_data_path)
 
         # Ensure that we have a writable location on all devices.
-        filename = "{}/{}.sqlite3".format(
-            write_dir.absolutePath(), QCoreApplication.applicationName()
-        )
+        filename = f"{write_dir.absolutePath()}/{QCoreApplication.applicationName()}.sqlite3"
 
         return filename
 
@@ -217,6 +220,7 @@ class DataContext:
 
         Returns:
             True if creation successful.
+
         """
         if not self.database.isValid():
             self.log.warning("The Database is not valid, reopen")
@@ -230,14 +234,14 @@ class DataContext:
         if not file.exists():
             self.log.error(
                 "Kritischer Fehler beim erzeugen der Datenbank"
-                " {} nicht gefunden".format(file.fileName())
+                f" {file.fileName()} nicht gefunden",
             )
             return False
 
         if not file.open(QIODevice.ReadOnly):
             self.log.error(
                 "Kritischer Fehler bei der Initialisierung der Datenbank."
-                "Die Datei {} konnte nicht geöffnet werden".format(file.fileName())
+                f"Die Datei {file.fileName()} konnte nicht geöffnet werden",
             )
 
         ts = QTextStream(file)
@@ -247,7 +251,7 @@ class DataContext:
         string_list: list = []
         read_line: list = []
 
-        self.log.info("File at end: {}".format(ts.attend()))
+        self.log.info(f"File at end: {ts.attend()}")
 
         while not ts.attend():
             has_text: bool = False
@@ -255,25 +259,25 @@ class DataContext:
             string_list.clear()
             while not has_text:
                 read_line = ts.read_line()
-                self.log.info("read Line: {}".format(read_line))
+                self.log.info(f"read Line: {read_line}")
                 cleaned_line = read_line.strip()
                 string_list = cleaned_line.split("--")
                 cleaned_line = string_list[0]
                 if not cleaned_line.startswith("--") and not cleaned_line.startswith(
-                    "DROP"
+                    "DROP",
                 ):
                     line += cleaned_line
                 if cleaned_line.endswith(";"):
                     break
                 if cleaned_line.startswith("COMMIT"):
                     has_text = True
-            if not line == "":
-                self.log.info("Line: {}".format(line))
+            if line != "":
+                self.log.info(f"Line: {line}")
 
                 if not query.exec_(line):
-                    self.log.error("Fehler beim Erzeugen der Tabelle {}".format(line))
+                    self.log.error(f"Fehler beim Erzeugen der Tabelle {line}")
                     self.log.error(
-                        "Datenbank meldet Fehler {}".format(query.lastError())
+                        f"Datenbank meldet Fehler {query.lastError()}",
                     )
                     return False
             else:

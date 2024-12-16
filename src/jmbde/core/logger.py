@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 #   jmbde a BDE Tool for datacontext
 #   Copyright (C) 2018-2020  Jürgen Mülbert
@@ -18,13 +17,19 @@
 import logging
 from pathlib import Path
 
+
 def setup_logging(log_level: str = "INFO") -> None:
     """Configure application-wide logging."""
     logging.basicConfig(
         level=getattr(logging, log_level),
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-        handlers=[
-            logging.FileHandler(Path("logs/app.log")),
-            logging.StreamHandler()
-        ]
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        handlers=[logging.FileHandler(Path("logs/app.log")), logging.StreamHandler()],
     )
+
+
+# Configure logging
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+)
+logger = logging.getLogger(__name__)

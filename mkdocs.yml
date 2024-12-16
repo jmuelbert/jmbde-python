@@ -1,6 +1,6 @@
 site_name: jmbde-python
 site_url: https://io.github.org/jmuelbert/jmbde-python/
-site_description: "JM BDE - Management of the inventory the computer equipment"
+site_description: 'JM BDE - Management of the inventory the computer equipment'
 repo_name: jmuelbert/jmbde-python
 repo_url: https://github.com/jmuelbert/jmbde-python/
 edit_uri: 'blob/main/docs/'
@@ -22,12 +22,12 @@ theme:
     - search.suggest
     - toc.follow
   palette:
-    - media: "(prefers-color-scheme: light)"
+    - media: '(prefers-color-scheme: light)'
       scheme: default
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
-    - media: "(prefers-color-scheme: dark)" 
+    - media: '(prefers-color-scheme: dark)'
       scheme: slate
       toggle:
         icon: material/brightness-4
@@ -100,7 +100,7 @@ extra:
     - name: English
       link: /en/
       lang: en
-    - name: Deutsch 
+    - name: Deutsch
       link: /de/
       lang: de
 

@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 #
 #   jmbde a BDE Tool for datacontext
 #   Copyright (C) 2018-2020  Jürgen Mülbert
@@ -51,56 +50,48 @@ languages = [
 ]
 
 print("Rebuilding PyQt UI files...")
-for f in glob("{}/forms/*.ui".format(resources_dir)):
+for f in glob(f"{resources_dir}/forms/*.ui"):
     print(
         "-g python",
-        "-o {}{}/ui/ui_{}.py {}".format(
-            source_dir, package, os.path.basename(f[:-3]), f
-        ),
+        f"-o {source_dir}{package}/ui/ui_{os.path.basename(f[:-3])}.py {f}",
     )
     Popen(
         [
             "uic",
             "-g python",
-            "-o {}{}/ui/ui_{}.py {}".format(
-                source_dir, package, os.path.basename(f[:-3]), f
-            ),
-        ]
+            f"-o {source_dir}{package}/ui/ui_{os.path.basename(f[:-3])}.py {f}",
+        ],
     )
 
 print("Updating translations...")
 Popen(["lupdate", "jmbde.pro"])
 lang_files = " ".join(
-    "{}/translations/{}_{}.ts".format(resources_dir, package, lang)
+    f"{resources_dir}/translations/{package}_{lang}.ts"
     for lang in languages
 )
-Popen(["pyside2-lupdate", "{}{}/*.py -ts {}".format(source_dir, package, lang_files)])
-Popen(["lrelease", "{}/translations/*.ts".format(resources_dir)])
+Popen(["pyside2-lupdate", f"{source_dir}{package}/*.py -ts {lang_files}"])
+Popen(["lrelease", f"{resources_dir}/translations/*.ts"])
 
 print("Rebuilding PyQt resource files in source directory...")
-for f in glob("{}/*.qrc".format(source_dir)):
+for f in glob(f"{source_dir}/*.qrc"):
     Popen(
         [
             "rcc",
-            " -g python -o {}/resources/qrc_{}.py {}".format(
-                package, os.path.basename(f[:-4]), f
-            ),
+            f" -g python -o {package}/resources/qrc_{os.path.basename(f[:-4])}.py {f}",
         ],
     )
 
 print("Rebuilding PyQt resource files in resources_dir directory...")
-for f in glob("{}/*.qrc".format(resources_dir)):
+for f in glob(f"{resources_dir}/*.qrc"):
     Popen(
         [
             "rcc",
-            " -g python --verbose -o {}{}/qrc_{}.py {}".format(
-                source_dir, package, os.path.basename(f[:-4]), f
-            ),
+            f" -g python --verbose -o {source_dir}{package}/qrc_{os.path.basename(f[:-4])}.py {f}",
         ],
     )
 
 print("Regenerating .pyc files...")
-shutil.rmtree("{}/__pycache__".format(package), ignore_errors=True)
-for f in glob("{}/*.pyc".format(package)):
+shutil.rmtree(f"{package}/__pycache__", ignore_errors=True)
+for f in glob(f"{package}/*.pyc"):
     os.remove(f)
-__import__("{}.__main__".format(package))
+__import__(f"{package}.__main__")

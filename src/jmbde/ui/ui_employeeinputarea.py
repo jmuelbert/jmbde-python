@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ################################################################################
 # Form generated from reading UI file 'employeeinputarea.ui'
 ##
@@ -8,36 +7,16 @@
 ################################################################################
 from PySide2.QtCore import (
     QCoreApplication,
-    QDate,
-    QDateTime,
     QMetaObject,
-    QObject,
-    QPoint,
-    QRect,
-    QSize,
     Qt,
-    QTime,
-    QUrl,
 )
 from PySide2.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QCursor,
     QFont,
-    QFontDatabase,
-    QIcon,
-    QKeySequence,
-    QLinearGradient,
-    QPainter,
-    QPalette,
-    QPixmap,
-    QRadialGradient,
 )
 from PySide2.QtWidgets import *
 
 
-class Ui_EmployeeInputArea(object):
+class Ui_EmployeeInputArea:
     def setupUi(self, EmployeeInputArea):
         if not EmployeeInputArea.objectName():
             EmployeeInputArea.setObjectName("EmployeeInputArea")
@@ -64,7 +43,7 @@ class Ui_EmployeeInputArea(object):
         self.verticalLayout_2.addLayout(self.verticalLayout)
 
         self.verticalSpacer = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred,
         )
 
         self.verticalLayout_2.addItem(self.verticalSpacer)
@@ -356,7 +335,7 @@ class Ui_EmployeeInputArea(object):
         self.verticalLayout_2.addLayout(self.gridLayout)
 
         self.verticalSpacer_2 = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding,
         )
 
         self.verticalLayout_2.addItem(self.verticalSpacer_2)
@@ -369,7 +348,7 @@ class Ui_EmployeeInputArea(object):
         self.horizontalLayout.addWidget(self.pushButton_Add)
 
         self.horizontalSpacer = QSpacerItem(
-            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum
+            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum,
         )
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
@@ -437,7 +416,7 @@ class Ui_EmployeeInputArea(object):
         QWidget.setTabOrder(self.comboBox_Department, self.comboBox_Function)
         QWidget.setTabOrder(self.comboBox_Function, self.comboBox_EmployeeAccount)
         QWidget.setTabOrder(
-            self.comboBox_EmployeeAccount, self.comboBox_EmployeeDocument
+            self.comboBox_EmployeeAccount, self.comboBox_EmployeeDocument,
         )
         QWidget.setTabOrder(self.comboBox_EmployeeDocument, self.textEdit_Notes)
 
@@ -449,114 +428,114 @@ class Ui_EmployeeInputArea(object):
 
     def retranslateUi(self, EmployeeInputArea):
         EmployeeInputArea.setWindowTitle(
-            QCoreApplication.translate("EmployeeInputArea", "Employee", None)
+            QCoreApplication.translate("EmployeeInputArea", "Employee", None),
         )
         # if QT_CONFIG(accessibility)
         EmployeeInputArea.setAccessibleName(
-            QCoreApplication.translate("EmployeeInputArea", "EmployeeInputDialog", None)
+            QCoreApplication.translate("EmployeeInputArea", "EmployeeInputDialog", None),
         )
         # endif // QT_CONFIG(accessibility)
         EmployeeInputArea.setTitle(
-            QCoreApplication.translate("EmployeeInputArea", "Employee", None)
+            QCoreApplication.translate("EmployeeInputArea", "Employee", None),
         )
         self.label_Header.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Employee", None)
+            QCoreApplication.translate("EmployeeInputArea", "Employee", None),
         )
         self.label_EndDate.setText(
-            QCoreApplication.translate("EmployeeInputArea", "End Date", None)
+            QCoreApplication.translate("EmployeeInputArea", "End Date", None),
         )
         self.label_HomeMobile.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Home Mobile", None)
+            QCoreApplication.translate("EmployeeInputArea", "Home Mobile", None),
         )
         self.label_FirstName.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Firstname", None)
+            QCoreApplication.translate("EmployeeInputArea", "Firstname", None),
         )
         self.label_BusinessMail.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Businessmail", None)
+            QCoreApplication.translate("EmployeeInputArea", "Businessmail", None),
         )
         self.label_LastName.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Lastname", None)
+            QCoreApplication.translate("EmployeeInputArea", "Lastname", None),
         )
         self.label_Address.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Address", None)
+            QCoreApplication.translate("EmployeeInputArea", "Address", None),
         )
         self.label_Computer.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Computer", None)
+            QCoreApplication.translate("EmployeeInputArea", "Computer", None),
         )
         self.label_ZipCode.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Zipcode", None)
+            QCoreApplication.translate("EmployeeInputArea", "Zipcode", None),
         )
         self.label_EmployeeAccount.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Employee Account", None)
+            QCoreApplication.translate("EmployeeInputArea", "Employee Account", None),
         )
         self.label_Notes.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Notes", None)
+            QCoreApplication.translate("EmployeeInputArea", "Notes", None),
         )
         self.checkBox_DataCare.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Datacare", None)
+            QCoreApplication.translate("EmployeeInputArea", "Datacare", None),
         )
         self.label_PersNumber.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Pers.Number", None)
+            QCoreApplication.translate("EmployeeInputArea", "Pers.Number", None),
         )
         self.label_HomePhone.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Home Phone", None)
+            QCoreApplication.translate("EmployeeInputArea", "Home Phone", None),
         )
         self.label_Birthday.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Birthday", None)
+            QCoreApplication.translate("EmployeeInputArea", "Birthday", None),
         )
         self.label_Function.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Function", None)
+            QCoreApplication.translate("EmployeeInputArea", "Function", None),
         )
         self.label_Phone.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Phone", None)
+            QCoreApplication.translate("EmployeeInputArea", "Phone", None),
         )
         self.label_Title.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Title", None)
+            QCoreApplication.translate("EmployeeInputArea", "Title", None),
         )
         self.label_Lastupdate_Date.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Date", None)
+            QCoreApplication.translate("EmployeeInputArea", "Date", None),
         )
         self.label_Gender.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Gender", None)
+            QCoreApplication.translate("EmployeeInputArea", "Gender", None),
         )
         self.label_Fax.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Fax", None)
+            QCoreApplication.translate("EmployeeInputArea", "Fax", None),
         )
         self.label_ChipCard.setText(
-            QCoreApplication.translate("EmployeeInputArea", "ChipCard", None)
+            QCoreApplication.translate("EmployeeInputArea", "ChipCard", None),
         )
         self.label_Printer.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Printer", None)
+            QCoreApplication.translate("EmployeeInputArea", "Printer", None),
         )
         self.checkBox_Active.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Active", None)
+            QCoreApplication.translate("EmployeeInputArea", "Active", None),
         )
         self.label_Mobile.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Mobile", None)
+            QCoreApplication.translate("EmployeeInputArea", "Mobile", None),
         )
         self.label_EmployeeDocument.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Employee Document", None)
+            QCoreApplication.translate("EmployeeInputArea", "Employee Document", None),
         )
         self.label_StartDate.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Start Date", None)
+            QCoreApplication.translate("EmployeeInputArea", "Start Date", None),
         )
         self.label_Department.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Department", None)
+            QCoreApplication.translate("EmployeeInputArea", "Department", None),
         )
         self.label_Lastupdate.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Last Update", None)
+            QCoreApplication.translate("EmployeeInputArea", "Last Update", None),
         )
         self.label_HomeMail.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Home Mail", None)
+            QCoreApplication.translate("EmployeeInputArea", "Home Mail", None),
         )
         self.label_City.setText(
-            QCoreApplication.translate("EmployeeInputArea", "City", None)
+            QCoreApplication.translate("EmployeeInputArea", "City", None),
         )
         self.pushButton_Add.setText(
-            QCoreApplication.translate("EmployeeInputArea", "+", None)
+            QCoreApplication.translate("EmployeeInputArea", "+", None),
         )
         self.pushButton_EditFinish.setText(
-            QCoreApplication.translate("EmployeeInputArea", "Edit", None)
+            QCoreApplication.translate("EmployeeInputArea", "Edit", None),
         )
 
     # retranslateUi

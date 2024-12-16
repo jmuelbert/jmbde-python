@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ################################################################################
 # Form generated from reading UI file 'mainwindow.ui'
 ##
@@ -8,36 +7,18 @@
 ################################################################################
 from PySide2.QtCore import (
     QCoreApplication,
-    QDate,
-    QDateTime,
     QMetaObject,
-    QObject,
-    QPoint,
     QRect,
     QSize,
     Qt,
-    QTime,
-    QUrl,
 )
 from PySide2.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QCursor,
-    QFont,
-    QFontDatabase,
     QIcon,
-    QKeySequence,
-    QLinearGradient,
-    QPainter,
-    QPalette,
-    QPixmap,
-    QRadialGradient,
 )
 from PySide2.QtWidgets import *
 
 
-class Ui_MainWindow(object):
+class Ui_MainWindow:
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName("MainWindow")
@@ -96,7 +77,7 @@ class Ui_MainWindow(object):
         self.actionPrint.setObjectName("actionPrint")
         icon3 = QIcon()
         icon3.addFile(
-            ":/icons/tango/32x32/document-print.png", QSize(), QIcon.Normal, QIcon.Off
+            ":/icons/tango/32x32/document-print.png", QSize(), QIcon.Normal, QIcon.Off,
         )
         self.actionPrint.setIcon(icon3)
         self.actionPrint_Preview = QAction(MainWindow)
@@ -135,21 +116,21 @@ class Ui_MainWindow(object):
         self.actionEditAdd.setObjectName("actionEditAdd")
         icon7 = QIcon()
         icon7.addFile(
-            ":/icons/tango/white/FileNew.png", QSize(), QIcon.Normal, QIcon.Off
+            ":/icons/tango/white/FileNew.png", QSize(), QIcon.Normal, QIcon.Off,
         )
         self.actionEditAdd.setIcon(icon7)
         self.actionEditEdit = QAction(MainWindow)
         self.actionEditEdit.setObjectName("actionEditEdit")
         icon8 = QIcon()
         icon8.addFile(
-            ":/icons/tango/white/TaskEdit.png", QSize(), QIcon.Normal, QIcon.Off
+            ":/icons/tango/white/TaskEdit.png", QSize(), QIcon.Normal, QIcon.Off,
         )
         self.actionEditEdit.setIcon(icon8)
         self.actionEditDelete = QAction(MainWindow)
         self.actionEditDelete.setObjectName("actionEditDelete")
         icon9 = QIcon()
         icon9.addFile(
-            ":/icons/tango/white/TaskDelete.png", QSize(), QIcon.Normal, QIcon.Off
+            ":/icons/tango/white/TaskDelete.png", QSize(), QIcon.Normal, QIcon.Off,
         )
         self.actionEditDelete.setIcon(icon9)
         self.centralWidget = QWidget(MainWindow)
@@ -158,7 +139,7 @@ class Ui_MainWindow(object):
         sizePolicy1.setHorizontalStretch(2)
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(
-            self.centralWidget.sizePolicy().hasHeightForWidth()
+            self.centralWidget.sizePolicy().hasHeightForWidth(),
         )
         self.centralWidget.setSizePolicy(sizePolicy1)
         self.centralWidget.setMinimumSize(QSize(300, 0))
@@ -263,59 +244,59 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(
             QCoreApplication.translate(
-                "MainWindow", "JMBDE Version 0.2.0 (c) J\u00fcrgen M\u00fclbert", None
-            )
+                "MainWindow", "JMBDE Version 0.2.0 (c) J\u00fcrgen M\u00fclbert", None,
+            ),
         )
         self.actionPreferences.setText(
-            QCoreApplication.translate("MainWindow", "Preferences", None)
+            QCoreApplication.translate("MainWindow", "Preferences", None),
         )
         self.actionAbout.setText(
-            QCoreApplication.translate("MainWindow", "About", None)
+            QCoreApplication.translate("MainWindow", "About", None),
         )
         self.actionNew.setText(QCoreApplication.translate("MainWindow", "New", None))
         # if QT_CONFIG(shortcut)
         self.actionNew.setShortcut(
-            QCoreApplication.translate("MainWindow", "Ctrl+N", None)
+            QCoreApplication.translate("MainWindow", "Ctrl+N", None),
         )
         # endif // QT_CONFIG(shortcut)
         self.actionQuit.setText(QCoreApplication.translate("MainWindow", "Quit", None))
         self.actionOpen.setText(
-            QCoreApplication.translate("MainWindow", "Open...", None)
+            QCoreApplication.translate("MainWindow", "Open...", None),
         )
         # if QT_CONFIG(shortcut)
         self.actionOpen.setShortcut(
-            QCoreApplication.translate("MainWindow", "Ctrl+O", None)
+            QCoreApplication.translate("MainWindow", "Ctrl+O", None),
         )
         # endif // QT_CONFIG(shortcut)
         self.actionImport.setText(
-            QCoreApplication.translate("MainWindow", "Import...", None)
+            QCoreApplication.translate("MainWindow", "Import...", None),
         )
         self.actionExport.setText(
-            QCoreApplication.translate("MainWindow", "Export...", None)
+            QCoreApplication.translate("MainWindow", "Export...", None),
         )
         self.actionPrint.setText(
-            QCoreApplication.translate("MainWindow", "Print...", None)
+            QCoreApplication.translate("MainWindow", "Print...", None),
         )
         # if QT_CONFIG(shortcut)
         self.actionPrint.setShortcut(
-            QCoreApplication.translate("MainWindow", "Ctrl+P", None)
+            QCoreApplication.translate("MainWindow", "Ctrl+P", None),
         )
         # endif // QT_CONFIG(shortcut)
         self.actionPrint_Preview.setText(
-            QCoreApplication.translate("MainWindow", "Print Preview...", None)
+            QCoreApplication.translate("MainWindow", "Print Preview...", None),
         )
         self.action_Export_Pdf.setText(
-            QCoreApplication.translate("MainWindow", "&Export Pdf", None)
+            QCoreApplication.translate("MainWindow", "&Export Pdf", None),
         )
         self.actionHelp.setText(QCoreApplication.translate("MainWindow", "Help", None))
         self.actionEditAdd.setText(
-            QCoreApplication.translate("MainWindow", "Add", None)
+            QCoreApplication.translate("MainWindow", "Add", None),
         )
         self.actionEditEdit.setText(
-            QCoreApplication.translate("MainWindow", "Edit", None)
+            QCoreApplication.translate("MainWindow", "Edit", None),
         )
         self.actionEditDelete.setText(
-            QCoreApplication.translate("MainWindow", "Delete", None)
+            QCoreApplication.translate("MainWindow", "Delete", None),
         )
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", "File", None))
         self.menuEdit.setTitle(QCoreApplication.translate("MainWindow", "Edit", None))

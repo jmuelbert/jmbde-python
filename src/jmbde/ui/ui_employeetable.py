@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ################################################################################
 # Form generated from reading UI file 'employeetable.ui'
 ##
@@ -8,36 +7,13 @@
 ################################################################################
 from PySide2.QtCore import (
     QCoreApplication,
-    QDate,
-    QDateTime,
     QMetaObject,
-    QObject,
-    QPoint,
     QRect,
-    QSize,
-    Qt,
-    QTime,
-    QUrl,
-)
-from PySide2.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QCursor,
-    QFont,
-    QFontDatabase,
-    QIcon,
-    QKeySequence,
-    QLinearGradient,
-    QPainter,
-    QPalette,
-    QPixmap,
-    QRadialGradient,
 )
 from PySide2.QtWidgets import *
 
 
-class Ui_EmployeeTable(object):
+class Ui_EmployeeTable:
     def setupUi(self, EmployeeTable):
         if not EmployeeTable.objectName():
             EmployeeTable.setObjectName("EmployeeTable")
@@ -70,7 +46,7 @@ class Ui_EmployeeTable(object):
 
     def retranslateUi(self, EmployeeTable):
         EmployeeTable.setWindowTitle(
-            QCoreApplication.translate("EmployeeTable", "Form", None)
+            QCoreApplication.translate("EmployeeTable", "Form", None),
         )
 
     # retranslateUi

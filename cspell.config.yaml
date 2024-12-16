@@ -1,12 +1,12 @@
-version: "0.2"
+version: '0.2'
 language: en,de-DE,it,es-ES
 ignorePaths:
-  - "**/node_modules/**"
-  - "**/vscode_extension/**"
-  - "**/.git/**"
-  - "**/.pnpm-lock.json"
-  - "**/pnpm-lock.yaml"
-  - "**/yarn.lock"
+  - '**/node_modules/**'
+  - '**/vscode_extension/**'
+  - '**/.git/**'
+  - '**/.pnpm-lock.json'
+  - '**/pnpm-lock.yaml'
+  - '**/yarn.lock'
   - dist/
   - out/
   - build/
@@ -18,13 +18,13 @@ ignorePaths:
   - .prettierignore
   - CHANGELOG.md
   - LICENSE
-  - "**/report/**"
-  - "**/site/**"
-  - "**/LICENSES/**"
-  - "**/docs/about/EUPL-1.2.md"
+  - '**/report/**'
+  - '**/site/**'
+  - '**/LICENSES/**'
+  - '**/docs/about/EUPL-1.2.md'
   - cspell.config.yaml
 files:
-  - "*/**"
+  - '*/**'
 words:
   - jmuelbert
   - Jürgen
@@ -38,13 +38,13 @@ maxNumberOfProblems: 1000
 import: []
 useGitignore: true
 overrides:
-  - filename: "**/de_DE/**"
+  - filename: '**/de_DE/**'
     language: en,de
-  - filename: "**/nl_NL/**"
+  - filename: '**/nl_NL/**'
     language: en,nl
-  - filename: "**/ru_RU/samples/**"
+  - filename: '**/ru_RU/samples/**'
     language: ru,en
-  - filename: "**/sv/**"
+  - filename: '**/sv/**'
     language: en,sv
   - filename: package.json
     ignoreWords:

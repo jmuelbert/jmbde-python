@@ -2,10 +2,10 @@
 image: python:3.11-slim
 
 variables:
-  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.pip-cache"
-  PRE_COMMIT_HOME: "$CI_PROJECT_DIR/.cache/pre-commit"
-  PYTHONPATH: "$CI_PROJECT_DIR/src"
-  HATCH_ENV_TYPE_VIRTUAL_PATH: "$CI_PROJECT_DIR/.venv"
+  PIP_CACHE_DIR: '$CI_PROJECT_DIR/.pip-cache'
+  PRE_COMMIT_HOME: '$CI_PROJECT_DIR/.cache/pre-commit'
+  PYTHONPATH: '$CI_PROJECT_DIR/src'
+  HATCH_ENV_TYPE_VIRTUAL_PATH: '$CI_PROJECT_DIR/.venv'
 
 # Define cache for pip and pre-commit
 cache:
@@ -34,8 +34,8 @@ default:
 lint:
   stage: lint
   script:
-    - hatch run lint:style  # Runs black, isort, ruff
-    - hatch run lint:typing  # Runs mypy
+    - hatch run lint:style # Runs black, isort, ruff
+    - hatch run lint:typing # Runs mypy
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
@@ -45,7 +45,7 @@ test:
   stage: test
   parallel:
     matrix:
-      - PYTHON_VERSION: ["3.9", "3.10", "3.11"]
+      - PYTHON_VERSION: ['3.9', '3.10', '3.11']
   image: python:$PYTHON_VERSION-slim
   coverage: '/TOTAL.+ ([0-9]{1,3}%)/'
   script:
@@ -64,8 +64,8 @@ test:
 security:
   stage: security
   script:
-    - hatch run security:check  # Runs bandit and safety
-    - hatch run security:audit  # Runs pip-audit
+    - hatch run security:check # Runs bandit and safety
+    - hatch run security:audit # Runs pip-audit
   allow_failure: true
 
 # Type Checking

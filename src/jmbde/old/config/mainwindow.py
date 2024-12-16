@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 #   jmbde a BDE Tool for datacontext
 #   Copyright (C) 2018-2020  Jürgen Mülbert
@@ -14,8 +13,8 @@
 #   GNU General Public License for more details.
 #
 """The MainWindow Class."""
-from typing import Any
 import logging
+from typing import Any
 
 from PySide2.QtCore import Qt
 from PySide2.QtGui import QGuiApplication, QMessageBox
@@ -34,6 +33,7 @@ class MainWindow(QMainWindow):
             app ([type]): [description]
             translator ([type]): [description]
             parent (Any): [description]. Defaults to None.
+
         """
         super(MainWindow, self).__init__(parent)
 
@@ -92,16 +92,15 @@ class MainWindow(QMainWindow):
         """Copy text box content to the clipboard."""
         # text = self.ui.textBrowser.toPlainText()
         # self.clipboard.setText(text,  QClipboard.Clipboard)
-        pass
 
     def receive_text(self, some_string: str) -> None:
         """Add some_string at the end of textBrowser.
 
         Args:
             some_string: Add some string
+
         """
         # self.ui.textBrowser.append(some_string)
-        pass
 
     def about(self) -> None:
         """Help/About message box."""

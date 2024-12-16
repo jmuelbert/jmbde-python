@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ################################################################################
 # Form generated from reading UI file 'computerinputarea.ui'
 ##
@@ -8,36 +7,16 @@
 ################################################################################
 from PySide2.QtCore import (
     QCoreApplication,
-    QDate,
-    QDateTime,
     QMetaObject,
-    QObject,
-    QPoint,
-    QRect,
-    QSize,
     Qt,
-    QTime,
-    QUrl,
 )
 from PySide2.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QCursor,
     QFont,
-    QFontDatabase,
-    QIcon,
-    QKeySequence,
-    QLinearGradient,
-    QPainter,
-    QPalette,
-    QPixmap,
-    QRadialGradient,
 )
 from PySide2.QtWidgets import *
 
 
-class Ui_ComputerInputArea(object):
+class Ui_ComputerInputArea:
     def setupUi(self, ComputerInputArea):
         if not ComputerInputArea.objectName():
             ComputerInputArea.setObjectName("ComputerInputArea")
@@ -64,7 +43,7 @@ class Ui_ComputerInputArea(object):
         self.verticalLayout_2.addLayout(self.verticalLayout)
 
         self.verticalSpacer = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred,
         )
 
         self.verticalLayout_2.addItem(self.verticalSpacer)
@@ -254,7 +233,7 @@ class Ui_ComputerInputArea(object):
         self.verticalLayout_2.addLayout(self.gridLayout)
 
         self.verticalSpacer_2 = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding,
         )
 
         self.verticalLayout_2.addItem(self.verticalSpacer_2)
@@ -267,7 +246,7 @@ class Ui_ComputerInputArea(object):
         self.horizontalLayout.addWidget(self.pushButton_Add)
 
         self.horizontalSpacer = QSpacerItem(
-            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum
+            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum,
         )
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
@@ -329,81 +308,81 @@ class Ui_ComputerInputArea(object):
 
     def retranslateUi(self, ComputerInputArea):
         ComputerInputArea.setWindowTitle(
-            QCoreApplication.translate("ComputerInputArea", "GroupBox", None)
+            QCoreApplication.translate("ComputerInputArea", "GroupBox", None),
         )
         # if QT_CONFIG(accessibility)
         ComputerInputArea.setAccessibleName(
-            QCoreApplication.translate("ComputerInputArea", "ComputerInputDialog", None)
+            QCoreApplication.translate("ComputerInputArea", "ComputerInputDialog", None),
         )
         # endif // QT_CONFIG(accessibility)
         ComputerInputArea.setTitle(
-            QCoreApplication.translate("ComputerInputArea", "Computer", None)
+            QCoreApplication.translate("ComputerInputArea", "Computer", None),
         )
         self.label_Header.setText(
-            QCoreApplication.translate("ComputerInputArea", "Computer", None)
+            QCoreApplication.translate("ComputerInputArea", "Computer", None),
         )
         self.label_ServiceNumber.setText(
-            QCoreApplication.translate("ComputerInputArea", "Service Number", None)
+            QCoreApplication.translate("ComputerInputArea", "Service Number", None),
         )
         self.checkBox_Active.setText(
-            QCoreApplication.translate("ComputerInputArea", "Active", None)
+            QCoreApplication.translate("ComputerInputArea", "Active", None),
         )
         self.checkBox_Replace.setText(
-            QCoreApplication.translate("ComputerInputArea", "Replace", None)
+            QCoreApplication.translate("ComputerInputArea", "Replace", None),
         )
         self.label_OperationSystem.setText(
-            QCoreApplication.translate("ComputerInputArea", "Operation System", None)
+            QCoreApplication.translate("ComputerInputArea", "Operation System", None),
         )
         self.label_Place.setText(
-            QCoreApplication.translate("ComputerInputArea", "Place", None)
+            QCoreApplication.translate("ComputerInputArea", "Place", None),
         )
         self.label_Employee.setText(
-            QCoreApplication.translate("ComputerInputArea", "Employee", None)
+            QCoreApplication.translate("ComputerInputArea", "Employee", None),
         )
         self.label_Processor.setText(
-            QCoreApplication.translate("ComputerInputArea", "Processor", None)
+            QCoreApplication.translate("ComputerInputArea", "Processor", None),
         )
         self.label_Inventory.setText(
-            QCoreApplication.translate("ComputerInputArea", "Inventory", None)
+            QCoreApplication.translate("ComputerInputArea", "Inventory", None),
         )
         self.label_Manufacturer.setText(
-            QCoreApplication.translate("ComputerInputArea", "Manufacturer", None)
+            QCoreApplication.translate("ComputerInputArea", "Manufacturer", None),
         )
         self.label_Name.setText(
-            QCoreApplication.translate("ComputerInputArea", "Name", None)
+            QCoreApplication.translate("ComputerInputArea", "Name", None),
         )
         self.label_IPAddress.setText(
-            QCoreApplication.translate("ComputerInputArea", "IP Address", None)
+            QCoreApplication.translate("ComputerInputArea", "IP Address", None),
         )
         self.label_SerialNumber.setText(
-            QCoreApplication.translate("ComputerInputArea", "Serial Number", None)
+            QCoreApplication.translate("ComputerInputArea", "Serial Number", None),
         )
         self.label_Network.setText(
-            QCoreApplication.translate("ComputerInputArea", "Network", None)
+            QCoreApplication.translate("ComputerInputArea", "Network", None),
         )
         self.label_Devicename.setText(
-            QCoreApplication.translate("ComputerInputArea", "Devicename", None)
+            QCoreApplication.translate("ComputerInputArea", "Devicename", None),
         )
         self.label_DeviceType.setText(
-            QCoreApplication.translate("ComputerInputArea", "Devicetype", None)
+            QCoreApplication.translate("ComputerInputArea", "Devicetype", None),
         )
         self.label_Department.setText(
-            QCoreApplication.translate("ComputerInputArea", "Department", None)
+            QCoreApplication.translate("ComputerInputArea", "Department", None),
         )
         self.label_ServiceTag.setText(
-            QCoreApplication.translate("ComputerInputArea", "Service Tag", None)
+            QCoreApplication.translate("ComputerInputArea", "Service Tag", None),
         )
         self.label_Software.setText(
-            QCoreApplication.translate("ComputerInputArea", "Software", None)
+            QCoreApplication.translate("ComputerInputArea", "Software", None),
         )
         self.label_Printer.setText(
-            QCoreApplication.translate("ComputerInputArea", "Printer", None)
+            QCoreApplication.translate("ComputerInputArea", "Printer", None),
         )
         self.pushButton_Add.setText(
-            QCoreApplication.translate("ComputerInputArea", "+", None)
+            QCoreApplication.translate("ComputerInputArea", "+", None),
         )
         self.pushButton_EditFinish.setText(
-            QCoreApplication.translate("ComputerInputArea", "Edit", None)
+            QCoreApplication.translate("ComputerInputArea", "Edit", None),
         )
 
     # retranslateUi

@@ -5,8 +5,6 @@ exclude: ^3rd-party|COPYING|.gitmodules|conan|.*\.ui$|.*\.qrc$|.*\.ts$
 ci:
   autofix_commit_msg: 🎨 [pre-commit.ci] Auto format from pre-commit.com hooks
   autoupdate_commit_msg: ⬆ [pre-commit.ci] pre-commit autoupdate
-default_language_version:
-  python: python3.11 # NOTE: sync with .python-version-default
 fail_fast: true
 
 repos:
@@ -39,12 +37,12 @@ repos:
     hooks:
       - id: check-hooks-apply
       - id: check-useless-excludes
-      
+
   - repo: https://github.com/mxr/sync-pre-commit-deps
     rev: v0.0.1
     hooks:
       - id: sync-pre-commit-deps
-    
+
   - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
     rev: v9.19.0
     hooks:
@@ -52,7 +50,6 @@ repos:
         stages: [commit-msg]
         additional_dependencies: ['@commitlint/config-angular']
 
-  
   - repo: https://github.com/psf/black
     rev: 24.10.0
     hooks:
@@ -64,7 +61,7 @@ repos:
     rev: 5.13.2
     hooks:
       - id: isort
-        args: ["--profile", "black", "--filter-files"]
+        args: ['--profile', 'black', '--filter-files']
 
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v4.0.0-alpha.8
@@ -72,17 +69,17 @@ repos:
       - id: prettier
         args: ['--write']
         types_or:
-           - yaml
-           - markdown
-           - html
-           - css
-           - scss
-           - javascript
-           - json
-           - jsx
-           - toml
-           - ts 
-           - tsx
+          - yaml
+          - markdown
+          - html
+          - css
+          - scss
+          - javascript
+          - json
+          - jsx
+          - toml
+          - ts
+          - tsx
 
   - repo: https://github.com/charliermarsh/ruff-pre-commit
     rev: v0.8.3
@@ -98,24 +95,39 @@ repos:
     rev: v1.13.0
     hooks:
       - id: mypy
-        additional_dependencies: [types-all]
-        args: [--ignore-missing-imports]
+        # exclude: ^(docs/conf.py)$
+        args: []
+        additional_dependencies: &mypy_deps
+          - types-PyYAML
+          - tomli >= 0.2.6, < 2.0.0
+          - click >= 8.1.0, != 8.1.4, != 8.1.5
+          - packaging >= 22.0
+          - platformdirs >= 2.1.0
+          - pytest
+          - hypothesis
+          - aiohttp >= 3.7.4
+          - types-commonmark
+          - types-requests>=2.31
+          - urllib3>=2.2.1
+          - hypothesmith
+      - id: mypy
+        name: mypy (Python 3.10)
+        files: src/
+        args: ['--python-version=3.10']
+        additional_dependencies: *mypy_deps
 
   - repo: https://github.com/PyCQA/bandit
     rev: 1.8.0
     hooks:
       - id: bandit
-        args: ["-c", "pyproject.toml"]
-        additional_dependencies: ["bandit[toml]"]
+        args: ['-c', 'pyproject.toml']
+        additional_dependencies: ['bandit[toml]']
 
   - repo: https://github.com/PyCQA/pylint
     rev: v3.3.2
     hooks:
       - id: pylint
-        args: [
-          "--rcfile=pyproject.toml",
-          "--output-format=colorized"
-        ]
+        args: ['--rcfile=pyproject.toml', '--output-format=colorized']
         additional_dependencies: [pylint-pytest]
 
   - repo: https://github.com/asottile/pyupgrade
@@ -134,7 +146,7 @@ repos:
     rev: v0.43.0
     hooks:
       - id: markdownlint
-        args: ["--config", ".markdownlint.json"]
+        args: ['--config', '.markdownlint.json']
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
     rev: 0.30.0
@@ -182,4 +194,3 @@ repos:
     rev: v5.0.2
     hooks:
       - id: reuse
-      

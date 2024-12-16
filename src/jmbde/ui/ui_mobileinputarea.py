@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ################################################################################
 # Form generated from reading UI file 'mobileinputarea.ui'
 ##
@@ -8,36 +7,16 @@
 ################################################################################
 from PySide2.QtCore import (
     QCoreApplication,
-    QDate,
-    QDateTime,
     QMetaObject,
-    QObject,
-    QPoint,
-    QRect,
-    QSize,
     Qt,
-    QTime,
-    QUrl,
 )
 from PySide2.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QCursor,
     QFont,
-    QFontDatabase,
-    QIcon,
-    QKeySequence,
-    QLinearGradient,
-    QPainter,
-    QPalette,
-    QPixmap,
-    QRadialGradient,
 )
 from PySide2.QtWidgets import *
 
 
-class Ui_MobileInputArea(object):
+class Ui_MobileInputArea:
     def setupUi(self, MobileInputArea):
         if not MobileInputArea.objectName():
             MobileInputArea.setObjectName("MobileInputArea")
@@ -64,7 +43,7 @@ class Ui_MobileInputArea(object):
         self.verticalLayout_2.addLayout(self.verticalLayout)
 
         self.verticalSpacer = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred,
         )
 
         self.verticalLayout_2.addItem(self.verticalSpacer)
@@ -195,7 +174,7 @@ class Ui_MobileInputArea(object):
         self.verticalLayout_2.addLayout(self.gridLayout)
 
         self.verticalSpacer_2 = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding,
         )
 
         self.verticalLayout_2.addItem(self.verticalSpacer_2)
@@ -208,7 +187,7 @@ class Ui_MobileInputArea(object):
         self.horizontalLayout.addWidget(self.pushButton_Add)
 
         self.horizontalSpacer = QSpacerItem(
-            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum
+            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum,
         )
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
@@ -258,63 +237,63 @@ class Ui_MobileInputArea(object):
 
     def retranslateUi(self, MobileInputArea):
         MobileInputArea.setWindowTitle(
-            QCoreApplication.translate("MobileInputArea", "Mobile", None)
+            QCoreApplication.translate("MobileInputArea", "Mobile", None),
         )
         # if QT_CONFIG(accessibility)
         MobileInputArea.setAccessibleName(
-            QCoreApplication.translate("MobileInputArea", "MobileInputDialog", None)
+            QCoreApplication.translate("MobileInputArea", "MobileInputDialog", None),
         )
         # endif // QT_CONFIG(accessibility)
         MobileInputArea.setTitle(
-            QCoreApplication.translate("MobileInputArea", "Mobile", None)
+            QCoreApplication.translate("MobileInputArea", "Mobile", None),
         )
         self.label_Header.setText(
-            QCoreApplication.translate("MobileInputArea", "Mobile", None)
+            QCoreApplication.translate("MobileInputArea", "Mobile", None),
         )
         self.label_DeviceName.setText(
-            QCoreApplication.translate("MobileInputArea", "Devicename", None)
+            QCoreApplication.translate("MobileInputArea", "Devicename", None),
         )
         self.label_Department.setText(
-            QCoreApplication.translate("MobileInputArea", "Department", None)
+            QCoreApplication.translate("MobileInputArea", "Department", None),
         )
         self.label_Inventory.setText(
-            QCoreApplication.translate("MobileInputArea", "Inventory", None)
+            QCoreApplication.translate("MobileInputArea", "Inventory", None),
         )
         self.label_Employee.setText(
-            QCoreApplication.translate("MobileInputArea", "Employee", None)
+            QCoreApplication.translate("MobileInputArea", "Employee", None),
         )
         self.label_Manufacturer.setText(
-            QCoreApplication.translate("MobileInputArea", "Manufacturer", None)
+            QCoreApplication.translate("MobileInputArea", "Manufacturer", None),
         )
         self.checkBox_Replace.setText(
-            QCoreApplication.translate("MobileInputArea", "Replace", None)
+            QCoreApplication.translate("MobileInputArea", "Replace", None),
         )
         self.label_Place.setText(
-            QCoreApplication.translate("MobileInputArea", "Place", None)
+            QCoreApplication.translate("MobileInputArea", "Place", None),
         )
         self.label_CardNumber.setText(
-            QCoreApplication.translate("MobileInputArea", "Card Number", None)
+            QCoreApplication.translate("MobileInputArea", "Card Number", None),
         )
         self.label_Pin.setText(
-            QCoreApplication.translate("MobileInputArea", "Pin", None)
+            QCoreApplication.translate("MobileInputArea", "Pin", None),
         )
         self.label_DeviceType.setText(
-            QCoreApplication.translate("MobileInputArea", "Devicetype", None)
+            QCoreApplication.translate("MobileInputArea", "Devicetype", None),
         )
         self.checkBox_Active.setText(
-            QCoreApplication.translate("MobileInputArea", "Active", None)
+            QCoreApplication.translate("MobileInputArea", "Active", None),
         )
         self.label_SerialNumber.setText(
-            QCoreApplication.translate("MobileInputArea", "Serial Number", None)
+            QCoreApplication.translate("MobileInputArea", "Serial Number", None),
         )
         self.label_Number.setText(
-            QCoreApplication.translate("MobileInputArea", "Number", None)
+            QCoreApplication.translate("MobileInputArea", "Number", None),
         )
         self.pushButton_Add.setText(
-            QCoreApplication.translate("MobileInputArea", "+", None)
+            QCoreApplication.translate("MobileInputArea", "+", None),
         )
         self.pushButton_EditFinish.setText(
-            QCoreApplication.translate("MobileInputArea", "Edit", None)
+            QCoreApplication.translate("MobileInputArea", "Edit", None),
         )
 
     # retranslateUi

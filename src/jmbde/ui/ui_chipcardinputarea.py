@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ################################################################################
 # Form generated from reading UI file 'chipcardinputarea.ui'
 ##
@@ -8,36 +7,16 @@
 ################################################################################
 from PySide2.QtCore import (
     QCoreApplication,
-    QDate,
-    QDateTime,
     QMetaObject,
-    QObject,
-    QPoint,
-    QRect,
-    QSize,
     Qt,
-    QTime,
-    QUrl,
 )
 from PySide2.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QCursor,
     QFont,
-    QFontDatabase,
-    QIcon,
-    QKeySequence,
-    QLinearGradient,
-    QPainter,
-    QPalette,
-    QPixmap,
-    QRadialGradient,
 )
 from PySide2.QtWidgets import *
 
 
-class Ui_ChipCardInputArea(object):
+class Ui_ChipCardInputArea:
     def setupUi(self, ChipCardInputArea):
         if not ChipCardInputArea.objectName():
             ChipCardInputArea.setObjectName("ChipCardInputArea")
@@ -64,7 +43,7 @@ class Ui_ChipCardInputArea(object):
         self.verticalLayout_3.addLayout(self.verticalLayout)
 
         self.verticalSpacer_2 = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred,
         )
 
         self.verticalLayout_3.addItem(self.verticalSpacer_2)
@@ -114,7 +93,7 @@ class Ui_ChipCardInputArea(object):
         self.verticalLayout_3.addLayout(self.formLayout)
 
         self.verticalSpacer = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding,
         )
 
         self.verticalLayout_3.addItem(self.verticalSpacer)
@@ -127,7 +106,7 @@ class Ui_ChipCardInputArea(object):
         self.horizontalLayout.addWidget(self.pushButton_Add)
 
         self.horizontalSpacer = QSpacerItem(
-            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum
+            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum,
         )
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
@@ -151,36 +130,36 @@ class Ui_ChipCardInputArea(object):
 
     def retranslateUi(self, ChipCardInputArea):
         ChipCardInputArea.setWindowTitle(
-            QCoreApplication.translate("ChipCardInputArea", "Chip Card", None)
+            QCoreApplication.translate("ChipCardInputArea", "Chip Card", None),
         )
         # if QT_CONFIG(accessibility)
         ChipCardInputArea.setAccessibleName(
-            QCoreApplication.translate("ChipCardInputArea", "ChipCardInputDialog", None)
+            QCoreApplication.translate("ChipCardInputArea", "ChipCardInputDialog", None),
         )
         # endif // QT_CONFIG(accessibility)
         ChipCardInputArea.setTitle(
-            QCoreApplication.translate("ChipCardInputArea", "Chip Card", None)
+            QCoreApplication.translate("ChipCardInputArea", "Chip Card", None),
         )
         self.label_Header.setText(
-            QCoreApplication.translate("ChipCardInputArea", "ChipCard", None)
+            QCoreApplication.translate("ChipCardInputArea", "ChipCard", None),
         )
         self.label_Number.setText(
-            QCoreApplication.translate("ChipCardInputArea", "Number", None)
+            QCoreApplication.translate("ChipCardInputArea", "Number", None),
         )
         self.label_Version.setText(
-            QCoreApplication.translate("ChipCardInputArea", "Door", None)
+            QCoreApplication.translate("ChipCardInputArea", "Door", None),
         )
         self.label_Revision.setText(
-            QCoreApplication.translate("ChipCardInputArea", "Profile", None)
+            QCoreApplication.translate("ChipCardInputArea", "Profile", None),
         )
         self.label_Fix.setText(
-            QCoreApplication.translate("ChipCardInputArea", "Employee", None)
+            QCoreApplication.translate("ChipCardInputArea", "Employee", None),
         )
         self.pushButton_Add.setText(
-            QCoreApplication.translate("ChipCardInputArea", "+", None)
+            QCoreApplication.translate("ChipCardInputArea", "+", None),
         )
         self.pushButton_EditFinish.setText(
-            QCoreApplication.translate("ChipCardInputArea", "Edit", None)
+            QCoreApplication.translate("ChipCardInputArea", "Edit", None),
         )
 
     # retranslateUi

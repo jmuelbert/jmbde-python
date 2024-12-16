@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Resource object code (Python 3)
 # Created by: object code
 # Created by: The Resource Compiler for Qt version 5.15.0
@@ -23587,13 +23586,13 @@ qt_resource_struct = b"\
 
 def qInitResources():
     QtCore.qRegisterResourceData(
-        0x03, qt_resource_struct, qt_resource_name, qt_resource_data
+        0x03, qt_resource_struct, qt_resource_name, qt_resource_data,
     )
 
 
 def qCleanupResources():
     QtCore.qUnregisterResourceData(
-        0x03, qt_resource_struct, qt_resource_name, qt_resource_data
+        0x03, qt_resource_struct, qt_resource_name, qt_resource_data,
     )
 
 

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ################################################################################
 # Form generated from reading UI file 'aboutdialog.ui'
 ##
@@ -8,36 +7,17 @@
 ################################################################################
 from PySide2.QtCore import (
     QCoreApplication,
-    QDate,
-    QDateTime,
     QMetaObject,
-    QObject,
-    QPoint,
-    QRect,
     QSize,
     Qt,
-    QTime,
-    QUrl,
 )
 from PySide2.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QCursor,
-    QFont,
-    QFontDatabase,
-    QIcon,
-    QKeySequence,
-    QLinearGradient,
-    QPainter,
-    QPalette,
     QPixmap,
-    QRadialGradient,
 )
 from PySide2.QtWidgets import *
 
 
-class Ui_AboutDialog(object):
+class Ui_AboutDialog:
     def setupUi(self, AboutDialog):
         if not AboutDialog.objectName():
             AboutDialog.setObjectName("AboutDialog")
@@ -48,7 +28,7 @@ class Ui_AboutDialog(object):
         self.logoLayout = QHBoxLayout()
         self.logoLayout.setObjectName("logoLayout")
         self.horizontalSpacer = QSpacerItem(
-            0, 20, QSizePolicy.Expanding, QSizePolicy.Minimum
+            0, 20, QSizePolicy.Expanding, QSizePolicy.Minimum,
         )
 
         self.logoLayout.addItem(self.horizontalSpacer)
@@ -62,7 +42,7 @@ class Ui_AboutDialog(object):
         self.logoLayout.addWidget(self.logo)
 
         self.horizontalSpacer_2 = QSpacerItem(
-            0, 20, QSizePolicy.Expanding, QSizePolicy.Minimum
+            0, 20, QSizePolicy.Expanding, QSizePolicy.Minimum,
         )
 
         self.logoLayout.addItem(self.horizontalSpacer_2)
@@ -79,7 +59,7 @@ class Ui_AboutDialog(object):
         self.buttonLayout.setObjectName("buttonLayout")
         self.buttonLayout.setSizeConstraint(QLayout.SetDefaultConstraint)
         self.horizontalSpacer_3 = QSpacerItem(
-            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum
+            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum,
         )
 
         self.buttonLayout.addItem(self.horizontalSpacer_3)
@@ -107,11 +87,11 @@ class Ui_AboutDialog(object):
 
     def retranslateUi(self, AboutDialog):
         AboutDialog.setWindowTitle(
-            QCoreApplication.translate("AboutDialog", "About jmbde", None)
+            QCoreApplication.translate("AboutDialog", "About jmbde", None),
         )
         self.logo.setText("")
         self.donateButton.setText(
-            QCoreApplication.translate("AboutDialog", "Donate", None)
+            QCoreApplication.translate("AboutDialog", "Donate", None),
         )
         self.pushButton.setText(QCoreApplication.translate("AboutDialog", "OK", None))
 

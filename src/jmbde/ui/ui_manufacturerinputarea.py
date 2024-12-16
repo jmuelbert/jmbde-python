@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ################################################################################
 # Form generated from reading UI file 'manufacturerinputarea.ui'
 ##
@@ -8,36 +7,16 @@
 ################################################################################
 from PySide2.QtCore import (
     QCoreApplication,
-    QDate,
-    QDateTime,
     QMetaObject,
-    QObject,
-    QPoint,
-    QRect,
-    QSize,
     Qt,
-    QTime,
-    QUrl,
 )
 from PySide2.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QCursor,
     QFont,
-    QFontDatabase,
-    QIcon,
-    QKeySequence,
-    QLinearGradient,
-    QPainter,
-    QPalette,
-    QPixmap,
-    QRadialGradient,
 )
 from PySide2.QtWidgets import *
 
 
-class Ui_ManufacturerInputArea(object):
+class Ui_ManufacturerInputArea:
     def setupUi(self, ManufacturerInputArea):
         if not ManufacturerInputArea.objectName():
             ManufacturerInputArea.setObjectName("ManufacturerInputArea")
@@ -64,7 +43,7 @@ class Ui_ManufacturerInputArea(object):
         self.verticalLayout_2.addLayout(self.verticalLayout)
 
         self.verticalSpacer = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred,
         )
 
         self.verticalLayout_2.addItem(self.verticalSpacer)
@@ -179,7 +158,7 @@ class Ui_ManufacturerInputArea(object):
         self.verticalLayout_2.addLayout(self.gridLayout)
 
         self.verticalSpacer_2 = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding
+            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding,
         )
 
         self.verticalLayout_2.addItem(self.verticalSpacer_2)
@@ -192,7 +171,7 @@ class Ui_ManufacturerInputArea(object):
         self.horizontalLayout.addWidget(self.pushButton_Add)
 
         self.horizontalSpacer = QSpacerItem(
-            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum
+            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum,
         )
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
@@ -238,59 +217,59 @@ class Ui_ManufacturerInputArea(object):
 
     def retranslateUi(self, ManufacturerInputArea):
         ManufacturerInputArea.setWindowTitle(
-            QCoreApplication.translate("ManufacturerInputArea", "Manufacturer", None)
+            QCoreApplication.translate("ManufacturerInputArea", "Manufacturer", None),
         )
         # if QT_CONFIG(accessibility)
         ManufacturerInputArea.setAccessibleName(
             QCoreApplication.translate(
-                "ManufacturerInputArea", "ManufacturerInputDialog", None
-            )
+                "ManufacturerInputArea", "ManufacturerInputDialog", None,
+            ),
         )
         # endif // QT_CONFIG(accessibility)
         ManufacturerInputArea.setTitle(
-            QCoreApplication.translate("ManufacturerInputArea", "Manufacturer", None)
+            QCoreApplication.translate("ManufacturerInputArea", "Manufacturer", None),
         )
         self.label_Header.setText(
-            QCoreApplication.translate("ManufacturerInputArea", "Manufacturer", None)
+            QCoreApplication.translate("ManufacturerInputArea", "Manufacturer", None),
         )
         self.label_Phone.setText(
-            QCoreApplication.translate("ManufacturerInputArea", "Phone Number", None)
+            QCoreApplication.translate("ManufacturerInputArea", "Phone Number", None),
         )
         self.label_MailAddress.setText(
-            QCoreApplication.translate("ManufacturerInputArea", "Mail Address", None)
+            QCoreApplication.translate("ManufacturerInputArea", "Mail Address", None),
         )
         self.label_Name2.setText(
-            QCoreApplication.translate("ManufacturerInputArea", "Name2", None)
+            QCoreApplication.translate("ManufacturerInputArea", "Name2", None),
         )
         self.label_ZipCode.setText(
-            QCoreApplication.translate("ManufacturerInputArea", "Zip Code", None)
+            QCoreApplication.translate("ManufacturerInputArea", "Zip Code", None),
         )
         self.label_Fax.setText(
-            QCoreApplication.translate("ManufacturerInputArea", "Fax Number", None)
+            QCoreApplication.translate("ManufacturerInputArea", "Fax Number", None),
         )
         self.label_Address2.setText(
-            QCoreApplication.translate("ManufacturerInputArea", "Address2", None)
+            QCoreApplication.translate("ManufacturerInputArea", "Address2", None),
         )
         self.label_Address.setText(
-            QCoreApplication.translate("ManufacturerInputArea", "Address", None)
+            QCoreApplication.translate("ManufacturerInputArea", "Address", None),
         )
         self.label_Name.setText(
-            QCoreApplication.translate("ManufacturerInputArea", "Name", None)
+            QCoreApplication.translate("ManufacturerInputArea", "Name", None),
         )
         self.label_Supporter.setText(
-            QCoreApplication.translate("ManufacturerInputArea", "Supporter", None)
+            QCoreApplication.translate("ManufacturerInputArea", "Supporter", None),
         )
         self.label_Hotline.setText(
-            QCoreApplication.translate("ManufacturerInputArea", "Hotline Number", None)
+            QCoreApplication.translate("ManufacturerInputArea", "Hotline Number", None),
         )
         self.label_City.setText(
-            QCoreApplication.translate("ManufacturerInputArea", "City", None)
+            QCoreApplication.translate("ManufacturerInputArea", "City", None),
         )
         self.pushButton_Add.setText(
-            QCoreApplication.translate("ManufacturerInputArea", "+", None)
+            QCoreApplication.translate("ManufacturerInputArea", "+", None),
         )
         self.pushButton_EditFinish.setText(
-            QCoreApplication.translate("ManufacturerInputArea", "Edit", None)
+            QCoreApplication.translate("ManufacturerInputArea", "Edit", None),
         )
 
     # retranslateUi

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ################################################################################
 # Form generated from reading UI file 'preferencesdialog.ui'
 ##
@@ -8,36 +7,14 @@
 ################################################################################
 from PySide2.QtCore import (
     QCoreApplication,
-    QDate,
-    QDateTime,
     QMetaObject,
-    QObject,
-    QPoint,
-    QRect,
     QSize,
     Qt,
-    QTime,
-    QUrl,
-)
-from PySide2.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QCursor,
-    QFont,
-    QFontDatabase,
-    QIcon,
-    QKeySequence,
-    QLinearGradient,
-    QPainter,
-    QPalette,
-    QPixmap,
-    QRadialGradient,
 )
 from PySide2.QtWidgets import *
 
 
-class Ui_PreferencesDialog(object):
+class Ui_PreferencesDialog:
     def setupUi(self, PreferencesDialog):
         if not PreferencesDialog.objectName():
             PreferencesDialog.setObjectName("PreferencesDialog")
@@ -126,7 +103,7 @@ class Ui_PreferencesDialog(object):
         # endif // QT_CONFIG(shortcut)
         QWidget.setTabOrder(self.comboBoxDatabaseType, self.lineEditDatabaseConnection)
         QWidget.setTabOrder(
-            self.lineEditDatabaseConnection, self.pushButtonDBForceFileDialog
+            self.lineEditDatabaseConnection, self.pushButtonDBForceFileDialog,
         )
         QWidget.setTabOrder(self.pushButtonDBForceFileDialog, self.lineEditHostName)
         QWidget.setTabOrder(self.lineEditHostName, self.lineEditUserName)
@@ -142,25 +119,25 @@ class Ui_PreferencesDialog(object):
 
     def retranslateUi(self, PreferencesDialog):
         PreferencesDialog.setWindowTitle(
-            QCoreApplication.translate("PreferencesDialog", "Dialog", None)
+            QCoreApplication.translate("PreferencesDialog", "Dialog", None),
         )
         self.pushButtonDBForceFileDialog.setText(
-            QCoreApplication.translate("PreferencesDialog", "...", None)
+            QCoreApplication.translate("PreferencesDialog", "...", None),
         )
         self.labelPassword.setText(
-            QCoreApplication.translate("PreferencesDialog", "Password", None)
+            QCoreApplication.translate("PreferencesDialog", "Password", None),
         )
         self.labelUserName.setText(
-            QCoreApplication.translate("PreferencesDialog", "Username", None)
+            QCoreApplication.translate("PreferencesDialog", "Username", None),
         )
         self.labelDatabaseType.setText(
-            QCoreApplication.translate("PreferencesDialog", "Database Type", None)
+            QCoreApplication.translate("PreferencesDialog", "Database Type", None),
         )
         self.labelDatabaseConnection.setText(
-            QCoreApplication.translate("PreferencesDialog", "Database Connc.", None)
+            QCoreApplication.translate("PreferencesDialog", "Database Connc.", None),
         )
         self.labelHostName.setText(
-            QCoreApplication.translate("PreferencesDialog", "Hostname", None)
+            QCoreApplication.translate("PreferencesDialog", "Hostname", None),
         )
 
     # retranslateUi
