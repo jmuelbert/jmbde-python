@@ -1,0 +1,4 @@
+module components
+EmployeeCrud 1.0 EmployeeCrud.qml
+StatusBar 1.0 StatusBar.qml
+Snackbar 1.0 Snackbar.qml

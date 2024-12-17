@@ -8,52 +8,68 @@ categories:
   - title: '🐛 Bug Fixes'
     labels:
       - 'fix'
-      - 'bugfix'
       - 'bug'
-  - title: '🧰 Maintenance'
+  - title: '🔒 Security'
     labels:
-      - 'chore'
-      - 'maintenance'
+      - 'security'
+  - title: '⚡ Performance'
+    labels:
+      - 'performance'
   - title: '📚 Documentation'
     labels:
-      - 'docs'
       - 'documentation'
-  - title: '⬆️ Dependencies'
+  - title: '🔧 Maintenance'
     labels:
-      - 'dependencies'
-      - 'dep'
+      - 'maintenance'
+      - 'chore'
 
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
-change-title-escapes: '\<*_&' # You can add # and @ here too
 
 version-resolver:
   major:
     labels:
-      - 'major'
       - 'breaking'
   minor:
     labels:
-      - 'minor'
       - 'feature'
+      - 'enhancement'
   patch:
     labels:
-      - 'patch'
-      - 'fix'
-      - 'bugfix'
       - 'bug'
       - 'maintenance'
+      - 'documentation'
   default: patch
 
 template: |
-  ## Changes
+  ## What's Changed
 
   $CHANGES
 
-  ## 👨‍💻 Contributors
+  ## 📦 Dependencies
+  $CHANGES_BY_LABELS.dependencies
 
+  ## Contributors
   $CONTRIBUTORS
 
-  ## 🔗 Links
+  ## Installation
+  ```bash
+  pip install jmbde-python==$RESOLVED_VERSION
+  ```
+  **Full Changelog**: https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION
 
-  - [PyPI](https://pypi.org/project/jmbde/)
-  - [Documentation](https://jmbde-python.readthedocs.io/)
+no-changes-template: 'No changes included in this release'
+
+exclude-labels:
+  - 'skip-changelog'
+
+autolabeler:
+  - label: 'documentation'
+    files:
+      - '*.md'
+      - 'docs/*'
+  - label: 'bug'
+    branch:
+      - '/fix\/.+/'
+  - label: 'feature'
+    branch:
+      - '/feat\/.+/'

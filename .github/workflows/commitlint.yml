@@ -4,25 +4,83 @@
 # SPDX-License-Identifier: MIT
 #
 name: Lint Commit Messages
-on: [pull_request] # yamllint disable-line rule:truthy
 
-permissions:
-  actions: read
-  contents: read
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '.github/*.md'
+      - 'LICENSE'
+
+permissions: read-all
 
 concurrency:
-  group: ${{ github.ref }}-${{ github.workflow }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   commitlint:
-    # Skip any PR created by dependabot to avoid permission issues:
-    if: (github.actor != 'dependabot[bot]')
+    if: |
+      github.actor != 'dependabot[bot]' &&
+      !contains(github.event.head_commit.message, '[skip ci]')
+    name: Lint Commit Messages
     runs-on: ubuntu-latest
+    timeout-minutes: 5
 
+    permissions:
+      contents: read
+      pull-requests: read
+      
     steps:
-      - name: 🧰 Checkout Source Code
-        uses: actions/checkout@44c2b7a8a4ea60a981eaca3cf939b5f4305c123b # v4.1.5
+      - name: 🔒 Harden Runner
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        with:
+          egress-policy: audit
 
-      - name: Check the commits
+      - name: 🧰 Checkout Repository
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          fetch-depth: 0 # Required for commitlint to access all commits
+
+      - name: 🔍 Cache commitlint
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
+        with:
+          path: |
+            ~/.npm
+            node_modules
+          key: ${{ runner.os }}-commitlint-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-commitlint-
+
+      - name: 📝 Setup Node.js
+        uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # v4.0.1
+        with:
+          node-version: 'lts/*'
+          cache: 'npm'
+
+      - name: 🔎 Lint Commits
         uses: wagoid/commitlint-github-action@7f0a61df502599e1f1f50880aaa7ec1e2c0592f2 # v6.0.1
+        with:
+          configFile: .commitlintrc.json
+          helpURL: https://github.com/conventional-changelog/commitlint/#what-is-commitlint
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📊 Report Status
+        if: always()
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            const conclusion = '${{ job.status }}';
+            const message = conclusion === 'success' 
+              ? '✅ All commit messages follow the conventional commits standard.'
+              : '❌ Some commit messages do not follow the conventional commits standard.';
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: message
+            });

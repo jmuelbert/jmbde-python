@@ -1,0 +1,37 @@
+rules:
+  - name: Block high severity vulnerabilities
+    on:
+      severity: [high, critical]
+    action: fail
+
+  - name: Warn on moderate severity
+    on:
+      severity: [moderate]
+    action: warn
+
+  - name: Block restricted licenses
+    on:
+      license: [GPL-*, LGPL-*, AGPL-*]
+    action: fail
+
+  - name: Require SPDX license
+    on:
+      missing-license: true
+    action: warn
+
+alerts:
+  success:
+    title: '✅ Dependency review passed'
+    summary: 'No security vulnerabilities or license violations found'
+
+  failure:
+    title: '❌ Dependency review failed'
+    summary: 'Found security vulnerabilities or license violations'
+
+reporting:
+  sarif: true
+  summary-comment: true
+  fail-on-severity: moderate
+  ignored-paths:
+    - 'tests/**'
+    - 'examples/**'

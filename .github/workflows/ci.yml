@@ -1,99 +1,178 @@
-name: Release
+name: Release Pipeline
 
 on:
   push:
-    branches:
-      - main
-    tags:
-      - 'v*'
+    branches: [main]
+    tags: ['v*']
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deploy Environment'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+
+permissions: read-all
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-# Default to bash
 defaults:
   run:
     shell: bash
 
 jobs:
   release:
-    name: Release
+    name: Build & Release
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
     permissions:
       contents: write
       id-token: write
-    runs-on: ubuntu-latest
+
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      release_created: ${{ steps.release.outputs.release_created }}
+
     steps:
-      # Checkout the repository to the GitHub Actions runner
-      - name: '🧰 Checkout Source Code'
+      - name: 🔒 Harden Runner
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        with:
+          egress-policy: audit
+
+      - name: 🧰 Checkout Repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: '⚙️️ Set up Python'
+      - name: ⚙️ Setup Python
         uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
         with:
           python-version: '3.11'
           check-latest: true
           cache: 'pip'
+          cache-dependency-path: '**/pyproject.toml'
 
-      - name: Install Hatch
+      - name: 🔧 Install Build Tools
         run: |
-          python -m pip install --upgrade pip
+          python -m pip install --upgrade pip wheel
           pip install hatch
           hatch --version
 
-      - id: version
-        name: Get Version
+      - name: 📝 Get Version
+        id: version
         run: |
           VERSION=$(hatch version)
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
           echo "Version: ${VERSION}"
 
-      - name: Build package
+      - name: 🏗️ Build Package
         run: |
           hatch build
+          echo "Built artifacts:"
+          ls -la dist/
 
-      - name: Verify Package
+      - name: 🧪 Verify Package
         run: |
           hatch run test:test
           hatch run security:check
 
-      # Only run on tags
-      - if: startsWith(github.ref, 'refs/tags/v')
-        name: Publish to PyPI
-        uses: pypa/gh-action-pypi-publish@v1.8.10
+      - name: 🔍 Check Distribution
+        run: |
+          pip install twine check-wheel-contents
+          twine check dist/*
+          check-wheel-contents dist/*.whl
+
+      - name: 📦 Publish to PyPI
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: pypa/gh-action-pypi-publish@67339c736fd9354cd4f8cb0b744f2b82a74b5c70 # v1.12.3
         with:
           password: ${{ secrets.PYPI_TOKEN }}
           print-hash: true
           verbose: true
 
-      # Run on non-tag pushes to main/master
-      - if: "!startsWith(github.ref, 'refs/tags/v')"
-        name: Publish to TestPyPI
-        uses: pypa/gh-action-pypi-publish@v1.8.10
+      - name: 📦 Publish to TestPyPI
+        if: "!startsWith(github.ref, 'refs/tags/v')"
+        uses: pypa/gh-action-pypi-publish@67339c736fd9354cd4f8cb0b744f2b82a74b5c70 # v1.12.3
         with:
           password: ${{ secrets.TEST_PYPI_TOKEN }}
-          print-hash: true
           repository-url: https://test.pypi.org/legacy/
+          print-hash: true
           verbose: true
 
-      - if: startsWith(github.ref, 'refs/tags/v')
-        name: Create GitHub Release
+      - name: 📝 Create GitHub Release
+        id: release
+        uses: softprops/action-gh-release@7b4da11513bf3f43f9999e90eabced41ab8bb048 # v2.2.0
+        if: startsWith(github.ref, 'refs/tags/v')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-        uses: softprops/action-gh-release@v1
         with:
           draft: false
-          files: dist/*
+          files: |
+            dist/*
+            LICENSE
+            README.md
           generate_release_notes: true
           prerelease: false
+          discussion_category_name: Releases
+          body: |
+            ## Release ${{ steps.version.outputs.version }}
 
-      - if: "!startsWith(github.ref, 'refs/tags/v')"
-        name: Update Release Draftwihich pip
+            ### 📦 Assets
+            - Python Package (PyPI): https://pypi.org/project/jmbde-python/${{ steps.version.outputs.version }}
+
+            ### 📝 Release Notes
+            See the automated release notes below for changes in this version.
+
+            ### 🔍 Verification
+            SHA256 Hashes for release assets are listed in the asset details.
+
+            ### 📚 Documentation
+            - Full documentation: https://jmbde-python.readthedocs.io/
+            - Change log: https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md
+
+      - name: 📋 Update Release Draft
+        uses: release-drafter/release-drafter@3f0f87098bd6b5c5b9a36d49c41d998ea58f9348 # v6.0
+        if: "!startsWith(github.ref, 'refs/tags/v')"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        uses: release-drafter/release-drafter@v5
+
+      - name: 📢 Notify Success
+        if: success()
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            const releaseType = context.ref.startsWith('refs/tags/v') ? 'PyPI' : 'TestPyPI';
+            const version = '${{ steps.version.outputs.version }}';
+
+            await github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: context.issue.number,
+              body: `✅ Successfully published version ${version} to ${releaseType}`
+            });
+
+  verify-published:
+    needs: release
+    if: success() && needs.release.outputs.release_created
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: 🔒 Harden Runner
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        with:
+          egress-policy: audit
+
+      - name: ⏳ Wait for Package Index
+        run: sleep 60 # Wait for package index to update
+
+      - name: 🔍 Verify Installation
+        run: |
+          python -m pip install --upgrade pip
+          pip install jmbde-python==${{ needs.release.outputs.version }}
+          python -c "import jmbde; print(jmbde.__version__)"

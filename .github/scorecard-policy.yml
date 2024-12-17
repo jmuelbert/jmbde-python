@@ -1,0 +1,44 @@
+version: 1
+policies:
+  - name: Supply Chain Security Requirements
+    version: 1
+    minimum_score: 7
+    checks:
+      - name: Binary-Artifacts
+        severity: high
+
+      - name: Branch-Protection
+        severity: high
+
+      - name: Code-Review
+        severity: high
+
+      - name: Dangerous-Workflow
+        severity: critical
+
+      - name: Dependencies
+        severity: high
+
+      - name: License
+        severity: medium
+
+      - name: Pinned-Dependencies
+        severity: high
+
+      - name: SAST
+        severity: high
+
+      - name: Security-Policy
+        severity: medium
+
+      - name: Token-Permissions
+        severity: critical
+
+      - name: Vulnerabilities
+        severity: critical
+
+    actions:
+      - name: file-issue
+        on:
+          - high
+          - critical

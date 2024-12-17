@@ -1,12 +1,19 @@
----
 # SPDX-FileCopyrightText: GitHub, Inc. and contributors
 # SPDX-License-Identifier: MIT
 
-name: Dependabot auto-merge
-on: pull_request # yamllint disable-line rule:truthy
+name: Dependabot Auto-Merge
 
-permissions:
-  contents: read
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled]
+  pull_request_review:
+    types: [submitted]
+
+permissions: read-all
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
 
 defaults:
   run:
@@ -14,36 +21,139 @@ defaults:
 
 jobs:
   dependabot:
-    if: ${{ github.actor == 'dependabot[bot]' }}
+    name: Process Dependabot PR
+    if: |
+      github.actor == 'dependabot[bot]' &&
+      !contains(github.event.pull_request.labels.*.name, 'do-not-merge')
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+
     permissions:
+      contents: read
       pull-requests: write
       issues: write
       repository-projects: write
+
+    outputs:
+      dependency-names: ${{ steps.metadata.outputs.dependency-names }}
+      update-type: ${{ steps.metadata.outputs.update-type }}
+      merged: ${{ steps.merge.outputs.merged }}
+
     steps:
-      - name: Dependabot metadata
+      - name: 🔒 Harden Runner
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        with:
+          egress-policy: audit
+
+      - name: 📊 Fetch Dependabot Metadata
         id: metadata
         uses: dependabot/fetch-metadata@5e5f99653a5b510e8555840e80cbf1514ad4af38 # v2.1.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Add a label for all production dependencies
-        if: ${{ steps.metadata.outputs.dependency-type == 'direct:production' }}
-        run: gh pr edit "$PR_URL" --add-label "production"
-        env:
-          PR_URL: ${{github.event.pull_request.html_url}}
+      - name: 🏷️ Add Labels
+        id: labels
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            const { dependency-type, update-type } = context.payload.pull_request;
+            const labels = [];
 
-      - name: Approve a PR
-        run: gh pr review --approve "$PR_URL"
-        env:
-          PR_URL: ${{github.event.pull_request.html_url}}
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+            // Add dependency type label
+            if ('${{ steps.metadata.outputs.dependency-type }}' === 'direct:production') {
+              labels.push('production-dependency');
+            } else {
+              labels.push('development-dependency');
+            }
 
-      - name: Enable auto-merge for Dependabot PRs
-        if:
-          ${{contains(steps.metadata.outputs.dependency-names, 'my-dependency') &&
-          steps.metadata.outputs.update-type == 'version-update:semver-patch'}}
-        run: gh pr merge --auto --merge "$PR_URL"
-        env:
-          PR_URL: ${{github.event.pull_request.html_url}}
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+            // Add update type label
+            const updateType = '${{ steps.metadata.outputs.update-type }}';
+            if (updateType.includes('version-update:semver-patch')) {
+              labels.push('patch-update');
+            } else if (updateType.includes('version-update:semver-minor')) {
+              labels.push('minor-update');
+            } else if (updateType.includes('version-update:semver-major')) {
+              labels.push('major-update');
+            }
+
+            // Add security label if needed
+            if ('${{ steps.metadata.outputs.alert-state }}' === 'fixed') {
+              labels.push('security');
+            }
+
+            // Add labels to PR
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: labels
+            });
+
+      - name: ✅ Auto-approve PR
+        id: approve
+        if: |
+          steps.metadata.outputs.update-type == 'version-update:semver-patch' ||
+          contains(steps.metadata.outputs.dependency-names, 'test-dependencies')
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            await github.rest.pulls.createReview({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              event: 'APPROVE',
+              body: '✅ Automatically approved based on dependency type and update scope'
+            });
+
+      - name: 🔄 Enable Auto-merge
+        id: merge
+        if: |
+          steps.approve.outcome == 'success' &&
+          !contains(steps.metadata.outputs.dependency-names, 'blocked-deps')
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            try {
+              await github.rest.pulls.merge({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.issue.number,
+                merge_method: 'squash',
+                commit_title: `chore(deps): ${context.payload.pull_request.title}`,
+                commit_message: 'Auto-merged by Dependabot 🤖'
+              });
+              core.setOutput('merged', 'true');
+            } catch (error) {
+              console.log(`Failed to merge: ${error.message}`);
+              core.setOutput('merged', 'false');
+            }
+
+      - name: 📝 Add Merge Comment
+        if: steps.merge.outputs.merged == 'true'
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `✅ Successfully auto-merged this PR!\n\nUpdated dependencies:\n${steps.metadata.outputs.dependency-names}`
+            });
+
+  notify:
+    needs: dependabot
+    if: always() && needs.dependabot.result != 'skipped'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🔔 Notify on Failure
+        if: needs.dependabot.result == 'failure'
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: '❌ Auto-merge workflow failed. Please check the workflow logs.'
+            });

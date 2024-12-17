@@ -4,20 +4,48 @@
   - changed-files:
       - any-glob-to-any-file: '*'
       - all-globs-to-all-files: '!*.md'
-# Add 'Documentation' label to any change to .md files within the entire repository
+      # Add 'core' label to any change within the 'core' package
+core:
+  - src/core/**/*
+
+# Add 'ui' label to any change within the 'ui' package
+ui:
+  - src/ui/**/*
+
+# Add 'documentation' label to any change in documentation files
 documentation:
-  - changed-files:
-      - any-glob-to-any-file: docs/**
+  - docs/**/*
+  - '**/*.md'
+  - '.github/*.md'
+
+# Add 'dependencies' label to any change in dependency files
+dependencies:
+  - requirements.txt
+  - requirements/*.txt
+  - pyproject.toml
+  - poetry.lock
+
+# Add 'testing' label to any change in test files
+testing:
+  - tests/**/*
+  - pytest.ini
+  - conftest.py
+
+# Add 'ci' label to any change in CI configuration
+ci:
+  - .github/workflows/*
+  - .github/actions/*
+
+# Add 'security' label to any change in security-related files
+security:
+  - security/**/*
+  - '**/*security*.md'
+ 
 # Add 'source' label to any change to src files within the source dir EXCEPT for the docs sub-folder
 'source':
   - changed-files:
       - any-glob-to-any-file: src/**/*
       - all-globs-to-all-files: '!src/docs/**'
-'github_actions':
-  - changed-files:
-      - any-glob-to-any-file:
-          - .github/actions/**
-          - .github/workflows/**
 # Add 'feature' label to any PR where the head branch name starts with `feature` or has a `feature` section in the name
 'feature':
   - head-branch: [^feature, feature]
