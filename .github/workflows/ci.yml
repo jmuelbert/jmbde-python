@@ -1,3 +1,4 @@
+---
 name: Release Pipeline
 
 on:
@@ -176,3 +177,4 @@ jobs:
           python -m pip install --upgrade pip
           pip install jmbde-python==${{ needs.release.outputs.version }}
           python -c "import jmbde; print(jmbde.__version__)"
+          

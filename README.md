@@ -23,7 +23,7 @@ You can install _jmbde-python_ via [pip](https://pip.pypa.io/) from [PyPI](https
 $ pip install jmbde-python
 ```
 
-The master branch represents the latest pre-release code.
+The main branch represents the latest pre-release code.
 
 - [Releases](https://github.com/jmuelbert/jmopenorders/releases)
 - [Milestones](https://github.com/jmuelbert/jmopenorders/milestones)
@@ -45,5 +45,3 @@ Distributed under the terms of the [GPL-3.0](http://opensource.org/licenses/GPL-
 If you encounter any problems, please [file an issue](https://github.com/jmuelbert/jmopenorders/issues) along with a detailed description.
 
 ## Credits
-
-This project was generated from [@cjolowicz](https://github.com/cjolowicz)'s [Hypermodern Python Cookiecutter](https://github.com/cjolowicz/cookiecutter-hypermodern-python) template.

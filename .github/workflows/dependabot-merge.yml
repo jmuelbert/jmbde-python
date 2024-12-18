@@ -1,3 +1,4 @@
+---
 # SPDX-FileCopyrightText: GitHub, Inc. and contributors
 # SPDX-License-Identifier: MIT
 
@@ -157,3 +158,4 @@ jobs:
               issue_number: context.issue.number,
               body: '❌ Auto-merge workflow failed. Please check the workflow logs.'
             });
+

@@ -5,6 +5,7 @@
 name: Issue Activity Management
 
 on:
+  # yamllint enable
   schedule:
     - cron: '0 1 * * *'  # Run at 01:00 UTC daily
     

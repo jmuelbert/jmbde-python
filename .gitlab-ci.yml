@@ -1,3 +1,14 @@
+---
+# SPDX-FileCopyRightText: 2023 Jürgen Mülbert <juergen.muelbert@web.de>
+#
+# SPDX-License-Identifier: EUPL-1.2
+#
+# GitLab continuous integration file to build and deploy repository.
+#
+# For a reference of the CI file syntax, visit
+# https://docs.gitlab.com/ee/ci/yaml/.
+
+
 # Use a more recent Python version and multi-stage builds
 image: python:3.11-slim
 

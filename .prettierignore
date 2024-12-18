@@ -1,3 +1,11 @@
+# SPDX-FileCopyRightText: 2023 Jürgen Mülbert <juergen.muelbert@web.de>
+#
+# SPDX-License-Identifier: EUPL-1.2
+#
+# Prettier configuration file for ignoring paths.
+#
+# For more information, visit https://prettier.io/docs/en/ignore.html.
+
 # Benchmark artifacts
 benchmark/projects/
 benchmark/results/

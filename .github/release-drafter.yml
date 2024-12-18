@@ -1,3 +1,4 @@
+---
 name-template: 'v$RESOLVED_VERSION'
 tag-template: 'v$RESOLVED_VERSION'
 categories:
@@ -28,17 +29,20 @@ change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
 version-resolver:
   major:
     labels:
-      - 'breaking'
+      - "type: breaking"
   minor:
     labels:
-      - 'feature'
-      - 'enhancement'
+      - "type: feature"
   patch:
     labels:
-      - 'bug'
-      - 'maintenance'
-      - 'documentation'
-  default: patch
+      - "type: bug"
+      - "type: maintenance"
+      - "type: docs"
+      - "type: dependencies"
+      - "type: security"
+
+exclude-labels:
+  - "skip-changelog"
 
 template: |
   ## What's Changed
