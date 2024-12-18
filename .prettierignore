@@ -6,20 +6,39 @@
 #
 # For more information, visit https://prettier.io/docs/en/ignore.html.
 
-__pycache__/
-.benchmarks/
-.git/
-.ipynb_checkpoints/
-.mypy_cache/
-.pytest_cache/
-.tox/
-.venv/
-*.egg-info/
-*.ipynb
-*.min.js
-*.py
-*.pyc
-node_modules/
-package-lock.json
-poetry.lock
-site/
+# Benchmark artifacts
+benchmark/projects/
+benchmark/results/
+
+# Deep Directories
+**/dist
+**/build
+**/smoke
+**/node_modules
+**/fixtures
+**/vendor
+**/.vercel
+
+# Short-term need to format
+!packages/db/test/fixtures
+
+# Directories
+.venv
+.github
+.changeset
+megalinter-reports
+
+# Files
+pnpm-lock.yaml
+
+# Formatted by Biome
+**/*.json
+**/*.js
+**/*.ts
+**/*.tsx
+**/*.jsx
+**/*.mjs
+**/*.cjs
+
+# vale configs
+.github/styles/vale/**

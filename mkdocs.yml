@@ -1,0 +1,110 @@
+site_name: jmbde-python
+site_url: https://io.github.org/jmuelbert/jmbde-python/
+site_description: 'JM BDE - Management of the inventory the computer equipment'
+repo_name: jmuelbert/jmbde-python
+repo_url: https://github.com/jmuelbert/jmbde-python/
+edit_uri: 'blob/main/docs/'
+copyright: Copyright &copy; 2023 - 2024 Jürgen Mülbert
+
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: material
+  custom_dir: docs/.overrides
+  language: en
+  features:
+    - content.code.copy
+    - navigation.tabs
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.suggest
+    - toc.follow
+  palette:
+    - media: '(prefers-color-scheme: light)'
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: '(prefers-color-scheme: dark)'
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font:
+    text: Roboto
+    code: Roboto Mono
+  icon:
+    repo: fontawesome/brands/github-alt
+    logo: material/check-network-outline
+
+nav:
+  - Introduction: index.md
+  - Getting Started:
+      - QuickStart: quickstart.md
+      - Installation: guides/install.md
+      - Configuration: guides/configuration.md
+  - User Guide:
+      - Command Line: guides/commandline.md
+      - Logging: guides/logging.md
+      - Troubleshooting: guides/troubleshooting.md
+  - Development:
+      - API Overview: developer/overview.md
+      - Configuration: developer/configuration.md
+      - Changelog: developer/changelog.md
+  - Community:
+      - Contributing: community/contributing.md
+      - Code of Conduct: community/code_of_conduct.md
+  - About:
+      - License: about/EUPL-1.2.md
+
+plugins:
+  - search
+  - i18n:
+      languages:
+        - locale: en
+          default: true
+          name: English
+        - locale: de
+          name: Deutsch
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          paths: [src]
+          options:
+            show_root_heading: true
+            show_signature: false
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - footnotes
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      use_pygments: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/jmuelbert
+  alternate:
+    - name: English
+      link: /en/
+      lang: en
+    - name: Deutsch
+      link: /de/
+      lang: de
+
+watch:
+  - mkdocs.yml
+  - src/
+  - docs/

@@ -156,7 +156,7 @@ CREATE TABLE employee (
     mobile_id INTEGER,
     fax_id INTEGER,
     employee_account_id INTEGER,
-    employee_document_id INTGER,
+    employee_document_id INTEGER,
     chip_card_id INTEGER,
     last_update TIMESTAMP
  );
@@ -185,12 +185,14 @@ CREATE TABLE fax (
     last_update TIMESTAMP
 );
 
-CREATE TABLE function (
-    function_id INTEGER PRIMARY KEY,
-    name VARCHAR,
-    priority INTEGER,
-    last_update TIMESTAMP
-);
+create table function
+    (
+        function_id integer primary key,
+        name varchar,
+        priority integer,
+        last_update timestamp
+    )
+;
 
 CREATE TABLE inventory (
     inventory_id INTEGER PRIMARY KEY,
@@ -341,6 +343,5 @@ CREATE TABLE database_version (
     patch VARCHAR(10)
 );
 
---First insertions
-
+-- First insertions
 INSERT INTO database_version VALUES(1, "0", "90", "0");

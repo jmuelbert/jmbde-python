@@ -1,3 +1,4 @@
+---
 # SPDX-FileCopyRightText: 2023 Jürgen Mülbert <juergen.muelbert@web.de>
 #
 # SPDX-License-Identifier: EUPL-1.2
@@ -7,119 +8,124 @@
 # For a reference of the CI file syntax, visit
 # https://docs.gitlab.com/ee/ci/yaml/.
 
-# Workflow rules define when the CI pipeline is created. Rule order matters
-# since they are evaluated until first match.
-workflow:
-  # Makes pipeline run on Git tags, any branch commit, and on expected result of
-  # merge request branches. For more information, visit
-  # https://docs.gitlab.com/ee/ci/pipelines/merge_request_pipelines.html and
-  # https://docs.gitlab.com/ee/ci/yaml/workflow.html#switch-between-branch-pipelines-and-merge-request-pipelines.
-  rules:
-    - if: $CI_COMMIT_TAG
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-    - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS
-      when: never
-    - if: $CI_COMMIT_BRANCH
 
-# Jobs of the same stage run in parallel. Jobs of the next stage only run after
-# all current jobs have completed successfully.
+# Use a more recent Python version and multi-stage builds
+image: python:3.11-slim
+
+variables:
+  PIP_CACHE_DIR: '$CI_PROJECT_DIR/.pip-cache'
+  PRE_COMMIT_HOME: '$CI_PROJECT_DIR/.cache/pre-commit'
+  PYTHONPATH: '$CI_PROJECT_DIR/src'
+  HATCH_ENV_TYPE_VIRTUAL_PATH: '$CI_PROJECT_DIR/.venv'
+
+# Define cache for pip and pre-commit
+cache:
+  paths:
+    - .pip-cache/
+    - .cache/pre-commit/
+    - .venv/
 
 stages:
+  - lint
+  - test
+  - security
   - build
   - deploy
-  - test
 
-# Environment variables that apply to all jobs.
-variables:
-  PIP_CACHE_DIR: $CI_PROJECT_DIR/.cache/pip
-  PIP_DISABLE_PIP_VERSION_CHECK: 1
-  PIP_ROOT_USER_ACTION: ignore
-  POETRY_VIRTUALENVS_IN_PROJECT: 1
-  PYTHON_VERSION_DEFAULT: '3.10'
-  TMATE_DEBUG: 'false'
-
-# Contains settings that apply to all jobs unless overridden.
+# Default settings for all jobs
 default:
-  # Allows for debugging via SSH session for failed jobs in manual pipelines.
-  after_script:
-    - |
-      if [[ $CI_JOB_STATUS == 'failed' && $TMATE_DEBUG == 'true' ]]; then
-        bash scripts/setup_tmate.sh
-      fi
+  interruptible: true
   before_script:
-    - python --version | ts
-    - pip install -r .github/workflow/constraints.txt | ts
-    - poetry install --verbose | ts
-  # Creates a dependencies cache for each unique Docker image and Poetry lock
-  # file hash pair to speed up dependency installations. Since caches are shared
-  # between jobs and branches, cache keys must not apply to multiple version
-  # targets to avoid installation errors. For more information, visit
-  # https://docs.gitlab.com/ee/ci/caching.
-  cache:
-    key:
-      files:
-        - poetry.lock
-      prefix: $CI_JOB_IMAGE
-    paths:
-      - .cache/pip
-      - .venv
-config:
-  before_script:
-    - node --version
-    - npm install --global prettier
-  # Disable cache for job.
-  cache: []
-  image: 'node:18'
-  # Makes job only run on every Git event except for tags.
+    - python -V
+    - pip install --upgrade pip
+    - pip install hatch pre-commit
+    - hatch env create
+
+# Linting Stage
+lint:
+  stage: lint
+  script:
+    - hatch run lint:style # Runs black, isort, ruff
+    - hatch run lint:typing # Runs mypy
   rules:
-    - if: $CI_COMMIT_TAG
-      when: never
-    - when: always
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+# Testing Stage
+test:
+  stage: test
+  parallel:
+    matrix:
+      - PYTHON_VERSION: ['3.9', '3.10', '3.11']
+  image: python:$PYTHON_VERSION-slim
+  coverage: '/TOTAL.+ ([0-9]{1,3}%)/'
   script:
-    - prettier --check .
+    - hatch run test:cov
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.xml
+      junit: junit.xml
+    paths:
+      - htmlcov
+    expire_in: 1 week
+
+# Security Checks
+security:
+  stage: security
+  script:
+    - hatch run security:check # Runs bandit and safety
+    - hatch run security:audit # Runs pip-audit
+  allow_failure: true
+
+# Type Checking
+typeguard:
+  stage: test
+  script:
+    - hatch run test:typeguard
+  allow_failure: true
+
+# Build Package
+build:
   stage: build
-
-test_safety:
-  stage: test
   script:
-    - nox -rs "safety"
-
-test_typeguard:
-  stage: test
-    - nox -rs "typeguard"
-
-test_mypy:
-  stage: test
-    - nox -rs  "mypy"
-
-test_tests:
-  stage: test
-    - nox -rs "tests"
-
-package:
-  # Uploads packages as release files for Git tags.
+    - hatch build
   artifacts:
     paths:
-      - dist/{{ cookiecutter.project_slug }}-$CI_COMMIT_TAG-py-none-any.whl
-  image: 'python:$PYTHON_VERSION_DEFAULT'
-  # Makes job only run on release commit tags, i.e. 1.0.4 or v0.4.1.
+      - dist/*
+    expire_in: 1 week
   rules:
-    - if: $CI_COMMIT_TAG =~ /^v?[0-9]+\.[0-9]+\.[0-9]+$/
-  script:
-    - poetry build
-    - poetry publish --username ${PYPI_USERNAME?} --password ${PYPI_PASSWORD?}
-  stage: deploy
+    - if: $CI_COMMIT_TAG
 
+# Deploy to PyPI
+deploy:
+  stage: deploy
+  script:
+    - hatch publish
+  rules:
+    - if: $CI_COMMIT_TAG
+  environment:
+    name: pypi
+    url: https://pypi.org/project/jmbde/
+
+# Pages for documentation and coverage reports
 pages:
-  # GitLab Pages uploads files inside the "public" folder after job completes.
+  stage: deploy
+  script:
+    - hatch run docs:build
+    - mv site public
+    - mv htmlcov public/coverage
   artifacts:
     paths:
       - public
-  image: 'python:$PYTHON_VERSION_DEFAULT'
-  # Makes job only run on the default repository branch.
+    expire_in: 30 days
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-  script:
-    - poetry run python scripts/build_docs.py
-    - mv site public
-  stage: deploy
+
+# Workflow rules
+workflow:
+  rules:
+    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_MERGE_REQUEST_ID

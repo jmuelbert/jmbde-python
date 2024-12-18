@@ -1,0 +1,64 @@
+{
+  "version": "0.2",
+  "language": "en,de",
+  "dictionaries": [
+    "en_US",
+    "de-de",
+    "companies",
+    "softwareTerms",
+    "misc",
+    "custom-dictionary-en.txt",
+    "custom-dictionary-de.txt"
+  ],
+  "dictionaryDefinitions": [
+    {
+      "name": "custom-dictionary-en",
+      "path": "./.github/dictionaries/en.txt",
+      "description": "Custom English dictionary"
+    },
+    {
+      "name": "custom-dictionary-de",
+      "path": "./.github/dictionaries/de.txt",
+      "description": "Custom German dictionary"
+    }
+  ],
+  "ignorePaths": [
+    "node_modules/**",
+    "dist/**",
+    "build/**",
+    "*.min.js",
+    "*.min.css",
+    "**/*.svg",
+    "**/*.png",
+    "**/*.jpg"
+  ],
+  "ignoreWords": [],
+  "ignoreRegExpList": [
+    "\\(.*\\)",
+    "\\[.*\\]",
+    "/^```[\\s\\S]*?```$/gm"
+  ],
+  "languageSettings": [
+    {
+      "languageId": "markdown",
+      "locale": "*",
+      "ignoreRegExpList": [
+        "/^```[\\s\\S]*?```$/gm",
+        "/`[^`]*`/g"
+      ]
+    },
+    {
+      "languageId": "python",
+      "locale": "*",
+      "ignoreRegExpList": [
+        "/#.*$/gm",
+        "/'''[\\s\\S]*?'''/gm",
+        "/\"\"\"[\\s\\S]*?\"\"\"/gm"
+      ]
+    }
+  ],
+  "suggestionDetailLevel": "high",
+  "allowCompoundWords": true,
+  "maxNumberOfProblems": 1000,
+  "maxDuplicateProblems": 100
+}

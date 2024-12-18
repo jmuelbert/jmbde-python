@@ -1,40 +1,162 @@
 ---
+# SPDX-FileCopyrightText: Microsoft Corporation
+# SPDX-License-Identifier: MIT
+
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: "DevSkim"
+name: DevSkim Security Analysis
 
-# yamllint disable
 on:
-  # yamllint enable
   push:
-    branches: [main]
-
+    branches: 
+      - main
+      - develop
+      - 'release/**'
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '.github/*.md'
+      
   pull_request:
-    # The branches below must be a subset of the branches above
     types: [opened, synchronize, reopened]
-
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '.github/*.md'
+      
   schedule:
-    - cron: "41 2 * * 2"
+    - cron: '0 2 * * 1' # Run at 2 AM UTC every Monday
+    
+  workflow_dispatch:
+    inputs:
+      debug:
+        type: boolean
+        description: 'Run in debug mode'
+        required: false
+        default: false
+
+permissions: read-all
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  lint:
-    name: "DevSkim"
+  analyze:
+    name: DevSkim Security Scan
+    if: |
+      github.actor != 'dependabot[bot]' &&
+      !contains(github.event.head_commit.message, '[skip security]')
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
     permissions:
       actions: read
       contents: read
       security-events: write
+      pull-requests: write
+
     steps:
-      - name: "🧰 Checkout"
-        uses: actions/checkout@v4
-
-      - name: "Run DevSkim scanner"
-        uses: microsoft/DevSkim-Action@v1
-
-      - name: "Upload DevSkim scan results to GitHub Security tab"
-        uses: github/codeql-action/upload-sarif@v3
+      - name: 🔒 Harden Runner
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
         with:
-          sarif_file: devskim-results.sarif
+          egress-policy: audit
+
+      - name: 🧰 Checkout Repository
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: 🔍 Run DevSkim Scanner
+        id: scan
+        uses: microsoft/DevSkim-Action@914fa647b406c387000300b2f09bb28691be2b6d # v1.0.14
+        with:
+          directory-to-scan: .
+          should-scan-archives: false
+          output-filename: results/devskim-results.sarif
+          enable-suppressions: true
+          config-path: .github/devskim-config.json
+
+      - name: 📝 Process Results
+        if: always()
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            const fs = require('fs');
+            const results = JSON.parse(fs.readFileSync('results/devskim-results.sarif', 'utf8'));
+            
+            let summary = '## 🔒 DevSkim Security Analysis Summary\n\n';
+            let issues = 0;
+            let criticalIssues = 0;
+            
+            if (results.runs[0].results) {
+              issues = results.runs[0].results.length;
+              criticalIssues = results.runs[0].results.filter(
+                r => r.level === 'error'
+              ).length;
+              
+              summary += `Found ${issues} issue(s), ${criticalIssues} critical\n\n`;
+              
+              if (issues > 0) {
+                summary += '### 🚨 Security Issues\n\n';
+                results.runs[0].results.forEach(result => {
+                  summary += `- **${result.level}**: ${result.message.text}\n`;
+                  summary += `  - File: \`${result.locations[0].physicalLocation.artifactLocation.uri}\`\n`;
+                  summary += `  - Line: ${result.locations[0].physicalLocation.region.startLine}\n\n`;
+                });
+              }
+            }
+            
+            // Add comment to PR if this is a pull request
+            if (context.payload.pull_request) {
+              await github.rest.issues.createComment({
+                ...context.repo,
+                issue_number: context.payload.pull_request.number,
+                body: summary
+              });
+            }
+            
+            // Set output for next steps
+            core.setOutput('issues', issues);
+            core.setOutput('critical-issues', criticalIssues);
+
+      - name: 📤 Upload SARIF Results
+        if: always()
+        uses: github/codeql-action/upload-sarif@b611370bb5703a7efb587f9d136a52ea24c5c38c # v3.25.11
+        with:
+          sarif_file: results/devskim-results.sarif
+          category: DevSkim-Security
+
+      - name: 🏷️ Add Labels
+        if: github.event_name == 'pull_request' && steps.scan.outcome == 'success'
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            const issues = parseInt('${{ steps.scan.outputs.issues }}');
+            const criticalIssues = parseInt('${{ steps.scan.outputs.critical-issues }}');
+            
+            const labels = [];
+            if (issues === 0) {
+              labels.push('security-check-passed');
+            } else {
+              labels.push('security-issues-found');
+              if (criticalIssues > 0) {
+                labels.push('critical-security');
+              }
+            }
+            
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: labels
+            });
+
+      - name: 🧹 Cleanup
+        if: always()
+        run: |
+          rm -rf results/

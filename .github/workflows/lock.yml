@@ -1,0 +1,154 @@
+---
+# SPDX-FileCopyrightText: Armin Sebastian
+# SPDX-License-Identifier: MIT
+
+name: Thread Management
+
+on:
+  schedule:
+    - cron: '0 0 * * 1'  # Run at midnight every Monday
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: 'Run in dry-run mode'
+        required: false
+        type: boolean
+        default: false
+
+permissions: read-all
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+jobs:
+  lock-threads:
+    name: Lock Inactive Threads
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    permissions:
+      issues: write
+      pull-requests: write
+
+    outputs:
+      locked-issues: ${{ steps.lock.outputs.locked-issues }}
+      skipped-issues: ${{ steps.lock.outputs.skipped-issues }}
+
+    steps:
+      - name: 🔒 Harden Runner
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        with:
+          egress-policy: audit
+
+      - name: 🔐 Lock Inactive Threads
+        id: lock
+        uses: dessant/lock-threads@1bf7ec25051bf7e00bdd17e6a7cf3d7bfb7dc771 # v5.0.1
+        with:
+          # Issue settings
+          issue-inactive-days: '182'
+          issue-lock-reason: 'resolved'
+          issue-comment: |
+            👋 Hello! This issue has been automatically locked due to inactivity for 6 months.
+            
+            ### Why was this locked?
+            - To help maintainers focus on active issues
+            - To reduce noise from old, resolved issues
+            - To maintain a clean, relevant issue tracker
+            
+            ### What should I do if I have a similar issue?
+            1. Search existing open issues first
+            2. If no similar issue exists, create a new one
+            3. Use our issue template
+            4. Include all necessary details to reproduce
+            5. Reference this issue (#${{ github.event.issue.number }}) if relevant
+            
+            ### Need help?
+            - Read our [Contributing Guidelines](../../CONTRIBUTING.md)
+            - Join our [Discord Community](https://discord.gg/your-server)
+            - Check our [Documentation](https://docs.your-project.com)
+
+          # PR settings
+          pr-inactive-days: '90'
+          pr-lock-reason: 'resolved'
+          pr-comment: |
+            📌 This pull request has been automatically locked due to 90 days of inactivity.
+            
+            If you need to make changes:
+            1. Create a new PR with your updates
+            2. Reference this PR (#${{ github.event.pull_request.number }})
+            3. Include all necessary changes and tests
+            
+            Thank you for your contribution! 🙏
+
+          # General settings
+          process-only: 'issues, pulls'
+          log-output: true
+          exclude-any-issue-labels: |
+            keep-unlocked
+            security
+            pinned
+          exclude-any-pr-labels: |
+            keep-unlocked
+            security
+            dependencies
+          exclude-created-by-bots: true
+          exclude-assigned: false
+          add-issue-labels: 'status: locked'
+          add-pr-labels: 'status: locked'
+          dry-run: ${{ inputs.dry-run }}
+
+      - name: 📊 Generate Report
+        if: always()
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            const lockedIssues = parseInt('${{ steps.lock.outputs.locked-issues }}') || 0;
+            const skippedIssues = parseInt('${{ steps.lock.outputs.skipped-issues }}') || 0;
+            
+            const report = `## 🔒 Thread Locking Report
+            
+            ### Statistics
+            - Locked Issues/PRs: ${lockedIssues}
+            - Skipped Issues/PRs: ${skippedIssues}
+            - Total Processed: ${lockedIssues + skippedIssues}
+            
+            ### Configuration
+            - Issue Inactivity Threshold: 182 days
+            - PR Inactivity Threshold: 90 days
+            - Excluded Labels: keep-unlocked, security, pinned
+            - Process Types: issues, pulls
+            - Dry Run: ${{ inputs.dry-run }}
+            
+            ### Need to unlock?
+            Contact repository maintainers or add the \`keep-unlocked\` label.`;
+            
+            // Create issue for the report if significant activity
+            if (lockedIssues > 0) {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: `[Automated] Thread Locking Report - ${new Date().toISOString().split('T')[0]}`,
+                body: report,
+                labels: ['type: maintenance', 'automated']
+              });
+            }
+
+  notify:
+    needs: lock-threads
+    if: always() && needs.lock-threads.outputs.locked-issues > 0
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📧 Notify Team
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            const message = `🔔 Thread Locking Summary
+            - Locked: ${needs.lock-threads.outputs.locked-issues}
+            - Skipped: ${needs.lock-threads.outputs.skipped-issues}
+            
+            Check the latest report for details.`;
+            
+            // Add notification methods here (e.g., Discord, Slack, etc.)
+            console.log(message);

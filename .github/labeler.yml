@@ -1,16 +1,55 @@
 ---
-# Add 'repo' label to any root file changes
-repo:
-  - "*"
+# Add 'root' label to any root file changes
+# Quotation marks are required for the leading asterisk
+'project':
+  - changed-files:
+      - any-glob-to-any-file: '*'
+      - all-globs-to-all-files: '!*.md'
+      # Add 'core' label to any change within the 'core' package
+core:
+  - src/core/**/*
 
-# Add 'test' label to any change to *.spec.js files within the source dir
-test:
-  - src/**/*.spec.js
+# Add 'ui' label to any change within the 'ui' package
+ui:
+  - src/ui/**/*
 
-# Add 'source' label to any change to src files within the source dir EXCEPT for the docs sub-folder
-source:
-  - any: ["src/**/*", "!src/docs/*"]
-
-# Add documentation label
+# Add 'documentation' label to any change in documentation files
 documentation:
   - docs/**/*
+  - '**/*.md'
+  - '.github/*.md'
+
+# Add 'dependencies' label to any change in dependency files
+dependencies:
+  - requirements.txt
+  - requirements/*.txt
+  - pyproject.toml
+  - poetry.lock
+
+# Add 'testing' label to any change in test files
+testing:
+  - tests/**/*
+  - pytest.ini
+  - conftest.py
+
+# Add 'ci' label to any change in CI configuration
+ci:
+  - .github/workflows/*
+  - .github/actions/*
+
+# Add 'security' label to any change in security-related files
+security:
+  - security/**/*
+  - '**/*security*.md'
+ 
+# Add 'source' label to any change to src files within the source dir EXCEPT for the docs sub-folder
+'source':
+  - changed-files:
+      - any-glob-to-any-file: src/**/*
+      - all-globs-to-all-files: '!src/docs/**'
+# Add 'feature' label to any PR where the head branch name starts with `feature` or has a `feature` section in the name
+'feature':
+  - head-branch: [^feature, feature]
+# Add 'release' label to any PR that is opened against the `main` branch
+release:
+  - base-branch: release

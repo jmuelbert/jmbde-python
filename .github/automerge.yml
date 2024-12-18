@@ -2,7 +2,6 @@
 - match:
     dependency_name: aws-sdk
     update_type: semver:minor
-
 - match:
     dependency_type: development
     update_type: semver:minor # includes patch updates!

@@ -1,71 +1,47 @@
-# {{ cookiecutter.friendly_name }}
+# jmbde
 
-[![PyPI](https://img.shields.io/pypi/v/{{cookiecutter.project_name}}.svg)][pypi status]
-[![Status](https://img.shields.io/pypi/status/{{cookiecutter.project_name}}.svg)][pypi status]
-[![Python Version](https://img.shields.io/pypi/pyversions/{{cookiecutter.project_name}})][pypi status]
-[![License](https://img.shields.io/pypi/l/{{cookiecutter.project_name}})][license]
-
-[![Read the documentation at https://{{cookiecutter.project_name}}.readthedocs.io/](https://img.shields.io/readthedocs/{{cookiecutter.project_name}}/latest.svg?label=Read%20the%20Docs)][read the docs]
-[![Tests](https://github.com/{{cookiecutter.github_user}}/{{cookiecutter.project_name}}/workflows/Tests/badge.svg)][tests]
-[![Codecov](https://codecov.io/gh/{{cookiecutter.github_user}}/{{cookiecutter.project_name}}/branch/main/graph/badge.svg)][codecov]
-
-[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)][pre-commit]
-[![Black](https://img.shields.io/badge/code%20style-black-000000.svg)][black]
-
-[pypi status]: https://pypi.org/project/{{cookiecutter.project_name}}/
-[read the docs]: https://{{cookiecutter.project_name}}.readthedocs.io/
-[tests]: https://github.com/{{cookiecutter.github_user}}/{{cookiecutter.project_name}}/actions?workflow=Tests
-[codecov]: https://app.codecov.io/gh/{{cookiecutter.github_user}}/{{cookiecutter.project_name}}
-[pre-commit]: https://github.com/pre-commit/pre-commit
-[black]: https://github.com/psf/black
+[![Gitpod](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/jmuelbert/jmbde-python)
+[![Tests](https://github.com/jmuelbert/jmbde-python/workflows/Tests/badge.svg)](https://github.com/jmuelbert/jmbde-python/actions?workflow=Tests)
+[![PyPI](https://img.shields.io/pypi/v/jmbde-python.svg)](https://pypi.org/project/jmbde-python/)
+[![Python Version](https://img.shields.io/pypi/pyversions/jmbde-python)](https://pypi.org/project/jmbde-python)
+[![Read the Docs](https://readthedocs.org/projects/jmbde-python/badge/)](https://jmbde-python.readthedocs.io/)
+[![License](https://img.shields.io/pypi/l/jmbde-python)](https://opensource.org/licenses/GPL-3.0)
 
 ## Features
 
-- TODO
+jmbde is a program to collect data for IT. The database contains employees, departments, functions, phones, mobiles, computers, printers, faxes and accounts.
 
 ## Requirements
 
-- TODO
+jmbde uses the cross-platform frameworks [Python](https://www.python.org) and [Qt](https://www.qt.io) with [PySide2](https://pypi.org/project/PySide2/), which means it works with most operating systems.
 
 ## Installation
 
-You can install _{{cookiecutter.friendly_name}}_ via [pip] from [PyPI]:
+You can install _jmbde-python_ via [pip](https://pip.pypa.io/) from [PyPI](https://pypi.org/):
 
-```console
-$ pip install {{cookiecutter.project_name}}
+```bash
+$ pip install jmbde-python
 ```
+
+The main branch represents the latest pre-release code.
+
+- [Releases](https://github.com/jmuelbert/jmopenorders/releases)
+- [Milestones](https://github.com/jmuelbert/jmopenorders/milestones)
 
 ## Usage
 
-Please see the [Command-line Reference] for details.
+- TODO
 
 ## Contributing
 
-Contributions are very welcome.
-To learn more, see the [Contributor Guide].
+Contributions are very welcome. To learn more, see the [Contributor Guide](CONTRIBUTING.rst).
 
 ## License
 
-Distributed under the terms of the [{{cookiecutter.license.replace("-", " ")}} license][license],
-_{{cookiecutter.friendly_name}}_ is free and open source software.
+Distributed under the terms of the [GPL-3.0](http://opensource.org/licenses/GPL-3.0) license, _jmbde_python_ is free and open source software.
 
 ## Issues
 
-If you encounter any problems,
-please [file an issue] along with a detailed description.
+If you encounter any problems, please [file an issue](https://github.com/jmuelbert/jmopenorders/issues) along with a detailed description.
 
 ## Credits
-
-This project was generated from [@cjolowicz]'s [Hypermodern Python Cookiecutter] template.
-
-[@cjolowicz]: https://github.com/cjolowicz
-[pypi]: https://pypi.org/
-[hypermodern python cookiecutter]: https://github.com/cjolowicz/cookiecutter-hypermodern-python
-[file an issue]: https://github.com/{{cookiecutter.github_user}}/{{cookiecutter.project_name}}/issues
-[pip]: https://pip.pypa.io/
-
-<!-- github-only -->
-
-[license]: https://github.com/{{cookiecutter.github_user}}/{{cookiecutter.project_name}}/blob/main/LICENSE
-[contributor guide]: https://github.com/{{cookiecutter.github_user}}/{{cookiecutter.project_name}}/blob/main/CONTRIBUTING.md
-[command-line reference]: https://{{cookiecutter.project_name}}.readthedocs.io/en/latest/usage.html
