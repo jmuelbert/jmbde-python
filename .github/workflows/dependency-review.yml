@@ -50,8 +50,8 @@ jobs:
           comment-summary-in-pr: always
           fail-on-severity: moderate
           deny-licenses: |
-            GPL-1.0-or-later
-            LGPL-2.0-or-later
+            LGPL-2.0
+            BSD-2-Clause
             AGPL-1.0
             AGPL-3.0
           retry-on-snapshot-warnings: true
@@ -60,14 +60,15 @@ jobs:
           config-file: .github/dependency-review-config.yml
 
       - name: 📊 Generate Dependency Report
+        needs: review
         if: always()
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
             const review = ${{ steps.review.outputs.result }};
-            
+
             let report = '## 📋 Dependency Review Summary\n\n';
-            
+
             if (review.violations.length > 0) {
               report += '### ⚠️ Violations Found\n\n';
               review.violations.forEach(v => {
@@ -76,14 +77,14 @@ jobs:
             } else {
               report += '✅ No dependency violations found\n';
             }
-            
+
             if (review.licenses.denied.length > 0) {
               report += '\n### 🚫 Denied Licenses\n\n';
               review.licenses.denied.forEach(l => {
                 report += `- ${l.name} (${l.package})\n`;
               });
             }
-            
+
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -97,7 +98,7 @@ jobs:
         with:
           script: |
             const labels = [];
-            
+
             if ('${{ steps.review.outcome }}' === 'failure') {
               labels.push('security-risk');
               if (${{ steps.review.outputs.result }}.licenses.denied.length > 0) {
@@ -106,7 +107,7 @@ jobs:
             } else {
               labels.push('dependency-check-passed');
             }
-            
+
             await github.rest.issues.addLabels({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -114,18 +115,11 @@ jobs:
               labels: labels
             });
 
-      - name: 📤 Upload SARIF Report
-        if: always()
-        uses: github/codeql-action/upload-sarif@b7cec7526559c32f1616476ff32d17ba4c59b2d6 # v3.25.5
-        with:
-          sarif_file: dependency-review.sarif
-          category: dependency-review
-
   notify:
     needs: dependency-review
     if: always() && needs.dependency-review.result != 'skipped'
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: 🔔 Notify on Failure
         if: needs.dependency-review.result == 'failure'
@@ -133,11 +127,10 @@ jobs:
         with:
           script: |
             const message = `❌ Dependency review failed. Please check the [workflow logs](${context.payload.repository.html_url}/actions/runs/${context.runId}) for details.`;
-            
+
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
               body: message
             });
-

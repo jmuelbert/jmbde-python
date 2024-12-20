@@ -119,6 +119,7 @@ jobs:
           SCORE: ${{ steps.scorecard.outputs.overall-score }}
 
       - name: 📤 Upload SARIF Results
+        needs: results
         uses: github/codeql-action/upload-sarif@b7cec7526559c32f1616476ff32d17ba4c59b2d6 # v3.25.5
         with:
           sarif_file: results/scorecard.sarif

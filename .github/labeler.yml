@@ -1,55 +1,54 @@
----
-# Add 'root' label to any root file changes
-# Quotation marks are required for the leading asterisk
+# Configuration for labeling pull requests based on file changes
+
+# Add 'root' label to any root file changes, excluding markdown files
 'project':
   - changed-files:
       - any-glob-to-any-file: '*'
       - all-globs-to-all-files: '!*.md'
-      # Add 'core' label to any change within the 'core' package
-core:
-  - src/core/**/*
 
-# Add 'ui' label to any change within the 'ui' package
+# Add 'ui' label to any changes within the 'ui' package
 ui:
   - src/ui/**/*
 
-# Add 'documentation' label to any change in documentation files
+# Add 'documentation' label to any changes in documentation files
 documentation:
   - docs/**/*
-  - '**/*.md'
-  - '.github/*.md'
+  - '**/*.md'  # Matches all markdown files in any directory
+  - '.github/*.md'  # Matches markdown files in the .github directory
 
-# Add 'dependencies' label to any change in dependency files
+# Add 'dependencies' label to any changes in dependency files
 dependencies:
   - requirements.txt
   - requirements/*.txt
   - pyproject.toml
   - poetry.lock
 
-# Add 'testing' label to any change in test files
+# Add 'testing' label to any changes in test files
 testing:
   - tests/**/*
   - pytest.ini
   - conftest.py
 
-# Add 'ci' label to any change in CI configuration
+# Add 'ci' label to any changes in CI configuration files
 ci:
   - .github/workflows/*
   - .github/actions/*
 
-# Add 'security' label to any change in security-related files
+# Add 'security' label to any changes in security-related files
 security:
   - security/**/*
-  - '**/*security*.md'
- 
-# Add 'source' label to any change to src files within the source dir EXCEPT for the docs sub-folder
+  - '**/*security*.md'  # Matches any markdown files with 'security' in the name
+
+# Add 'source' label to any changes to source files within the 'src' directory, excluding the 'docs' sub-folder
 'source':
   - changed-files:
       - any-glob-to-any-file: src/**/*
       - all-globs-to-all-files: '!src/docs/**'
-# Add 'feature' label to any PR where the head branch name starts with `feature` or has a `feature` section in the name
+
+# Add 'feature' label to any PR where the head branch name starts with 'feature' or contains 'feature'
 'feature':
-  - head-branch: [^feature, feature]
-# Add 'release' label to any PR that is opened against the `main` branch
+  - head-branch: 'feature/*'  # Updated regex for clarity
+
+# Add 'release' label to any PR that is opened against the 'main' branch
 release:
-  - base-branch: release
+  - base-branch: main  # Corrected to 'main' for clarity

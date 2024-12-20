@@ -44,22 +44,6 @@ jobs:
         with:
           fetch-depth: 0 # Required for commitlint to access all commits
 
-      - name: 🔍 Cache commitlint
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
-        with:
-          path: |
-            ~/.npm
-            node_modules
-          key: ${{ runner.os }}-commitlint-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-commitlint-
-
-      - name: 📝 Setup Node.js
-        uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # v4.0.1
-        with:
-          node-version: 'lts/*'
-          cache: 'npm'
-
       - name: 🔎 Lint Commits
         uses: wagoid/commitlint-github-action@7f0a61df502599e1f1f50880aaa7ec1e2c0592f2 # v6.0.1
         with:
