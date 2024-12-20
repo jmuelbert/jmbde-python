@@ -1,6 +1,6 @@
 ---
 # SPDX-FileCopyrightText: Jürgen Mülbert
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: EUPL-1.2
 
 name: Test Suite
 
@@ -12,14 +12,14 @@ on:
       - 'docs/**'
       - '.github/*.md'
       - 'LICENSE'
-      
+
   pull_request:
     types: [opened, synchronize, reopened]
     paths-ignore:
       - '**.md'
       - 'docs/**'
       - '.github/*.md'
-      
+
   workflow_dispatch:
     inputs:
       coverage-threshold:
@@ -105,7 +105,7 @@ jobs:
         run: |
           COVERAGE=$(coverage report | grep TOTAL | awk '{print $4}' | sed 's/%//')
           echo "percentage=${COVERAGE}" >> $GITHUB_OUTPUT
-          
+
           if [ "${COVERAGE}" -lt "${{ github.event.inputs.coverage-threshold || 80 }}" ]; then
             echo "::error::Coverage ${COVERAGE}% is below threshold of ${{ github.event.inputs.coverage-threshold || 80 }}%"
             exit 1
@@ -207,7 +207,7 @@ jobs:
     if: always()
     needs: [test, security, docs]
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: 🔍 Check Status
         uses: re-actors/alls-green@223e4bb7a751b91f43eda76992bcfbf23b8b0302 # v1.2.2
@@ -220,17 +220,17 @@ jobs:
         with:
           script: |
             const summary = `## 📋 Test Suite Summary
-            
+
             ### Test Results
             - Coverage: ${{ needs.test.outputs.coverage }}%
             - Security Checks: ${{ needs.security.result }}
             - Documentation: ${{ needs.docs.result }}
-            
+
             ### Details
             - [Coverage Report](https://codecov.io/gh/${{ github.repository }})
             - [Test Artifacts](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID})
             `;
-            
+
             if (context.payload.pull_request) {
               await github.rest.issues.createComment({
                 owner: context.repo.owner,

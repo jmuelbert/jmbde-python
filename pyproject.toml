@@ -63,31 +63,6 @@ Issues = "https://github.com/jmuelbert/jmbde-python/issues"
 Changelog = "https://github.com/jmuelbert/jmbde-python/blob/main/CHANGELOG.md"
 Source = "https://github.com/jmuelbert/jmbde-python"
 
-[tool.poetry.group.dev.dependencies]
-Pygments = ">=2.10.0"
-black = ">=21.10b0"
-coverage = {extras = ["toml"], version = ">=6.2"}
-darglint = ">=1.8.1"
-flake8 = ">=4.0.1"
-flake8-bandit = ">=2.1.2"
-flake8-bugbear = ">=21.9.2"
-flake8-docstrings = ">=1.6.0"
-flake8-rst-docstrings = ">=0.2.5"
-furo = "^2024.8.6"
-isort = "^5.13.2"
-mypy = "^1.11"
-pep8-naming = "^0.14.1"
-pre-commit = "^4.0.1"
-pre-commit-hooks = "^5.0.0"
-pytest = "^8.3.2"
-pyupgrade = "^3.17.0"
-safety = "^3.2.11"
-sphinx = "^7.4"
-sphinx-autobuild = "^2024.10.3"
-typeguard = "^4.1.5"
-xdoctest = {extras = ["colors"], version = ">=0.15.10"}
-myst-parser = "^3.0.1"
-
 [project.optional-dependencies]
 dev = [
     "black>=23.7.0",
@@ -127,12 +102,16 @@ typing = "mypy src tests"
 
 [tool.hatch.envs.test]
 dependencies = [
+    "coverage>=6.2",
+    "pre-commit>=4.0.1",
+    "pre-commit-hooks>=5.0.0",
     "pytest>=7.4.0",
     "pytest-cov>=4.1.0",
     "pytest-sugar>=0.9.7",
     "pytest-xdist>=3.3.1",
     "pytest-randomly>=3.15.0",
     "typeguard>=4.1.5",
+    "xdoctest>=0.15.10",
 ]
 
 [tool.hatch.envs.test.scripts]

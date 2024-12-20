@@ -105,15 +105,15 @@ jobs:
           
           # Process results
           if grep -q "not compliant" reuse-report.txt; then
-            echo "status=failed" >> $GITHUB_OUTPUT
+            echo "status=failed" >> "$GITHUB_OUTPUT"
             ISSUES=$(grep -c "not licensed" reuse-report.txt || echo "0")
-            echo "issues=${ISSUES}" >> $GITHUB_OUTPUT
+            echo "issues=${ISSUES}" >> "$GITHUB_OUTPUT"
             
             # Generate detailed report
             echo "## 📋 License Compliance Issues" > compliance-report.md
             echo "" >> compliance-report.md
             echo "Found ${ISSUES} files with licensing issues:" >> compliance-report.md
-            echo "" >> compliance-report.md
+            echo " " >> compliance-report.md
             echo "\`\`\`" >> compliance-report.md
             cat reuse-report.txt >> compliance-report.md
             echo "\`\`\`" >> compliance-report.md
@@ -131,8 +131,8 @@ jobs:
               reuse annotate --copyright="Jürgen Mülbert" --license="GPL-3.0-or-later" --style=tag --template=.reuse/templates/gpl-3.0-or-later.jinja2 $(grep "not licensed" reuse-report.txt | cut -d' ' -f1) || true
             fi
           else
-            echo "status=success" >> $GITHUB_OUTPUT
-            echo "issues=0" >> $GITHUB_OUTPUT
+            echo "status=success" >> "$GITHUB_OUTPUT"
+            echo "issues=0" >> "$GITHUB_OUTPUT"
             
             echo "## ✅ License Compliance Check Passed" > compliance-report.md
             echo "" >> compliance-report.md
