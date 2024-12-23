@@ -1,31 +1,71 @@
----
 # MegaLinter Configuration File
 # See all available variables at https://megalinter.io/configuration/
 
+# Allgemeine Einstellungen
 APPLY_FIXES: all
 FAIL_IF_MISSING_LINTER_IN_FLAVOR: true
-DISABLE_LINTERS:
-  - SPELL_CSPELL
-  - SPELL_MISSPELL
-
+DISABLE_ERRORS_IF_LESS_THAN: 0
 SHOW_ELAPSED_TIME: true
 FILEIO_REPORTER: false
 UPDATED_SOURCES_REPORTER: true
 TEXT_REPORTER: true
 SARIF_REPORTER: true
+REPORT_OUTPUT_FOLDER: megalinter-reports
 
+# Ausschluss von spezifischen Dateien und Verzeichnissen
+IGNORE:
+  - ^3rd-party
+  - COPYING
+  - .gitmodules
+  - conan
+  - .vscode/**
+  - .*\.ui$
+  - .*\.qrc$
+  - .*\.ts$
+
+# Python-spezifische Einstellungen
 PYTHON_BLACK_ARGUMENTS:
-  - "--config=pyproject.toml"
+  - "--line-length=88"
+
+PYTHON_RUFF_ARGUMENTS:
+  - "--fix"
+  - "--show-fixes"
+  - "--exclude=build,examples,tests"
+
+PYTHON_MYPY_ARGUMENTS:
+  - "--python-version=3.10"
+
+PYTHON_BANDIT_ARGUMENTS:
+  - "-c"
+  - "pyproject.toml"
 
 PYTHON_PYLINT_ARGUMENTS:
-  - "--rcfile=.pylintrc"
+  - "--rcfile=pyproject.toml"
+  - "--output-format=colorized"
 
-PYTHON_ISORT_ARGUMENTS:
-  - "--settings-file=.isort.cfg"
-
+# Markdown- und YAML-Konfigurationen
 MARKDOWN_MARKDOWNLINT_CONFIG_FILE: .markdownlint.json
 YAML_YAMLLINT_CONFIG_FILE: .yamllint.yml
 
-DISABLE_ERRORS_IF_LESS_THAN: 0
+# Codespell
+SPELL_CODESPELL_ARGUMENTS:
+  - "--exclude=.*\.svg"
+  - "--exclude=pyproject.toml"
+  - "--exclude=LICENSE"
+  - "--exclude=LICENSES/"
+  - "--exclude=\.github/actions"
 
-REPORT_OUTPUT_FOLDER: megalinter-reports
+# Gitleaks
+GITLEAKS_ARGUMENTS:
+  - "--verbose"
+
+# Actionlint
+ACTIONLINT_ARGUMENTS:
+  - "--verbose"
+
+# Reuse Tool
+REUSE_ARGUMENTS:
+  - "--verbose"
+
+# Zusätzliche Konfigurationen können hier hinzugefügt werden
+
