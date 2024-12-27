@@ -6,7 +6,11 @@ name: Test Suite
 
 on:
   push:
-    branches: [main, develop, 'release/**']
+    branches:
+      - main
+      - develop
+      - 'release/**'
+      - 'resolve-**'
     paths-ignore:
       - '**.md'
       - 'docs/**'
@@ -21,14 +25,9 @@ on:
       - '.github/*.md'
 
   workflow_dispatch:
-    inputs:
-      coverage-threshold:
-        description: 'Minimum coverage threshold'
-        required: false
-        default: '80'
-        type: string
 
-permissions: read-all
+permissions:
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -104,7 +103,7 @@ jobs:
         if: success()
         run: |
           COVERAGE=$(coverage report | grep TOTAL | awk '{print $4}' | sed 's/%//')
-          echo "percentage=${COVERAGE}" >> $GITHUB_OUTPUT
+          echo "percentage=${COVERAGE}" >> "$GITHUB_OUTPUT"
 
           if [ "${COVERAGE}" -lt "${{ github.event.inputs.coverage-threshold || 80 }}" ]; then
             echo "::error::Coverage ${COVERAGE}% is below threshold of ${{ github.event.inputs.coverage-threshold || 80 }}%"

@@ -78,9 +78,9 @@
 
 ## Windows
 
-1. See setcion 1 in [macOS](#macOS).
-2. See setcion 2 in [macOS](#macOS).
-3. See setcion 3 in [macOS](#macOS).
+1. See setcion 1 in [macOS](#macos).
+2. See setcion 2 in [macOS](#macos).
+3. See setcion 3 in [macOS](#macos).
 4. Build with `PyInstaller`.
 
    ```powershell
@@ -107,9 +107,9 @@
 
    :: Remove useless libraries
    cd dist/jmbde
-   del /F /S /Q Qt3D* QtBluetooth QtBodymovin QtCharts QtDataVisualization QtGamepad QtLocation QtMultimedia QtMultimediaQuick QtNfc QtPositioning QtPositioningQuick QtPurchasing QtQuick3D* QtQuickTest QtRemoteObjects QtScxml QtSensors QtSql QtTest QtVirtualKeyboard QtWeb*
+   del /F /S /Q Qt3D*QtBluetooth QtBodymovin QtCharts QtDataVisualization QtGamepad QtLocation QtMultimedia QtMultimediaQuick QtNfc QtPositioning QtPositioningQuick QtPurchasing QtQuick3D* QtQuickTest QtRemoteObjects QtScxml QtSensors QtSql QtTest QtVirtualKeyboard QtWeb*
    cd PySide2/qml
-   del /F /S /Q Qt3D* QtAudioEngine QtBluetooth QtCharts QtDataVisualization QtGamepad QtLocation QtMultimedia QtNfc QtPositioning QtPurchasing QtQuick3D* QtRemoteObjects QtScxml QtSensors QtTest QtWeb*
+   del /F /S /Q Qt3D* QtAudioEngine QtBluetooth QtCharts QtDataVisualization QtGamepad QtLocation QtMultimedia QtNfc QtPositioning QtPurchasing QtQuick3D*QtRemoteObjects QtScxml QtSensors QtTest QtWeb*
    cd ../../../..
 
    ```

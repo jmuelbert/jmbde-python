@@ -1,13 +1,14 @@
 # SPDX-FileCopyrightText: GitHub, Inc. and contributors
 # SPDX-License-Identifier: MIT
 
-name: 'Issue Label Comment'
+name: Issue Label Comment
 
 on:
   issues:
     types: [labeled]
 
-permissions: read-all
+permissions:
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.issue.number }}
@@ -16,15 +17,19 @@ concurrency:
 jobs:
   add-comment:
     name: Add Label Response
-    if: |
-      !github.event.issue.pull_request &&
-      contains(['help wanted', 'good first issue', 'bug', 'enhancement'], github.event.label.name)
+    if: >
+      !github.event.issue.pull_request && (
+
+        github.event.label.name == 'help wanted' ||
+        github.event.label.name == 'good first issue' ||
+        github.event.label.name == 'bug' ||
+        github.event.label.name == 'enhancement'
+      )
+
     runs-on: ubuntu-latest
     timeout-minutes: 5
-
     permissions:
       issues: write
-
     steps:
       - name: 🔒 Harden Runner
         uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
@@ -87,18 +92,15 @@ jobs:
     runs-on: ubuntu-latest
     if: always()
     timeout-minutes: 3
-
     steps:
       - name: 🔒 Harden Runner
         uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
         with:
           egress-policy: audit
-
       - name: ✅ Verify Status
         uses: re-actors/alls-green@223e4bb7a751b91f43eda76992bcfbf23b8b0302 # v2.2.0
         with:
           jobs: ${{ toJSON(needs) }}
-
       - name: 📊 Report Failure
         if: failure()
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1

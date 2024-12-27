@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
-"""
-Settings Management Module for JMBDE
+"""Settings Management Module for JMBDE
 
 This module handles application settings and configuration management
 for the JMBDE application.
@@ -14,25 +12,29 @@ License: GPL-3.0
 import json
 import logging
 from pathlib import Path
-from typing import Any, Dict, Optional, Union
+from typing import Any, Optional
 
-from PySide6.QtCore import QObject, Property, Signal, Slot
 from pydantic import BaseModel, Field, ValidationError
+from PySide6.QtCore import Property, QObject, Signal, Slot
 
 from jmbde.utils.exceptions import ConfigurationError
 
 # Initialize logger
 logger = logging.getLogger(__name__)
 
+
 class DatabaseSettings(BaseModel):
     """Database configuration settings."""
-    path: Path = Field(default=Path.home() / '.jmbde' / 'data' / 'jmbde.db')
-    backup_path: Path = Field(default=Path.home() / '.jmbde' / 'backups')
+
+    path: Path = Field(default=Path.home() / ".jmbde" / "data" / "jmbde.db")
+    backup_path: Path = Field(default=Path.home() / ".jmbde" / "backups")
     backup_count: int = Field(default=5, ge=1, le=20)
     auto_backup: bool = Field(default=True)
 
+
 class UISettings(BaseModel):
     """User interface settings."""
+
     theme: str = Field(default="light")
     language: str = Field(default="en")
     font_size: int = Field(default=12, ge=8, le=24)
@@ -41,8 +43,10 @@ class UISettings(BaseModel):
     show_toolbar: bool = Field(default=True)
     show_statusbar: bool = Field(default=True)
 
+
 class ApplicationSettings(BaseModel):
     """General application settings."""
+
     company_name: str = Field(default="")
     department: str = Field(default="")
     admin_email: str = Field(default="")
@@ -51,9 +55,9 @@ class ApplicationSettings(BaseModel):
     log_level: str = Field(default="INFO")
     debug_mode: bool = Field(default=False)
 
+
 class Settings(QObject):
-    """
-    Settings management class for JMBDE application.
+    """Settings management class for JMBDE application.
 
     Handles loading, saving, and accessing application settings
     with Qt property bindings for QML integration.
@@ -65,14 +69,14 @@ class Settings(QObject):
     languageChanged = Signal(str)
 
     def __init__(self, config_path: Optional[Path] = None) -> None:
-        """
-        Initialize Settings manager.
+        """Initialize Settings manager.
 
         Args:
             config_path: Optional custom path for settings file
+
         """
         super().__init__()
-        self._config_path = config_path or Path.home() / '.jmbde' / 'config.json'
+        self._config_path = config_path or Path.home() / ".jmbde" / "config.json"
         self._config_path.parent.mkdir(parents=True, exist_ok=True)
 
         # Initialize settings with defaults
@@ -83,20 +87,22 @@ class Settings(QObject):
         logger.info(f"Settings initialized with config path: {self._config_path}")
 
     def load(self) -> None:
-        """
-        Load settings from configuration file.
+        """Load settings from configuration file.
 
         Raises:
             ConfigurationError: If loading or parsing settings fails
+
         """
         try:
             if self._config_path.exists():
                 config_data = json.loads(self._config_path.read_text())
 
                 # Load and validate each settings section
-                self._database = DatabaseSettings(**config_data.get('database', {}))
-                self._ui = UISettings(**config_data.get('ui', {}))
-                self._application = ApplicationSettings(**config_data.get('application', {}))
+                self._database = DatabaseSettings(**config_data.get("database", {}))
+                self._ui = UISettings(**config_data.get("ui", {}))
+                self._application = ApplicationSettings(
+                    **config_data.get("application", {}),
+                )
 
                 logger.info("Settings loaded successfully")
                 self.settingsChanged.emit()
@@ -111,25 +117,27 @@ class Settings(QObject):
             raise ConfigurationError(f"Failed to load settings: {e}") from e
 
     def save(self) -> None:
-        """
-        Save current settings to configuration file.
+        """Save current settings to configuration file.
 
         Raises:
             ConfigurationError: If saving settings fails
+
         """
         try:
             config_data = {
-                'database': self._database.dict(),
-                'ui': self._ui.dict(),
-                'application': self._application.dict()
+                "database": self._database.dict(),
+                "ui": self._ui.dict(),
+                "application": self._application.dict(),
             }
 
             # Convert Path objects to strings for JSON serialization
-            config_data['database']['path'] = str(config_data['database']['path'])
-            config_data['database']['backup_path'] = str(config_data['database']['backup_path'])
+            config_data["database"]["path"] = str(config_data["database"]["path"])
+            config_data["database"]["backup_path"] = str(
+                config_data["database"]["backup_path"],
+            )
 
             self._config_path.write_text(
-                json.dumps(config_data, indent=4, sort_keys=True)
+                json.dumps(config_data, indent=4, sort_keys=True),
             )
             logger.info("Settings saved successfully")
         except Exception as e:
@@ -166,22 +174,22 @@ class Settings(QObject):
     # Slot methods for QML interaction
     @Slot(str, result=Any)
     def getValue(self, key: str) -> Any:
-        """
-        Get setting value by key path.
+        """Get setting value by key path.
 
         Args:
             key: Dot-notation path to setting (e.g., 'ui.font_size')
 
         Returns:
             Setting value or None if not found
+
         """
         try:
-            section, setting = key.split('.')
-            if section == 'database':
+            section, setting = key.split(".")
+            if section == "database":
                 return getattr(self._database, setting)
-            elif section == 'ui':
+            elif section == "ui":
                 return getattr(self._ui, setting)
-            elif section == 'application':
+            elif section == "application":
                 return getattr(self._application, setting)
             return None
         except Exception as e:
@@ -190,20 +198,20 @@ class Settings(QObject):
 
     @Slot(str, Any)
     def setValue(self, key: str, value: Any) -> None:
-        """
-        Set setting value by key path.
+        """Set setting value by key path.
 
         Args:
             key: Dot-notation path to setting
             value: New value to set
+
         """
         try:
-            section, setting = key.split('.')
-            if section == 'database':
+            section, setting = key.split(".")
+            if section == "database":
                 setattr(self._database, setting, value)
-            elif section == 'ui':
+            elif section == "ui":
                 setattr(self._ui, setting, value)
-            elif section == 'application':
+            elif section == "application":
                 setattr(self._application, setting, value)
             self.save()
             self.settingsChanged.emit()

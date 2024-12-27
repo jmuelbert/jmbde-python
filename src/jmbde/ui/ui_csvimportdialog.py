@@ -5,11 +5,7 @@
 ##
 # WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
-from PySide2.QtCore import (
-    QCoreApplication,
-    QMetaObject,
-    Qt,
-)
+from PySide2.QtCore import QCoreApplication, QMetaObject, Qt
 from PySide2.QtWidgets import *
 
 

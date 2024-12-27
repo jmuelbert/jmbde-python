@@ -5,10 +5,12 @@
 #
 #
 """Tests for `jmbde_python` package."""
-from click.testing import CliRunner
+
 import pytest
+from click.testing import CliRunner
 
 from jmbde import __main__
+
 
 @pytest.fixture
 def runner() -> CliRunner:

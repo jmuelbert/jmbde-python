@@ -1,24 +1,16 @@
----
 # SPDX-FileCopyrightText: Jürgen Mülbert <juergen.muelbert@web.de>
 # SPDX-License-Identifier: EUPL-1.2
+
 name: Release Pipeline
 
 on:
   push:
-    branches: [main]
+    branches: [main, develop,  'release/**', 'resolve-**']
     tags: ['v*']
   workflow_dispatch:
-    inputs:
-      environment:
-        description: 'Deploy Environment'
-        required: true
-        default: 'production'
-        type: choice
-        options:
-          - production
-          - staging
 
-permissions: read-all
+permissions:
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -56,7 +48,7 @@ jobs:
       - name: ⚙️ Setup Python
         uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
         with:
-          python-version: '3.11'
+          python-version-file: '.python-version' # Read python version from a file .python-version
           check-latest: true
           cache: 'pip'
           cache-dependency-path: '**/pyproject.toml'
@@ -71,7 +63,7 @@ jobs:
         id: version
         run: |
           VERSION=$(hatch version)
-          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
           echo "Version: ${VERSION}"
 
       - name: 🏗️ Build Package
@@ -82,7 +74,7 @@ jobs:
 
       - name: 🧪 Verify Package
         run: |
-          hatch run test:test
+          hatch test
           hatch run security:check
 
       - name: 🔍 Check Distribution
@@ -90,23 +82,6 @@ jobs:
           pip install twine check-wheel-contents
           twine check dist/*
           check-wheel-contents dist/*.whl
-
-      - name: 📦 Publish to PyPI
-        if: startsWith(github.ref, 'refs/tags/v')
-        uses: pypa/gh-action-pypi-publish@67339c736fd9354cd4f8cb0b744f2b82a74b5c70 # v1.12.3
-        with:
-          password: ${{ secrets.PYPI_TOKEN }}
-          print-hash: true
-          verbose: true
-
-      - name: 📦 Publish to TestPyPI
-        if: !startsWith(github.ref, 'refs/tags/v')
-        uses: pypa/gh-action-pypi-publish@67339c736fd9354cd4f8cb0b744f2b82a74b5c70 # v1.12.3
-        with:
-          password: ${{ secrets.TEST_PYPI_TOKEN }}
-          repository-url: https://test.pypi.org/legacy/
-          print-hash: true
-          verbose: true
 
       - name: 📝 Create GitHub Release
         id: release
@@ -158,25 +133,3 @@ jobs:
               issue_number: context.issue.number,
               body: `✅ Successfully published version ${version} to ${releaseType}`
             });
-
-  verify-published:
-    needs: release
-    if: success() && needs.release.outputs.release_created
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-
-    steps:
-      - name: 🔒 Harden Runner
-        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
-        with:
-          egress-policy: audit
-
-      - name: ⏳ Wait for Package Index
-        run: sleep 60 # Wait for package index to update
-
-      - name: 🔍 Verify Installation
-        run: |
-          python -m pip install --upgrade pip
-          pip install jmbde-python==${{ needs.release.outputs.version }}
-          python -c "import jmbde; print(jmbde.__version__)"
-

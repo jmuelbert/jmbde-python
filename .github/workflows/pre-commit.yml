@@ -1,4 +1,3 @@
----
 # SPDX-FileCopyrightText: Jürgen Mülbert
 # SPDX-License-Identifier: MIT
 
@@ -6,7 +5,11 @@ name: Code Quality Checks
 
 on:
   push:
-    branches: [main, develop, 'release/**']
+    branches:
+      - main
+      - develop
+      - release/**'
+      - 'resolve-**'
     paths:
       - '**.py'
       - '**.pyi'
@@ -16,7 +19,7 @@ on:
       - '**.md'
       - '.pre-commit-config.yaml'
       - 'pyproject.toml'
-      
+
   pull_request:
     types: [opened, synchronize, reopened]
     paths:
@@ -30,14 +33,9 @@ on:
       - 'pyproject.toml'
 
   workflow_dispatch:
-    inputs:
-      fix-issues:
-        description: 'Automatically fix issues'
-        required: false
-        type: boolean
-        default: false
 
-permissions: read-all
+permissions:
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -72,7 +70,7 @@ jobs:
       - name: ⚙️ Setup Python
         uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
         with:
-          python-version-file: '.standard-python-version'
+          python-version-file: '.python-version'
           cache: 'pip'
           check-latest: true
 
@@ -96,19 +94,15 @@ jobs:
         id: check
         run: |
           # Run pre-commit
-          if [ "${{ github.event.inputs.fix-issues }}" == "true" ]; then
-            pre-commit run --all-files --show-diff-on-failure
-          else
-            pre-commit run --all-files --show-diff-on-failure || true
-          fi
-          
+          pre-commit run --all-files --show-diff-on-failure
+
           # Check for changes
           if [ -n "$(git status --porcelain)" ]; then
-            echo "files-changed=true" >> $GITHUB_OUTPUT
-            echo "Changes detected in the following files:" >> $GITHUB_STEP_SUMMARY
-            git status --porcelain >> $GITHUB_STEP_SUMMARY
+            echo "files-changed=true" >> "$GITHUB_OUTPUT"
+            echo "Changes detected in the following files:" >> "$GITHUB_STEP_SUMMARY"
+            git status --porcelain >> "$GITHUB_STEP_SUMMARY"
           else
-            echo "files-changed=false" >> $GITHUB_OUTPUT
+            echo "files-changed=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: 📊 Generate Report
@@ -117,14 +111,14 @@ jobs:
         run: |
           echo "## 🔍 Code Quality Check Results" > quality_report.md
           echo "" >> quality_report.md
-          
+
           if [ -f ".pre-commit-output.txt" ]; then
             echo "### Pre-commit Output" >> quality_report.md
             echo "\`\`\`" >> quality_report.md
             cat .pre-commit-output.txt >> quality_report.md
             echo "\`\`\`" >> quality_report.md
           fi
-          
+
           if [ "${{ steps.check.outputs.files-changed }}" == "true" ]; then
             echo "### 📝 Required Changes" >> quality_report.md
             echo "\`\`\`diff" >> quality_report.md
@@ -133,14 +127,12 @@ jobs:
           fi
 
       - name: 🔄 Create Fix PR
-        if: |
-          steps.check.outputs.files-changed == 'true' && 
-          github.event.inputs.fix-issues == 'true'
+        if: steps.check.outputs.files-changed == 'true'
         uses: peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38 # v5.0.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "style: apply automatic code quality fixes"
-          title: "style: apply code quality fixes"
+          commit-message: 'style: apply automatic code quality fixes'
+          title: 'style: apply code quality fixes'
           body-path: quality_report.md
           branch: fix/code-quality
           delete-branch: true
@@ -156,7 +148,7 @@ jobs:
           script: |
             const fs = require('fs');
             const report = fs.readFileSync('quality_report.md', 'utf8');
-            
+
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -177,22 +169,21 @@ jobs:
   notify:
     needs: pre-commit
     if: |
-      always() && 
+      always() &&
       needs.pre-commit.outputs.files-changed == 'true'
     runs-on: ubuntu-latest
-    
     steps:
       - name: 📢 Notify Team
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
             const message = `## 🔍 Code Quality Issues Found
-            
+
             Code quality checks have identified issues that need attention.
             Please review the [workflow results](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID})
-            
+
             Changes have been proposed in a new PR.`;
-            
+
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,

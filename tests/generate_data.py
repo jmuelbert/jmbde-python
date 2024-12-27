@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (c) 2019 Jürgen Mülbert. All rights reserved.
 #
@@ -37,10 +36,10 @@
 # under der Lizenz sind dem Lizenztext zu entnehmen.
 #
 """Generator for fake data for testing."""
+
 import csv
 import os
 from datetime import date
-from typing import List
 
 from faker import Factory
 from openpyxl import Workbook
@@ -57,9 +56,9 @@ class CreateFakeOrders:
             l18n: the localization for the fake data
         """
         self.data_path = my_data_path
-        self.part_person: List[str] = []
-        self.service_person: List[str] = []
-        self.order_list: List[List[str]] = []
+        self.part_person: list[str] = []
+        self.service_person: list[str] = []
+        self.order_list: list[list[str]] = []
         self.workshop_count: int = 0
         self.part_count: int = 0
 
@@ -74,7 +73,7 @@ class CreateFakeOrders:
         Args:
             count: Count of parts persons to generate.
         """
-        for _ in range(0, count):
+        for _ in range(count):
             self.part_person.append(
                 self.fake.first_name() + " " + self.fake.last_name(),
             )
@@ -85,7 +84,7 @@ class CreateFakeOrders:
         Args:
             count: Count of parts persons to generate.
         """
-        for _ in range(0, count):
+        for _ in range(count):
             self.service_person.append(
                 self.fake.last_name() + ", " + self.fake.first_name(),
             )
@@ -129,7 +128,7 @@ class CreateFakeOrders:
             count: The count of fake datalines.
             workshop: Is true when tha dataline should generated for the workshop.
         """
-        for _ in range(0, count):
+        for _ in range(count):
             if workshop is True:
                 self.workshop_count = count
                 line = [
@@ -188,7 +187,7 @@ class CreateFakeOrders:
         """
         self.order_list.append([""])
         if workshop is True:
-            line: List[str] = ["Gesamt Werkstatt", str(self.workshop_count)]
+            line: list[str] = ["Gesamt Werkstatt", str(self.workshop_count)]
         else:
             line = ["Gesamt Teile", str(self.part_count)]
         self.order_list.append(line)

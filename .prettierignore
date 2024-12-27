@@ -27,18 +27,9 @@ benchmark/results/
 .github
 .changeset
 megalinter-reports
+LICENSES/
+resources/translations
 
 # Files
 pnpm-lock.yaml
-
-# Formatted by Biome
-**/*.json
-**/*.js
-**/*.ts
-**/*.tsx
-**/*.jsx
-**/*.mjs
-**/*.cjs
-
-# vale configs
-.github/styles/vale/**
+LICENSE

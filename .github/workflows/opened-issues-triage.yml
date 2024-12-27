@@ -1,4 +1,4 @@
----
+
 # SPDX-FileCopyrightText: Alex Page
 # SPDX-License-Identifier: MIT
 
@@ -8,13 +8,9 @@ on:
   issues:
     types: [opened, reopened, labeled, unlabeled]
   workflow_dispatch:
-    inputs:
-      issue-number:
-        description: 'Issue number to process'
-        required: true
-        type: number
 
-permissions: read-all
+permissions:
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.issue.number || github.event.inputs.issue-number }}
@@ -56,11 +52,11 @@ jobs:
             const issue = context.payload.issue;
             const labels = new Set();
             let priority = 'normal';
-            
+
             // Analyze issue content
             const title = issue.title.toLowerCase();
             const body = issue.body?.toLowerCase() || '';
-            
+
             // Type detection
             if (body.includes('bug') || body.includes('error') || body.includes('crash')) {
               labels.add('type: bug');
@@ -69,7 +65,7 @@ jobs:
             } else if (body.includes('documentation') || body.includes('docs')) {
               labels.add('type: documentation');
             }
-            
+
             // Priority detection
             if (body.includes('urgent') || body.includes('critical') || body.includes('security')) {
               labels.add('priority: high');
@@ -78,7 +74,7 @@ jobs:
               labels.add('priority: low');
               priority = 'low';
             }
-            
+
             // Size/complexity estimation
             const wordCount = body.split(/\s+/).length;
             if (wordCount > 500) {
@@ -86,15 +82,15 @@ jobs:
             } else if (wordCount < 100) {
               labels.add('size: small');
             }
-            
+
             // Platform/environment labels
             if (body.includes('windows')) labels.add('platform: windows');
             if (body.includes('linux')) labels.add('platform: linux');
             if (body.includes('macos')) labels.add('platform: macos');
-            
+
             // Add default labels
             labels.add('status: needs-triage');
-            
+
             // Apply labels
             if (labels.size > 0) {
               await github.rest.issues.addLabels({
@@ -104,7 +100,7 @@ jobs:
                 labels: Array.from(labels)
               });
             }
-            
+
             core.setOutput('processed', 'true');
             core.setOutput('priority', priority);
 
@@ -119,21 +115,21 @@ jobs:
               normal: '👋 Thank you for reporting this issue! Our team will review it shortly.',
               low: '📝 Thank you for your contribution! We\'ll look into this when resources are available.'
             };
-            
+
             const template = `${responses[priority]}
-            
+
             ### Next Steps
             - Please ensure all requested information is provided
             - Watch this issue for updates
             - Feel free to add additional context if needed
-            
+
             ### Useful Links
             - [Contributing Guidelines](../../CONTRIBUTING.md)
             - [Code of Conduct](../../CODE_OF_CONDUCT.md)
             - [Security Policy](../../SECURITY.md)
-            
+
             _This is an automated message._`;
-            
+
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -153,18 +149,18 @@ jobs:
     needs: triage
     if: needs.triage.outputs.priority == 'high'
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: 🔔 Notify Team
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
             const message = `🚨 High Priority Issue Detected
-            
+
             Issue #${context.payload.issue.number} has been marked as high priority.
             Please review as soon as possible.
-            
+
             ${context.payload.issue.html_url}`;
-            
+
             // Add notification methods here (e.g., Discord, Slack, etc.)
             console.log(message);

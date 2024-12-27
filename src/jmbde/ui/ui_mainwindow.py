@@ -5,16 +5,8 @@
 ##
 # WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
-from PySide2.QtCore import (
-    QCoreApplication,
-    QMetaObject,
-    QRect,
-    QSize,
-    Qt,
-)
-from PySide2.QtGui import (
-    QIcon,
-)
+from PySide2.QtCore import QCoreApplication, QMetaObject, QRect, QSize, Qt
+from PySide2.QtGui import QIcon
 from PySide2.QtWidgets import *
 
 
@@ -77,7 +69,10 @@ class Ui_MainWindow:
         self.actionPrint.setObjectName("actionPrint")
         icon3 = QIcon()
         icon3.addFile(
-            ":/icons/tango/32x32/document-print.png", QSize(), QIcon.Normal, QIcon.Off,
+            ":/icons/tango/32x32/document-print.png",
+            QSize(),
+            QIcon.Normal,
+            QIcon.Off,
         )
         self.actionPrint.setIcon(icon3)
         self.actionPrint_Preview = QAction(MainWindow)
@@ -116,21 +111,30 @@ class Ui_MainWindow:
         self.actionEditAdd.setObjectName("actionEditAdd")
         icon7 = QIcon()
         icon7.addFile(
-            ":/icons/tango/white/FileNew.png", QSize(), QIcon.Normal, QIcon.Off,
+            ":/icons/tango/white/FileNew.png",
+            QSize(),
+            QIcon.Normal,
+            QIcon.Off,
         )
         self.actionEditAdd.setIcon(icon7)
         self.actionEditEdit = QAction(MainWindow)
         self.actionEditEdit.setObjectName("actionEditEdit")
         icon8 = QIcon()
         icon8.addFile(
-            ":/icons/tango/white/TaskEdit.png", QSize(), QIcon.Normal, QIcon.Off,
+            ":/icons/tango/white/TaskEdit.png",
+            QSize(),
+            QIcon.Normal,
+            QIcon.Off,
         )
         self.actionEditEdit.setIcon(icon8)
         self.actionEditDelete = QAction(MainWindow)
         self.actionEditDelete.setObjectName("actionEditDelete")
         icon9 = QIcon()
         icon9.addFile(
-            ":/icons/tango/white/TaskDelete.png", QSize(), QIcon.Normal, QIcon.Off,
+            ":/icons/tango/white/TaskDelete.png",
+            QSize(),
+            QIcon.Normal,
+            QIcon.Off,
         )
         self.actionEditDelete.setIcon(icon9)
         self.centralWidget = QWidget(MainWindow)
@@ -244,7 +248,9 @@ class Ui_MainWindow:
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(
             QCoreApplication.translate(
-                "MainWindow", "JMBDE Version 0.2.0 (c) J\u00fcrgen M\u00fclbert", None,
+                "MainWindow",
+                "JMBDE Version 0.2.0 (c) J\u00fcrgen M\u00fclbert",
+                None,
             ),
         )
         self.actionPreferences.setText(

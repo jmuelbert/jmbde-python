@@ -63,9 +63,6 @@ template: |
 
 no-changes-template: 'No changes included in this release'
 
-exclude-labels:
-  - 'skip-changelog'
-
 autolabeler:
   - label: 'documentation'
     files:

@@ -1,4 +1,3 @@
----
 # SPDX-FileCopyrightText: Codacy Analysis CLI GitHub Action Group
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -11,18 +10,21 @@
 # https://github.com/codacy/codacy-analysis-cli-action.
 # For more information on Codacy Analysis CLI in general, see
 # https://github.com/codacy/codacy-analysis-cli.
+
 name: Codacy Security Scan
+
 on:
   push:
     branches:
       - main
       - develop
       - 'release/**'
+      - 'resolve-**'
     paths-ignore:
       - '**.md'
       - 'docs/**'
       - '.github/*.md'
-      
+
   pull_request:
     types: [opened, synchronize, reopened]
     paths-ignore:
@@ -33,7 +35,8 @@ on:
   schedule:
     - cron: '0 12 * * 1' # Run at 12:00 UTC every Monday
 
-permissions: read-all
+permissions:
+  contents: read
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
@@ -47,23 +50,23 @@ jobs:
     name: Codacy Security Scan
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    
+
     permissions:
       contents: read
       security-events: write
       actions: read
-      
+
     steps:
       - name: 🔒 Harden Runner
         uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
         with:
           egress-policy: audit
-          
+
       - name: 🧰 Checkout Repository
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           fetch-depth: 1
-          
+
       - name: 🔍 Run Codacy Analysis
         uses: codacy/codacy-analysis-cli-action@3ff8e64eb4b714c4bee91b7b4eea31c6fc2c4f93 # v4.3.0
         with:

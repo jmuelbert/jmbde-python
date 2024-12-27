@@ -1,4 +1,3 @@
----
 # SPDX-FileCopyrightText: GitHub, Inc. and contributors
 # SPDX-License-Identifier: MIT
 
@@ -14,7 +13,8 @@ on:
       - 'setup.py'
       - '.github/workflows/dependency-review.yml'
 
-permissions: read-all
+permissions:
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
@@ -44,7 +44,6 @@ jobs:
           fetch-depth: 0
 
       - name: 🔍 Review Dependencies
-        id: review
         uses: actions/dependency-review-action@0c155c5e8556a497adf53f2c18edabf945ed8e70 # v4.3.2
         with:
           comment-summary-in-pr: always
@@ -60,12 +59,11 @@ jobs:
           config-file: .github/dependency-review-config.yml
 
       - name: 📊 Generate Dependency Report
-        needs: review
         if: always()
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
-            const review = ${{ steps.review.outputs.result }};
+            const review = steps.reviewdeps.outputs.result;
 
             let report = '## 📋 Dependency Review Summary\n\n';
 
@@ -99,9 +97,9 @@ jobs:
           script: |
             const labels = [];
 
-            if ('${{ steps.review.outcome }}' === 'failure') {
+            if (needs.reviewdeps.result === 'failure') {
               labels.push('security-risk');
-              if (${{ steps.review.outputs.result }}.licenses.denied.length > 0) {
+              if (needs.reviewdeps.result.licenses.denied.length > 0) {
                 labels.push('license-issue');
               }
             } else {

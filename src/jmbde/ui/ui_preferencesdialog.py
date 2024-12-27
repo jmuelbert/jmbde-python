@@ -5,12 +5,7 @@
 ##
 # WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
-from PySide2.QtCore import (
-    QCoreApplication,
-    QMetaObject,
-    QSize,
-    Qt,
-)
+from PySide2.QtCore import QCoreApplication, QMetaObject, QSize, Qt
 from PySide2.QtWidgets import *
 
 
@@ -103,7 +98,8 @@ class Ui_PreferencesDialog:
         # endif // QT_CONFIG(shortcut)
         QWidget.setTabOrder(self.comboBoxDatabaseType, self.lineEditDatabaseConnection)
         QWidget.setTabOrder(
-            self.lineEditDatabaseConnection, self.pushButtonDBForceFileDialog,
+            self.lineEditDatabaseConnection,
+            self.pushButtonDBForceFileDialog,
         )
         QWidget.setTabOrder(self.pushButtonDBForceFileDialog, self.lineEditHostName)
         QWidget.setTabOrder(self.lineEditHostName, self.lineEditUserName)

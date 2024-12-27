@@ -1,6 +1,6 @@
 # jmbde-python
 
-<div class="grid" markdown>
+<div class="grid" Markdown>
 ![jmbde-python Logo](assets/images/logo.svg){ role="img" }
 
 |         |                                                                                                                                                                                                                                                  |
@@ -16,7 +16,7 @@
 
 jmbde-python is a tool to check the availability of a website or ntp-server.
 
-<div class="grid cards" markdown>
+<div class="grid cards" Markdown>
 
 - ## :material-hammer-wrench:{ .lg .middle } **Build system**
 

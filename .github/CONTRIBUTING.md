@@ -20,7 +20,7 @@ matters a lot, jmbde-QT is getting better and better because of people like you.
 
 ## Your First Contribution
 
-**Working on your first Pull Request?** You can learn how from this _free_ series
+**Working on your first Pull Request?** You can learn how from this *free* series
 [How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github).
 Basically, you have to fork this repository, write codes on your fork, open a pull
 request when you are finished, wait for reviews and apply suggestions from the

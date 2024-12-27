@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
-"""
-Main Application Logic Module for JMBDE
+"""Main Application Logic Module for JMBDE
 
 This module provides the main application logic and business operations
 for the JMBDE application, serving as a bridge between the UI and data layers.
@@ -13,13 +11,11 @@ License: GPL-3.0
 
 import logging
 from datetime import datetime
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 from PySide6.QtCore import QObject, Signal, Slot
-from PySide6.QtQml import QQmlApplicationEngine
 
-from jmbde.core.database import Database, DatabaseError
+from jmbde.core.database import Database
 from jmbde.core.settings import Settings
 from jmbde.gui.employee_model import EmployeeModel
 from jmbde.utils.exceptions import ApplicationError
@@ -28,9 +24,9 @@ from jmbde.utils.validators import validate_email, validate_phone
 # Initialize logger
 logger = logging.getLogger(__name__)
 
+
 class MainApp(QObject):
-    """
-    Main application logic handler for JMBDE.
+    """Main application logic handler for JMBDE.
 
     Provides business logic and operations coordination between
     the UI layer and data management components.
@@ -38,9 +34,9 @@ class MainApp(QObject):
 
     # Define signals for application events
     employeeAdded = Signal(int, str)  # id, name
-    employeeUpdated = Signal(int)     # id
-    employeeDeleted = Signal(int)     # id
-    errorOccurred = Signal(str)       # error message
+    employeeUpdated = Signal(int)  # id
+    employeeDeleted = Signal(int)  # id
+    errorOccurred = Signal(str)  # error message
     operationSucceeded = Signal(str)  # success message
 
     def __init__(
@@ -48,16 +44,16 @@ class MainApp(QObject):
         database: Database,
         employee_model: EmployeeModel,
         settings: Optional[Settings] = None,
-        parent: Optional[QObject] = None
+        parent: Optional[QObject] = None,
     ) -> None:
-        """
-        Initialize the main application handler.
+        """Initialize the main application handler.
 
         Args:
             database: Database instance for data operations
             employee_model: Employee data model
             settings: Optional settings manager
             parent: Optional parent QObject
+
         """
         super().__init__(parent)
         self._database = database
@@ -74,10 +70,9 @@ class MainApp(QObject):
         position: str,
         email: str,
         phone: str,
-        department: str
+        department: str,
     ) -> bool:
-        """
-        Add a new employee to the system.
+        """Add a new employee to the system.
 
         Args:
             name: Employee name
@@ -88,6 +83,7 @@ class MainApp(QObject):
 
         Returns:
             bool: True if operation was successful
+
         """
         if self._operation_in_progress:
             logger.warning("Operation already in progress")
@@ -108,13 +104,13 @@ class MainApp(QObject):
 
             # Create employee record
             employee_data = {
-                'name': name.strip(),
-                'position': position.strip(),
-                'email': email.strip() if email else None,
-                'phone': phone.strip() if phone else None,
-                'department': department.strip() if department else None,
-                'hire_date': datetime.now(),
-                'active': True
+                "name": name.strip(),
+                "position": position.strip(),
+                "email": email.strip() if email else None,
+                "phone": phone.strip() if phone else None,
+                "department": department.strip() if department else None,
+                "hire_date": datetime.now(),
+                "active": True,
             }
 
             # Add to database
@@ -148,10 +144,9 @@ class MainApp(QObject):
         email: str,
         phone: str,
         department: str,
-        active: bool = True
+        active: bool = True,
     ) -> bool:
-        """
-        Update existing employee information.
+        """Update existing employee information.
 
         Args:
             emp_id: Employee ID
@@ -164,6 +159,7 @@ class MainApp(QObject):
 
         Returns:
             bool: True if operation was successful
+
         """
         if self._operation_in_progress:
             return False
@@ -183,12 +179,12 @@ class MainApp(QObject):
 
             # Update employee record
             update_data = {
-                'name': name.strip(),
-                'position': position.strip(),
-                'email': email.strip() if email else None,
-                'phone': phone.strip() if phone else None,
-                'department': department.strip() if department else None,
-                'active': active
+                "name": name.strip(),
+                "position": position.strip(),
+                "email": email.strip() if email else None,
+                "phone": phone.strip() if phone else None,
+                "department": department.strip() if department else None,
+                "active": active,
             }
 
             success = self._database.update_employee(emp_id, update_data)
@@ -214,14 +210,14 @@ class MainApp(QObject):
 
     @Slot(int, result=bool)
     def delete_employee(self, emp_id: int) -> bool:
-        """
-        Delete an employee from the system.
+        """Delete an employee from the system.
 
         Args:
             emp_id: Employee ID to delete
 
         Returns:
             bool: True if operation was successful
+
         """
         if self._operation_in_progress:
             return False
@@ -244,7 +240,7 @@ class MainApp(QObject):
             self._model.refresh()
             self.employeeDeleted.emit(emp_id)
             self.operationSucceeded.emit(
-                f"Employee {employee['name']} deleted successfully"
+                f"Employee {employee['name']} deleted successfully",
             )
 
             logger.info(f"Deleted employee {emp_id}: {employee['name']}")
@@ -259,12 +255,12 @@ class MainApp(QObject):
             self._operation_in_progress = False
 
     @Slot(result=list)
-    def get_departments(self) -> List[str]:
-        """
-        Get list of all departments.
+    def get_departments(self) -> list[str]:
+        """Get list of all departments.
 
         Returns:
             List of department names
+
         """
         try:
             return self._model.getDepartments()
@@ -274,21 +270,21 @@ class MainApp(QObject):
             return []
 
     @Slot(result=dict)
-    def get_statistics(self) -> Dict[str, Any]:
-        """
-        Get application statistics.
+    def get_statistics(self) -> dict[str, Any]:
+        """Get application statistics.
 
         Returns:
             Dictionary containing various statistics
+
         """
         try:
             return {
-                'total_employees': len(self._model._data),
-                'active_employees': sum(
-                    1 for emp in self._model._data if emp['active']
+                "total_employees": len(self._model._data),
+                "active_employees": sum(
+                    1 for emp in self._model._data if emp["active"]
                 ),
-                'departments': len(self.get_departments()),
-                'last_updated': datetime.now().isoformat()
+                "departments": len(self.get_departments()),
+                "last_updated": datetime.now().isoformat(),
             }
         except Exception as e:
             logger.error(f"Failed to get statistics: {e}")

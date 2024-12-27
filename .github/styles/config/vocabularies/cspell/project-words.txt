@@ -8,7 +8,7 @@ debugpy
 devskim
 dmypy
 donotpresent
-dout
+doubt
 esbenp
 fatfs
 fram

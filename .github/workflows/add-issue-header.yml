@@ -1,4 +1,3 @@
----
 # SPDX-FileCopyrightText: GitHub, Inc. and contributors
 # SPDX-License-Identifier: MIT
 
@@ -7,8 +6,9 @@ name: Issue Header Automation
 on:
   issues:
     types: [opened, labeled]
-    
-permissions: read-all
+
+permissions:
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.issue.number }}
@@ -20,7 +20,7 @@ jobs:
     if: "!contains(github.event.issue.labels.*.name, 'invalid')"
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    
+
     permissions:
       issues: write
 
@@ -41,19 +41,19 @@ jobs:
                 template: `
                   ### Issue Type
                   Bug Report
-                  
+
                   ### Description
                   {body}
-                  
+
                   ### Environment
-                  - OS: 
+                  - OS:
                   - Python Version:
                   - Package Version:
-                  
+
                   ### Steps to Reproduce
-                  1. 
-                  2. 
-                  3. 
+                  1.
+                  2.
+                  3.
                 `
               },
               'type-crash': {
@@ -62,15 +62,15 @@ jobs:
                 template: `
                   ### Issue Type
                   Crash Report
-                  
+
                   ### Description
                   {body}
-                  
+
                   ### Stack Trace
                   \`\`\`
                   Paste stack trace here
                   \`\`\`
-                  
+
                   ### System Information
                   - OS:
                   - Python Version:
@@ -83,16 +83,16 @@ jobs:
                 template: `
                   ### Issue Type
                   Feature Request
-                  
+
                   ### Description
                   {body}
-                  
+
                   ### Use Case
                   <!-- Describe the use case for this feature -->
-                  
+
                   ### Proposed Solution
                   <!-- If you have ideas about implementation -->
-                  
+
                   ### Alternatives Considered
                   <!-- Any alternative solutions you've considered -->
                 `
@@ -117,7 +117,7 @@ jobs:
 
                 const issueType = ISSUE_TYPES[matchedLabel];
                 const originalBody = issue.body?.replaceAll('\r', '') || '';
-                
+
                 // Don't modify if already processed
                 if (originalBody.includes(`### Issue Type`)) {
                   console.log('Issue already processed');
@@ -145,7 +145,7 @@ jobs:
               } catch (error) {
                 console.error('Error processing issue:', error);
                 core.setFailed(`Action failed: ${error.message}`);
-                
+
                 // Notify about the error
                 await github.rest.issues.createComment({
                   ...context.repo,

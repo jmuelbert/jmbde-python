@@ -41,20 +41,20 @@ You need Python 3.7+ and the following tools:
 
 - [Poetry]
 - [Nox]
-- [nox-poetry]
+- <https://nox-poetry.readthedocs.io/>
 
 Install the package with development requirements:
 
 ```console
-$ poetry install
+poetry install
 ```
 
 You can now run an interactive Python session,
 or the command-line interface:
 
 ```console
-$ poetry run python
-$ poetry run {{cookiecutter.project_name}}
+poetry run python
+poetry run {{cookiecutter.project_name}}
 ```
 
 [poetry]: https://python-poetry.org/
@@ -66,30 +66,30 @@ $ poetry run {{cookiecutter.project_name}}
 Run the full test suite:
 
 ```console
-$ nox
+nox
 ```
 
 List the available Nox sessions:
 
 ```console
-$ nox --list-sessions
+nox --list-sessions
 ```
 
 You can also run a specific Nox session.
 For example, invoke the unit test suite like this:
 
 ```console
-$ nox --session=tests
+nox --session=tests
 ```
 
 Unit tests are located in the _tests_ directory,
-and are written using the [pytest] testing framework.
+and are written using the <https://pytest.readthedocs.io/> testing framework.
 
 [pytest]: https://pytest.readthedocs.io/
 
 ## How to submit changes
 
-Open a [pull request] to submit changes to this project.
+Open a <https://github.com/jmuelbert/jmbde-python//pulls> to submit changes to this project.
 
 Your pull request needs to meet the following guidelines for acceptance:
 
@@ -102,7 +102,7 @@ Feel free to submit early, though—we can always iterate on this.
 To run linting and code formatting checks before committing your change, you can install pre-commit as a Git hook by running the following command:
 
 ```console
-$ nox --session=pre-commit -- install
+nox --session=pre-commit -- install
 ```
 
 It is recommended to open an issue before starting work on anything.

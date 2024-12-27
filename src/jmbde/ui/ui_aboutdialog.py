@@ -5,15 +5,8 @@
 ##
 # WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
-from PySide2.QtCore import (
-    QCoreApplication,
-    QMetaObject,
-    QSize,
-    Qt,
-)
-from PySide2.QtGui import (
-    QPixmap,
-)
+from PySide2.QtCore import QCoreApplication, QMetaObject, QSize, Qt
+from PySide2.QtGui import QPixmap
 from PySide2.QtWidgets import *
 
 
@@ -28,7 +21,10 @@ class Ui_AboutDialog:
         self.logoLayout = QHBoxLayout()
         self.logoLayout.setObjectName("logoLayout")
         self.horizontalSpacer = QSpacerItem(
-            0, 20, QSizePolicy.Expanding, QSizePolicy.Minimum,
+            0,
+            20,
+            QSizePolicy.Expanding,
+            QSizePolicy.Minimum,
         )
 
         self.logoLayout.addItem(self.horizontalSpacer)
@@ -42,7 +38,10 @@ class Ui_AboutDialog:
         self.logoLayout.addWidget(self.logo)
 
         self.horizontalSpacer_2 = QSpacerItem(
-            0, 20, QSizePolicy.Expanding, QSizePolicy.Minimum,
+            0,
+            20,
+            QSizePolicy.Expanding,
+            QSizePolicy.Minimum,
         )
 
         self.logoLayout.addItem(self.horizontalSpacer_2)
@@ -59,7 +58,10 @@ class Ui_AboutDialog:
         self.buttonLayout.setObjectName("buttonLayout")
         self.buttonLayout.setSizeConstraint(QLayout.SetDefaultConstraint)
         self.horizontalSpacer_3 = QSpacerItem(
-            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum,
+            40,
+            20,
+            QSizePolicy.Expanding,
+            QSizePolicy.Minimum,
         )
 
         self.buttonLayout.addItem(self.horizontalSpacer_3)

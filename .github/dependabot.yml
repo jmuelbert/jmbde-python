@@ -13,9 +13,6 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
-      day: 'monday'
-      time: '05:00'
-      timezone: 'UTC'
     groups:
       github-actions:
         patterns:
@@ -45,9 +42,6 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
-      day: 'monday'
-      time: '05:00'
-      timezone: 'UTC'
     groups:
       production-dependencies:
         dependency-type: 'production'
@@ -85,9 +79,6 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
-      day: 'monday'
-      time: '05:00'
-      timezone: 'UTC'
     labels:
       - 'dependencies'
       - 'docker'
@@ -103,8 +94,6 @@ updates:
     directory: '/docs'
     schedule:
       interval: 'monthly'
-      time: '05:00'
-      timezone: 'UTC'
     groups:
       documentation-dependencies:
         patterns:
@@ -124,44 +113,3 @@ updates:
     ignore:
       - dependency-name: '*'
         update-types: ['version-update:semver-major']
-
-# Global Settings
-updates-maintainers:
-  - 'jmuelbert'
-
-security-updates:
-  priority: 'high'
-  require-review: true
-  labels:
-    - 'security'
-    - 'dependencies'
-    - 'priority-high'
-
-dependency-type:
-  production:
-    update-type: 'security'
-    allow:
-      - 'direct'
-  development:
-    update-type: 'all'
-    allow:
-      - 'direct'
-      - 'indirect'
-
-commit-message:
-  style: 'conventional'
-  scope: 'deps'
-
-pull-request:
-  template: '.github/PULL_REQUEST_TEMPLATE/dependency_update.md'
-  labels:
-    - 'dependencies'
-    - 'automated'
-  milestone: 'maintenance'
-  draft: false
-
-notifications:
-  slack:
-    channel: 'dependencies'
-    on-success: 'always'
-    on-failure: 'always'

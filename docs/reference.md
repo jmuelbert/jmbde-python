@@ -1,6 +1,6 @@
 # Reference
 
-## jmbde 
+## jmbde
 
 ```{eval-rst}
 .. automodule:: jmbde

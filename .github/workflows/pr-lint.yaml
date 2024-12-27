@@ -1,4 +1,3 @@
----
 # SPDX-FileCopyrightText: Jef LeCompte
 # SPDX-License-Identifier: MIT
 
@@ -7,15 +6,11 @@ name: Pull Request Quality Check
 on:
   pull_request:
     types: [opened, edited, synchronize, reopened, labeled, unlabeled]
-  
-  workflow_dispatch:
-    inputs:
-      pr-number:
-        description: 'Pull request number to check'
-        required: true
-        type: number
 
-permissions: read-all
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.event.inputs.pr-number }}
@@ -55,35 +50,35 @@ jobs:
             const conventionalCommitRegex = /^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)(\([a-z -]+\))?: .{1,100}$/;
             const prTitle = context.payload.pull_request.title;
             const isValid = conventionalCommitRegex.test(prTitle);
-            
+
             core.setOutput('valid', isValid);
-            
+
             if (!isValid) {
               core.setFailed(`Invalid PR title: "${prTitle}"`);
-              
+
               const validTypes = [
                 'build', 'chore', 'ci', 'docs', 'feat', 'fix',
                 'perf', 'refactor', 'revert', 'style', 'test'
               ];
-              
+
               const comment = `### ❌ Invalid Pull Request Title
-              
+
               Your PR title must follow the [Conventional Commits](https://www.conventionalcommits.org/) format:
-              
+
               \`\`\`
               type(scope): description
               \`\`\`
-              
+
               Valid types:
               ${validTypes.map(type => `- \`${type}\``).join('\n')}
-              
+
               Examples:
               - \`feat(auth): add login functionality\`
               - \`fix(api): handle null response\`
               - \`docs(readme): update installation steps\`
-              
+
               Please edit your PR title to match this format.`;
-              
+
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
@@ -100,31 +95,31 @@ jobs:
             const body = context.payload.pull_request.body || '';
             const requiredSections = ['Description', 'Related Issue', 'Testing'];
             const missingTemplates = [];
-            
+
             for (const section of requiredSections) {
               if (!body.includes(`### ${section}`)) {
                 missingTemplates.push(section);
               }
             }
-            
+
             const isValid = missingTemplates.length === 0;
             core.setOutput('valid', isValid);
-            
+
             if (!isValid) {
               const comment = `### ❌ Incomplete Pull Request Description
-              
+
               Please add the following required sections to your PR description:
               ${missingTemplates.map(section => `- [ ] ${section}`).join('\n')}
-              
+
               Use our [PR template](.github/pull_request_template.md) as a guide.`;
-              
+
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: context.issue.number,
                 body: comment
               });
-              
+
               core.setFailed('PR description is missing required sections');
             }
 
@@ -135,10 +130,10 @@ jobs:
           script: |
             const titleValid = '${{ steps.check-title.outputs.valid }}' === 'true';
             const bodyValid = '${{ steps.check-body.outputs.valid }}' === 'true';
-            
+
             const labelsToAdd = [];
             const labelsToRemove = [];
-            
+
             if (titleValid && bodyValid) {
               labelsToAdd.push('ready-for-review');
               labelsToRemove.push('needs-work');
@@ -146,13 +141,13 @@ jobs:
               labelsToAdd.push('needs-work');
               labelsToRemove.push('ready-for-review');
             }
-            
+
             // Add type label based on PR title
             const type = context.payload.pull_request.title.split(':')[0].replace(/[()]/g, '');
             if (type) {
               labelsToAdd.push(`type: ${type}`);
             }
-            
+
             // Apply labels
             if (labelsToAdd.length > 0) {
               await github.rest.issues.addLabels({
@@ -162,7 +157,7 @@ jobs:
                 labels: labelsToAdd
               });
             }
-            
+
             // Remove labels
             for (const label of labelsToRemove) {
               try {
@@ -181,7 +176,7 @@ jobs:
     needs: lint-pr
     if: always()
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: 📊 Check Results
         if: |

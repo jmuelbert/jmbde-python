@@ -8,7 +8,6 @@
 # For a reference of the CI file syntax, visit
 # https://docs.gitlab.com/ee/ci/yaml/.
 
-
 # Use a more recent Python version and multi-stage builds
 image: python:3.11-slim
 

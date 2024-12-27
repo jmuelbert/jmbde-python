@@ -76,6 +76,10 @@ plugins:
           options:
             show_root_heading: true
             show_signature: false
+  - mkdocs-mermaid2
+  - git-revision-date-localized:
+      enable_creation_date: true
+      timezone: Europe/Berlin
 
 markdown_extensions:
   - admonition
@@ -91,6 +95,7 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.details
 
 extra:
   social:

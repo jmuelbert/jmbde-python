@@ -9,16 +9,12 @@ on:
   issue_comment:
     types: [created]
   workflow_dispatch:
-    inputs:
-      issue-number:
-        description: 'Issue number to process'
-        required: true
-        type: number
 
-permissions: read-all
+permissions:
+  contents: read
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.issue.number || github.event.inputs.issue-number }}
+  group: ${{ github.workflow }}-${{ github.event.issue.number  }}
   cancel-in-progress: true
 
 jobs:
@@ -49,34 +45,34 @@ jobs:
           script: |
             const issue = context.payload.issue;
             const issueNumber = issue?.number || context.inputs.issue-number;
-            
+
             const templates = {
               welcome: `👋 Thanks for opening this issue! Our team will review it soon.
-                
+
                 Please make sure you have:
                 - [ ] Checked our existing issues
                 - [ ] Provided all necessary information
                 - [ ] Added relevant labels
-                
+
                 Read our [Contributing Guidelines](../../CONTRIBUTING.md) for more information.`,
-              
+
               reminder: `⏰ Friendly reminder:
                 - Issues should be detailed and clear
                 - Include steps to reproduce for bugs
                 - Provide examples for feature requests
                 - Follow our issue template`,
-              
+
               needsInfo: `ℹ️ We need more information to process this issue:
                 - Could you provide more details?
                 - Can you share steps to reproduce?
                 - What's your environment setup?`
             };
-            
+
             // Auto-label based on content
             const labels = new Set();
             const title = issue.title.toLowerCase();
             const body = issue.body?.toLowerCase() || '';
-            
+
             if (body.includes('error') || body.includes('bug') || body.includes('crash')) {
               labels.add('type: bug');
             }
@@ -86,14 +82,14 @@ jobs:
             if (body.includes('documentation') || body.includes('docs')) {
               labels.add('type: documentation');
             }
-            
+
             // Add priority label
             if (body.includes('urgent') || body.includes('critical')) {
               labels.add('priority: high');
             } else if (body.length < 100) {
               labels.add('needs-more-info');
             }
-            
+
             // Apply labels
             if (labels.size > 0) {
               await github.rest.issues.addLabels({
@@ -103,7 +99,7 @@ jobs:
                 labels: Array.from(labels)
               });
             }
-            
+
             // Add welcome comment for new issues
             if (context.payload.action === 'opened') {
               await github.rest.issues.createComment({
@@ -113,7 +109,7 @@ jobs:
                 body: templates.welcome
               });
             }
-            
+
             // Add needs-info comment if applicable
             if (labels.has('needs-more-info')) {
               await github.rest.issues.createComment({
@@ -123,7 +119,7 @@ jobs:
                 body: templates.needsInfo
               });
             }
-            
+
             core.setOutput('labeled', labels.size > 0);
             core.setOutput('priority', labels.has('priority: high'));
 
@@ -142,7 +138,7 @@ jobs:
           script: |
             // Auto-assign high priority issues
             const assignees = ['jmuelbert']; // Add default assignees
-            
+
             await github.rest.issues.addAssignees({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -162,4 +158,3 @@ jobs:
           days-before-stale: 30
           days-before-close: 7
           exempt-issue-labels: 'priority: high,security,pinned'
-          

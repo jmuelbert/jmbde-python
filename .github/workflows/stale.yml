@@ -1,23 +1,16 @@
----
 # SPDX-FileCopyrightText: GitHub, Inc. and contributors
 # SPDX-License-Identifier: MIT
 
 name: Issue Activity Management
 
 on:
-  # yamllint enable
   schedule:
-    - cron: '0 1 * * *'  # Run at 01:00 UTC daily
-    
-  workflow_dispatch:
-    inputs:
-      dry-run:
-        description: 'Perform dry run'
-        required: false
-        type: boolean
-        default: true
+    - cron: '0 1 * * *' # Run at 01:00 UTC daily
 
-permissions: read-all
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}
@@ -53,41 +46,41 @@ jobs:
           # Issue Configuration
           stale-issue-message: |
             👋 This issue has been automatically marked as stale because it has had no activity in the last 30 days.
-            
+
             ## What happens next?
             - If no further activity occurs, this issue will be closed in 5 days
             - Add a comment or update the issue to prevent closure
             - Remove the `no-issue-activity` label to prevent closure
-            
+
             ## Why was this marked stale?
             We automatically mark issues as stale to:
             - Keep our issue tracker organized and relevant
             - Focus on active issues
             - Identify resolved or abandoned issues
-            
+
             Thank you for your contributions! 🙏
-          
+
           # PR Configuration
           stale-pr-message: |
             👋 This pull request has been automatically marked as stale because it has had no activity in the last 45 days.
-            
+
             ## What happens next?
             - If no further activity occurs, this PR will be closed in 10 days
             - Add a comment or update the PR to prevent closure
             - Remove the `no-pr-activity` label to prevent closure
-            
+
             ## Why was this marked stale?
             We automatically mark PRs as stale to:
             - Keep our PR queue manageable
             - Focus on active contributions
             - Identify abandoned PRs
-            
+
             Need help completing this PR? Let us know in a comment! 🤝
-          
+
           # Labels
           stale-issue-label: 'no-issue-activity'
           stale-pr-label: 'no-pr-activity'
-          
+
           # Exempt Labels
           exempt-issue-labels: |
             pinned
@@ -103,7 +96,7 @@ jobs:
             awaiting-approval
             work-in-progress
             dependencies
-          
+
           # Exempt Milestones
           exempt-issue-milestones: |
             future
@@ -112,51 +105,51 @@ jobs:
           exempt-pr-milestones: |
             next-release
             current-sprint
-          
+
           # Only process items with these labels
           only-labels: |
             awaiting-feedback
             needs-info
             awaiting-answers
-          
+
           # Close Messages
           close-issue-message: |
             ⚠️ This issue has been automatically closed due to continued inactivity.
-            
+
             - It was marked as stale 5 days ago
             - No activity has occurred since then
-            
+
             You can still:
             - Reopen this issue if it's still relevant
             - Create a new issue with updated information
-            
+
             Thank you for your understanding!
-          
+
           close-pr-message: |
             ⚠️ This pull request has been automatically closed due to continued inactivity.
-            
+
             - It was marked as stale 10 days ago
             - No activity has occurred since then
-            
+
             You can still:
             - Reopen this PR if you plan to continue working on it
             - Create a new PR with your changes
-            
+
             Thank you for your contributions!
-          
+
           # Timing Configuration
           days-before-issue-stale: 30
           days-before-pr-stale: 45
           days-before-issue-close: 5
           days-before-pr-close: 10
-          
+
           # Additional Settings
           delete-branch: true
           enable-statistics: true
           operations-per-run: 100
           ascending: true
           remove-stale-when-updated: true
-          debug-only: ${{ inputs.dry-run }}
+          debug-only: '${{ inputs.dry-run }}'
 
       - name: 📊 Generate Activity Report
         if: always()
@@ -169,31 +162,31 @@ jobs:
               closedIssues: parseInt('${{ steps.stale.outputs.closed-issues-count }}') || 0,
               closedPRs: parseInt('${{ steps.stale.outputs.closed-prs-count }}') || 0
             };
-            
+
             const report = `## 📊 Activity Management Report
-            
+
             ### Statistics
             - Stale Issues: ${stats.staleIssues}
             - Stale PRs: ${stats.stalePRs}
             - Closed Issues: ${stats.closedIssues}
             - Closed PRs: ${stats.closedPRs}
-            
+
             ### Configuration
             - Issue Stale Period: 30 days
             - PR Stale Period: 45 days
             - Issue Grace Period: 5 days
             - PR Grace Period: 10 days
-            
+
             ### Actions Taken
             ${stats.staleIssues + stats.stalePRs > 0 ? '⚠️ Items marked as stale' : '✅ No items marked as stale'}
             ${stats.closedIssues + stats.closedPRs > 0 ? '🔒 Items closed due to inactivity' : ''}
-            
+
             ### Need Help?
             - Review our [Contributing Guidelines](../../CONTRIBUTING.md)
             - Join our [Discord Community](https://discord.gg/your-server)
             - Contact the maintainers
             `;
-            
+
             // Create issue if significant activity
             if (stats.closedIssues + stats.closedPRs > 0) {
               await github.rest.issues.create({
@@ -208,24 +201,23 @@ jobs:
   notify:
     needs: stale-management
     if: |
-      always() && 
-      (needs.stale-management.outputs.closed-issues > 0 || 
+      always() &&
+      (needs.stale-management.outputs.closed-issues > 0 ||
        needs.stale-management.outputs.closed-prs > 0)
     runs-on: ubuntu-latest
-    
     steps:
       - name: 📢 Notify Team
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
             const message = `## 🔔 Activity Management Alert
-            
+
             Items closed due to inactivity:
             - Issues: ${process.env.CLOSED_ISSUES}
             - PRs: ${process.env.CLOSED_PRS}
-            
+
             Please review the [activity report](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/issues?q=label:maintenance+label:automated)`;
-            
+
             // Add notification methods here (e.g., Discord, Slack, etc.)
             console.log(message);
         env:

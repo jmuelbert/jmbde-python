@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
-"""
-JMBDE - Business Data Management Application
+"""JMBDE - Business Data Management Application
 
 This is the main entry point for the JMBDE application, a comprehensive tool
 for managing business data and employee information.
@@ -16,16 +14,14 @@ the Free Software Foundation, either version 3 of the License, or
 """
 
 import logging
-import os
 import sys
 from pathlib import Path
 from typing import Optional
 
 import click
-from PySide6.QtCore import QCoreApplication, QDir, Qt
+from PySide6.QtCore import QCoreApplication
 from PySide6.QtGui import QGuiApplication, QIcon
-from PySide6.QtQml import QQmlApplicationEngine, QQmlContext
-from PySide6.QtWidgets import QApplication
+from PySide6.QtQml import QQmlApplicationEngine
 
 from jmbde.core.database import Database, DatabaseError
 from jmbde.core.settings import Settings
@@ -36,6 +32,7 @@ from jmbde.utils.logger import setup_logging
 
 # Initialize logging
 logger = logging.getLogger(__name__)
+
 
 class JMBDEApplication:
     """Main application class for JMBDE."""
@@ -52,9 +49,9 @@ class JMBDEApplication:
     def initialize_logging(self) -> None:
         """Set up application logging."""
         try:
-            log_dir = Path.home() / '.jmbde' / 'logs'
+            log_dir = Path.home() / ".jmbde" / "logs"
             log_dir.mkdir(parents=True, exist_ok=True)
-            setup_logging(log_dir / 'jmbde.log')
+            setup_logging(log_dir / "jmbde.log")
             logger.info("Logging initialized successfully")
         except Exception as e:
             print(f"Failed to initialize logging: {e}", file=sys.stderr)
@@ -135,13 +132,13 @@ class JMBDEApplication:
         except Exception as e:
             logger.error(f"Cleanup failed: {e}")
 
+
 @click.command()
 @click.version_option()
-@click.option('--debug', is_flag=True, help='Enable debug mode')
-@click.option('--config', type=click.Path(), help='Path to configuration file')
+@click.option("--debug", is_flag=True, help="Enable debug mode")
+@click.option("--config", type=click.Path(), help="Path to configuration file")
 def main(debug: bool, config: Optional[str]) -> None:
-    """
-    JMBDE - Business Data Management Application.
+    """JMBDE - Business Data Management Application.
 
     A comprehensive tool for managing business data and employee information.
     """
@@ -176,8 +173,12 @@ def main(debug: bool, config: Optional[str]) -> None:
         sys.exit(1)
     except Exception as e:
         logger.critical(f"Unexpected error: {e}", exc_info=True)
-        click.echo(f"Fatal Error: An unexpected error occurred. Check logs for details.", err=True)
+        click.echo(
+            "Fatal Error: An unexpected error occurred. Check logs for details.",
+            err=True,
+        )
         sys.exit(1)
+
 
 if __name__ == "__main__":
     main()

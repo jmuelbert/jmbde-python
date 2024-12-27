@@ -5,14 +5,8 @@
 ##
 # WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
-from PySide2.QtCore import (
-    QCoreApplication,
-    QMetaObject,
-    Qt,
-)
-from PySide2.QtGui import (
-    QFont,
-)
+from PySide2.QtCore import QCoreApplication, QMetaObject, Qt
+from PySide2.QtGui import QFont
 from PySide2.QtWidgets import *
 
 
@@ -43,7 +37,10 @@ class Ui_EmployeeInputArea:
         self.verticalLayout_2.addLayout(self.verticalLayout)
 
         self.verticalSpacer = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred,
+            20,
+            40,
+            QSizePolicy.Minimum,
+            QSizePolicy.Preferred,
         )
 
         self.verticalLayout_2.addItem(self.verticalSpacer)
@@ -335,7 +332,10 @@ class Ui_EmployeeInputArea:
         self.verticalLayout_2.addLayout(self.gridLayout)
 
         self.verticalSpacer_2 = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding,
+            20,
+            40,
+            QSizePolicy.Minimum,
+            QSizePolicy.Expanding,
         )
 
         self.verticalLayout_2.addItem(self.verticalSpacer_2)
@@ -348,7 +348,10 @@ class Ui_EmployeeInputArea:
         self.horizontalLayout.addWidget(self.pushButton_Add)
 
         self.horizontalSpacer = QSpacerItem(
-            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum,
+            40,
+            20,
+            QSizePolicy.Expanding,
+            QSizePolicy.Minimum,
         )
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
@@ -416,7 +419,8 @@ class Ui_EmployeeInputArea:
         QWidget.setTabOrder(self.comboBox_Department, self.comboBox_Function)
         QWidget.setTabOrder(self.comboBox_Function, self.comboBox_EmployeeAccount)
         QWidget.setTabOrder(
-            self.comboBox_EmployeeAccount, self.comboBox_EmployeeDocument,
+            self.comboBox_EmployeeAccount,
+            self.comboBox_EmployeeDocument,
         )
         QWidget.setTabOrder(self.comboBox_EmployeeDocument, self.textEdit_Notes)
 
@@ -432,7 +436,11 @@ class Ui_EmployeeInputArea:
         )
         # if QT_CONFIG(accessibility)
         EmployeeInputArea.setAccessibleName(
-            QCoreApplication.translate("EmployeeInputArea", "EmployeeInputDialog", None),
+            QCoreApplication.translate(
+                "EmployeeInputArea",
+                "EmployeeInputDialog",
+                None,
+            ),
         )
         # endif // QT_CONFIG(accessibility)
         EmployeeInputArea.setTitle(

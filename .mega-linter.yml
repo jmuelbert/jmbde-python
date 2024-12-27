@@ -1,71 +1,72 @@
-# MegaLinter Configuration File
-# See all available variables at https://megalinter.io/configuration/
+# Configuration file for MegaLinter
+#
+# See all available variables at https://megalinter.io/latest/config-file/ and in
+# linters documentation
 
-# Allgemeine Einstellungen
+# all, none, or list of linter keys
 APPLY_FIXES: all
-FAIL_IF_MISSING_LINTER_IN_FLAVOR: true
-DISABLE_ERRORS_IF_LESS_THAN: 0
+
+# If you use ENABLE variable, all other languages/formats/tooling-formats will
+# be disabled by default
+# ENABLE:
+
+# If you use ENABLE_LINTERS variable, all other linters will be disabled by
+# default
+# ENABLE_LINTERS:
+
+# DISABLE:
+# - COPYPASTE # Uncomment to disable checks of excessive copy-pastes
+# - SPELL # Uncomment to disable checks of spelling mistakes
+
 SHOW_ELAPSED_TIME: true
+
 FILEIO_REPORTER: false
-UPDATED_SOURCES_REPORTER: true
-TEXT_REPORTER: true
-SARIF_REPORTER: true
-REPORT_OUTPUT_FOLDER: megalinter-reports
-
-# Ausschluss von spezifischen Dateien und Verzeichnissen
-IGNORE:
-  - ^3rd-party
-  - COPYING
-  - .gitmodules
-  - conan
-  - .vscode/**
-  - .*\.ui$
-  - .*\.qrc$
-  - .*\.ts$
-
-# Python-spezifische Einstellungen
-PYTHON_BLACK_ARGUMENTS:
-  - "--line-length=88"
-
-PYTHON_RUFF_ARGUMENTS:
-  - "--fix"
-  - "--show-fixes"
-  - "--exclude=build,examples,tests"
-
+# Uncomment if you want MegaLinter to detect errors but not block CI to pass
+# DISABLE_ERRORS: true
+# Python-specific settings
 PYTHON_MYPY_ARGUMENTS:
-  - "--python-version=3.10"
+  - '--config-file=pyproject.toml'
 
 PYTHON_BANDIT_ARGUMENTS:
-  - "-c"
-  - "pyproject.toml"
+  - '-c'
+  - 'pyproject.toml'
+
+PYTHON_ISORT_ARGUMENTS:
+  - '--profile=black'
 
 PYTHON_PYLINT_ARGUMENTS:
-  - "--rcfile=pyproject.toml"
-  - "--output-format=colorized"
+  - '--rcfile=pyproject.toml'
+  - '--output-format=colorized'
 
-# Markdown- und YAML-Konfigurationen
+# EditorConfig
+EDITORCONFIG_FILTER_REGEX_EXCLUDE: (LICENSES/|LICENSE|license\.md)
+# Markdown-Linter
+MARKDOWN_FILTER_REGEX_EXCLUDE: '(LICENSES/|LICENSE|license\.md)'
 MARKDOWN_MARKDOWNLINT_CONFIG_FILE: .markdownlint.json
-YAML_YAMLLINT_CONFIG_FILE: .yamllint.yml
+MARKDOWN_MARKDOWNLINT_ARGUMENTS:
+  - '--fix'
 
-# Codespell
-SPELL_CODESPELL_ARGUMENTS:
-  - "--exclude=.*\.svg"
-  - "--exclude=pyproject.toml"
-  - "--exclude=LICENSE"
-  - "--exclude=LICENSES/"
-  - "--exclude=\.github/actions"
+# JSon-Linter
+JSON_JSONLINT_FILTER_REGEX_EXCLUDE: (\.vscode/|\.devcontainer/devcontainer.json)
+JSON_V8R_FILTER_REGEX_EXCLUDE: (\.devcontainer/devcontainer.json|\.vscode/)
 
-# Gitleaks
-GITLEAKS_ARGUMENTS:
-  - "--verbose"
+# JSCpd (Duplicate Code Detection)
+JSCODE_JSCODE_DUPLICATION_ARGUMENTS:
+  - --exclude=LICENSES/
+  - --exclude=.*\.md$
+  - --exclude=src/jmbde/ui/ui_*
+  - --exclude=docs/comuminity/contributing.md
+  - --exclude=docs/comuminity/code_of_conduct.md
 
-# Actionlint
-ACTIONLINT_ARGUMENTS:
-  - "--verbose"
+# SPELL
+SPELL_CSPELL_FILTER_REGEX_EXCLUDE: (docs/de|docs/es|docs/it|LICENSE)
+# SPELL_LYCHEE_FILTER_REGEX_EXCLUDE:
+# SPELL_VALE_FILTER_REGEX_INCLUDE: (README.md)
 
-# Reuse Tool
-REUSE_ARGUMENTS:
-  - "--verbose"
+# TYPESCRIPT
+TYPESCRIPT_FILTER_REGEX_EXCLUDE: (resources/translations)
 
-# Zusätzliche Konfigurationen können hier hinzugefügt werden
-
+# PRE-Commands
+PRE_COMMANDS:
+  - command: npm install -g vale
+  - command: vale sync

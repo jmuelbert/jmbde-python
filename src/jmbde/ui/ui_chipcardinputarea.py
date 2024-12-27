@@ -5,14 +5,8 @@
 ##
 # WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
-from PySide2.QtCore import (
-    QCoreApplication,
-    QMetaObject,
-    Qt,
-)
-from PySide2.QtGui import (
-    QFont,
-)
+from PySide2.QtCore import QCoreApplication, QMetaObject, Qt
+from PySide2.QtGui import QFont
 from PySide2.QtWidgets import *
 
 
@@ -43,7 +37,10 @@ class Ui_ChipCardInputArea:
         self.verticalLayout_3.addLayout(self.verticalLayout)
 
         self.verticalSpacer_2 = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Preferred,
+            20,
+            40,
+            QSizePolicy.Minimum,
+            QSizePolicy.Preferred,
         )
 
         self.verticalLayout_3.addItem(self.verticalSpacer_2)
@@ -93,7 +90,10 @@ class Ui_ChipCardInputArea:
         self.verticalLayout_3.addLayout(self.formLayout)
 
         self.verticalSpacer = QSpacerItem(
-            20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding,
+            20,
+            40,
+            QSizePolicy.Minimum,
+            QSizePolicy.Expanding,
         )
 
         self.verticalLayout_3.addItem(self.verticalSpacer)
@@ -106,7 +106,10 @@ class Ui_ChipCardInputArea:
         self.horizontalLayout.addWidget(self.pushButton_Add)
 
         self.horizontalSpacer = QSpacerItem(
-            40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum,
+            40,
+            20,
+            QSizePolicy.Expanding,
+            QSizePolicy.Minimum,
         )
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
@@ -134,7 +137,11 @@ class Ui_ChipCardInputArea:
         )
         # if QT_CONFIG(accessibility)
         ChipCardInputArea.setAccessibleName(
-            QCoreApplication.translate("ChipCardInputArea", "ChipCardInputDialog", None),
+            QCoreApplication.translate(
+                "ChipCardInputArea",
+                "ChipCardInputDialog",
+                None,
+            ),
         )
         # endif // QT_CONFIG(accessibility)
         ChipCardInputArea.setTitle(

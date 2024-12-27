@@ -4,18 +4,51 @@ ignore:
   - .cache/
   - .direnv/
   - .flatpak/
-  - .flatpak/builder
+  - .flatpak/builder/ # Ensure this is treated as a directory
   - build*/
   - repo/
   - .github/styles/vale/**/*.yml
   - .github/styles/vale/**/*.yaml
+
 rules:
-  document-start: disable
-  line-length: disable
-  quoted-strings:
-    required: only-when-needed
-    extra-allowed: ['{|}']
+  braces:
+    max-spaces-inside: 1
+
+  comments:
+    min-spaces-from-content: 1 # Used to follow prettier standard: https://github.com/prettier/prettier/pull/10926
+
+  line-length:
+    max: 120 # Set maximum line length to 120 characters
+    level: warning # Set level to warning
+
+  indentation:
+    spaces: 2 # Use 2 spaces for indentation
+    level: error # Set level to error
+
+  key-duplicates:
+    level: error # Disallow duplicate keys
+
+  new-lines:
     level: warning
-  key-duplicates: {}
+    type: unix
+
+  truthy:
+    level: warning # Warn about truthy values (e.g., "yes", "no", "on", "off")
+
+  trailing-spaces:
+    level: error # Disallow trailing spaces
+
+  empty-lines:
+    max: 1 # Allow a maximum of 1 empty line
+    level: warning # Set level to warning
+
+  quoted-strings:
+    required: only-when-needed # Require quotes only when necessary
+    extra-allowed: ['{|}'] # Allow block style strings
+    level: warning # Set level to warning
+
   octal-values:
-    forbid-implicit-octal: true
+    forbid-implicit-octal: true # Forbid implicit octal values
+
+
+  # Additional rules can be added here

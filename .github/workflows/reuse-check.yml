@@ -1,4 +1,3 @@
----
 # SPDX-FileCopyrightText: Free Software Foundation Europe
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -6,12 +5,16 @@ name: License Compliance Check
 
 on:
   push:
-    branches: [main, develop, 'release/**']
+    branches:
+      - main
+      - develop
+      - 'release/**'
+      - 'resolve-**'
     paths-ignore:
       - '**.md'
       - 'docs/**'
       - '.github/*.md'
-      
+
   pull_request:
     types: [opened, reopened, synchronize]
     paths-ignore:
@@ -20,14 +23,9 @@ on:
       - '.github/*.md'
 
   workflow_dispatch:
-    inputs:
-      fix-issues:
-        description: 'Attempt to fix licensing issues'
-        required: false
-        type: boolean
-        default: false
 
-permissions: read-all
+permissions:
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -64,8 +62,10 @@ jobs:
       - name: ⚙️ Setup Python
         uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
         with:
-          python-version: '3.x'
+          python-version-file: '.python-version' # Read python version from a file .python-version
+          check-latest: true
           cache: 'pip'
+          cache-dependency-path: '**/pyproject.toml'
 
       - name: 🛠️ Install REUSE Tool
         run: |
@@ -76,7 +76,7 @@ jobs:
       - name: 📝 Create License Templates
         run: |
           mkdir -p .reuse/templates
-          
+
           # Create GPL-3.0-or-later template
           cat > .reuse/templates/gpl-3.0-or-later.jinja2 << 'EOL'
           {% if copyright_lines %}
@@ -86,7 +86,7 @@ jobs:
           {% endif %}
           SPDX-License-Identifier: GPL-3.0-or-later
           EOL
-          
+
           # Create MIT template
           cat > .reuse/templates/mit.jinja2 << 'EOL'
           {% if copyright_lines %}
@@ -102,38 +102,32 @@ jobs:
         run: |
           # Run initial check
           reuse lint > reuse-report.txt || true
-          
+
           # Process results
           if grep -q "not compliant" reuse-report.txt; then
             echo "status=failed" >> "$GITHUB_OUTPUT"
             ISSUES=$(grep -c "not licensed" reuse-report.txt || echo "0")
             echo "issues=${ISSUES}" >> "$GITHUB_OUTPUT"
-            
+
             # Generate detailed report
-            echo "## 📋 License Compliance Issues" > compliance-report.md
-            echo "" >> compliance-report.md
-            echo "Found ${ISSUES} files with licensing issues:" >> compliance-report.md
-            echo " " >> compliance-report.md
-            echo "\`\`\`" >> compliance-report.md
-            cat reuse-report.txt >> compliance-report.md
-            echo "\`\`\`" >> compliance-report.md
-            
-            # Add recommendations
-            echo "" >> compliance-report.md
-            echo "### 🔨 How to Fix" >> compliance-report.md
-            echo "1. Add SPDX headers to each file" >> compliance-report.md
-            echo "2. Use appropriate license identifiers" >> compliance-report.md
-            echo "3. Update dep5 file if needed" >> compliance-report.md
-            
-            if [ "${{ github.event.inputs.fix-issues }}" == "true" ]; then
-              echo "Attempting to fix common issues..."
-              reuse download --all
-              reuse annotate --copyright="Jürgen Mülbert" --license="GPL-3.0-or-later" --style=tag --template=.reuse/templates/gpl-3.0-or-later.jinja2 $(grep "not licensed" reuse-report.txt | cut -d' ' -f1) || true
-            fi
-          else
-            echo "status=success" >> "$GITHUB_OUTPUT"
-            echo "issues=0" >> "$GITHUB_OUTPUT"
-            
+            {
+              echo "## 📋 License Compliance Issues"
+              echo ""
+              echo "Found ${ISSUES} files with licensing issues:"
+              echo " "
+              echo "\`\`\`"
+              cat reuse-report.txt
+              echo "\`\`\`"
+              echo ""
+              echo "### 🔨 How to Fix"
+              echo "1. Add SPDX headers to each file"
+              echo "2. Use appropriate license identifiers"
+              echo "3. Update dep5 file if needed"
+            } > compliance-report.md
+
+            echo "compliance-status=success" >> "$GITHUB_OUTPUT"
+            echo "issues-found=0" >> "$GITHUB_OUTPUT"
+
             echo "## ✅ License Compliance Check Passed" > compliance-report.md
             echo "" >> compliance-report.md
             echo "All files comply with REUSE specifications." >> compliance-report.md
@@ -150,14 +144,12 @@ jobs:
           retention-days: 7
 
       - name: 🔄 Create Fix PR
-        if: |
-          steps.check.outputs.status == 'failed' && 
-          github.event.inputs.fix-issues == 'true'
+        if: steps.check.outputs.compliance-status
         uses: peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38 # v5.0.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "docs: fix license compliance issues"
-          title: "docs: fix REUSE compliance issues"
+          commit-message: 'docs: fix license compliance issues'
+          title: 'docs: fix REUSE compliance issues'
           body-path: compliance-report.md
           branch: fix/license-compliance
           delete-branch: true
@@ -173,7 +165,7 @@ jobs:
           script: |
             const fs = require('fs');
             const report = fs.readFileSync('compliance-report.md', 'utf8');
-            
+
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -183,19 +175,19 @@ jobs:
 
   notify:
     needs: reuse-check
-    if: always() && needs.reuse-check.outputs.status == 'failed'
+    if: always()
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: 📢 Notify Team
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
             const message = `## 🚨 License Compliance Issues
-            
+
             Found ${process.env.ISSUES_COUNT} licensing issues.
             Please review the [workflow results](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID})`;
-            
+
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,

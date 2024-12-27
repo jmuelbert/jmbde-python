@@ -1,4 +1,3 @@
----
 # SPDX-FileCopyrightText: Microsoft Corporation
 # SPDX-License-Identifier: MIT
 
@@ -11,34 +10,30 @@ name: DevSkim Security Analysis
 
 on:
   push:
-    branches: 
+    branches:
       - main
       - develop
       - 'release/**'
+      - 'resolve-**'
     paths-ignore:
       - '**.md'
       - 'docs/**'
       - '.github/*.md'
-      
+
   pull_request:
     types: [opened, synchronize, reopened]
     paths-ignore:
       - '**.md'
       - 'docs/**'
       - '.github/*.md'
-      
+
   schedule:
     - cron: '0 2 * * 1' # Run at 2 AM UTC every Monday
-    
-  workflow_dispatch:
-    inputs:
-      debug:
-        type: boolean
-        description: 'Run in debug mode'
-        required: false
-        default: false
 
-permissions: read-all
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -52,7 +47,7 @@ jobs:
       !contains(github.event.head_commit.message, '[skip security]')
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    
+
     permissions:
       actions: read
       contents: read
@@ -88,19 +83,19 @@ jobs:
           script: |
             const fs = require('fs');
             const results = JSON.parse(fs.readFileSync('results/devskim-results.sarif', 'utf8'));
-            
+
             let summary = '## 🔒 DevSkim Security Analysis Summary\n\n';
             let issues = 0;
             let criticalIssues = 0;
-            
+
             if (results.runs[0].results) {
               issues = results.runs[0].results.length;
               criticalIssues = results.runs[0].results.filter(
                 r => r.level === 'error'
               ).length;
-              
+
               summary += `Found ${issues} issue(s), ${criticalIssues} critical\n\n`;
-              
+
               if (issues > 0) {
                 summary += '### 🚨 Security Issues\n\n';
                 results.runs[0].results.forEach(result => {
@@ -110,7 +105,7 @@ jobs:
                 });
               }
             }
-            
+
             // Add comment to PR if this is a pull request
             if (context.payload.pull_request) {
               await github.rest.issues.createComment({
@@ -119,7 +114,7 @@ jobs:
                 body: summary
               });
             }
-            
+
             // Set output for next steps
             core.setOutput('issues', issues);
             core.setOutput('critical-issues', criticalIssues);
@@ -138,7 +133,7 @@ jobs:
           script: |
             const issues = parseInt('${{ steps.scan.outputs.issues }}');
             const criticalIssues = parseInt('${{ steps.scan.outputs.critical-issues }}');
-            
+
             const labels = [];
             if (issues === 0) {
               labels.push('security-check-passed');
@@ -148,7 +143,7 @@ jobs:
                 labels.push('critical-security');
               }
             }
-            
+
             await github.rest.issues.addLabels({
               owner: context.repo.owner,
               repo: context.repo.repo,

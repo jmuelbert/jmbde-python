@@ -1,4 +1,4 @@
-# SPDX-FileCopyRightText: 2023 Jürgen Mülbert <juergen.muelbert@web.de>
+# SPDX-FileCopyRightText: 2023-2024 Jürgen Mülbert <juergen.muelbert@web.de>
 #
 # SPDX-License-Identifier: EUPL-1.2
 #
@@ -52,7 +52,6 @@ dependencies = [
     "pyside6>=6.0",
     "pydantic>=2.10.3",
     "sqlalchemy>=2.0.0",
-    "pydantic>=2.0.0",
 ]
 
 [project.urls]
@@ -100,6 +99,9 @@ dependencies = ["black>=23.7.0", "mypy>=1.6.1", "isort>=5.12.0", "ruff>=0.1.3"]
 style = ["ruff check .", "ruff format .", "black --check .", "isort ."]
 typing = "mypy src tests"
 
+[[tool.hatch.envs.test.matrix]]
+python = ["3.9", "3.10", "3.11", "3.12"]
+
 [tool.hatch.envs.test]
 dependencies = [
     "coverage>=6.2",
@@ -135,11 +137,10 @@ dependencies = [
     "mkdocs-material>=9.5.1",
     "mkdocs-static-i18n>=1.2.2",
     "mkdocstrings-python>=1.7.5",
-    # Extensions
+    "mkdocs-mermaid2>=0.7.1", # Mermaid support
+    "mkdocs-git-revision-date-localized-plugin>=1.1.0", # Gitdatum support
     # Validation
-    # https://github.com/linkchecker/linkchecker/pull/669#issuecomment-1267236287
     "linkchecker @ git+https://github.com/linkchecker/linkchecker.git@d9265bb71c2054bf57b8c5734a4825d62505c779",
-
 ]
 
 [tool.hatch.envs.docs.scripts]
@@ -151,7 +152,6 @@ build-check = ["build --no-directory-urls", "validate"]
 
 [tool.coverage.paths]
 jmbde = ["src/jmbde", "*/src/jmbde"]
-tests = ["tests", "*/test/tests"]
 source = ["src", "*/site-packages"]
 tests = ["tests", "*/tests"]
 
@@ -167,6 +167,53 @@ omit = ["src/jmbde/__about__.py"]
 show_missing = true
 fail_under = 80                                                               # Updated to a more ambitious threshold.
 exclude_lines = ["no cov", "if __name__ == .__main__.:", "if TYPE_CHECKING:"]
+
+
+[tool.bandit]
+exclude_dirs = ["tests"]
+targets = ["src"]
+
+[tool.bandit.any_other_function_with_shell_equals_true]
+no_shell = [
+  "os.execl",
+  "os.execle",
+  "os.execlp",
+  "os.execlpe",
+  "os.execv",
+  "os.execve",
+  "os.execvp",
+  "os.execvpe",
+  "os.spawnl",
+  "os.spawnle",
+  "os.spawnlp",
+  "os.spawnlpe",
+  "os.spawnv",
+  "os.spawnve",
+  "os.spawnvp",
+  "os.spawnvpe",
+  "os.startfile"
+]
+shell = [
+  "os.system",
+  "os.popen",
+  "os.popen2",
+  "os.popen3",
+  "os.popen4",
+  "popen2.popen2",
+  "popen2.popen3",
+  "popen2.popen4",
+  "popen2.Popen3",
+  "popen2.Popen4",
+  "commands.getoutput",
+  "commands.getstatusoutput"
+]
+subprocess = [
+  "subprocess.Popen",
+  "subprocess.call",
+  "subprocess.check_call",
+  "subprocess.check_output"
+]
+
 
 [tool.black]
 include = "\\.pyi?$"
@@ -243,9 +290,6 @@ markers = [
     "save_engine: marks tests using an external package for saving charts (e.g., PNG). Run selectively in CI.",
 ]
 
-[tool.bandit]
-exclude_dirs = ["tests"]
-targets = ["src"]
 
 [tool.pylint]
 max-args = 12

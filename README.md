@@ -20,7 +20,7 @@ jmbde uses the cross-platform frameworks [Python](https://www.python.org) and [Q
 You can install _jmbde-python_ via [pip](https://pip.pypa.io/) from [PyPI](https://pypi.org/):
 
 ```bash
-$ pip install jmbde-python
+pip install jmbde-python
 ```
 
 The main branch represents the latest pre-release code.
