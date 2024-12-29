@@ -1,240 +1,168 @@
-# MegaLinter GitHub Action configuration file
-# More info at https://megalinter.io
 ---
-name: MegaLinter
-
-# Trigger mega-linter at every push. Action will also be visible from
-# Pull Requests to main
-on:
-  # Comment this line to trigger action only on pull-requests
-  # (not recommended if you don't pay for GH Actions)
-  push:
-
-  pull_request:
-    types: [opened, synchronize, reopened, labeled]
-    paths-ignore:
-      - '**.md'
-      - 'docs/**'
-      - 'LICENSE'
-      - LICENSES/**
-
-permissions:
-  contents: read
-
-
-
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
-  cancel-in-progress: true
-
-jobs:
-  megalinter:
-    # Give the default GITHUB_TOKEN write permission to commit and push, comment
-    # issues, and post new Pull Requests; remove the ones you do not need
-    name: Code Quality Check
-    if: github.actor != 'dependabot[bot]'
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-
-    permissions:
-      contents: write
-      issues: write
-      pull-requests: write
-      security-events: write
-
-    outputs:
-      has_changes: ${{ steps.ml.outputs.has_updated_sources }}
-
-    # Comment env block if you do not want to apply fixes
-    env:
-      # Apply linter fixes configuration
-      #
-      # When active, APPLY_FIXES must also be defined as environment variable
-      # (in github/workflows/mega-linter.yml or other CI tool)
-      APPLY_FIXES: all
-
-      # Decide which event triggers application of fixes in a commit or a PR
-      # (pull_request, push, all)
-      APPLY_FIXES_EVENT: pull_request
-
-      # If APPLY_FIXES is used, defines if the fixes are directly committed (commit)
-      # or posted in a PR (pull_request)
-      APPLY_FIXES_MODE: commit
-
-
-    steps:
-      - name: 🔒 Harden Runner
-        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
-        with:
-          egress-policy: audit
-
-      - name: 🧰 Checkout Repository
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
-        with:
-          token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
-          fetch-depth: 0
-
-      # MegaLinter
-      - name: 🧪 Run MegaLinter
-
-        # You can override MegaLinter flavor used to have faster performances
-        # More info at https://megalinter.io/latest/flavors/
-        uses: oxsecurity/megalinter@1fc052d03c7a43c78fe0fee19c9d648b749e0c01 # v8.3.0
-        id: ml
-
-        # All available variables are described in documentation
-        # https://megalinter.io/latest/config-file/
-        env:
-          # Validates all source when push on main, else just the git diff with
-          # main. Override with true if you always want to lint all sources
-          #
-          # To validate the entire codebase, set to:
-          # VALIDATE_ALL_CODEBASE: true
-          #
-          # To validate only diff with main, set to:
-          # VALIDATE_ALL_CODEBASE: >-
-          #   ${{
-          #     github.event_name == 'push' &&
-          #     github.ref == 'refs/heads/main'
-          #   }}
-          VALIDATE_ALL_CODEBASE: true
-
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-          # Uncomment to use ApiReporter (Grafana)
-          # API_REPORTER: true
-          # API_REPORTER_URL: ${{ secrets.API_REPORTER_URL }}
-          # API_REPORTER_BASIC_AUTH_USERNAME: ${{ secrets.API_REPORTER_BASIC_AUTH_USERNAME }}
-          # API_REPORTER_BASIC_AUTH_PASSWORD: ${{ secrets.API_REPORTER_BASIC_AUTH_PASSWORD }}
-          # API_REPORTER_METRICS_URL: ${{ secrets.API_REPORTER_METRICS_URL }}
-          # API_REPORTER_METRICS_BASIC_AUTH_USERNAME: ${{ secrets.API_REPORTER_METRICS_BASIC_AUTH_USERNAME }}
-          # API_REPORTER_METRICS_BASIC_AUTH_PASSWORD: ${{ secrets.API_REPORTER_METRICS_BASIC_AUTH_PASSWORD }}
-          # API_REPORTER_DEBUG: false
-
-          # ADD YOUR CUSTOM ENV VARIABLES HERE TO OVERRIDE VALUES OF
-          # .mega-linter.yml AT THE ROOT OF YOUR REPOSITORY
-
-      - name: 📤 Upload Artifacts
-        if: success() || failure()
-        uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b # v4.3.4
+  name: MegaLinter
+  on:
+    push: null
+    pull_request:
+      types:
+        - opened
+        - synchronize
+        - reopened
+        - labeled
+      paths-ignore:
+        - "**.md"
+        - docs/**
+        - LICENSE
+        - LICENSES/**
+  permissions:
+    contents: read
+  concurrency:
+    group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
+    cancel-in-progress: true
+  jobs:
+    megalinter:
+      name: Code Quality Check
+      if: github.actor != 'dependabot[bot]'
+      runs-on: ubuntu-latest
+      timeout-minutes: 30
+      permissions:
+        contents: write
+        issues: write
+        pull-requests: write
+        security-events: write
+      outputs:
+        has_changes: ${{ steps.ml.outputs.has_updated_sources }}
+      env:
+        APPLY_FIXES: all
+        APPLY_FIXES_EVENT: pull_request
+        APPLY_FIXES_MODE: commit
+      steps:
+        - name: 🔒 Harden Runner
+          uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142
+          with:
+            egress-policy: audit
+        - name: 🧰 Checkout Repository
+          uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+          with:
+            token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
+            fetch-depth: 0
+        - name: 🧪 Run MegaLinter
+          uses: oxsecurity/megalinter@1fc052d03c7a43c78fe0fee19c9d648b749e0c01
+          id: ml
+          env:
+            VALIDATE_ALL_CODEBASE: true
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        - name: 📤 Upload Artifacts
+          if: success() || failure()
+          uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b
           with:
             name: megalinter-reports
             path: |
               megalinter-reports/
               mega-linter.log
             retention-days: 7
+        - name: 📊 Process Results
+          if: always()
+          uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
+          with:
+            script: >
+              const fs = require('fs');
 
-      - name: 📊 Process Results
-        if: always()
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
-        with:
-          script: |
-            const fs = require('fs');
 
-            try {
-              const report = JSON.parse(fs.readFileSync('megalinter-reports/megalinter-report.json', 'utf8'));
+              try {
+                const report = JSON.parse(fs.readFileSync('megalinter-reports/megalinter-report.json', 'utf8'));
 
-              let summary = '## 🔍 MegaLinter Results\n\n';
+                let summary = '## 🔍 MegaLinter Results\n\n';
 
-               // Add statistics
-               summary += '### 📊 Statistics\n';
-               summary += `- Files analyzed: ${report.files_analyzed}\n`;
-               summary += `- Errors found: ${report.total_errors}\n`;
-               summary += `- Fixes applied: ${report.fixed_errors}\n\n`;
+                 // Add statistics
+                 summary += '### 📊 Statistics\n';
+                 summary += `- Files analyzed: ${report.files_analyzed}\n`;
+                 summary += `- Errors found: ${report.total_errors}\n`;
+                 summary += `- Fixes applied: ${report.fixed_errors}\n\n`;
 
-               // Add errors by linter
-              if (report.total_errors > 0) {
-                summary += '### ❌ Errors by Linter\n';
-                Object.entries(report.linters_stats).forEach(([linter, stats]) => {
-                if (stats.errors > 0) {
-                  summary += `- ${linter}: ${stats.errors} error(s)\n`;
-                 }
-               });
+                 // Add errors by linter
+                if (report.total_errors > 0) {
+                  summary += '### ❌ Errors by Linter\n';
+                  Object.entries(report.linters_stats).forEach(([linter, stats]) => {
+                  if (stats.errors > 0) {
+                    summary += `- ${linter}: ${stats.errors} error(s)\n`;
+                   }
+                 });
+                }
+
+                // Add comment to PR
+                if (context.payload.pull_request) {
+                  await github.rest.issues.createComment({
+                    ...context.repo,
+                  issue_number: context.payload.pull_request.number,
+                  body: summary
+                    });
+                }
+
+              } catch (error) {
+                console.error('Error processing results:', error);
+              }
+        - name: 📝 Create Fix PR
+          if: steps.ml.outputs.has_updated_sources == 1
+          uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c
+          with:
+            token: ${{ secrets.GITHUB_TOKEN }}
+            commit-message: "style: apply automatic linter fixes"
+            title: "style: apply automatic linter fixes"
+            body: |
+              🤖 MegaLinter has automatically fixed code style issues.
+
+              ### Changes made:
+              - Applied automatic formatting fixes
+              - Updated code style to match guidelines
+
+              Please review the changes and merge if appropriate.
+            branch: fix/megalinter-fixes
+            delete-branch: true
+            labels: |
+              automated-pr
+              style
+            draft: false
+        - name: 🏷️ Update PR Labels
+          if: success() && github.event_name == 'pull_request'
+          uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
+          with:
+            script: |
+              const labels = [];
+              if (process.env.has_updated_sources === '1') {
+                labels.push('needs-review');
+              } else {
+                labels.push('linter-approved');
               }
 
-              // Add comment to PR
-              if (context.payload.pull_request) {
-                await github.rest.issues.createComment({
-                  ...context.repo,
-                issue_number: context.payload.pull_request.number,
-                body: summary
-                  });
-              }
+              await github.rest.issues.addLabels({
+                ...context.repo,
+              issue_number: context.payload.pull_request.number,
+              labels: labels
+              });
+        - name: Prepare commit
+          if: >-
+            steps.ml.outputs.has_updated_sources == 1 && (
+              env.APPLY_FIXES_EVENT == 'all' ||
+              env.APPLY_FIXES_EVENT == github.event_name
+            ) && env.APPLY_FIXES_MODE == 'commit' && github.ref != 'refs/heads/main' && (
+              github.event_name == 'push' ||
+              github.event.pull_request.head.repo.full_name == github.repository
+            ) && !contains(github.event.head_commit.message, 'skip fix')
+          run: sudo chown -Rc $UID .git/
+        - name: 🚨 Check Failure
+          if: failure()
+          uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
+          with:
+            script: >
+              const message = `❌ MegaLinter checks failed. Please review the [workflow
+              logs](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID})
+              for details.`;
 
-            } catch (error) {
-              console.error('Error processing results:', error);
-            }
 
-      # Create pull request if applicable
-      # (for now works only on PR from same repository, not from forks)
-      - name: 📝 Create Fix PR
-        if: steps.ml.outputs.has_updated_sources == 1
-        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c # v6.1.0
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "style: apply automatic linter fixes"
-          title: "style: apply automatic linter fixes"
-          body: |
-            🤖 MegaLinter has automatically fixed code style issues.
+              await github.rest.issues.createComment({
+                ...context.repo,
+              issue_number: context.payload.pull_request.number,
 
-            ### Changes made:
-            - Applied automatic formatting fixes
-            - Updated code style to match guidelines
+              body: message
 
-            Please review the changes and merge if appropriate.
-          branch: fix/megalinter-fixes
-          delete-branch: true
-          labels: |
-            automated-pr
-            style
-          draft: false
-
-      - name: 🏷️ Update PR Labels
-        if: success() && github.event_name == 'pull_request'
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
-        with:
-          script: |
-            const labels = [];
-            if (process.env.has_updated_sources === '1') {
-              labels.push('needs-review');
-            } else {
-              labels.push('linter-approved');
-            }
-
-            await github.rest.issues.addLabels({
-              ...context.repo,
-            issue_number: context.payload.pull_request.number,
-            labels: labels
-            });
-
-      # Push new commit if applicable
-      # (for now works only on PR from same repository, not from forks)
-      - name: Prepare commit
-        if: >-
-          steps.ml.outputs.has_updated_sources == 1 &&
-          (
-            env.APPLY_FIXES_EVENT == 'all' ||
-            env.APPLY_FIXES_EVENT == github.event_name
-          ) &&
-          env.APPLY_FIXES_MODE == 'commit' &&
-          github.ref != 'refs/heads/main' &&
-          (
-            github.event_name == 'push' ||
-            github.event.pull_request.head.repo.full_name == github.repository
-          ) &&
-          !contains(github.event.head_commit.message, 'skip fix')
-        run: sudo chown -Rc $UID .git/
-
-      - name: 🚨 Check Failure
-        if: failure()
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
-        with:
-          script: |
-            const message = `❌ MegaLinter checks failed. Please review the [workflow logs](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}) for details.`;
-
-            await github.rest.issues.createComment({
-              ...context.repo,
-            issue_number: context.payload.pull_request.number,
-            body: message
-            });
+              });

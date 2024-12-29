@@ -84,7 +84,6 @@ nox --session=tests
 Unit tests are located in the *tests* directory,
 and are written using the <https://pytest.readthedocs.io/> testing framework.
 
-
 ## How to submit changes
 
 Open a <https://github.com/jmuelbert/jmbde-python//pulls> to submit changes to this project.
@@ -105,7 +104,6 @@ nox --session=pre-commit -- install
 
 It is recommended to open an issue before starting work on anything.
 This will allow a chance to talk it over with the owners and validate your approach.
-
 
 <!-- github-only -->
 

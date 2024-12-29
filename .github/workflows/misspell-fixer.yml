@@ -5,22 +5,31 @@ name: Multi-Language Spell Check
 
 on:
   push:
-    branches: [main, develop, 'release/**']
+    branches:
+      - main
+      - develop
+      - 'release/**'
+      - 'resolve-**'
     paths-ignore:
-      - '**.svg'
-      - '**.png'
-      - '**.jpg'
-      - '**.json'
-      - 'LICENSE'
+      - '**/*.svg'
+      - '**/*.png'
+      - '**/*.jpg'
+      - '**/*.json'
+      - LICENSE
+      - LICENSES/**
 
   pull_request:
-    types: [opened, synchronize, reopened]
+    types:
+      - opened
+      - synchronize
+      - reopened
     paths-ignore:
-      - '**.svg'
-      - '**.png'
-      - '**.jpg'
-      - '**.json'
-      - 'LICENSE'
+      - '**/*.svg'
+      - '**/*.png'
+      - '**/*.jpg'
+      - '**/*.json'
+      - LICENSE
+      - LICENSES/**
 
   workflow_dispatch:
 
@@ -34,7 +43,7 @@ concurrency:
 jobs:
   spell-check:
     name: Check Spelling
-    if: github.actor != 'dependabot[bot]'
+    if: ${{ github.actor != 'dependabot[bot]' }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -60,8 +69,9 @@ jobs:
 
       - name: 📝 Setup Custom Dictionaries
         run: |
+          mkdir -p .github/dictionaries
           # English dictionary
-          cat > .github/dictionaries/en.txt << EOL
+          cat > .github/dictionaries/en.txt <<EOL
           jmbde
           Mülbert
           Jürgen
@@ -70,7 +80,7 @@ jobs:
           EOL
 
           # German dictionary
-          cat > .github/dictionaries/de.txt << EOL
+          cat > .github/dictionaries/de.txt <<EOL
           Datenbank
           Benutzeroberfläche
           Verwaltung
@@ -87,8 +97,7 @@ jobs:
 
       - name: 🔍 Install CSpell
         run: |
-          npm install -g cspell
-          npm install -g @cspell/dict-de-de
+          npm install -g cspell @cspell/dict-de-de
 
       - name: 📋 Check English Spelling
         id: spell-check-en
@@ -116,23 +125,20 @@ jobs:
       - name: ✍️ Check for Changes
         id: check-diff
         run: |
-          if git diff --exit-code "${{ github.sha }}"; then
-            echo "No typos found"
+          if git diff --quiet; then
             echo "typos-found=false" >> "$GITHUB_OUTPUT"
           else
-            echo "Typos found and fixed"
             echo "typos-found=true" >> "$GITHUB_OUTPUT"
-            git diff --name-only "${{ github.sha }}" > changed_files.txt
+            git diff --name-only > changed_files.txt
           fi
 
       - name: 📊 Generate Spell Check Report
         id: report
         run: |
           {
-            echo "## 📝 Spell Check Results";
-            echo "";
-            # English Results
-            echo "### 🇬🇧 English Spelling Issues:";
+            echo "## 📝 Spell Check Results"
+            echo ""
+            echo "### 🇬🇧 English Spelling Issues:"
           } >> spell_check_report.md
 
           if [ -s spell-check-en.txt ]; then
@@ -140,9 +146,7 @@ jobs:
           else
             echo "No issues found" >> spell_check_report.md
           fi
-          echo "" >> spell_check_report.md
 
-          # German Results
           echo "### 🇩🇪 German Spelling Issues:" >> spell_check_report.md
           if [ -s spell-check-de.txt ]; then
             cat spell-check-de.txt >> spell_check_report.md
@@ -150,19 +154,12 @@ jobs:
             echo "No issues found" >> spell_check_report.md
           fi
 
-          # Fixed Changes
           if [ -f "changed_files.txt" ]; then
-          {
-            echo "### 🔧 Automated Fixes:"
-            echo ""
-            echo "Fixed files:"
-           } >> spell_check_report.md
+            echo "### 🔧 Automated Fixes:" >> spell_check_report.md
+            echo "Fixed files:" >> spell_check_report.md
             while IFS= read -r file; do
               echo "- \`$file\`" >> spell_check_report.md
             done < changed_files.txt
-            echo "" >> spell_check_report.md
-            echo "Changes made:" >> spell_check_report.md
-            git diff "${{ github.sha }}" >> spell_check_report.md
           fi
 
       - name: 🔄 Create Pull Request
@@ -176,14 +173,9 @@ jobs:
           body-file: spell_check_report.md
           branch: 'fix/spelling-${{ github.run_id }}'
           delete-branch: true
-          labels: |
-            documentation
-            automated-pr
-            spelling
-            i18n
+          labels: documentation, automated-pr, spelling, i18n
           assignees: ${{ github.actor }}
           reviewers: ${{ github.actor }}
-          draft: false
 
       - name: 📤 Upload Spell Check Report
         if: always()
@@ -200,7 +192,6 @@ jobs:
     needs: spell-check
     if: always() && needs.spell-check.outputs.typos-found == 'true'
     runs-on: ubuntu-latest
-
     steps:
       - name: 📢 Notification
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
@@ -208,15 +199,10 @@ jobs:
           script: |
             const message = `### 📝 Multi-Language Spell Check Results
 
-            Spelling issues were found and fixes have been proposed in PR #${needs.spell-check.outputs.pr-number}.
+            Spelling issues were found and fixes have been proposed in PR #${{ needs.spell-check.outputs.pr-number }}.
 
-            The report includes checks for:
-            - 🇬🇧 English
-            - 🇩🇪 German
-
-            Please review the changes and merge if appropriate.`;
-
-            await github.rest.issues.createComment({
+            Please review and merge if appropriate.`;
+            github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
