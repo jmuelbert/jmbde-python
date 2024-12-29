@@ -92,7 +92,6 @@ jobs:
           exclude-assigned: false
           add-issue-labels: 'status: locked'
           add-pr-labels: 'status: locked'
-          dry-run: ${{ inputs.dry-run }}
 
       - name: 📊 Generate Report
         if: always()
@@ -114,7 +113,6 @@ jobs:
             - PR Inactivity Threshold: 90 days
             - Excluded Labels: keep-unlocked, security, pinned
             - Process Types: issues, pulls
-            - Dry Run: ${{ inputs.dry-run }}
 
             ### Need to unlock?
             Contact repository maintainers or add the \`keep-unlocked\` label.`;

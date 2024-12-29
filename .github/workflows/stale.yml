@@ -149,7 +149,6 @@ jobs:
           operations-per-run: 100
           ascending: true
           remove-stale-when-updated: true
-          debug-only: '${{ inputs.dry-run }}'
 
       - name: 📊 Generate Activity Report
         if: always()

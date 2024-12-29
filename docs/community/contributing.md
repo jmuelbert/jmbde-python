@@ -28,7 +28,7 @@ provide as much information as possible like:
 - Code snippet
 - Error traceback
 
-You should always try to reduce any examples to the _simplest possible case_
+You should always try to reduce any examples to the *simplest possible case*
 that demonstrates the issue.
 
 The usual process to make a contribution is to:

@@ -122,7 +122,7 @@ jobs:
           else
             echo "Typos found and fixed"
             echo "typos-found=true" >> "$GITHUB_OUTPUT"
-            git diff --name-only "${{ github.sha }}"" > changed_files.txt
+            git diff --name-only "${{ github.sha }}" > changed_files.txt
           fi
 
       - name: 📊 Generate Spell Check Report
@@ -162,7 +162,7 @@ jobs:
             done < changed_files.txt
             echo "" >> spell_check_report.md
             echo "Changes made:" >> spell_check_report.md
-            git diff ${{ github.sha }} >> spell_check_report.md
+            git diff "${{ github.sha }}" >> spell_check_report.md
           fi
 
       - name: 🔄 Create Pull Request

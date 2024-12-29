@@ -59,7 +59,6 @@ poetry run {{cookiecutter.project_name}}
 
 [poetry]: https://python-poetry.org/
 [nox]: https://nox.thea.codes/
-[nox-poetry]: https://nox-poetry.readthedocs.io/
 
 ## How to test the project
 
@@ -82,10 +81,9 @@ For example, invoke the unit test suite like this:
 nox --session=tests
 ```
 
-Unit tests are located in the _tests_ directory,
+Unit tests are located in the *tests* directory,
 and are written using the <https://pytest.readthedocs.io/> testing framework.
 
-[pytest]: https://pytest.readthedocs.io/
 
 ## How to submit changes
 
@@ -108,7 +106,6 @@ nox --session=pre-commit -- install
 It is recommended to open an issue before starting work on anything.
 This will allow a chance to talk it over with the owners and validate your approach.
 
-[pull request]: https://github.com/jmuelbert/jmbde-python//pulls
 
 <!-- github-only -->
 

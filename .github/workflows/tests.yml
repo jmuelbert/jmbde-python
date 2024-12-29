@@ -106,7 +106,7 @@ jobs:
           echo "percentage=${COVERAGE}" >> "$GITHUB_OUTPUT"
 
           if [ "${COVERAGE}" -lt "${{ github.event.inputs.coverage-threshold || 80 }}" ]; then
-            echo "::error::Coverage ${COVERAGE}% is below threshold of ${{ github.event.inputs.coverage-threshold || 80 }}%"
+            echo "::error::Coverage ${COVERAGE}% is below threshold of 80%"
             exit 1
           fi
 

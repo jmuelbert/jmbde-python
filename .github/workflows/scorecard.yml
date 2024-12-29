@@ -68,7 +68,7 @@ jobs:
         with:
           results_file: results/scorecard.sarif
           results_format: sarif
-          publish_results: ${{ github.event.inputs.publish-results || true }}
+          publish_results: true
           policy_file: .github/scorecard-policy.yml
 
       - name: 📊 Process Results

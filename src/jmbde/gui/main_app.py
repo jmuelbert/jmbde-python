@@ -13,13 +13,12 @@ import logging
 from datetime import datetime
 from typing import Any, Optional
 
-from PySide6.QtCore import QObject, Signal, Slot
-
 from jmbde.core.database import Database
 from jmbde.core.settings import Settings
 from jmbde.gui.employee_model import EmployeeModel
 from jmbde.utils.exceptions import ApplicationError
 from jmbde.utils.validators import validate_email, validate_phone
+from PySide6.QtCore import QObject, Signal, Slot
 
 # Initialize logger
 logger = logging.getLogger(__name__)

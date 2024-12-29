@@ -16,10 +16,9 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Optional, Union
 
-from pydantic import BaseModel
-
 from jmbde.core.config import Config
 from jmbde.utils.exceptions import DatabaseError
+from pydantic import BaseModel
 
 # Initialize logger
 logger = logging.getLogger(__name__)
