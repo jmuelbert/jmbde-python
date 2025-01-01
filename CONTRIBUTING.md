@@ -81,7 +81,7 @@ For example, invoke the unit test suite like this:
 nox --session=tests
 ```
 
-Unit tests are located in the *tests* directory,
+Unit tests are located in the _tests_ directory,
 and are written using the <https://pytest.readthedocs.io/> testing framework.
 
 ## How to submit changes
