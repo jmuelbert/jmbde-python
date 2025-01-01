@@ -74,5 +74,6 @@ TYPESCRIPT_FILTER_REGEX_EXCLUDE: (resources/translations)
 
 # PRE-Commands
 PRE_COMMANDS:
-  - command: npm install -g vale
   - command: vale sync
+  - command: npm install pnpm -D
+  - command: pnpm install
