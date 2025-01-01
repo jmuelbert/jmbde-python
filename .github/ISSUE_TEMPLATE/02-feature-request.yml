@@ -1,4 +1,13 @@
-name: Featuri Request
+---
+# Feature Request
+# This template is for feature requests. Please fill out as much information as possible.
+# yaml-language-server: $schema= https://json.schemastore.org/github-issue-template-1.0.0.json
+# The name of the issue template
+# SPDX-License-Identifier: CC4.0-BY-SA-4.0
+# SPDX-FileCopyrightText: 2023 - 2024 Jürgen Mülbert <juergen.muelbert@outlook.de>
+#
+# The name of the issue template
+name: Feature Request
 description: Request for a missing or a new Feature.
 title: "[Request]: "
 labels: [request]

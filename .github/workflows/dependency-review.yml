@@ -1,17 +1,16 @@
+---
 # SPDX-FileCopyrightText: GitHub, Inc. and contributors
 # SPDX-License-Identifier: MIT
 
 name: Dependency Security Review
 
-on:
+on: # yamlint disable-line rule:truthy
   pull_request:
     types: [opened, reopened, synchronize]
     paths:
-      - 'requirements*.txt'
-      - 'pyproject.toml'
-      - 'poetry.lock'
-      - 'setup.py'
-      - '.github/workflows/dependency-review.yml'
+      - requirements*.txt
+      - pyproject.toml
+      - .github/workflows/dependency-review.yml
 
 permissions:
   contents: read

@@ -12,14 +12,14 @@ repos:
     rev: v5.0.0
     hooks:
       - id: trailing-whitespace
-        args: ['--markdown-linebreak-ext=md']
+        args: [--markdown-linebreak-ext=md]
         exclude: LICENSES/
       - id: end-of-file-fixer
       - id: check-yaml
         args: [--allow-multiple-documents]
         exclude: mkdocs.yml
       - id: check-added-large-files
-        args: ['--maxkb=1024']
+        args: [--maxkb=1024]
       - id: check-ast
       - id: check-json
         exclude: (\.devcontainer/devcontainer.json|\.vscode/)
@@ -29,7 +29,7 @@ repos:
       - id: debug-statements
       - id: detect-private-key
       - id: mixed-line-ending
-        args: ['--fix=lf']
+        args: [--fix=lf]
       - id: check-builtin-literals
 
   - repo: meta
@@ -60,13 +60,13 @@ repos:
     rev: 5.13.2
     hooks:
       - id: isort
-        args: ['--profile', 'black', '--filter-files']
+        args: [--profile, black, --filter-files]
 
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v4.0.0-alpha.8
     hooks:
       - id: prettier
-        args: ['--write']
+        args: [--write]
         types_or:
           - yaml
           - markdown
@@ -82,27 +82,27 @@ repos:
     rev: v0.8.4
     hooks:
       - id: ruff
-        args: ['--fix', '--show-fixes']
+        args: [--fix, --show-fixes]
       - id: ruff-format
 
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.14.0
     hooks:
       - id: mypy
-        args: ['--config-file=pyproject.toml']
+        args: [--config-file=pyproject.toml]
 
   - repo: https://github.com/PyCQA/pylint
     rev: v3.3.3
     hooks:
       - id: pylint
-        args: ['--rcfile=pyproject.toml', '--output-format=colorized']
+        args: [--rcfile=pyproject.toml, --output-format=colorized]
         additional_dependencies: [pylint-pytest]
 
   - repo: https://github.com/PyCQA/bandit
     rev: 1.8.0
     hooks:
       - id: bandit
-        args: ['-c', 'pyproject.toml']
+        args: [-c, pyproject.toml]
         additional_dependencies: ['bandit[toml]']
 
   - repo: https://github.com/pypa/pip-audit
@@ -116,17 +116,23 @@ repos:
       - id: pyupgrade
         args: [--py39-plus]
 
+  - repo: https://github.com/microsoft/DevSkim
+    rev: v1.0.0  # Use the latest version
+    hooks:
+      - id: devskim
+        args: [--config, .github/devskim-config.json]
+
   - repo: https://github.com/hadolint/hadolint
     rev: v2.13.1-beta
     hooks:
       - id: hadolint
-        args: ['--ignore', 'DL3008', '--ignore', 'DL3013']
+        args: [--ignore, DL3008, --ignore, DL3013]
 
   - repo: https://github.com/igorshubovych/markdownlint-cli
     rev: v0.43.0
     hooks:
       - id: markdownlint
-        args: ['--config', '.markdownlint.json']
+        args: [--config, .markdownlint.json]
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
     rev: 0.30.0
@@ -137,7 +143,7 @@ repos:
       # - id: check-gitlab-ci
       - id: check-readthedocs
         # - id: check-taskfile
-        args: ['--verbose']
+        args: [--verbose]
 
   - repo: https://github.com/gitleaks/gitleaks
     rev: v8.22.0
@@ -153,7 +159,7 @@ repos:
     rev: v2.3.0
     hooks:
       - id: codespell
-        additional_dependencies: ['tomli>=2.0.1']
+        additional_dependencies: [tomli>=2.0.1]
         exclude: (.*\.svg|pyproject.toml|LICENSE|LICENSES/|\.github/actions)
 
   - repo: https://github.com/rhysd/actionlint

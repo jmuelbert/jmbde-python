@@ -67,53 +67,19 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: 📝 Setup Custom Dictionaries
+      - name: 🔍 Install Node and pnpm
+        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+          with:
+            node-version: 20
+            cache: 'npm'
         run: |
-          mkdir -p .github/dictionaries
-          # English dictionary
-          cat > .github/dictionaries/en.txt <<EOL
-          jmbde
-          Mülbert
-          Jürgen
-          pytest
-          pypi
-          EOL
+          npm install -g pnpm
+          pnpm install
 
-          # German dictionary
-          cat > .github/dictionaries/de.txt <<EOL
-          Datenbank
-          Benutzeroberfläche
-          Verwaltung
-          Einstellungen
-          Konfiguration
-          Entwicklung
-          Bibliothek
-          Abhängigkeiten
-          Dokumentation
-          Implementierung
-          Schnittstelle
-          Anwendung
-          EOL
-
-      - name: 🔍 Install CSpell
+      - name: 📋 Check Spelling
+        id: spell-check
         run: |
-          npm install -g cspell @cspell/dict-de-de
-
-      - name: 📋 Check English Spelling
-        id: spell-check-en
-        run: |
-          cspell lint --config .github/spellcheck-config.json \
-            --language en \
-            --dictionary .github/dictionaries/en.txt \
-            "**/*.{md,txt,py,yml,yaml,json}" > spell-check-en.txt || true
-
-      - name: 📋 Check German Spelling
-        id: spell-check-de
-        run: |
-          cspell lint --config .github/spellcheck-config.json \
-            --language de \
-            --dictionary .github/dictionaries/de.txt \
-            "**/*.{md,txt,py,yml,yaml,json}" > spell-check-de.txt || true
+          cspell lint > spell-check-en.txt || true
 
       - name: 🔄 Run Misspell Fixer
         id: misspell
@@ -138,18 +104,11 @@ jobs:
           {
             echo "## 📝 Spell Check Results"
             echo ""
-            echo "### 🇬🇧 English Spelling Issues:"
+            echo "### Spelling Issues:"
           } >> spell_check_report.md
 
-          if [ -s spell-check-en.txt ]; then
-            cat spell-check-en.txt >> spell_check_report.md
-          else
-            echo "No issues found" >> spell_check_report.md
-          fi
-
-          echo "### 🇩🇪 German Spelling Issues:" >> spell_check_report.md
-          if [ -s spell-check-de.txt ]; then
-            cat spell-check-de.txt >> spell_check_report.md
+          if [ -s spell-check.txt ]; then
+            cat spell-check.txt >> spell_check_report.md
           else
             echo "No issues found" >> spell_check_report.md
           fi
@@ -185,7 +144,6 @@ jobs:
           path: |
             spell_check_report.md
             spell-check-en.txt
-            spell-check-de.txt
           retention-days: 7
 
   notify:

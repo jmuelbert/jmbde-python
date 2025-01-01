@@ -1,3 +1,11 @@
+---
+# Bug Report Template
+# This template is for reporting bugs in the jmbde-python project.
+# It is based on the GitHub Issue Template schema.
+# SPDX-License-Identifier: CC4.0-BY-SA-4.0
+# SPDX-FileCopyrightText: 2023 - 2024 Jürgen Mülbert <juergen.muelbert@outlook.de>
+# yaml-language-server: $schema= https://json.schemastore.org/github-issue-template-1.0.0.json
+# The name of the issue template
 name: Bug Report
 description: Report an issue or possible bug
 title: "[Bug]:  "

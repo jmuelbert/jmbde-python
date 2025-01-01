@@ -1,10 +1,10 @@
-
+---
 # SPDX-FileCopyrightText: Alex Page
 # SPDX-License-Identifier: MIT
 
 name: Issue Triage Automation
 
-on:
+on: # yamllint disable-line rule:truthy
   issues:
     types: [opened, reopened, labeled, unlabeled]
   workflow_dispatch:

@@ -1,15 +1,16 @@
+---
 # SPDX-FileCopyrightText: Jürgen Mülbert
 # SPDX-License-Identifier: MIT
 
 name: Code Quality Checks
 
-on:
+on: # yamlint disable-line rule:truthy
   push:
     branches:
       - main
       - develop
-      - release/**'
-      - 'resolve-**'
+      - release/**
+      - resolve-**
     paths:
       - '**.py'
       - '**.pyi'
@@ -17,8 +18,8 @@ on:
       - '**.yaml'
       - '**.json'
       - '**.md'
-      - '.pre-commit-config.yaml'
-      - 'pyproject.toml'
+      - .pre-commit-config.yaml
+      - pyproject.toml
 
   pull_request:
     types: [opened, synchronize, reopened]
@@ -29,8 +30,8 @@ on:
       - '**.yaml'
       - '**.json'
       - '**.md'
-      - '.pre-commit-config.yaml'
-      - 'pyproject.toml'
+      - .pre-commit-config.yaml
+      - pyproject.toml
 
   workflow_dispatch:
 
@@ -70,8 +71,8 @@ jobs:
       - name: ⚙️ Setup Python
         uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
         with:
-          python-version-file: '.python-version'
-          cache: 'pip'
+          python-version-file: .python-version
+          cache: pip
           check-latest: true
 
       - name: 📦 Setup Cache

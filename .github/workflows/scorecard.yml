@@ -1,29 +1,30 @@
+---
 # SPDX-FileCopyrightText: Open Source Security Foundation (OpenSSF)
 # SPDX-License-Identifier: Apache-2.0
 
 name: Supply Chain Security Analysis
 
-on:
+on: # yamllint disable-line rule:truthy
   schedule:
-    - cron: '0 4 * * 1' # Run at 04:00 UTC every Monday
+    - cron: 0 4 * * 1 # Run at 04:00 UTC every Monday
 
   push:
     branches:
       - main
       - develop
-      - 'release/**'
-      - 'resolve-**'
+      - release/**
+      - resolve-**
     paths-ignore:
       - '**.md'
-      - 'docs/**'
-      - '.github/*.md'
+      - docs/**
+      - .github/*.md
 
   pull_request:
     types: [opened, synchronize, reopened]
     paths-ignore:
       - '**.md'
-      - 'docs/**'
-      - '.github/*.md'
+      - docs/**
+      - .github/*.md
 
   workflow_dispatch:
 

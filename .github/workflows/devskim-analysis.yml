@@ -1,3 +1,4 @@
+---
 # SPDX-FileCopyrightText: Microsoft Corporation
 # SPDX-License-Identifier: MIT
 
@@ -8,27 +9,27 @@
 
 name: DevSkim Security Analysis
 
-on:
+on: # yamlint disable-line rule:truthy
   push:
     branches:
       - main
       - develop
-      - 'release/**'
-      - 'resolve-**'
+      - release/**
+      - resolve-**
     paths-ignore:
       - '**.md'
-      - 'docs/**'
-      - '.github/*.md'
+      - docs/**
+      - .github/*.md
 
   pull_request:
     types: [opened, synchronize, reopened]
     paths-ignore:
       - '**.md'
-      - 'docs/**'
-      - '.github/*.md'
+      - docs/**
+      - .github/*.md
 
   schedule:
-    - cron: '0 2 * * 1' # Run at 2 AM UTC every Monday
+    - cron: 0 2 * * 1 # Run at 2 AM UTC every Monday
 
   workflow_dispatch:
 

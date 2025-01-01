@@ -1,9 +1,10 @@
+---
 # SPDX-FileCopyrightText: GitHub, Inc. and contributors
 # SPDX-License-Identifier: MIT
 
 name: Issue Auto-Labeler
 
-on:
+on: # yamllint disable-line rule:truthy
   issues:
     types: [opened, reopened]
 

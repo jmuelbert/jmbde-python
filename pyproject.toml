@@ -75,7 +75,10 @@ dev = [
 ]
 
 [tool.hatch.version]
-path = "src/jmbde/__about__.py"
+path = [
+    "src/jmbde/__about__.py"
+    "package.json"
+]
 
 [project.scripts]
 jmbde = "jmbde.__main:main"

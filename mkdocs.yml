@@ -1,9 +1,16 @@
-site_name: jmbde-python
+---
+# SPDX-FileCopyRightText: 2023-2024 Jürgen Mülbert <juergen.muelbert@outlook.de>
+#
+# SPDX-License-Identifier: EUPL-1.2
+#
+# yaml-language-server: $schema= https://json.schemastore.org/mkdocs-1.6.json
+#
+site_name: JM BDE - Management of the inventory the computer equipment
 site_url: https://io.github.org/jmuelbert/jmbde-python/
-site_description: 'JM BDE - Management of the inventory the computer equipment'
+site_description: JM BDE - Management of the inventory the computer equipment
 repo_name: jmuelbert/jmbde-python
 repo_url: https://github.com/jmuelbert/jmbde-python/
-edit_uri: 'blob/main/docs/'
+edit_uri: blob/main/docs/
 copyright: Copyright &copy; 2023 - 2024 Jürgen Mülbert
 
 docs_dir: docs

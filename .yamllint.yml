@@ -1,3 +1,4 @@
+---
 extends: default
 
 ignore:
@@ -17,9 +18,7 @@ rules:
   comments:
     min-spaces-from-content: 1 # Used to follow prettier standard: https://github.com/prettier/prettier/pull/10926
 
-  line-length:
-    max: 120 # Set maximum line length to 120 characters
-    level: warning # Set level to warning
+  line-length: disable
 
   indentation:
     spaces: 2 # Use 2 spaces for indentation
@@ -50,5 +49,4 @@ rules:
   octal-values:
     forbid-implicit-octal: true # Forbid implicit octal values
 
-
-  # Additional rules can be added here
+    # Additional rules can be added here

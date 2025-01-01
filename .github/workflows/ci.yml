@@ -1,12 +1,17 @@
+---
 # SPDX-FileCopyrightText: Jürgen Mülbert <juergen.muelbert@web.de>
 # SPDX-License-Identifier: EUPL-1.2
 
 name: Release Pipeline
 
-on:
+on: # yamllint disable-line rule:truthy
   push:
-    branches: [main, develop,  'release/**', 'resolve-**']
-    tags: ['v*']
+    branches:
+      - main
+      - develop
+      - release/**
+      - resolve-**
+    tags: [v*]
   workflow_dispatch:
 
 permissions:
@@ -48,9 +53,9 @@ jobs:
       - name: ⚙️ Setup Python
         uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
         with:
-          python-version-file: '.python-version' # Read python version from a file .python-version
+          python-version-file: .python-version # Read python version from a file .python-version
           check-latest: true
-          cache: 'pip'
+          cache: pip
           cache-dependency-path: '**/pyproject.toml'
 
       - name: 🔧 Install Build Tools

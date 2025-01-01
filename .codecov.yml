@@ -1,5 +1,10 @@
+---
+# SPDX-License-Identifier: EUPL-1.2
+# SPDX-FileCopyrightText: 2023 - 2024 Jürgen Mülbert
+# yaml-language-server: $schema= https://json.schemastore.org/codecov-0.1.6.json
+#
 ignore:
-  - 'test'
+  - tests/**
 
 comment:
   require_changes: true

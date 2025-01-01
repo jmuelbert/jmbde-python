@@ -1,9 +1,10 @@
+---
 # SPDX-FileCopyrightText: GitHub, Inc. and contributors
 # SPDX-License-Identifier: MIT
 
 name: Issue Label Comment
 
-on:
+on: # yamllint disable-line rule:truthy
   issues:
     types: [labeled]
 

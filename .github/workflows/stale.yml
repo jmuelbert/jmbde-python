@@ -1,11 +1,12 @@
+---
 # SPDX-FileCopyrightText: GitHub, Inc. and contributors
 # SPDX-License-Identifier: MIT
 
 name: Issue Activity Management
 
-on:
+on: # yamllint disable-line rule:truthy
   schedule:
-    - cron: '0 1 * * *' # Run at 01:00 UTC daily
+    - cron: 0 1 * * * # Run at 01:00 UTC daily
 
   workflow_dispatch:
 
@@ -78,8 +79,8 @@ jobs:
             Need help completing this PR? Let us know in a comment! 🤝
 
           # Labels
-          stale-issue-label: 'no-issue-activity'
-          stale-pr-label: 'no-pr-activity'
+          stale-issue-label: no-issue-activity
+          stale-pr-label: no-pr-activity
 
           # Exempt Labels
           exempt-issue-labels: |

@@ -1,9 +1,10 @@
+---
 # SPDX-FileCopyrightText: GitHub, Inc. and contributors
 # SPDX-License-Identifier: MIT
 
 name: Dependabot Auto-Merge
 
-on:
+on: # yamlint disable-line rule:truthy
   pull_request:
     types: [opened, synchronize, reopened, labeled]
   pull_request_review:

@@ -1,17 +1,19 @@
+---
 # SPDX-FileCopyrightText: (c) Wagner Santos
 #
 # SPDX-License-Identifier: MIT
 #
 name: Lint Commit Messages
 
-on:
+on: # yamllint disable-line rule:truthy
   pull_request:
     types: [opened, synchronize, reopened, edited]
     paths-ignore:
       - '**.md'
-      - 'docs/**'
-      - '.github/*.md'
-      - 'LICENSE'
+      - docs/**
+      - .github/*.md
+      - LICENSE
+      - LICENSES/**
 
 permissions:
   contents: read

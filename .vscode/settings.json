@@ -26,5 +26,8 @@
 		"**/.project": true,
 		"**/.settings": true
 	},
-	"explorerExclude.backup": {}
+	"explorerExclude.backup": {},
+	"cSpell.words": [
+		"JMBDE"
+	]
 }

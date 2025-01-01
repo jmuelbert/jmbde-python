@@ -1,3 +1,7 @@
+---
+# SPDX-License-Identifier: EUPL-1.2
+# SPDX-FileCopyrightText: 2024 Jürgen Mülbert <juergen.muelbert@outlook.de>
+#
 version: 1
 policies:
   - name: Supply Chain Security Requirements
@@ -39,6 +43,6 @@ policies:
 
     actions:
       - name: file-issue
-        on:
+        on: # yamllint disable-line rule:truthy
           - high
           - critical

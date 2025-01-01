@@ -9,107 +9,107 @@ version: 2
 
 updates:
   # GitHub Actions Dependencies
-  - package-ecosystem: 'github-actions'
-    directory: '/'
+  - package-ecosystem: github-actions
+    directory: /
     schedule:
-      interval: 'weekly'
+      interval: weekly
     groups:
       github-actions:
         patterns:
           - '*'
     labels:
-      - 'dependencies'
-      - 'github-actions'
-      - 'security'
+      - dependencies
+      - github-actions
+      - security
     commit-message:
-      prefix: 'chore(deps)'
-      prefix-development: 'chore(deps-dev)'
-      include: 'scope'
+      prefix: chore(deps)
+      prefix-development: chore(deps-dev)
+      include: scope
     open-pull-requests-limit: 10
     pull-request-branch-name:
-      separator: '/'
-    rebase-strategy: 'auto'
+      separator: /
+    rebase-strategy: auto
     reviewers:
-      - 'jmuelbert'
-    target-branch: 'develop'
-    versioning-strategy: 'lockfile-only'
+      - jmuelbert
+    target-branch: develop
+    versioning-strategy: lockfile-only
     ignore:
       - dependency-name: '*'
-        update-types: ['version-update:semver-major']
+        update-types: [version-update:semver-major]
 
   # Python Dependencies
-  - package-ecosystem: 'pip'
-    directory: '/'
+  - package-ecosystem: pip
+    directory: /
     schedule:
-      interval: 'weekly'
+      interval: weekly
     groups:
       production-dependencies:
-        dependency-type: 'production'
+        dependency-type: production
         update-types:
-          - 'minor'
-          - 'patch'
+          - minor
+          - patch
       development-dependencies:
-        dependency-type: 'development'
+        dependency-type: development
         update-types:
-          - 'minor'
-          - 'patch'
+          - minor
+          - patch
     labels:
-      - 'dependencies'
-      - 'python'
+      - dependencies
+      - python
     commit-message:
-      prefix: 'chore(deps)'
-      prefix-development: 'chore(deps-dev)'
-      include: 'scope'
+      prefix: chore(deps)
+      prefix-development: chore(deps-dev)
+      include: scope
     open-pull-requests-limit: 15
     pull-request-branch-name:
-      separator: '/'
-    rebase-strategy: 'auto'
+      separator: /
+    rebase-strategy: auto
     reviewers:
-      - 'jmuelbert'
+      - jmuelbert
     allow:
-      - dependency-type: 'direct'
-      - dependency-type: 'indirect'
+      - dependency-type: direct
+      - dependency-type: indirect
     ignore:
       - dependency-name: '*'
-        update-types: ['version-update:semver-major']
-    versioning-strategy: 'lockfile-only'
+        update-types: [version-update:semver-major]
+    versioning-strategy: lockfile-only
 
   # Docker Dependencies
-  - package-ecosystem: 'docker'
-    directory: '/'
+  - package-ecosystem: docker
+    directory: /
     schedule:
-      interval: 'weekly'
+      interval: weekly
     labels:
-      - 'dependencies'
-      - 'docker'
+      - dependencies
+      - docker
     commit-message:
-      prefix: 'chore(deps)'
-      include: 'scope'
+      prefix: chore(deps)
+      include: scope
     ignore:
       - dependency-name: '*'
-        update-types: ['version-update:semver-major']
+        update-types: [version-update:semver-major]
 
   # NPM Dependencies for Documentation
-  - package-ecosystem: 'npm'
-    directory: '/docs'
+  - package-ecosystem: npm
+    directory: /docs
     schedule:
-      interval: 'monthly'
+      interval: monthly
     groups:
       documentation-dependencies:
         patterns:
           - '*'
     labels:
-      - 'dependencies'
-      - 'documentation'
-      - 'javascript'
+      - dependencies
+      - documentation
+      - javascript
     commit-message:
-      prefix: 'chore(docs)'
-      include: 'scope'
+      prefix: chore(docs)
+      include: scope
     open-pull-requests-limit: 5
     pull-request-branch-name:
-      separator: '/'
-    rebase-strategy: 'auto'
-    versioning-strategy: 'increase'
+      separator: /
+    rebase-strategy: auto
+    versioning-strategy: increase
     ignore:
       - dependency-name: '*'
-        update-types: ['version-update:semver-major']
+        update-types: [version-update:semver-major]

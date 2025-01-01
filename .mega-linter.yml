@@ -1,3 +1,4 @@
+---
 # Configuration file for MegaLinter
 #
 # See all available variables at https://megalinter.io/latest/config-file/ and in
@@ -23,28 +24,33 @@ SHOW_ELAPSED_TIME: true
 FILEIO_REPORTER: false
 # Uncomment if you want MegaLinter to detect errors but not block CI to pass
 # DISABLE_ERRORS: true
+
+# Devskim
+REPOSITORY_DEVSKIM_ARGUMENTS:
+  - --config=.github/devskim-config.json
+
 # Python-specific settings
 PYTHON_MYPY_ARGUMENTS:
-  - '--config-file=pyproject.toml'
+  - --config-file=pyproject.toml
 
 PYTHON_BANDIT_ARGUMENTS:
-  - '-c'
-  - 'pyproject.toml'
+  - -c
+  - pyproject.toml
 
 PYTHON_ISORT_ARGUMENTS:
-  - '--profile=black'
+  - --profile=black
 
 PYTHON_PYLINT_ARGUMENTS:
-  - '--rcfile=pyproject.toml'
-  - '--output-format=colorized'
+  - --rcfile=pyproject.toml
+  - --output-format=colorized
 
 # EditorConfig
 EDITORCONFIG_FILTER_REGEX_EXCLUDE: (LICENSES/|LICENSE|license\.md)
 # Markdown-Linter
-MARKDOWN_FILTER_REGEX_EXCLUDE: '(LICENSES/|LICENSE|license\.md)'
+MARKDOWN_FILTER_REGEX_EXCLUDE: (LICENSES/|LICENSE|license\.md)
 MARKDOWN_MARKDOWNLINT_CONFIG_FILE: .markdownlint.json
 MARKDOWN_MARKDOWNLINT_ARGUMENTS:
-  - '--fix'
+  - --fix
 
 # JSon-Linter
 JSON_JSONLINT_FILTER_REGEX_EXCLUDE: (\.vscode/|\.devcontainer/devcontainer.json)

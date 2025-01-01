@@ -1,9 +1,10 @@
+---
 # SPDX-FileCopyrightText: Jürgen Mülbert <juergen.muelbert@web.de>
 # SPDX-License-Identifier: EUPL-1.2
 
 name: Issue Management
 
-on:
+on: # yamllint disable-line rule:truthy
   issues:
     types: [opened, edited, labeled, unlabeled, assigned]
   issue_comment:
@@ -153,8 +154,8 @@ jobs:
       - name: 🔍 Check Stale Issues
         uses: actions/stale@28ca1036281a5e5922ead5184a1bbf96e5fc984e # v9.0.0
         with:
-          stale-issue-message: 'This issue has been automatically marked as stale due to inactivity.'
-          close-issue-message: 'This issue was closed due to continued inactivity.'
+          stale-issue-message: This issue has been automatically marked as stale due to inactivity.
+          close-issue-message: This issue was closed due to continued inactivity.
           days-before-stale: 30
           days-before-close: 7
           exempt-issue-labels: 'priority: high,security,pinned'

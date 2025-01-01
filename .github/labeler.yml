@@ -1,7 +1,12 @@
+---
+# SPDX-License-Identifier: EUPL-1.2
+# SPDX-FileCopyrightText: 2024 Jürgen Mülbert <juergen.muelbert@outlook.de>
+# yaml-language-server: $schema=https://json.schemastore.org/pull-request-labeler-5.json
+
 # Configuration for labeling pull requests based on file changes
 
 # Add 'root' label to any root file changes, excluding markdown files
-'project':
+project:
   - changed-files:
       - any-glob-to-any-file: '*'
       - all-globs-to-all-files: '!*.md'
@@ -14,7 +19,7 @@ ui:
 documentation:
   - docs/**/*
   - '**/*.md'  # Matches all markdown files in any directory
-  - '.github/*.md'  # Matches markdown files in the .github directory
+  - .github/*.md  # Matches markdown files in the .github directory
 
 # Add 'dependencies' label to any changes in dependency files
 dependencies:
@@ -40,14 +45,14 @@ security:
   - '**/*security*.md'  # Matches any markdown files with 'security' in the name
 
 # Add 'source' label to any changes to source files within the 'src' directory, excluding the 'docs' sub-folder
-'source':
+source:
   - changed-files:
       - any-glob-to-any-file: src/**/*
       - all-globs-to-all-files: '!src/docs/**'
 
 # Add 'feature' label to any PR where the head branch name starts with 'feature' or contains 'feature'
-'feature':
-  - head-branch: 'feature/*'  # Updated regex for clarity
+feature:
+  - head-branch: feature/*  # Updated regex for clarity
 
 # Add 'release' label to any PR that is opened against the 'main' branch
 release:

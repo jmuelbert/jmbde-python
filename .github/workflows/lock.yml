@@ -4,9 +4,9 @@
 
 name: Thread Management
 
-on:
+on: # yamllint disable-line rule:truthy
   schedule:
-    - cron: '0 0 * * 1'  # Run at midnight every Monday
+    - cron: 0 0 * * 1  # Run at midnight every Monday
 
   workflow_dispatch:
 
@@ -39,11 +39,11 @@ jobs:
 
       - name: 🔐 Lock Inactive Threads
         id: lock
-        uses: dessant/lock-threads@1bf7ec25051bf7e00bdd17e6a7cf3d7bfb7dc771 # v5.0.1
+        uses: dessant/lock-threads@1bf7ec25051fe7c00bdd17e6a7cf3d7bfb7dc771 # v5.0.1
         with:
           # Issue settings
           issue-inactive-days: '182'
-          issue-lock-reason: 'resolved'
+          issue-lock-reason: resolved
           issue-comment: |
             👋 Hello! This issue has been automatically locked due to inactivity for 6 months.
 
@@ -66,7 +66,7 @@ jobs:
 
           # PR settings
           pr-inactive-days: '90'
-          pr-lock-reason: 'resolved'
+          pr-lock-reason: resolved
           pr-comment: |
             📌 This pull request has been automatically locked due to 90 days of inactivity.
 
@@ -78,7 +78,7 @@ jobs:
             Thank you for your contribution! 🙏
 
           # General settings
-          process-only: 'issues, pulls'
+          process-only: issues, pulls
           log-output: true
           exclude-any-issue-labels: |
             keep-unlocked

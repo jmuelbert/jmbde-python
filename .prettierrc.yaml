@@ -1,3 +1,8 @@
+---
+# SPDX-License-Identifier: BSD-3-Clause
+# SPDX-FileCopyrightText: 2023 - 2024 Jürgen Mülbert
+# yaml-language-server: $schema=https://json.schemastore.org/prettierrc.json
+# Prettier configuration file
 {
   'printWidth': 100,
   'semi': true,

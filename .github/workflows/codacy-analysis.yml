@@ -1,3 +1,4 @@
+---
 # SPDX-FileCopyrightText: Codacy Analysis CLI GitHub Action Group
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -13,27 +14,27 @@
 
 name: Codacy Security Scan
 
-on:
+on: # yamllint disable-line rule:truthy
   push:
     branches:
       - main
       - develop
-      - 'release/**'
-      - 'resolve-**'
+      - release/**
+      - resolve-**
     paths-ignore:
       - '**.md'
-      - 'docs/**'
-      - '.github/*.md'
+      - docs/**
+      - .github/*.md
 
   pull_request:
     types: [opened, synchronize, reopened]
     paths-ignore:
       - '**.md'
-      - 'docs/**'
-      - '.github/*.md'
+      - docs/**
+      - .github/*.md
 
   schedule:
-    - cron: '0 12 * * 1' # Run at 12:00 UTC every Monday
+    - cron: 0 12 * * 1 # Run at 12:00 UTC every Monday
 
 permissions:
   contents: read
@@ -75,10 +76,10 @@ jobs:
           format: sarif
           gh-code-scanning-compat: true
           max-allowed-issues: 2147483647
+          # TODO: #1179 Add the Codacy project token to the repository secrets
           # project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 
       - name: 📤 Upload SARIF Results
         if: always()

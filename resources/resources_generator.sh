@@ -21,7 +21,7 @@ done
 
 # finding parent directory
 dir=$(pwd)
-parent_dir=$(dirname $dir)
+parent_dir=$(dirname "$dir")
 
 if [ "$translate" == "1" ]; then
 

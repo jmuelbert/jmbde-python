@@ -1,9 +1,10 @@
+---
 # SPDX-FileCopyrightText: Jef LeCompte
 # SPDX-License-Identifier: MIT
 
 name: Pull Request Quality Check
 
-on:
+on: # yamllint disable-line rule:truthy
   pull_request:
     types: [opened, edited, synchronize, reopened, labeled, unlabeled]
 

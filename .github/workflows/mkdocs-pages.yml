@@ -1,31 +1,32 @@
+---
 # SPDX-FileCopyrightText: GitHub, Inc. and contributors
 # SPDX-License-Identifier: MIT
 
 name: Documentation Deployment
 
-on:
+on: # yamllint disable-line rule:truthy
   push:
     branches:
       - main
       - develop
-      - 'release/**'
-      - 'resolve-**'
+      - release/**
+      - resolve-**
     paths:
-      - 'docs/**'
-      - 'mkdocs.yml'
-      - 'pyproject.toml'
-      - '.github/workflows/mkdocs-pages.yml'
+      - docs/**
+      - mkdocs.yml
+      - pyproject.toml
+      - .github/workflows/mkdocs-pages.yml
       - '**/*.md'
-      - 'src/**/*.py' # Include Python files for API docs
+      - src/**/*.py # Include Python files for API docs
 
   pull_request:
     types: [opened, synchronize, reopened]
     paths:
-      - 'docs/**'
-      - 'mkdocs.yml'
-      - 'pyproject.toml'
+      - docs/**
+      - mkdocs.yml
+      - pyproject.toml
       - '**/*.md'
-      - 'src/**/*.py'
+      - src/**/*.py
 
   workflow_dispatch:
 
@@ -66,8 +67,8 @@ jobs:
       - name: ⚙️ Setup Python
         uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
         with:
-          python-version-file: '.python-version'
-          cache: 'pip'
+          python-version-file: .python-version
+          cache: pip
           check-latest: true
 
       - name: 📦 Setup Cache
@@ -98,7 +99,7 @@ jobs:
       - name: 📚 Build Documentation
         id: build
         env:
-          DOCS_LANGUAGE: 'en' # Default language set here
+          DOCS_LANGUAGE: en # Default language set here
         run: |
           if [ -d "src" ]; then
             hatch run docs:mkdocstrings-gen
@@ -127,13 +128,13 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./site
-          destination_dir: 'en' # Default destination directory for language
+          destination_dir: en # Default destination directory for language
           commit_message: |
             docs: update documentation (language: en)
 
             Files: ${{ steps.build.outputs.doc-files }}
-          user_name: 'github-actions[bot]'
-          user_email: 'github-actions[bot]@users.noreply.github.com'
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com
           full_commit_message: true
           force_orphan: false
           enable_jekyll: false
