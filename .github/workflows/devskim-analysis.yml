@@ -74,8 +74,6 @@ jobs:
           directory-to-scan: .
           should-scan-archives: false
           output-filename: results/devskim-results.sarif
-          enable-suppressions: true
-          config-path: .github/devskim-config.json
 
       - name: 📝 Process Results
         if: always()

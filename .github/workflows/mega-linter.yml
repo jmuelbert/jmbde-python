@@ -31,147 +31,147 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-    megalinter:
-      name: Code Quality Check
-      if: github.actor != 'dependabot[bot]'
-      runs-on: ubuntu-latest
-      timeout-minutes: 30
-      permissions:
-        contents: write
-        issues: write
-        pull-requests: write
-        security-events: write
-      outputs:
-        has_changes: ${{ steps.ml.outputs.has_updated_sources }}
-      env:
-        APPLY_FIXES: all
-        APPLY_FIXES_EVENT: pull_request
-        APPLY_FIXES_MODE: commit
+  megalinter:
+    name: Code Quality Check
+    if: github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      security-events: write
+    outputs:
+      has_changes: ${{ steps.ml.outputs.has_updated_sources }}
+    env:
+      APPLY_FIXES: all
+      APPLY_FIXES_EVENT: pull_request
+      APPLY_FIXES_MODE: commit
 
-      steps:
-        - name: 🔒 Harden Runner
-          uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142
-          with:
-            egress-policy: audit
+    steps:
+      - name: 🔒 Harden Runner
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142
+        with:
+          egress-policy: audit
 
-        - name: 🧰 Checkout Repository
-          uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
-          with:
-            # TODO: #1180 add SECRET_NAME to store the PAT
-            token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
-            fetch-depth: 0
+      - name: 🧰 Checkout Repository
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+        with:
+          # TODO: #1180 add SECRET_NAME to store the PAT
+          token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
-        - name: 🧪 Run MegaLinter
-          uses: oxsecurity/megalinter@1fc052d03c7a43c78fe0fee19c9d648b749e0c01
-          id: ml
-          env:
-            VALIDATE_ALL_CODEBASE: true
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: 🧪 Run MegaLinter
+        uses: oxsecurity/megalinter@1fc052d03c7a43c78fe0fee19c9d648b749e0c01
+        id: ml
+        env:
+          VALIDATE_ALL_CODEBASE: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-        - name: 📤 Upload Artifacts
-          if: success() || failure()
-          uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b
-          with:
-            name: megalinter-reports
-            path: |
-              megalinter-reports/
-              mega-linter.log
-            retention-days: 7
+      - name: 📤 Upload Artifacts
+        if: success() || failure()
+        uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b
+        with:
+          name: megalinter-reports
+          path: |
+            megalinter-reports/
+            mega-linter.log
+          retention-days: 7
 
-        - name: 📊 Process Results
-          if: always()
-          uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
-          with:
-            script: >
-              const fs = require('fs');
+      - name: 📊 Process Results
+        if: always()
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
+        with:
+          script: >
+            const fs = require('fs');
 
-              try {
-                const report = JSON.parse(fs.readFileSync('megalinter-reports/megalinter-report.json', 'utf8'));
+            try {
+              const report = JSON.parse(fs.readFileSync('megalinter-reports/megalinter-report.json', 'utf8'));
 
-                let summary = '## 🔍 MegaLinter Results\n\n';
+              let summary = '## 🔍 MegaLinter Results\n\n';
 
-                 // Add statistics
-                 summary += '### 📊 Statistics\n';
-                 summary += `- Files analyzed: ${report.files_analyzed}\n`;
-                 summary += `- Errors found: ${report.total_errors}\n`;
-                 summary += `- Fixes applied: ${report.fixed_errors}\n\n`;
+              // Add statistics
+              summary += '### 📊 Statistics\n';
+              summary += `- Files analyzed: ${report.files_analyzed}\n`;
+              summary += `- Errors found: ${report.total_errors}\n`;
+              summary += `- Fixes applied: ${report.fixed_errors}\n\n`;
 
-                 // Add errors by linter
-                if (report.total_errors > 0) {
-                  summary += '### ❌ Errors by Linter\n';
-                  Object.entries(report.linters_stats).forEach(([linter, stats]) => {
-                  if (stats.errors > 0) {
-                    summary += `- ${linter}: ${stats.errors} error(s)\n`;
-                   }
-                 });
+              // Add errors by linter
+              if (report.total_errors > 0) {
+                summary += '### ❌ Errors by Linter\n';
+                Object.entries(report.linters_stats).forEach(([linter, stats]) => {
+                if (stats.errors > 0) {
+                  summary += `- ${linter}: ${stats.errors} error(s)\n`;
                 }
+                });
+              }
 
-                // Add comment to PR
-                if (context.payload.pull_request) {
-                  await github.rest.issues.createComment({
-                    ...context.repo,
-                  issue_number: context.payload.pull_request.number,
-                  body: summary
-                    });
-                }
+              // Add comment to PR
+              if (context.payload.pull_request) {
+                await github.rest.issues.createComment({
+                  ...context.repo,
+                issue_number: context.payload.pull_request.number,
+                body: summary
+                });
+              }
 
               } catch (error) {
                 console.error('Error processing results:', error);
               }
 
-        - name: 📝 Create Fix PR
-          if: steps.ml.outputs.has_updated_sources == 1
-          uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c
-          with:
-            token: ${{ secrets.GITHUB_TOKEN }}
-            commit-message: "style: apply automatic linter fixes"
-            title: "style: apply automatic linter fixes"
-            body: |
-              🤖 MegaLinter has automatically fixed code style issues.
+      - name: 📝 Create Fix PR
+        if: steps.ml.outputs.has_updated_sources == 1
+        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "style: apply automatic linter fixes"
+          title: "style: apply automatic linter fixes"
+          body: |
+            🤖 MegaLinter has automatically fixed code style issues.
 
-              ### Changes made:
-              - Applied automatic formatting fixes
-              - Updated code style to match guidelines
+            ### Changes made:
+            - Applied automatic formatting fixes
+            - Updated code style to match guidelines
 
-              Please review the changes and merge if appropriate.
-            branch: fix/megalinter-fixes
-            delete-branch: true
-            labels: |
-              automated-pr
-              style
-            draft: false
+            Please review the changes and merge if appropriate.
+          branch: fix/megalinter-fixes
+          delete-branch: true
+          labels: |
+            automated-pr
+            style
+          draft: false
 
-        - name: 🏷️ Update PR Labels
-          if: success() && github.event_name == 'pull_request'
-          uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
-          with:
-            script: |
-              const labels = [];
-              if (process.env.has_updated_sources === '1') {
-                labels.push('needs-review');
-              } else {
-                labels.push('linter-approved');
-              }
+      - name: 🏷️ Update PR Labels
+        if: success() && github.event_name == 'pull_request'
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
+        with:
+          script: |
+            const labels = [];
+            if (process.env.has_updated_sources === '1') {
+              labels.push('needs-review');
+            } else {
+              labels.push('linter-approved');
+            }
 
-              await github.rest.issues.addLabels({
-                ...context.repo,
-              issue_number: context.payload.pull_request.number,
-              labels: labels
-              });
+            await github.rest.issues.addLabels({
+              ...context.repo,
+            issue_number: context.payload.pull_request.number,
+            labels: labels
+            });
 
-        - name: 🚨 Check Failure
-          if: failure()
-          uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
-          with:
-            script: >
-              const message = `❌ MegaLinter checks failed. Please review the [workflow
-              logs](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID})
-              for details.`;
+      - name: 🚨 Check Failure
+        if: failure()
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
+        with:
+          script: >
+            const message = `❌ MegaLinter checks failed. Please review the [workflow
+            logs](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID})
+            for details.`;
 
-              await github.rest.issues.createComment({
-                ...context.repo,
-              issue_number: context.payload.pull_request.number,
+            await github.rest.issues.createComment({
+              ...context.repo,
+            issue_number: context.payload.pull_request.number,
 
-              body: message
+            body: message
 
-              });
+            });

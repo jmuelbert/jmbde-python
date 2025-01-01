@@ -25,10 +25,6 @@ FILEIO_REPORTER: false
 # Uncomment if you want MegaLinter to detect errors but not block CI to pass
 # DISABLE_ERRORS: true
 
-# Devskim
-REPOSITORY_DEVSKIM_ARGUMENTS:
-  - --config=.github/devskim-config.json
-
 # Python-specific settings
 PYTHON_MYPY_ARGUMENTS:
   - --config-file=pyproject.toml
@@ -75,5 +71,5 @@ TYPESCRIPT_FILTER_REGEX_EXCLUDE: (resources/translations)
 # PRE-Commands
 PRE_COMMANDS:
   - command: vale sync
-  - command: npm install pnpm -D
+  - command: npm install pnpm -g
   - command: pnpm install

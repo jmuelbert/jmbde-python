@@ -117,22 +117,19 @@ repos:
         args: [--py39-plus]
 
   - repo: https://github.com/microsoft/DevSkim
-    rev: v1.0.0  # Use the latest version
+    rev: v1.0.0 # Use the latest version
     hooks:
       - id: devskim
-        args: [--config, .github/devskim-config.json]
 
   - repo: https://github.com/hadolint/hadolint
     rev: v2.13.1-beta
     hooks:
       - id: hadolint
-        args: [--ignore, DL3008, --ignore, DL3013]
 
   - repo: https://github.com/igorshubovych/markdownlint-cli
     rev: v0.43.0
     hooks:
       - id: markdownlint
-        args: [--config, .markdownlint.json]
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
     rev: 0.30.0

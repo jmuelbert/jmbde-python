@@ -70,7 +70,6 @@ jobs:
           results_file: results/scorecard.sarif
           results_format: sarif
           publish_results: true
-          policy_file: .github/scorecard-policy.yml
 
       - name: 📊 Process Results
         id: process
