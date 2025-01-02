@@ -38,7 +38,7 @@ repos:
       - id: check-useless-excludes
 
   - repo: https://github.com/mxr/sync-pre-commit-deps
-    rev: v0.0.1
+    rev: v0.0.2
     hooks:
       - id: sync-pre-commit-deps
 
@@ -86,7 +86,7 @@ repos:
       - id: ruff-format
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.14.0
+    rev: v1.14.1
     hooks:
       - id: mypy
         args: [--config-file=pyproject.toml]
@@ -116,11 +116,6 @@ repos:
       - id: pyupgrade
         args: [--py39-plus]
 
-  - repo: https://github.com/microsoft/DevSkim
-    rev: v1.0.0 # Use the latest version
-    hooks:
-      - id: devskim
-
   - repo: https://github.com/hadolint/hadolint
     rev: v2.13.1-beta
     hooks:
@@ -143,7 +138,7 @@ repos:
         args: [--verbose]
 
   - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.22.0
+    rev: v8.22.1
     hooks:
       - id: gitleaks
 
@@ -160,7 +155,7 @@ repos:
         exclude: (.*\.svg|pyproject.toml|LICENSE|LICENSES/|\.github/actions)
 
   - repo: https://github.com/rhysd/actionlint
-    rev: v1.7.4
+    rev: v1.7.5
     hooks:
       - id: actionlint
 
