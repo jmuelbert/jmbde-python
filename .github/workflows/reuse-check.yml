@@ -106,26 +106,27 @@ jobs:
 
           # Process results
           if grep -q "not compliant" reuse-report.txt; then
+            ISSUES=$(grep -c "not licensed" reuse-report.txt)
             echo "status=failed" >> "$GITHUB_OUTPUT"
-            ISSUES=$(grep -c "not licensed" reuse-report.txt || echo "0")
-            echo "issues=${ISSUES}" >> "$GITHUB_OUTPUT"
+            echo "issues=$ISSUES" >> "$GITHUB_OUTPUT"
+            echo "compliance-status=failure" >> "$GITHUB_OUTPUT"
+            echo "issues-found=$ISSUES" >> "$GITHUB_OUTPUT"
 
             # Generate detailed report
-            {
-              echo "## 📋 License Compliance Issues"
-              echo ""
-              echo "Found ${ISSUES} files with licensing issues:"
-              echo " "
-              echo "\`\`\`"
-              cat reuse-report.txt
-              echo "\`\`\`"
-              echo ""
-              echo "### 🔨 How to Fix"
-              echo "1. Add SPDX headers to each file"
-              echo "2. Use appropriate license identifiers"
-              echo "3. Update dep5 file if needed"
-            } > compliance-report.md
-
+            echo "## 📋 License Compliance Issues" > compliance-report.md
+            echo "" >> compliance-report.md
+            echo "Found $ISSUES files with licensing issues:" >> compliance-report.md
+            echo " " >> compliance-report.md
+            echo "```" >> compliance-report.md
+            cat reuse-report.txt >> compliance-report.md
+            echo "```" >> compliance-report.md
+            echo "" >> compliance-report.md
+            echo "### 🔨 How to Fix" >> compliance-report.md
+            echo "1. Add SPDX headers to each file" >> compliance-report.md
+            echo "2. Use appropriate license identifiers" >> compliance-report.md
+            echo "3. Update dep5 file if needed" >> compliance-report.md
+          else
+            echo "status=passed" >> "$GITHUB_OUTPUT"
             echo "compliance-status=success" >> "$GITHUB_OUTPUT"
             echo "issues-found=0" >> "$GITHUB_OUTPUT"
 
