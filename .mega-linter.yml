@@ -42,6 +42,10 @@ PYTHON_PYLINT_ARGUMENTS:
 
 # EditorConfig
 EDITORCONFIG_FILTER_REGEX_EXCLUDE: (LICENSES/|LICENSE|license\.md)
+
+# HTML Hint
+HTML_HTMLHINT_FILTER_REGEX_EXCLUDE: (docs/\.overrides/partials/**.html)
+
 # Markdown-Linter
 MARKDOWN_FILTER_REGEX_EXCLUDE: (LICENSES/|LICENSE|license\.md)
 MARKDOWN_MARKDOWNLINT_CONFIG_FILE: .markdownlint.json
@@ -50,15 +54,10 @@ MARKDOWN_MARKDOWNLINT_ARGUMENTS:
 
 # JSon-Linter
 JSON_JSONLINT_FILTER_REGEX_EXCLUDE: (\.vscode/|\.devcontainer/devcontainer.json)
-JSON_V8R_FILTER_REGEX_EXCLUDE: (\.devcontainer/devcontainer.json|\.vscode/|\.devskim.json)
+JSON_V8R_FILTER_REGEX_EXCLUDE: (\.devcontainer/devcontainer.json|\.vscode/|\.devskim.json|\.secretlint.json)
 
 # JSCpd (Duplicate Code Detection)
-JSCODE_JSCODE_DUPLICATION_ARGUMENTS:
-  - --exclude=LICENSES/
-  - --exclude=.*\.md$
-  - --exclude=src/jmbde/ui/ui_*
-  - --exclude=docs/comuminity/contributing.md
-  - --exclude=docs/comuminity/code_of_conduct.md
+COPYPASTE_FILTER_REGEX_EXCLUDE: (LICENSES/|LICENSE|src/jmbde/ui/ui_*|docs/comuminity/contributing.md|docs/comuminity/code_of_conduct.md)
 
 # SPELL
 SPELL_CSPELL_FILTER_REGEX_EXCLUDE: (docs/de|docs/es|docs/it|LICENSE)

@@ -23,6 +23,15 @@ RUN apt-get update && \
 # Set the working directory
 WORKDIR /workspace
 
+# Add a user
+RUN useradd -m -s /bin/bash db_user
+
+# Change the default user to the one we just created
+USER db_user
+
+# Add a healthcheck
+HEALTHCHECK CMD curl --fail http://localhost || exit 1
+
 # [Optional] Copy your application code into the container
 # COPY . .
 

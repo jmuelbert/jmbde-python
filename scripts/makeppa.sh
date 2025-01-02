@@ -30,15 +30,21 @@ find . -name "*.pyc" -exec rm -f {} +
 build_and_upload() {
   local suite="$1"
 
-  pushd deb_dist || { echo "Error: Failed to enter deb_dist directory."; exit 1; }
-  pushd "${NAME}-${VERSION}" || { echo "Error: Failed to enter ${NAME}-${VERSION} directory."; exit 1; }
+  pushd deb_dist || {
+    echo "Error: Failed to enter deb_dist directory."
+    exit 1
+  }
+  pushd "${NAME}-${VERSION}" || {
+    echo "Error: Failed to enter ${NAME}-${VERSION} directory."
+    exit 1
+  }
 
   # Update changelog to include Ubuntu release
   local changelog="${NAME} (${VERSION}-1ppa1~${suite}1) ${suite}; urgency=low
   * Initial release
  -- Jürgen Mülbert <juergen.muelbert@gmail.com>  ${DATE}
 "
-  echo "$changelog" > debian/changelog
+  echo "$changelog" >debian/changelog
   cat debian/changelog
 
   if ! debuild -S -sa -k"$GPG_KEY"; then

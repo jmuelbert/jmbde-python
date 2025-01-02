@@ -5,7 +5,14 @@
 	},
 	"analysisMode": "All",
 	"severity": "All",
-	"excludeFiles": ["**/test/**", "**/tests/**", "**/node_modules/**", "**/.git/**", "**/vendor/**", "**/megalinter-reports/**"],
+	"excludeFiles": [
+		"**/test/**",
+		"**/tests/**",
+		"**/node_modules/**",
+		"**/.git/**",
+		"**/vendor/**",
+		"**/megalinter-reports/**"
+	],
 	"ignoreRules": [],
 	"customRules": []
 }

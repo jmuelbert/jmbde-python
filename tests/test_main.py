@@ -8,6 +8,7 @@
 
 import pytest
 from click.testing import CliRunner
+
 from jmbde import __main__
 
 

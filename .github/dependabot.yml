@@ -35,7 +35,7 @@ updates:
     versioning-strategy: lockfile-only
     ignore:
       - dependency-name: '*'
-        update-types: [version-update:semver-major]
+        update-types: ['version-update:semver-major']
 
   # Python Dependencies
   - package-ecosystem: pip
@@ -71,7 +71,7 @@ updates:
       - dependency-type: indirect
     ignore:
       - dependency-name: '*'
-        update-types: [version-update:semver-major]
+        update-types: ['version-update:semver-major']
     versioning-strategy: lockfile-only
 
   # Docker Dependencies
@@ -87,7 +87,7 @@ updates:
       include: scope
     ignore:
       - dependency-name: '*'
-        update-types: [version-update:semver-major]
+        update-types: ['version-update:semver-major']
 
   # NPM Dependencies for Documentation
   - package-ecosystem: npm
@@ -112,4 +112,4 @@ updates:
     versioning-strategy: increase
     ignore:
       - dependency-name: '*'
-        update-types: [version-update:semver-major]
+        update-types: ['version-update:semver-major']
