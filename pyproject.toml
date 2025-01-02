@@ -137,7 +137,7 @@ dependencies = [
     "mkdocs-material>=9.5.1",
     "mkdocs-static-i18n>=1.2.2",
     "mkdocstrings-python>=1.7.5",
-    "mkdocs-mermaid2>=0.7.1", # Mermaid support
+    "mkdocs-mermaid2-plugin>=1.2.0", # Mermaid support
     "mkdocs-git-revision-date-localized-plugin>=1.1.0", # Gitdatum support
     # Validation
     "linkchecker @ git+https://github.com/linkchecker/linkchecker.git@d9265bb71c2054bf57b8c5734a4825d62505c779",

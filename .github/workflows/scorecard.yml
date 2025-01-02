@@ -132,14 +132,14 @@ jobs:
             .github/scorecard-policy.yml
           retention-days: 30
 
-      - name: 🏷️ Update PR Labels
+       - name: 🏷️ Update PR Labels
         if: github.event_name == 'pull_request'
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const score = parseInt('${{ steps.scorecard.outputs.overall-score }}');
             const labels = [];
-
             if (score >= 8) {
               labels.push('security: good');
             } else if (score >= 6) {
@@ -147,7 +147,6 @@ jobs:
             } else {
               labels.push('security: high-risk');
             }
-
             await github.rest.issues.addLabels({
               owner: context.repo.owner,
               repo: context.repo.repo,

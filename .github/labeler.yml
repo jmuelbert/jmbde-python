@@ -13,36 +13,41 @@ project:
 
 # Add 'ui' label to any changes within the 'ui' package
 ui:
-  - src/ui/**/*
+  - changed-files:
+      - any-glob-to-any-file: src/ui/**/*
 
 # Add 'documentation' label to any changes in documentation files
 documentation:
-  - docs/**/*
-  - '**/*.md'  # Matches all markdown files in any directory
-  - .github/*.md  # Matches markdown files in the .github directory
+  - changed-files:
+      - any-glob-to-any-file: docs/**/*
+      - any-glob-to-all-files: **/*.md  # Matches all markdown files in any directory
+      - any-glob-to-all-files: .github/**/*.md  # Matches markdown files in the .github directory
 
 # Add 'dependencies' label to any changes in dependency files
 dependencies:
-  - requirements.txt
-  - requirements/*.txt
-  - pyproject.toml
-  - poetry.lock
+  - changed-files:
+      - any-glob-to-any-file: requirements*.txt
+      - any-glob-to-any-file: pyproject.toml
+      - any-glob-to-any-file: poetry.lock
 
 # Add 'testing' label to any changes in test files
 testing:
-  - tests/**/*
-  - pytest.ini
-  - conftest.py
+  - changed-files:
+      - any-glob-to-any-file: tests/**/*
+      - any-glob-to-any-file: pytest.ini
+      - any-glob-to-any-file: conftest.py
 
 # Add 'ci' label to any changes in CI configuration files
 ci:
-  - .github/workflows/*
-  - .github/actions/*
+  - changed-files:
+      - any-glob-to-any-file: .github/workflows/*
+      - any-glob-to-any-file: .github/actions/*
 
 # Add 'security' label to any changes in security-related files
 security:
-  - security/**/*
-  - '**/*security*.md'  # Matches any markdown files with 'security' in the name
+  - changed-files:
+    - any-glob-to-any-file: security/**/*
+    - all-globs-to-all-files: '**/*security*.md'  # Matches any markdown files with 'security' in the name
 
 # Add 'source' label to any changes to source files within the 'src' directory, excluding the 'docs' sub-folder
 source:

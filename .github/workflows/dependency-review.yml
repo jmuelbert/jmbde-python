@@ -43,6 +43,7 @@ jobs:
           fetch-depth: 0
 
       - name: 🔍 Review Dependencies
+        id: reviewdeps
         uses: actions/dependency-review-action@0c155c5e8556a497adf53f2c18edabf945ed8e70 # v4.3.2
         with:
           comment-summary-in-pr: always
