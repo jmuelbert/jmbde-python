@@ -3,8 +3,10 @@ FROM mcr.microsoft.com/devcontainers/python:1-3.12-bullseye
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
-ENV PIP_NO_CACHE_DIR=1  # Disable pip cache to reduce image size
-ENV DEBIAN_FRONTEND=noninteractive  # Prevent interactive prompts during package installation
+# Disable pip cache to reduce image size
+ENV PIP_NO_CACHE_DIR=1
+# Prevent interactive prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Install system dependencies and Hatch
 RUN apt-get update && \

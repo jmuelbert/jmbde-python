@@ -1,6 +1,6 @@
 {
 	"version": "0.2",
-	"language": ["en", "de"],
+	"language": "en",
 	"noConfigSearch": true,
 	"dictionaries": [
 		"en_US",
@@ -21,45 +21,49 @@
 		"types",
 		"de-de"
 	],
-	"ignorePaths": [
-		"**/node_modules/**",
-		"**/vscode-extension/**",
-		"**/.git/**",
-		"**/.pnpm-lock.json",
-		"**/pnpm-lock.yaml",
-		".vscode",
-		"megalinter",
-		"megalinter-reports/**",
-		"package-lock.json",
-		"report"
-	],
-	"ignoreWords": [],
-	"ignoreRegExpList": ["\\$.*\\$", "\\[.*\\)", "^```[\\s\\S]*?```$"],
-	"languageSettings": [
-		{
-			"languageId": "markdown",
-			"locale": "*",
-			"ignoreRegExpList": ["^```[\\s\\S]*?```$", "`[^`]*`"]
-		},
-		{
-			"languageId": "python",
-			"locale": "*",
-			"ignoreRegExpList": ["#.*$", "'''[\\s\\S]*?'''", "\"\"\"[\\s\\S]*?\"\"\""]
-		}
-	],
-	"suggestionDetailLevel": "high",
-	"allowCompoundWords": true,
-	"maxNumberOfProblems": 1000,
-	"maxDuplicateProblems": 100,
-	"words": ["JMBDE", "Jürgen", "juergen", "Mülbert", "jmuelbert"],
-	"files": [
-		{
-			"path": "**/*.{md,txt,py,yml,yaml,json}",
-			"language": "en"
-		},
-		{
-			"path": "**/*.{de.md,de.txt,de.py,de.yml,de.yaml,de.json}",
-			"language": "de"
-		}
-	]
-}
+  "ignorePaths": [
+    "megalinter-reports/**",
+    "package-lock.json",
+    "report"
+  ],
+  "ignoreWords": [],
+  "ignoreRegExpList": ["\\$.*\\$", "\\[.*\\)", "^```[\\s\\S]*?```$"],
+  "languageSettings": [
+    {
+      "languageId": "markdown",
+      "locale": "*",
+      "ignoreRegExpList": ["^```[\\s\\S]*?```$", "`[^`]*`"]
+    },
+    {
+      "languageId": "python",
+      "locale": "*",
+      "ignoreRegExpList": ["#.*$", "'''[\\s\\S]*?'''", "\"\"\"[\\s\\S]*?\"\"\""]
+    }
+  ],
+  "enabledLanguageIds": [
+    "asciidoc",
+    "csharp",
+    "go",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "jsonc",
+    "markdown",
+    "php",
+    "plaintext",
+    "python",
+    "typescript",
+    "typescriptreact",
+    "yaml"
+  ],
+  "allowCompoundWords": true,
+  "maxNumberOfProblems": 1000,
+  "maxDuplicateProblems": 100,
+  "words": ["JMBDE", "Jürgen", "juergen", "Mülbert", "jmuelbert"],
+  "overrides": [
+    {
+        "language": "de",
+        "filename": "**/docs/**/*.de.{txt,md,mdx,adoc}"
+    }
+]

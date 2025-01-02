@@ -50,7 +50,7 @@ MARKDOWN_MARKDOWNLINT_ARGUMENTS:
 
 # JSon-Linter
 JSON_JSONLINT_FILTER_REGEX_EXCLUDE: (\.vscode/|\.devcontainer/devcontainer.json)
-JSON_V8R_FILTER_REGEX_EXCLUDE: (\.devcontainer/devcontainer.json|\.vscode/)
+JSON_V8R_FILTER_REGEX_EXCLUDE: (\.devcontainer/devcontainer.json|\.vscode/|\.devskim.json)
 
 # JSCpd (Duplicate Code Detection)
 JSCODE_JSCODE_DUPLICATION_ARGUMENTS:
@@ -67,6 +67,9 @@ SPELL_CSPELL_FILTER_REGEX_EXCLUDE: (docs/de|docs/es|docs/it|LICENSE)
 
 # TYPESCRIPT
 TYPESCRIPT_FILTER_REGEX_EXCLUDE: (resources/translations)
+
+# YAML
+YAML_V8R_FILTER_REGEX_EXCLUDE: (\.github/invite-contributors.yml)
 
 # PRE-Commands
 PRE_COMMANDS:

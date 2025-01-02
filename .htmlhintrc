@@ -1,6 +1,6 @@
 {
     "ignore": [
-      "docs/.overrides/partials/**"
+      "docs/.overrides/partials/copyright.html"
     ],
     "doctype-html5": true,
     "doctype-first": true,

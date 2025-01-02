@@ -42,6 +42,14 @@ services:
     # Use the same network as the database container.
     network_mode: service:db
 
+    # Set CPU limits
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'  # Limit to 50% of one CPU core
+        reservations:
+          cpus: '0.25' # Reserve 25% of one CPU core
+
   db:
     image: postgres:14 # Use a specific version for stability
     restart: unless-stopped
@@ -55,5 +63,19 @@ services:
       # Ensure the password is set via environment variable for security.
       # Add "forwardPorts": ["5432"] to **devcontainer.json** to forward PostgreSQL locally.
 
+    # Set CPU limits
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'  # Limit to 100% of one CPU core
+        reservations:
+          cpus: '0.5'  # Reserve 50% of one CPU core
+
 volumes:
   postgres-data:
+    driver: local
+    # Optimize volume for performance
+    driver_opts:
+      type: none
+      device: /path/to/your/data/directory  # Change this to your desired path
+      o: bind

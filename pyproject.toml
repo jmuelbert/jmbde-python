@@ -75,10 +75,7 @@ dev = [
 ]
 
 [tool.hatch.version]
-path = [
-    "src/jmbde/__about__.py"
-    "package.json"
-]
+path = "src/jmbde/__about__.py"
 
 [project.scripts]
 jmbde = "jmbde.__main:main"
@@ -298,7 +295,8 @@ markers = [
 max-args = 12
 max-branches = 20 # Reduced to encourage simpler methods.
 max-returns = 6 # Lowered to improve code clarity.
-max-statements = 50
+max-statements = 50 # Maximum number of nested blocks for function / method body
+max-nested-blocks=5
 disable = [
     "C0111", # missing-docstring
     "C0103", # invalid-name
