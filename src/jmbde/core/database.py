@@ -62,9 +62,11 @@ class Database:
         """Initialize database connection and setup.
 
         Args:
+        ----
             db_path: Path to SQLite database file
 
         Raises:
+        ------
             DatabaseError: If database initialization fails
 
         """
@@ -158,12 +160,15 @@ class Database:
         """Add a new employee to the database.
 
         Args:
+        ----
             employee: EmployeeModel instance containing employee data
 
         Returns:
+        -------
             int: ID of the newly created employee record
 
         Raises:
+        ------
             DatabaseError: If employee creation fails
 
         """
@@ -197,9 +202,11 @@ class Database:
         """Retrieve employee data by ID.
 
         Args:
+        ----
             employee_id: ID of the employee to retrieve
 
         Returns:
+        -------
             Optional[Dict]: Employee data or None if not found
 
         """
@@ -225,10 +232,12 @@ class Database:
         """Retrieve all employees matching the specified criteria.
 
         Args:
+        ----
             active_only: If True, return only active employees
             department: Filter by department name
 
         Returns:
+        -------
             List[Dict]: List of employee records
 
         """
@@ -257,13 +266,16 @@ class Database:
         """Update employee information.
 
         Args:
+        ----
             employee_id: ID of the employee to update
             data: Dictionary containing fields to update
 
         Returns:
+        -------
             bool: True if update was successful
 
         Raises:
+        ------
             DatabaseError: If update fails
 
         """
@@ -305,12 +317,15 @@ class Database:
         """Delete an employee record.
 
         Args:
+        ----
             employee_id: ID of the employee to delete
 
         Returns:
+        -------
             bool: True if deletion was successful
 
         Raises:
+        ------
             DatabaseError: If deletion fails
 
         """

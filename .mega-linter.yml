@@ -1,4 +1,3 @@
----
 # Configuration file for MegaLinter
 #
 # See all available variables at https://megalinter.io/latest/config-file/ and in
@@ -17,7 +16,7 @@ APPLY_FIXES: all
 
 # DISABLE:
 # - COPYPASTE # Uncomment to disable checks of excessive copy-pastes
-# - SPELL # Uncomment to disable checks of spelling mistakes
+# - SPELL # Uncomment to disable checks of spelling mistake
 
 SHOW_ELAPSED_TIME: true
 
@@ -25,53 +24,18 @@ FILEIO_REPORTER: false
 # Uncomment if you want MegaLinter to detect errors but not block CI to pass
 # DISABLE_ERRORS: true
 
-# Python-specific settings
-PYTHON_MYPY_ARGUMENTS:
-  - --config-file=pyproject.toml
-
-PYTHON_BANDIT_ARGUMENTS:
-  - -c
-  - pyproject.toml
-
-PYTHON_ISORT_ARGUMENTS:
-  - --profile=black
-
-PYTHON_PYLINT_ARGUMENTS:
-  - --rcfile=pyproject.toml
-  - --output-format=colorized
-
 # EditorConfig
 EDITORCONFIG_FILTER_REGEX_EXCLUDE: (LICENSES/|LICENSE|license\.md)
 
-# HTML Hint
-HTML_HTMLHINT_FILTER_REGEX_EXCLUDE: (docs/\.overrides/partials/**.html)
-
-# Markdown-Linter
-MARKDOWN_FILTER_REGEX_EXCLUDE: (LICENSES/|LICENSE|license\.md)
-MARKDOWN_MARKDOWNLINT_CONFIG_FILE: .markdownlint.json
-MARKDOWN_MARKDOWNLINT_ARGUMENTS:
-  - --fix
-
-# JSon-Linter
+# JSON-Linter
 JSON_JSONLINT_FILTER_REGEX_EXCLUDE: (\.vscode/|\.devcontainer/devcontainer.json)
 JSON_V8R_FILTER_REGEX_EXCLUDE: (\.devcontainer/devcontainer.json|\.vscode/|\.devskim.json|\.secretlint.json)
 
-# JSCpd (Duplicate Code Detection)
-COPYPASTE_FILTER_REGEX_EXCLUDE: (LICENSES/|LICENSE|src/jmbde/ui/ui_*|docs/comuminity/contributing.md|docs/comuminity/code_of_conduct.md)
-
-# SPELL
-SPELL_CSPELL_FILTER_REGEX_EXCLUDE: (docs/de|docs/es|docs/it|LICENSE)
-# SPELL_LYCHEE_FILTER_REGEX_EXCLUDE:
-# SPELL_VALE_FILTER_REGEX_INCLUDE: (README.md)
+# Markdown
+MARKDOWN_FILTER_REGEX_EXCLUDE: (LICENSES/|LICENSE|license\.md)
 
 # TYPESCRIPT
 TYPESCRIPT_FILTER_REGEX_EXCLUDE: (resources/translations)
 
 # YAML
-YAML_V8R_FILTER_REGEX_EXCLUDE: (\.github/invite-contributors.yml)
-
-# PRE-Commands
-PRE_COMMANDS:
-  - command: vale sync
-  - command: npm install pnpm -g
-  - command: pnpm install
+YAML_V8R_FILTER_REGEX_EXCLUDE: (\.github/invite-contributors.yml|\.checkov.yml)

@@ -151,6 +151,8 @@ jobs:
         with:
           python-version: .python-version
           cache: pip
+          cache-dependency-path: pyproject.toml
+          check-latest: true
 
       - name: 🛠️ Install Dependencies
         run: |
@@ -186,6 +188,8 @@ jobs:
         with:
           python-version: .python-version
           cache: pip
+          cache-dependency-path: pyproject.toml
+          check-latest: true
 
       - name: 🛠️ Install Dependencies
         run: |
@@ -221,6 +225,8 @@ jobs:
         with:
           python-version: .python-version
           cache: pip
+          cache-dependency-path: pyproject.toml
+          check-latest: true
 
       - name: 🛠️ Build Documentation
         run: |

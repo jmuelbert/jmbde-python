@@ -3,8 +3,27 @@
 # SPDX-FileCopyrightText: 2023 - 2024 Jürgen Mülbert
 # yaml-language-server: $schema= https://json.schemastore.org/codecov-0.1.6.json
 #
-ignore:
-  - tests/**
+codecov:
+  flags:
+    - unittests
+    - frontend
+    - backend
 
-comment:
-  require_changes: true
+coverage:
+  precision: 2
+  round: down
+  range: 70...100
+
+  status:
+    project:
+      default:
+        target: auto
+        threshold: 1%
+    patch:
+      default:
+        target: auto
+        threshold: 1%
+
+ignore:
+  - docs/
+  - tests/

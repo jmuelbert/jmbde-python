@@ -8,6 +8,7 @@ def setup_logging(log_file: Union[str, Path], level: int = logging.INFO) -> None
     """Configure application logging.
 
     Args:
+    ----
         log_file: Path to the log file
         level: Logging level
 

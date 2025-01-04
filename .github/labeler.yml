@@ -20,7 +20,7 @@ ui:
 documentation:
   - changed-files:
       - any-glob-to-any-file: docs/**/*
-      - any-glob-to-all-files: **/*.md  # Matches all markdown files in any directory
+      - any-glob-to-all-files: '**/*.md'  # Matches all markdown files in any directory
       - any-glob-to-all-files: .github/**/*.md  # Matches markdown files in the .github directory
 
 # Add 'dependencies' label to any changes in dependency files

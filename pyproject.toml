@@ -17,7 +17,7 @@ dynamic = ["version"]
 description = "JM BDE - Management of the inventory the computer equipment"
 readme = "README.md"
 requires-python = ">=3.9"
-license = "GPL-3.0-or-later"
+license = "EUPL-1.2"
 maintainers = [
     { name = "Jürgen Mülbert" },
     { email = "juergen.muelbert@outlook.de" },
@@ -32,6 +32,8 @@ classifiers = [
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
@@ -49,7 +51,7 @@ keywords = [
 
 dependencies = [
     "click>=8.0",
-    "pyside6>=6.0",
+    "pyside6>=6.5.0",
     "pydantic>=2.10.3",
     "sqlalchemy>=2.0.0",
 ]
@@ -93,10 +95,22 @@ dependencies = ["pytest", "pytest-cov"]
 scripts = { run = "python -m jmbde.main" }
 
 [tool.hatch.envs.lint]
-dependencies = ["black>=23.7.0", "mypy>=1.6.1", "isort>=5.12.0", "ruff>=0.1.3"]
+dependencies = [
+    "black>=23.7.0",
+    "mypy>=1.6.1",
+    "isort>=5.12.0",
+    "ruff>=0.1.3",
+    "pyside6>=6.5.0"
+    ]
 
 [tool.hatch.envs.lint.scripts]
-style = ["ruff check .", "ruff format .", "black --check .", "isort ."]
+style = [
+    "ruff check .",
+    "ruff format .",
+    "black --check .",
+    "isort .",
+    "pyside6-qmllint src/jmbde/qml/**"
+    ]
 typing = "mypy src tests"
 
 [[tool.hatch.envs.test.matrix]]
@@ -107,22 +121,29 @@ dependencies = [
     "coverage>=6.2",
     "pre-commit>=4.0.1",
     "pre-commit-hooks>=5.0.0",
+    "pygments>=2.11.2",
     "pytest>=7.4.0",
+    "pytest-qt>=4.0.0",
     "pytest-cov>=4.1.0",
     "pytest-sugar>=0.9.7",
     "pytest-xdist>=3.3.1",
     "pytest-randomly>=3.15.0",
     "typeguard>=4.1.5",
-    "xdoctest>=0.15.10",
+    "xdoctest>=0.15.10"
 ]
 
 [tool.hatch.envs.test.scripts]
 test = "pytest tests/"
 cov = [
     "pytest --cov-report=xml --cov-report=html --cov-report=term-missing --cov=src tests/",
-    "coverage report",
+    "coverage report"
 ]
 typeguard = "pytest --typeguard-packages=src"
+doctest = "pytest --doctest-modules"
+doctestx = "python -m xdoctest src/jmbde"
+
+[tool.xdoctest]
+style = "google"
 
 [tool.hatch.envs.security]
 dependencies = ["bandit>=1.7.5", "safety>=2.3.5", "pip-audit>=2.6.1"]
@@ -151,82 +172,31 @@ validate-links = "linkchecker --config .linkcheckerrc site"
 build-check = ["build --no-directory-urls", "validate"]
 
 [tool.coverage.paths]
-jmbde = ["src/jmbde", "*/src/jmbde"]
 source = ["src", "*/site-packages"]
 tests = ["tests", "*/tests"]
 
 [tool.coverage.run]
-source_pkgs = ["jmbde", "tests"]
 branch = true
-
 parallel = true
+source_pkgs = ["jmbde", "tests"]
 omit = ["src/jmbde/__about__.py"]
-
 
 [tool.coverage.report]
 show_missing = true
 fail_under = 80                                                               # Updated to a more ambitious threshold.
 exclude_lines = ["no cov", "if __name__ == .__main__.:", "if TYPE_CHECKING:"]
 
-
 [tool.bandit]
 exclude_dirs = ["tests"]
 targets = ["src"]
 
-[tool.bandit.any_other_function_with_shell_equals_true]
-no_shell = [
-  "os.execl",
-  "os.execle",
-  "os.execlp",
-  "os.execlpe",
-  "os.execv",
-  "os.execve",
-  "os.execvp",
-  "os.execvpe",
-  "os.spawnl",
-  "os.spawnle",
-  "os.spawnlp",
-  "os.spawnlpe",
-  "os.spawnv",
-  "os.spawnve",
-  "os.spawnvp",
-  "os.spawnvpe",
-  "os.startfile"
-]
-shell = [
-  "os.system",
-  "os.popen",
-  "os.popen2",
-  "os.popen3",
-  "os.popen4",
-  "popen2.popen2",
-  "popen2.popen3",
-  "popen2.popen4",
-  "popen2.Popen3",
-  "popen2.Popen4",
-  "commands.getoutput",
-  "commands.getstatusoutput"
-]
-subprocess = [
-  "subprocess.Popen",
-  "subprocess.call",
-  "subprocess.check_call",
-  "subprocess.check_output"
-]
-
-
 [tool.black]
 include = "\\.pyi?$"
-
 line-length = 88
-target-version = ['py39']
+target-version = ['py311']
+
 [tool.isort]
 profile = "black"
-multi_line_output = 3
-include_trailing_comma = true
-force_grid_wrap = 0
-use_parentheses = true
-ensure_newline_before_comments = true
 line_length = 88
 
 [tool.ruff]
@@ -253,9 +223,10 @@ ignore = [
 
 [tool.ruff.per-file-ignores]
 "tests/**/*.py" = ["S101", "FBT", "INP001", "D", "S603", "PLR2004"]
+"*.py" = ["Q000"] # Example: Ignore specific PyQt warnings
 
 [tool.mypy]
-python_version = "3.9"
+python_version = "3.11"
 disallow_untyped_defs = true
 disallow_incomplete_defs = true
 follow_imports = "normal"
@@ -281,7 +252,13 @@ warn_no_return = true
 testpaths = ["tests"]
 python_files = ["test_*.py"]
 minversion = "6.0"
-addopts = ["-ra", "--strict-markers", "--strict-config", "--color=yes"]
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+    "--color=yes",
+    "--doctest-modules" # Aktiviert automatische Doctests für alle Module     # Führt xdoctests für alle Python-Dateien aus
+]
 xfail_strict = true
 junit_family = "xunit2"
 filterwarnings = ["error"]

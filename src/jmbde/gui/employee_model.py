@@ -57,6 +57,7 @@ class EmployeeModel(QAbstractListModel):
         """Initialize the Employee Model.
 
         Args:
+        ----
             database: Database instance for data access
             parent: Optional parent QObject
 
@@ -75,9 +76,11 @@ class EmployeeModel(QAbstractListModel):
         """Get the number of rows in the model.
 
         Args:
+        ----
             parent: Parent model index (unused in list models)
 
         Returns:
+        -------
             Number of employees in the filtered dataset
 
         """
@@ -87,10 +90,12 @@ class EmployeeModel(QAbstractListModel):
         """Get data for the specified index and role.
 
         Args:
+        ----
             index: Model index to get data for
             role: Data role to retrieve
 
         Returns:
+        -------
             Requested data or None if invalid
 
         """
@@ -109,7 +114,8 @@ class EmployeeModel(QAbstractListModel):
     def roleNames(self) -> dict[int, QByteArray]:
         """Get the role names for QML binding.
 
-        Returns:
+        Returns
+        -------
             Dictionary mapping role IDs to role names
 
         """
@@ -131,7 +137,8 @@ class EmployeeModel(QAbstractListModel):
     def _load_filtered_data(self) -> list[dict[str, Any]]:
         """Load employee data applying current filters.
 
-        Returns:
+        Returns
+        -------
             Filtered list of employee records
 
         """
@@ -208,6 +215,7 @@ class EmployeeModel(QAbstractListModel):
         """Update employee data at specified index.
 
         Args:
+        ----
             index: Row index to update
             name: New employee name
             position: New position
@@ -215,6 +223,7 @@ class EmployeeModel(QAbstractListModel):
             phone: New phone number
 
         Returns:
+        -------
             bool: True if update was successful
 
         """
@@ -252,6 +261,7 @@ class EmployeeModel(QAbstractListModel):
         """Add a new employee.
 
         Args:
+        ----
             name: Employee name
             position: Position
             email: Email address
@@ -259,6 +269,7 @@ class EmployeeModel(QAbstractListModel):
             department: Department name
 
         Returns:
+        -------
             bool: True if addition was successful
 
         """
@@ -291,9 +302,11 @@ class EmployeeModel(QAbstractListModel):
         """Remove employee at specified index.
 
         Args:
+        ----
             index: Row index to remove
 
         Returns:
+        -------
             bool: True if removal was successful
 
         """
@@ -315,7 +328,8 @@ class EmployeeModel(QAbstractListModel):
     def getDepartments(self) -> list[str]:
         """Get list of unique departments.
 
-        Returns:
+        Returns
+        -------
             List of department names
 
         """

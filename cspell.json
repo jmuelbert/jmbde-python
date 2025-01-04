@@ -21,7 +21,12 @@
 		"types",
 		"de-de"
 	],
-	"ignorePaths": ["megalinter-reports/**", "package-lock.json", "report"],
+	"ignorePaths": [
+		"megalinter-reports/**",
+		"package-lock.json",
+		"report",
+		".github/linters/valestyles/**"
+	],
 	"ignoreWords": [],
 	"ignoreRegExpList": ["\\$.*\\$", "\\[.*\\)", "^```[\\s\\S]*?```$"],
 	"languageSettings": [

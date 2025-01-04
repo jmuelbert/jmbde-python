@@ -49,6 +49,7 @@ class MainApp(QObject):
         """Initialize the main application handler.
 
         Args:
+        ----
             database: Database instance for data operations
             employee_model: Employee data model
             settings: Optional settings manager
@@ -75,6 +76,7 @@ class MainApp(QObject):
         """Add a new employee to the system.
 
         Args:
+        ----
             name: Employee name
             position: Job position
             email: Email address
@@ -82,6 +84,7 @@ class MainApp(QObject):
             department: Department name
 
         Returns:
+        -------
             bool: True if operation was successful
 
         """
@@ -149,6 +152,7 @@ class MainApp(QObject):
         """Update existing employee information.
 
         Args:
+        ----
             emp_id: Employee ID
             name: Updated name
             position: Updated position
@@ -158,6 +162,7 @@ class MainApp(QObject):
             active: Employee status
 
         Returns:
+        -------
             bool: True if operation was successful
 
         """
@@ -213,9 +218,11 @@ class MainApp(QObject):
         """Delete an employee from the system.
 
         Args:
+        ----
             emp_id: Employee ID to delete
 
         Returns:
+        -------
             bool: True if operation was successful
 
         """
@@ -258,7 +265,8 @@ class MainApp(QObject):
     def get_departments(self) -> list[str]:
         """Get list of all departments.
 
-        Returns:
+        Returns
+        -------
             List of department names
 
         """
@@ -273,7 +281,8 @@ class MainApp(QObject):
     def get_statistics(self) -> dict[str, Any]:
         """Get application statistics.
 
-        Returns:
+        Returns
+        -------
             Dictionary containing various statistics
 
         """

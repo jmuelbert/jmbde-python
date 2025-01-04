@@ -72,6 +72,7 @@ class Settings(QObject):
         """Initialize Settings manager.
 
         Args:
+        ----
             config_path: Optional custom path for settings file
 
         """
@@ -89,7 +90,8 @@ class Settings(QObject):
     def load(self) -> None:
         """Load settings from configuration file.
 
-        Raises:
+        Raises
+        ------
             ConfigurationError: If loading or parsing settings fails
 
         """
@@ -119,7 +121,8 @@ class Settings(QObject):
     def save(self) -> None:
         """Save current settings to configuration file.
 
-        Raises:
+        Raises
+        ------
             ConfigurationError: If saving settings fails
 
         """
@@ -177,9 +180,11 @@ class Settings(QObject):
         """Get setting value by key path.
 
         Args:
+        ----
             key: Dot-notation path to setting (e.g., 'ui.font_size')
 
         Returns:
+        -------
             Setting value or None if not found
 
         """
@@ -201,6 +206,7 @@ class Settings(QObject):
         """Set setting value by key path.
 
         Args:
+        ----
             key: Dot-notation path to setting
             value: New value to set
 

@@ -5,9 +5,11 @@ def validate_email(email: str) -> bool:
     """Validate email format.
 
     Args:
+    ----
         email: Email address to validate
 
     Returns:
+    -------
         bool: True if email is valid
 
     """
@@ -19,9 +21,11 @@ def validate_phone(phone: str) -> bool:
     """Validate phone number format.
 
     Args:
+    ----
         phone: Phone number to validate
 
     Returns:
+    -------
         bool: True if phone number is valid
 
     """
