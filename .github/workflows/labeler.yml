@@ -1,6 +1,6 @@
 ---
-# SPDX-FileCopyrightText: GitHub, Inc. and contributors
 # SPDX-License-Identifier: MIT
+# Pull Request Labeler Workflow
 
 name: Pull Request Labeler
 
@@ -12,26 +12,24 @@ on: # yamllint disable-line rule:truthy
 
 permissions:
   contents: read
+  pull-requests: write
+  issues: write
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
   cancel-in-progress: true
 
 jobs:
-  triage:
-    name: PR Analysis & Labeling
-    if: github.actor != 'dependabot[bot]'
+  analyze_and_label:
+    name: Analyze and Label Pull Request
+    if: github.actor != 'dependabot[bot]'  # Skip for Dependabot PRs
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     permissions:
       contents: read
       pull-requests: write
       issues: write
-
-    outputs:
-      size: ${{ steps.size.outputs.size }}
-      conflicts: ${{ steps.conflicts.outputs.has_conflicts }}
 
     steps:
       - name: 🔒 Harden Runner
@@ -46,19 +44,17 @@ jobs:
           dirtyLabel: 'status: has-conflicts'
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           commentOnDirty: |
-            ⚠️ This pull request has conflicts with the target branch. Please resolve these conflicts before proceeding:
-            1. Fetch the latest changes
-            2. Merge the target branch into your branch
-            3. Resolve any conflicts
-            4. Push your changes
+            ⚠️ This pull request has conflicts with the target branch. Please resolve the conflicts by following these steps:
+            1. Fetch the latest changes.
+            2. Merge the target branch into your branch.
+            3. Resolve the conflicts.
+            4. Push the changes back.
 
-            Need help? Check our [Contributing Guide](../../CONTRIBUTING.md) or ask for assistance.
+            Need help? Check the [Contributing Guide](../../CONTRIBUTING.md) or ask for assistance.
           commentOnClean: |
-            ✅ All conflicts have been resolved! A maintainer will review your PR shortly.
+            ✅ All conflicts have been resolved. A maintainer will review your PR shortly.
 
-            Thank you for your contribution! 🎉
-
-      - name: 📏 Analyze PR Size
+      - name: 📏 Analyze Pull Request Size
         id: size
         uses: codelytv/pr-size-labeler@56f6f0fc35c7cc0f72963b8467729e1120cb4bed # v1.10.0
         with:
@@ -74,11 +70,9 @@ jobs:
           xl_label: size/xl
           fail_if_xl: false
           message_if_xl: |
-            ⚠️ This PR is quite large (exceeds 1000 lines). Please consider:
-            - Breaking it into smaller, focused PRs
-            - Ensuring all changes are related
-            - Adding detailed documentation
-            - Including comprehensive tests
+            ⚠️ This PR is quite large (over 1000 lines). Please consider:
+            - Breaking it into smaller, focused PRs.
+            - Ensuring all changes are related and well-documented.
 
             Large PRs may require additional review time and scrutiny.
           files_to_ignore: |
@@ -104,19 +98,19 @@ jobs:
             const pr = context.payload.pull_request;
             const labels = new Set();
 
-            // Check title conventions
+            // Analyze PR title
             if (pr.title.startsWith('fix:')) labels.add('type: fix');
             if (pr.title.startsWith('feat:')) labels.add('type: feature');
             if (pr.title.startsWith('docs:')) labels.add('type: docs');
             if (pr.title.startsWith('test:')) labels.add('type: test');
 
-            // Check content indicators
+            // Check PR body for specific keywords
             const body = pr.body?.toLowerCase() || '';
             if (body.includes('breaking change')) labels.add('breaking');
             if (body.includes('deprecate')) labels.add('deprecation');
             if (body.includes('security')) labels.add('security');
 
-            // Add status labels
+            // Add draft or ready-for-review labels
             if (pr.draft) {
               labels.add('status: work-in-progress');
             } else {
@@ -133,32 +127,29 @@ jobs:
               });
             }
 
-            // Add review checklist comment
+            // Add a review checklist as a comment
             if (context.payload.action === 'opened') {
               const checklist = `
                 ## PR Review Checklist
 
-                Thank you for your contribution! Please ensure:
-
                 ### 📝 Documentation
-                - [ ] Updated relevant documentation
-                - [ ] Added inline comments for complex code
+                - [ ] Relevant documentation is updated.
+                - [ ] Inline comments added for complex code.
 
                 ### 🧪 Testing
-                - [ ] Added/updated unit tests
-                - [ ] All tests pass locally
+                - [ ] Unit tests added/updated.
+                - [ ] All tests pass locally.
 
-                ### 🔍 Quality
-                - [ ] Code follows project style guide
-                - [ ] No debug/commented-out code
-                - [ ] Handled error cases
+                ### 🔍 Code Quality
+                - [ ] Code follows project style guide.
+                - [ ] No debug/commented-out code.
+                - [ ] Error cases handled appropriately.
 
                 ### 🔒 Security
-                - [ ] No sensitive data exposed
-                - [ ] Input validation added
-                - [ ] Security implications considered
+                - [ ] No sensitive data exposed.
+                - [ ] Input validation added.
+                - [ ] Security implications considered.
               `;
-
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
@@ -168,12 +159,12 @@ jobs:
             }
 
   verify:
-    needs: triage
+    needs: analyze_and_label
     if: always()
     runs-on: ubuntu-latest
 
     steps:
-      - name: ✅ Verify Process
+      - name: ✅ Verify Workflow Completion
         uses: re-actors/alls-green@223e4bb7a751b91f43eda76992bcfbf23b8b0302 # v1.2.2
         with:
           jobs: ${{ toJSON(needs) }}

@@ -1,3 +1,4 @@
+---
 # Configuration file for MegaLinter
 #
 # See all available variables at https://megalinter.io/latest/config-file/ and in
@@ -29,7 +30,7 @@ EDITORCONFIG_FILTER_REGEX_EXCLUDE: (LICENSES/|LICENSE|license\.md)
 
 # JSON-Linter
 JSON_JSONLINT_FILTER_REGEX_EXCLUDE: (\.vscode/|\.devcontainer/devcontainer.json)
-JSON_V8R_FILTER_REGEX_EXCLUDE: (\.devcontainer/devcontainer.json|\.vscode/|\.devskim.json|\.secretlint.json)
+JSON_V8R_FILTER_REGEX_EXCLUDE: (\.devskim.json|\.secretlintrc.json|\.devcontainer/devcontainer.json|\.vscode/|\.github/linters/valestyles/)
 
 # Markdown
 MARKDOWN_FILTER_REGEX_EXCLUDE: (LICENSES/|LICENSE|license\.md)
@@ -38,4 +39,5 @@ MARKDOWN_FILTER_REGEX_EXCLUDE: (LICENSES/|LICENSE|license\.md)
 TYPESCRIPT_FILTER_REGEX_EXCLUDE: (resources/translations)
 
 # YAML
-YAML_V8R_FILTER_REGEX_EXCLUDE: (\.github/invite-contributors.yml|\.checkov.yml)
+YAML_FILTER_REGEX_EXCLUDE: (\.github/linters/valestyles/)
+YAML_V8R_FILTER_REGEX_EXCLUDE: (\.hound.yml|\.goodcheck.yml|\.github/invite-contributors.yml|\.checkov.yml|\.devcontainer/docker-compose.yml|\.github/dependency-review-config.yml|\.github/release-drafter.yml|\.github/linters/valestyles/)

@@ -1,45 +1,61 @@
 ---
-# SPDX-License-Identifier: EUPL-1.2
-# SPDX-FileCopyrightText: 2024 Jürgen Mülbert <juergen.muelbert@outlook.de>
-#
-# Release Drafter Configuration
+# SPDX-FileCopyrightText: GitHub, Inc. and contributors
+# SPDX-License-Identifier: MIT
+# yaml-language-server: $schema=https://json.schemastore.org/release-drafter.json
+
 name-template: v$RESOLVED_VERSION
 tag-template: v$RESOLVED_VERSION
+
 categories:
   - title: 🚀 Features
     labels:
+      - type: feature
       - feature
       - enhancement
   - title: 🐛 Bug Fixes
     labels:
+      - type: fix
       - fix
       - bug
-  - title: 🔒 Security
+  - title: 🔒 Security Updates
     labels:
+      - type: security
       - security
-  - title: ⚡ Performance
+  - title: ⚡ Performance Improvements
     labels:
+      - type: performance
       - performance
-  - title: 📚 Documentation
+  - title: 📚 Documentation Updates
     labels:
+      - type: docs
       - documentation
+  - title: 🧪 Testing
+    labels:
+      - type: test
+      - testing
   - title: 🔧 Maintenance
     labels:
+      - type: maintenance
       - maintenance
       - chore
+  - title: 📦 Dependency Updates
+    labels:
+      - type: dependencies
+      - dependencies
+      - dep-upgrade
 
-change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+change-template: '- $TITLE by @$AUTHOR (#$NUMBER)'
 
 version-resolver:
   major:
     labels:
-      - type: breaking
+      - breaking
   minor:
     labels:
       - type: feature
   patch:
     labels:
-      - type: bug
+      - type: fix
       - type: maintenance
       - type: docs
       - type: dependencies
@@ -47,34 +63,21 @@ version-resolver:
 
 exclude-labels:
   - skip-changelog
+  - status: work-in-progress
 
 template: |
-  ## What's Changed
+  ## 🚀 What's Changed
 
   $CHANGES
 
-  ## 📦 Dependencies
+  ## 📦 Dependency Updates
   $CHANGES_BY_LABELS.dependencies
 
-  ## Contributors
+  ## 🤝 Contributors
+  Thanks to our contributors:
   $CONTRIBUTORS
 
-  ## Installation
+  ## Installation Instructions
+  To install this version:
   ```bash
   pip install jmbde-python==$RESOLVED_VERSION
-  ```
-  **Full Changelog**: https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION
-
-no-changes-template: No changes included in this release
-
-autolabeler:
-  - label: documentation
-    files:
-      - '*.md'
-      - docs/*
-  - label: bug
-    branch:
-      - /fix\/.+/
-  - label: feature
-    branch:
-      - /feat\/.+/

@@ -1,64 +1,76 @@
 ---
 # SPDX-License-Identifier: EUPL-1.2
 # SPDX-FileCopyrightText: 2024 Jürgen Mülbert <juergen.muelbert@outlook.de>
-# yaml-language-server: $schema=https://json.schemastore.org/pull-request-labeler-5.json
+# yaml-language-server: $schema=https://json.schemastore.org/pull-request-labeler.json
 
 # Configuration for labeling pull requests based on file changes
 
-# Add 'root' label to any root file changes, excluding markdown files
 project:
-  - changed-files:
-      - any-glob-to-any-file: '*'
-      - all-globs-to-all-files: '!*.md'
+  # Add 'root' label to any root file changes, excluding markdown files
+  - label: root
+    paths:
+      - '*'
+      - '!*.md'
 
-# Add 'ui' label to any changes within the 'ui' package
 ui:
-  - changed-files:
-      - any-glob-to-any-file: src/ui/**/*
+  # Add 'ui' label to any changes within the 'ui' package
+  - label: ui
+    paths:
+      - src/ui/**/*
 
-# Add 'documentation' label to any changes in documentation files
 documentation:
-  - changed-files:
-      - any-glob-to-any-file: docs/**/*
-      - any-glob-to-all-files: '**/*.md'  # Matches all markdown files in any directory
-      - any-glob-to-all-files: .github/**/*.md  # Matches markdown files in the .github directory
+  # Add 'documentation' label to any changes in documentation files
+  - label: documentation
+    paths:
+      - docs/**/*              # Matches all files in the 'docs' directory
+      - '**/*.md'              # Matches all markdown files
+      - .github/**/*.md        # Matches markdown files in the '.github' directory
 
-# Add 'dependencies' label to any changes in dependency files
 dependencies:
-  - changed-files:
-      - any-glob-to-any-file: requirements*.txt
-      - any-glob-to-any-file: pyproject.toml
-      - any-glob-to-any-file: poetry.lock
+  # Add 'dependencies' label to any changes in dependency files
+  - label: dependencies
+    paths:
+      - requirements*.txt      # Matches requirement files
+      - pyproject.toml         # Matches Python project configuration file
+      - poetry.lock            # Matches Poetry lock file
 
-# Add 'testing' label to any changes in test files
 testing:
-  - changed-files:
-      - any-glob-to-any-file: tests/**/*
-      - any-glob-to-any-file: pytest.ini
-      - any-glob-to-any-file: conftest.py
+  # Add 'testing' label to any changes in test files
+  - label: testing
+    paths:
+      - tests/**/*             # Matches all files in the 'tests' directory
+      - pytest.ini             # Matches pytest configuration file
+      - conftest.py            # Matches pytest's conftest file
 
-# Add 'ci' label to any changes in CI configuration files
 ci:
-  - changed-files:
-      - any-glob-to-any-file: .github/workflows/*
-      - any-glob-to-any-file: .github/actions/*
+  # Add 'ci' label to any changes in CI configuration files
+  - label: ci
+    paths:
+      - .github/workflows/*    # Matches all workflow files in the '.github/workflows' directory
+      - .github/actions/*      # Matches custom GitHub actions in the '.github/actions' directory
 
-# Add 'security' label to any changes in security-related files
 security:
-  - changed-files:
-    - any-glob-to-any-file: security/**/*
-    - all-globs-to-all-files: '**/*security*.md'  # Matches any markdown files with 'security' in the name
+  # Add 'security' label to any changes in security-related files
+  - label: security
+    paths:
+      - security/**/*          # Matches all files in the 'security' directory
+      - '**/*security*.md'     # Matches markdown files with 'security' in the name
 
-# Add 'source' label to any changes to source files within the 'src' directory, excluding the 'docs' sub-folder
 source:
-  - changed-files:
-      - any-glob-to-any-file: src/**/*
-      - all-globs-to-all-files: '!src/docs/**'
+  # Add 'source' label to any changes to source files within the 'src' directory, excluding the 'docs' sub-folder
+  - label: source
+    paths:
+      - src/**/*               # Matches all files in the 'src' directory
+      - '!src/docs/**/*'       # Excludes the 'src/docs' directory
 
-# Add 'feature' label to any PR where the head branch name starts with 'feature' or contains 'feature'
 feature:
-  - head-branch: feature/*  # Updated regex for clarity
+  # Add 'feature' label to any PR where the head branch name starts with 'feature'
+  - label: feature
+    branches:
+      - feature/*              # Matches branches starting with 'feature/'
 
-# Add 'release' label to any PR that is opened against the 'main' branch
 release:
-  - base-branch: main  # Corrected to 'main' for clarity
+  # Add 'release' label to any PR that is opened against the 'main' branch
+  - label: release
+    base-branches:
+      - main

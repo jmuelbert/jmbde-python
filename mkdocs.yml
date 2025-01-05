@@ -3,7 +3,7 @@
 #
 # SPDX-License-Identifier: EUPL-1.2
 #
-# yaml-language-server: $schema= https://json.schemastore.org/mkdocs-1.6.json
+# yaml-language-server: $schema=https://json.schemastore.org/mkdocs-1.6.json
 #
 site_name: JM BDE - Management of the inventory the computer equipment
 site_url: https://io.github.org/jmuelbert/jmbde-python/

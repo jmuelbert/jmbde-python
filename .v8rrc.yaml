@@ -4,7 +4,7 @@
 # - One or more filenames or glob patterns describing local file or files to validate
 # - overridden by passing one or more positional arguments
 patterns:
-  - '*json'
+  - "*json"
 
 # - Level of verbose logging. 0 is standard, higher numbers are more verbose
 # - overridden by passing --verbose / -v
@@ -37,7 +37,7 @@ customCatalog:
       description: Custom Schema # A description of the schema (optional)
       # A Minimatch glob expression for matching up file names with a schema (required)
       fileMatch:
-        - '*.geojson'
+        - "*.geojson"
       # A URL or local file path for the schema location (required)
       location: foo/bar/geojson-schema.json
       # A custom parser to use for files matching fileMatch instead of trying to infer the correct parser from the filename (optional)

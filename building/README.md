@@ -15,7 +15,8 @@
    pip install -r requirements.txt
    ```
 
-3. Update the translations. Install Qt first and make sure you can run `lupdate` and `lrelease` commands.
+3. Update the translations. Install Qt first and make sure you can run `lupdate`
+   and `lrelease` commands.
 
    ```bash
    # Generate translations source of QML files
@@ -67,7 +68,8 @@
 
    `jmbde.app` will be in `dist`.
 
-5. Package with `appdmg`. Install [Node.js](https://nodejs.org) first, then run the following commands:
+5. Package with `appdmg`. Install [Node.js](https://nodejs.org) first, then run
+   the following commands:
 
    ```bash
    npm install -g appdmg
@@ -93,31 +95,30 @@
 
    pyside2-rcc resources/resources.qrc -o src/jmbde/resource.py
 
-   pyinstaller -w src/jmbde/**main**.py ^
-   --hidden-import "socks" ^
-   --hidden-import "PIL" ^
-   --add-data "LICENSE;." ^
-   --add-data "conf/jmbde.conf;conf" ^
-   --add-data "conf/qtquickcontrols2.conf;conf" ^
-   --add-data "resources/translations/\*.qm;translations" ^
-   --name "jmbde" ^
-   --icon "resources/icons/app.ico" ^
-   --version-file "building/Windows/jmbde.win.version" ^
-   --noupx
+   pyinstaller -w src/jmbde/**main**.py ^ --hidden-import "socks" ^
+   --hidden-import "PIL" ^ --add-data "LICENSE;." ^ --add-data
+   "conf/jmbde.conf;conf" ^ --add-data "conf/qtquickcontrols2.conf;conf" ^
+   --add-data "resources/translations/\*.qm;translations" ^ --name "jmbde" ^
+   --icon "resources/icons/app.ico" ^ --version-file
+   "building/Windows/jmbde.win.version" ^ --noupx
 
-   :: Remove useless libraries
-   cd dist/jmbde
-   del /F /S /Q Qt3D*QtBluetooth QtBodymovin QtCharts QtDataVisualization QtGamepad QtLocation QtMultimedia QtMultimediaQuick QtNfc QtPositioning QtPositioningQuick QtPurchasing QtQuick3D* QtQuickTest QtRemoteObjects QtScxml QtSensors QtSql QtTest QtVirtualKeyboard QtWeb*
-   cd PySide2/qml
-   del /F /S /Q Qt3D* QtAudioEngine QtBluetooth QtCharts QtDataVisualization QtGamepad QtLocation QtMultimedia QtNfc QtPositioning QtPurchasing QtQuick3D*QtRemoteObjects QtScxml QtSensors QtTest QtWeb*
-   cd ../../../..
+   :: Remove useless libraries cd dist/jmbde del /F /S /Q Qt3D*QtBluetooth
+   QtBodymovin QtCharts QtDataVisualization QtGamepad QtLocation QtMultimedia
+   QtMultimediaQuick QtNfc QtPositioning QtPositioningQuick QtPurchasing
+   QtQuick3D* QtQuickTest QtRemoteObjects QtScxml QtSensors QtSql QtTest
+   QtVirtualKeyboard QtWeb* cd PySide2/qml del /F /S /Q Qt3D* QtAudioEngine
+   QtBluetooth QtCharts QtDataVisualization QtGamepad QtLocation QtMultimedia
+   QtNfc QtPositioning QtPurchasing QtQuick3D*QtRemoteObjects QtScxml QtSensors
+   QtTest QtWeb* cd ../../../..
 
    ```
 
    All compiled files will be in `dist\jmbde`.
    ```
 
-5. Package with Inno Setup. Install [Inno Setup 6](http://www.jrsoftware.org/isinfo.php) first and add installation directory to PATH.
+5. Package with Inno Setup. Install
+   [Inno Setup 6](http://www.jrsoftware.org/isinfo.php) first and add
+   installation directory to PATH.
 
    ```powershell
    ISCC.exe building/Windows/jmbde.iss
@@ -125,7 +126,8 @@
 
    `jmbde.exe` installer will be in the `dist`.
 
-6. If you need a x86 version, please make sure you have a x86 version python environment, and modify the `jmbde.iss` accordingly.
+6. If you need a x86 version, please make sure you have a x86 version python
+   environment, and modify the `jmbde.iss` accordingly.
 
    ```text
    DefaultDirName={autopf64}\{#MyAppName} -> DefaultDirName={autopf32}\{#MyAppName}

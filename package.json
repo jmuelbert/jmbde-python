@@ -1,29 +1,29 @@
 {
-	"name": "jmbde-python",
-	"version": "0.0.0",
-	"description": "JM BDE - Management of the inventory of computer equipment",
-	"main": "main.py",
-	"scripts": {
-		"lint": "eslint .",
-		"spellcheck": "cspell **",
-		"precommit": "lint-staged"
-	},
-	"keywords": [
-		"python",
-		"linting",
-		"spellcheck"
-	],
-	"author": "Jürgen Mülbert",
-	"license": "MIT",
-	"devDependencies": {
-		"@cspell/dict-de-de": "^4.0.3",
-		"@cspell/dict-python": "^4.2.14",
-		"cspell": "^5.21.2",
-		"lint-staged": "^12.5.0"
-	},
-	"files": [
-		"main.py",
-		"src/"
-	],
-	"private": true
+  "name": "jmbde-python",
+  "version": "0.0.0",
+  "description": "JM BDE - Management of the inventory of computer equipment",
+  "main": "main.py",
+  "scripts": {
+    "lint": "eslint .",
+    "spellcheck": "cspell **",
+    "precommit": "lint-staged"
+  },
+  "keywords": [
+    "python",
+    "linting",
+    "spellcheck"
+  ],
+  "author": "Jürgen Mülbert",
+  "license": "MIT",
+  "devDependencies": {
+    "@cspell/dict-de-de": "^4.0.3",
+    "@cspell/dict-python": "^4.2.14",
+    "cspell": "^5.21.2",
+    "lint-staged": "^12.5.0"
+  },
+  "files": [
+    "main.py",
+    "src/"
+  ],
+  "private": true
 }
