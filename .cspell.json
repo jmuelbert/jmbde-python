@@ -1,71 +1,71 @@
 {
-	"version": "0.2",
-	"language": "en",
-	"noConfigSearch": true,
-	"dictionaries": [
-		"en_US",
-		"companies",
-		"softwareTerms",
-		"misc",
-		"bash",
-		"css",
-		"filetypes",
-		"fonts",
-		"git",
-		"html",
-		"node",
-		"npm",
-		"powershell",
-		"public-licenses",
-		"python",
-		"types",
-		"de-de"
-	],
-	"ignorePaths": [
-		"megalinter-reports/**",
-		"package-lock.json",
-		"report",
-		".github/linters/valestyles/**"
-	],
-	"ignoreWords": [],
-	"ignoreRegExpList": ["\\$.*\\$", "\\[.*\\)", "^```[\\s\\S]*?```$"],
-	"languageSettings": [
-		{
-			"languageId": "markdown",
-			"locale": "*",
-			"ignoreRegExpList": ["^```[\\s\\S]*?```$", "`[^`]*`"]
-		},
-		{
-			"languageId": "python",
-			"locale": "*",
-			"ignoreRegExpList": ["#.*$", "'''[\\s\\S]*?'''", "\"\"\"[\\s\\S]*?\"\"\""]
-		}
-	],
-	"enabledLanguageIds": [
-		"asciidoc",
-		"csharp",
-		"go",
-		"html",
-		"javascript",
-		"javascriptreact",
-		"json",
-		"jsonc",
-		"markdown",
-		"php",
-		"plaintext",
-		"python",
-		"typescript",
-		"typescriptreact",
-		"yaml"
-	],
-	"allowCompoundWords": true,
-	"maxNumberOfProblems": 1000,
-	"maxDuplicateProblems": 100,
-	"words": ["JMBDE", "Jürgen", "juergen", "Mülbert", "jmuelbert"],
-	"overrides": [
-		{
-			"language": "de",
-			"filename": "**/docs/**/*.de.{txt,md,mdx,adoc}"
-		}
-	]
+  "version": "0.2",
+  "language": "en",
+  "noConfigSearch": true,
+  "dictionaries": [
+    "en_US",
+    "companies",
+    "softwareTerms",
+    "misc",
+    "bash",
+    "css",
+    "filetypes",
+    "fonts",
+    "git",
+    "html",
+    "node",
+    "npm",
+    "powershell",
+    "public-licenses",
+    "python",
+    "types",
+    "de-de"
+  ],
+  "ignorePaths": [
+    "megalinter-reports/**",
+    "package-lock.json",
+    "report",
+    ".github/linters/valestyles/**"
+  ],
+  "ignoreWords": [],
+  "ignoreRegExpList": ["\\$.*\\$", "\\[.*\\)", "^```[\\s\\S]*?```$"],
+  "languageSettings": [
+    {
+      "languageId": "markdown",
+      "locale": "*",
+      "ignoreRegExpList": ["^```[\\s\\S]*?```$", "`[^`]*`"]
+    },
+    {
+      "languageId": "python",
+      "locale": "*",
+      "ignoreRegExpList": ["#.*$", "'''[\\s\\S]*?'''", "\"\"\"[\\s\\S]*?\"\"\""]
+    }
+  ],
+  "enabledLanguageIds": [
+    "asciidoc",
+    "csharp",
+    "go",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "jsonc",
+    "markdown",
+    "php",
+    "plaintext",
+    "python",
+    "typescript",
+    "typescriptreact",
+    "yaml"
+  ],
+  "allowCompoundWords": true,
+  "maxNumberOfProblems": 1000,
+  "maxDuplicateProblems": 100,
+  "words": ["JMBDE", "Jürgen", "juergen", "Mülbert", "jmuelbert"],
+  "overrides": [
+    {
+      "language": "de",
+      "filename": "**/docs/**/*.de.{txt,md,mdx,adoc}"
+    }
+  ]
 }

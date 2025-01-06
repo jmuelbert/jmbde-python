@@ -18,6 +18,7 @@ APPLY_FIXES: all
 # DISABLE:
 # - COPYPASTE # Uncomment to disable checks of excessive copy-pastes
 # - SPELL # Uncomment to disable checks of spelling mistake
+#  - REPOSITORY_DEVSKIM
 
 SHOW_ELAPSED_TIME: true
 
@@ -40,4 +41,9 @@ TYPESCRIPT_FILTER_REGEX_EXCLUDE: (resources/translations)
 
 # YAML
 YAML_FILTER_REGEX_EXCLUDE: (\.github/linters/valestyles/)
-YAML_V8R_FILTER_REGEX_EXCLUDE: (\.hound.yml|\.goodcheck.yml|\.github/invite-contributors.yml|\.checkov.yml|\.devcontainer/docker-compose.yml|\.github/dependency-review-config.yml|\.github/release-drafter.yml|\.github/linters/valestyles/)
+YAML_V8R_FILTER_REGEX_EXCLUDE: (\.hound.yml|\.goodcheck.yml|\.grype.yaml|\.github/invite-contributors.yml|\.checkov.yml|\.devcontainer/docker-compose.yml|\.github/dependency-review-config.yml|\.github/release-drafter.yml|\.github/linters/valestyles/)
+
+# Run npm install before linting
+PRE_COMMAND: |
+  echo "Installing dependencies from package.json..."
+  npm install

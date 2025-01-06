@@ -88,14 +88,14 @@ thereto.
 The grant of the rights mentioned above is subject to some restrictions and
 obligations imposed on the Licensee. Those obligations are the following:
 
-**Attribution right:** The Licensee shall keep intact all copyright, patent or
+__Attribution right:__ The Licensee shall keep intact all copyright, patent or
 trademarks notices and all notices that refer to the Licence and to the
 disclaimer of warranties. The Licensee must include a copy of such notices and a
 copy of the Licence with every copy of the Work he/she distributes or
 communicates. The Licensee must cause any Derivative Work to carry prominent
 notices stating that the Work has been modified and the date of modification.
 
-**Copyleft clause:** If the Licensee distributes or communicates copies of the
+__Copyleft clause:__ If the Licensee distributes or communicates copies of the
 Original Works or Derivative Works, this Distribution or Communication will be
 done under the terms of this Licence or of a later version of this Licence
 unless the Original Work is expressly distributed only under this version of the
@@ -103,7 +103,7 @@ Licence — for example by communicating ‘EUPL v. 1.2 only’. The Licensee
 (becoming Licensor) cannot offer or impose any additional terms or conditions on
 the Work or Derivative Work that alter or restrict the terms of the Licence.
 
-**Compatibility clause:** If the Licensee Distributes or Communicates Derivative
+__Compatibility clause:__ If the Licensee Distributes or Communicates Derivative
 Works or copies thereof based upon both the Work and another work licensed under
 a Compatible Licence, this Distribution or Communication can be done under the
 terms of this Compatible Licence. For the sake of this clause, ‘Compatible
@@ -112,12 +112,12 @@ Should the Licensee's obligations under the Compatible Licence conflict with
 his/her obligations under this Licence, the obligations of the Compatible
 Licence shall prevail.
 
-**Provision of Source Code:** When distributing or communicating copies of the
+__Provision of Source Code:__ When distributing or communicating copies of the
 Work, the Licensee will provide a machine-readable copy of the Source Code or
 indicate a repository where this Source will be easily and freely available for
 as long as the Licensee continues to distribute or communicate the Work.
 
-**Legal Protection:** This Licence does not grant permission to use the trade
+__Legal Protection:__ This Licence does not grant permission to use the trade
 names, trademarks, service marks, or names of the Licensor, except as required
 for reasonable and customary use in describing the origin of the Work and
 reproducing the content of the copyright notice.

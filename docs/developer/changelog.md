@@ -10,10 +10,10 @@ and this project adheres to
 
 ## Unreleased
 
-**_Changed:_**
+___Changed:___
 
-**_Added:_**
+___Added:___
 
-**_Fixed:_**
+___Fixed:___
 
 ## [0.0.1](https://github.com/jmuelbert/jmbde-python/releases/tag/jmbde-python-v0.0.1) - 2024-03-12 ## {: #jmbde-python-v0.0.1}

@@ -67,9 +67,10 @@ jobs:
       - name: ⚙️ Setup Python
         uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
         with:
-          python-version-file: .python-version
-          cache: pip
+          python-version-file: .python-version # Read python version from a file .python-version
           check-latest: true
+          cache: pip
+          cache-dependency-path: '**/pyproject.toml'
 
       - name: 📦 Setup Cache
         uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
@@ -101,10 +102,6 @@ jobs:
         env:
           DOCS_LANGUAGE: en # Default language set here
         run: |
-          if [ -d "src" ]; then
-            hatch run docs:mkdocstrings-gen
-          fi
-
           # Build documentation
           hatch run docs:build
 

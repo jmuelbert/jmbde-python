@@ -68,16 +68,17 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
+      - uses: pnpm/action-setup@eae0cfeb286e66ffb5155f1a79b90583a127a68b # v2.4.1
+        with:
+          version: 9.12.2
+          run_install: true
+
       - name: 🔍 Install Node and pnpm
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
         with:
           node-version: 20
-          cache: pnpm
-
-      - name: 🔍 Install pnpm and packages
-        run: |
-          npm install -g pnpm
-          pnpm install
+          check-latest: true
+          cache: 'pnpm'
 
       - name: 📋 Check Spelling
         id: spell-check
@@ -89,7 +90,6 @@ jobs:
         uses: sobolevn/misspell-fixer-action@8842a5615f83fed75e8a87015e9300a54d049961 # master
         with:
           options: -rsvn
-          ignore: node_modules/,dist/,build/,*.min.js,*.min.css
 
       - name: ✍️ Check for Changes
         id: check-diff

@@ -2,19 +2,19 @@
 
 ## [Unreleased](https://github.com/jmuelbert/jmbde-python/tree/HEAD)
 
-**Implemented enhancements:**
+__Implemented enhancements:__
 
 - PR Update workflows
   [\#414](https://github.com/jmuelbert/jmbde-python/pull/414)
 
-**Closed issues:**
+__Closed issues:__
 
 - Dependabot can't resolve your Python dependency files
   [\#196](https://github.com/jmuelbert/jmbde-python/issues/196)
 - Dependabot can't resolve your Python dependency files
   [\#195](https://github.com/jmuelbert/jmbde-python/issues/195)
 
-**Merged pull requests:**
+__Merged pull requests:__
 
 - Fix typos by misspell-fixer for refs/heads/master
   [\#418](https://github.com/jmuelbert/jmbde-python/pull/418)
