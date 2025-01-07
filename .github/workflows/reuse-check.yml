@@ -43,6 +43,7 @@ jobs:
       contents: write
       pull-requests: write
       checks: write
+      issues: write
 
     outputs:
       compliance-status: ${{ steps.check.outputs.status }}
