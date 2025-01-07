@@ -70,8 +70,8 @@ jobs:
 
       - uses: pnpm/action-setup@eae0cfeb286e66ffb5155f1a79b90583a127a68b # v2.4.1
         with:
-          version: 9.12.2
-          run_install: true
+          version: 9.15.3
+          run_install: false
 
       - name: 🔍 Install Node and pnpm
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
