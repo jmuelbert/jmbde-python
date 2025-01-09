@@ -104,7 +104,12 @@ jobs:
         run: |
           # Run initial check
           # Run REUSE lint and capture the output
-          reuse lint > reuse-report.txt || true
+          reuse lint > reuse-report.txt
+          if [ $? -ne 0 ]; then
+            echo "REUSE lint failed"
+            cat reuse-report.txt
+            exit 1
+          fi
 
           # Process results
           if grep -q "not compliant" reuse-report.txt; then
