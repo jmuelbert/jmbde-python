@@ -89,7 +89,7 @@ jobs:
         id: misspell
         uses: sobolevn/misspell-fixer-action@8842a5615f83fed75e8a87015e9300a54d049961 # master
         with:
-          options: -rsvn
+          options: -rsvn .
 
       - name: ✍️ Check for Changes
         id: check-diff
