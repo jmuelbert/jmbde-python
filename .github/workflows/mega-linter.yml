@@ -62,7 +62,7 @@ jobs:
           fetch-depth: 0
 
       - name: 🧪 Run MegaLinter
-        uses: oxsecurity/megalinter@1fc052d03c7a43c78fe0fee19c9d648b749e0c01
+        uses: oxsecurity/megalinter/flavors/python@1fc052d03c7a43c78fe0fee19c9d648b749e0c01
         id: ml
         env:
           VALIDATE_ALL_CODEBASE: true
