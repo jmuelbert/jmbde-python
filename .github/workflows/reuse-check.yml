@@ -125,14 +125,14 @@ jobs:
               echo ""
               echo "Found $ISSUES files with licensing issues:"
               echo ""
-              echo "``$("
+              echo "..."
               cat reuse-report.txt
-              echo ")``"
+              echo "..."
               echo ""
               echo "### 🔨 How to Fix"
               echo "1. Add SPDX headers to each file."
               echo "2. Use appropriate license identifiers."
-              echo "3. Update the dep5 file if needed."
+              echo "3. Update the REUSE.toml file if needed."
             } > compliance-report.md
           else
             # Update GitHub environment variables
