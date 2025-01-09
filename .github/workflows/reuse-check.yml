@@ -127,11 +127,11 @@ jobs:
             echo "2. Use appropriate license identifiers" >> compliance-report.md
             echo "3. Update dep5 file if needed" >> compliance-report.md
             
-            if [ "${{ github.event.inputs.fix-issues }}" == "true" ]; then
-              echo "Attempting to fix common issues..."
-              reuse download --all
-              reuse annotate --copyright="Jürgen Mülbert" --license="GPL-3.0-or-later" --style=tag --template=.reuse/templates/gpl-3.0-or-later.jinja2 $(grep "not licensed" reuse-report.txt | cut -d' ' -f1) || true
-            fi
+            #. if [ "${{ github.event.inputs.fix-issues }}" == "true" ]; then
+            # echo "Attempting to fix common issues..."
+            #  reuse download --all
+            #  reuse annotate --copyright="Jürgen Mülbert" --license="GPL-3.0-or-later" --style=tag --template=.reuse/templates/gpl-3.0-or-later.jinja2 $(grep "not licensed" reuse-report.txt | cut -d' ' -f1) || true
+            # fi
           else
             echo "status=success" >> $GITHUB_OUTPUT
             echo "issues=0" >> $GITHUB_OUTPUT
