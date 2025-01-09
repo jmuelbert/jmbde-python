@@ -70,3 +70,4 @@ jobs:
               repo: context.repo.repo,
               issue_number: context.payload.pull_request.number, // Use pull_request.number
               body: message
+               }); // Closing parenthesis for createComment
