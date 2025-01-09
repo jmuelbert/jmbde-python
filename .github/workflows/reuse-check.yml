@@ -125,13 +125,13 @@ jobs:
             } >> "$GITHUB_ENV"
 
             # Generate a detailed compliance report
+            #    cat reuse-report.txt
             {
               echo "## 📋 License Compliance Issues"
               echo ""
               echo "Found $ISSUES files with licensing issues:"
-              echo ""
               echo "..."
-              cat reuse-report.txt
+              echo "Reuse output"
               echo "..."
               echo ""
               echo "### 🔨 How to Fix"
