@@ -37,7 +37,7 @@ JSON_V8R_FILTER_REGEX_EXCLUDE: (\.devskim.json|\.secretlintrc.json|\.devcontaine
 MARKDOWN_FILTER_REGEX_EXCLUDE: (LICENSES/|LICENSE|license\.md)
 
 # TYPESCRIPT
-TYPESCRIPT_FILTER_REGEX_EXCLUDE: (resources/translations)
+TYPESCRIPT_FILTER_REGEX_EXCLUDE: (assets/translations)
 
 # YAML
 YAML_FILTER_REGEX_EXCLUDE: (\.github/linters/valestyles/)
