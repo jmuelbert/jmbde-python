@@ -34,6 +34,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: read
+      issues: write
 
     steps:
       - name: 🔒 Harden Runner
@@ -58,6 +59,7 @@ jobs:
         if: always()
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
+          
           script: |
             const conclusion = '${{ job.status }}';
             const message = conclusion === 'success'
