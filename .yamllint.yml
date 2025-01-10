@@ -13,6 +13,7 @@ ignore:
   - node_modules/
   - .github/linters/valestyles/Microsoft/
   - .github/linters/valestyles/proselint/
+  - .vscode/
   - pnpm-lock.yaml
   - package-lock.json
 

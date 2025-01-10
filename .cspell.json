@@ -1,6 +1,6 @@
 {
   "version": "0.2",
-  "language": "en",
+  "language": "en,en-GB, de-DE",
   "noConfigSearch": true,
   "dictionaries": [
     "en_US",
@@ -22,6 +22,20 @@
     "de-de"
   ],
   "ignorePaths": [
+    "**/.cspell.json",
+    "**/.gitignore",
+    "**/.trivyignore",
+    "**/.git/**",
+    "**/licenses/*.md",
+    "**/node_modules/**",
+    "**/package-lock.json",
+    "**/used-by-stats.md",
+    "**/valestyles/**",
+    "**/vscode-extension/**",
+    ".vscode",
+    "lib",
+    "misspell",
+    "report",
     "megalinter-reports/**",
     "package-lock.json",
     "report",

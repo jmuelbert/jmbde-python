@@ -7,6 +7,18 @@
 # For more information, visit
 # https://codefresh.io/docker-tutorial/not-ignore-dockerignore-2/.
 #
+# General
+.coverage
+.cache
+.env
+.yarn-integrity
+*.tgz
+pids
+*.pid
+*.pip.lock
+*.log
+*.seed
+
 # Git
 .git
 .gitignore
@@ -19,6 +31,10 @@
 .idea
 .vscode
 
+# Node
+.npm
+node_modules/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 **/__pycache__/
@@ -30,9 +46,6 @@ __pycache__/
 *$py.class
 .pytest_cache/
 ..mypy_cache/
-
-# poetry
-.venv
 
 # C extensions
 *.so

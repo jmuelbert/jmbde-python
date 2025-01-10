@@ -1,10 +1,14 @@
 ---
+# SPDX-License-Identifier: EUPL-1.2
+# SPDX-FileCopyrightText: 2023-present Jürgen Mülbert <juergen.muelbert@outlook.de>
+#
 ##########################
 ## Hadolint config file ##
 ##########################
 ignored:
-  - DL3008
-  - DL3018
+  - DL3008 # pin versions in apt
+  - DL3013 # pin versions in pip
+  - DL3015 # use "no-install-recommends" with apt
 trustedRegistries:
   - docker.io
   - '*.gcr.io'

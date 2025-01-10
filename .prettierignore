@@ -1,6 +1,6 @@
-# SPDX-FileCopyRightText: 2023 Jürgen Mülbert <juergen.muelbert@web.de>
-#
+---
 # SPDX-License-Identifier: EUPL-1.2
+# SPDX-FileCopyrightText: 2023-present Jürgen Mülbert <juergen.muelbert@outlook.de>
 #
 # Prettier configuration file for ignoring paths.
 #
@@ -23,9 +23,12 @@ benchmark/results/
 !packages/db/test/fixtures
 
 # Directories
+.vscode/
 .venv
 .github
 .changeset
+.env
+.envrc
 megalinter-reports
 LICENSES/
 resources/translations

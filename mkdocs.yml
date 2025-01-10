@@ -156,6 +156,7 @@ markdown_extensions:
       permalink: true
   # Extra
   - mkdocs-click:
+  - mdx_truly_sane_lists:
   - pymdownx.betterem:
       smart_enable: all
   - pymdownx.caret:
@@ -210,11 +211,18 @@ markdown_extensions:
 extra:
   version:
     provider: mike
+    default: latest
   social:
     - icon: fontawesome/brands/github-alt
       link: https://github.com/jmuelbert
+    - icon: fontawesome/regular/circle-question
+      link: https://github.com/jmuelbert/jmbde-python/issues
+      title: Need help ? Post an issue :)
+    - icon: fontawesome/brands/github
+      link: https://github.com/jmuelbert/jmbde-python
     - icon: fontawesome/brands/linkedin
       link: https://www.linkedin.com/in/juergenmuelbert
+  generator: false
   alternate:
     - name: English
       link: /en/
