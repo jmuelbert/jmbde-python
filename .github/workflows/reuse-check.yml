@@ -100,61 +100,46 @@ jobs:
           EOL
 
       - name: 🔍 Run REUSE Check
-        id: check
+        id: check      
         run: |
           # Run initial check
-          # Run REUSE lint and capture the output
-          reuse lint > reuse-report.txt
-          if [ $? -ne 0 ]; then
-            echo "REUSE lint failed"
-            cat reuse-report.txt
-            exit 1
-          fi
-
+          reuse lint > reuse-report.txt || true
+          
           # Process results
           if grep -q "not compliant" reuse-report.txt; then
-            # Count files with licensing issues
-            ISSUES=$(grep -c "not licensed" reuse-report.txt)
-
-            # Update GitHub environment variables
-            {
-              echo "status=failed"
-              echo "issues=$ISSUES"
-              echo "compliance-status=failure"
-              echo "issues-found=$ISSUES"
-            } >> "$GITHUB_ENV"
-
-            # Generate a detailed compliance report
-            {
-              echo "## 📋 License Compliance Issues"
-              echo ""
-              echo "Found $ISSUES files with licensing issues:"
-              echo ""
-              echo "..."
-              cat reuse-report.txt
-              echo "..."
-              echo ""
-              echo "### 🔨 How to Fix"
-              echo "1. Add SPDX headers to each file."
-              echo "2. Use appropriate license identifiers."
-              echo "3. Update the REUSE.toml file if needed."
-            } > compliance-report.md
+            echo "status=failed" >> $GITHUB_OUTPUT
+            ISSUES=$(grep -c "not licensed" reuse-report.txt || echo "0")
+            echo "issues=${ISSUES}" >> $GITHUB_OUTPUT
+            
+            # Generate detailed report
+            echo "## 📋 License Compliance Issues" > compliance-report.md
+            echo "" >> compliance-report.md
+            echo "Found ${ISSUES} files with licensing issues:" >> compliance-report.md
+            echo "" >> compliance-report.md
+            echo "\`\`\`" >> compliance-report.md
+            cat reuse-report.txt >> compliance-report.md
+            echo "\`\`\`" >> compliance-report.md
+            
+            # Add recommendations
+            echo "" >> compliance-report.md
+            echo "### 🔨 How to Fix" >> compliance-report.md
+            echo "1. Add SPDX headers to each file" >> compliance-report.md
+            echo "2. Use appropriate license identifiers" >> compliance-report.md
+            echo "3. Update dep5 file if needed" >> compliance-report.md
+            
+            #. if [ "${{ github.event.inputs.fix-issues }}" == "true" ]; then
+            # echo "Attempting to fix common issues..."
+            #  reuse download --all
+            #  reuse annotate --copyright="Jürgen Mülbert" --license="GPL-3.0-or-later" --style=tag --template=.reuse/templates/gpl-3.0-or-later.jinja2 $(grep "not licensed" reuse-report.txt | cut -d' ' -f1) || true
+            # fi
           else
-            # Update GitHub environment variables
-            {
-              echo "status=passed"
-              echo "compliance-status=success"
-              echo "issues-found=0"
-            } >> "$GITHUB_ENV"
-
-            # Generate a success report
-            {
-              echo "## ✅ License Compliance Check Passed"
-              echo ""
-              echo "All files comply with REUSE specifications."
-            } > compliance-report.md
+            echo "status=success" >> $GITHUB_OUTPUT
+            echo "issues=0" >> $GITHUB_OUTPUT
+            
+            echo "## ✅ License Compliance Check Passed" > compliance-report.md
+            echo "" >> compliance-report.md
+            echo "All files comply with REUSE specifications." >> compliance-report.md
           fi
-
 
       - name: 📤 Upload Report
         if: always()
