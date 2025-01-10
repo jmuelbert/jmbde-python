@@ -8,6 +8,7 @@ project-structure.txt
 *.db
 src/*.db
 .ruff_cache/
+.secrets
 
 ### Python template
 # Byte-compiled / optimized / DLL files

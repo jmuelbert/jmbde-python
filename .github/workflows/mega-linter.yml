@@ -80,7 +80,7 @@ jobs:
 
       - name: 📊 Process Results
         if: always()
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: >
             const fs = require('fs');
@@ -121,7 +121,7 @@ jobs:
 
       - name: 📝 Create Fix PR
         if: steps.ml.outputs.has_updated_sources == 1
-        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c
+        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c  #v5.0.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "style: apply automatic linter fixes"

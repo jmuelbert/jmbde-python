@@ -100,17 +100,18 @@ jobs:
           EOL
 
       - name: 🔍 Run REUSE Check
-        id: check      
+        id: check
         run: |
+
           # Run initial check
-          reuse lint > reuse-report.txt || true
-          
+          reuse lint > reuse-report.txt
+
           # Process results
           if grep -q "not compliant" reuse-report.txt; then
-            echo "status=failed" >> $GITHUB_OUTPUT
-            ISSUES=$(grep -c "not licensed" reuse-report.txt || echo "0")
-            echo "issues=${ISSUES}" >> $GITHUB_OUTPUT
-            
+            echo "status=failed" >> "$GITHUB_OUTPUT"
+            ISSUES=$(grep -c "not licensed" reuse-report.txt)
+            echo "issues=${ISSUES}" >> "$GITHUB_OUTPUT"
+
             # Generate detailed report
             echo "## 📋 License Compliance Issues" > compliance-report.md
             echo "" >> compliance-report.md
@@ -119,27 +120,27 @@ jobs:
             echo "\`\`\`" >> compliance-report.md
             cat reuse-report.txt >> compliance-report.md
             echo "\`\`\`" >> compliance-report.md
-            
+
             # Add recommendations
             echo "" >> compliance-report.md
             echo "### 🔨 How to Fix" >> compliance-report.md
             echo "1. Add SPDX headers to each file" >> compliance-report.md
             echo "2. Use appropriate license identifiers" >> compliance-report.md
             echo "3. Update dep5 file if needed" >> compliance-report.md
-            
-            #. if [ "${{ github.event.inputs.fix-issues }}" == "true" ]; then
-            # echo "Attempting to fix common issues..."
-            #  reuse download --all
-            #  reuse annotate --copyright="Jürgen Mülbert" --license="GPL-3.0-or-later" --style=tag --template=.reuse/templates/gpl-3.0-or-later.jinja2 $(grep "not licensed" reuse-report.txt | cut -d' ' -f1) || true
-            # fi
           else
-            echo "status=success" >> $GITHUB_OUTPUT
-            echo "issues=0" >> $GITHUB_OUTPUT
-            
+            echo "status=success" >> "$GITHUB_OUTPUT"
+            echo "issues=0" >> "$GITHUB_OUTPUT"
+
+            echo "status=success" >> ./test_output.txt
+            echo "issues=0" >> ./test_output.txt
+
             echo "## ✅ License Compliance Check Passed" > compliance-report.md
             echo "" >> compliance-report.md
             echo "All files comply with REUSE specifications." >> compliance-report.md
           fi
+
+          # Debug output
+          cat ./test_output.txt
 
       - name: 📤 Upload Report
         if: always()

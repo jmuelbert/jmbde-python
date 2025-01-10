@@ -50,7 +50,6 @@ jobs:
       - name: 🔎 Lint Commits
         uses: wagoid/commitlint-github-action@7f0a61df502599e1f1f50880aaa7ec1e2c0592f2 # v6.0.1
         with:
-          configFile: .commitlintrc.json
           helpURL: https://github.com/conventional-changelog/commitlint/#what-is-commitlint
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -59,15 +58,34 @@ jobs:
         if: always()
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
-
           script: |
-            const conclusion = '${{ job.status }}';
-            const message = conclusion === 'success'
-              ? '✅ All commit messages follow the conventional commits standard.'
-              : '❌ Some commit messages do not follow the conventional commits standard.';
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.payload.pull_request.number, // Use pull_request.number
-              body: message
-               }); // Closing parenthesis for createComment
+            try {
+              const conclusion = process.env.JOB_STATUS; // Pass job status as an environment variable
+              if (!['success', 'failure'].includes(conclusion)) {
+                throw new Error('Invalid job status provided.');
+              }
+
+              const message = conclusion === 'success'
+                ? '✅ All commit messages follow the conventional commits standard.'
+                : '❌ Some commit messages do not follow the conventional commits standard.';
+
+              // Ensure pull_request exists in the context payload
+              const pullRequest = context.payload.pull_request;
+              if (!pullRequest) {
+                throw new Error('This workflow must be triggered by a pull request event.');
+              }
+
+              // Add a comment to the pull request
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pullRequest.number,
+                body: message
+              });
+
+              console.log('Comment added successfully.');
+            } catch (error) {
+              console.error('Failed to add a comment:', error.message);
+              core.setFailed(error.message); // Mark the step as failed
+            }
+

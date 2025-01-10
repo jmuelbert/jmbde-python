@@ -35,6 +35,7 @@ jobs:
           egress-policy: audit
 
       - name: 🏷️ Process Labels
+        if: github.event.repository.fork == false
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
@@ -54,22 +55,34 @@ jobs:
             };
 
             async function processIssueLabels() {
+              console.log('Repository Context:', context.repo);
+              console.log('Issue Number:', context.issue.number);
+
+              if (!context.issue?.number) {
+                throw new Error('Issue number is undefined. Ensure this workflow is triggered by an issue event.');
+              }
+
               try {
                 const { data: issue } = await github.rest.issues.get({
                   ...context.repo,
                   issue_number: context.issue.number
                 });
 
+                console.log('Fetched Issue Details:', issue);
+
                 let labelsToAdd = new Set(LABEL_CONFIG.defaultLabels);
+
+                // Normalize title for case-insensitive matching
+                const title = issue.title.toLowerCase();
 
                 // Check title prefixes
                 for (const [prefix, labels] of Object.entries(LABEL_CONFIG.titlePrefixes)) {
-                  if (issue.title.toUpperCase().startsWith(prefix)) {
+                  if (title.startsWith(prefix.toLowerCase())) {
                     labels.forEach(label => labelsToAdd.add(label));
                   }
                 }
 
-                // Check content triggers
+                // Normalize body for case-insensitive matching
                 const body = issue.body?.toLowerCase() || '';
                 for (const [trigger, labels] of Object.entries(LABEL_CONFIG.contentTriggers)) {
                   if (body.includes(trigger.toLowerCase())) {
@@ -103,15 +116,17 @@ jobs:
                       body: `⚠️ This issue has been marked as high priority and will be reviewed soon.`
                     });
                   }
+
+                  // Add reaction to confirm processing
+                  await github.rest.reactions.createForIssue({
+                    ...context.repo,
+                    issue_number: context.issue.number,
+                    content: 'eyes'
+                  });
+
+                } else {
+                  console.log('No new labels to add.');
                 }
-
-                // Add reaction to confirm processing
-                await github.rest.reactions.createForIssue({
-                  ...context.repo,
-                  issue_number: context.issue.number,
-                  content: 'eyes'
-                });
-
               } catch (error) {
                 console.error('Error processing labels:', error);
                 core.setFailed(`Failed to process labels: ${error.message}`);
@@ -125,6 +140,7 @@ jobs:
             }
 
             await processIssueLabels();
+
 
       - name: 📊 Report Processing
         if: always()
