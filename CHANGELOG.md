@@ -2,16 +2,16 @@
 
 ## [Unreleased](https://github.com/jmuelbert/jmbde-python/tree/HEAD)
 
-__Implemented enhancements:__
+**Implemented enhancements:**
 
 - PR Update workflows [\#414](https://github.com/jmuelbert/jmbde-python/pull/414)
 
-__Closed issues:__
+**Closed issues:**
 
 - Dependabot can't resolve your Python dependency files [\#196](https://github.com/jmuelbert/jmbde-python/issues/196)
 - Dependabot can't resolve your Python dependency files [\#195](https://github.com/jmuelbert/jmbde-python/issues/195)
 
-__Merged pull requests:__
+**Merged pull requests:**
 
 - Fix typos by misspell-fixer for refs/heads/master [\#418](https://github.com/jmuelbert/jmbde-python/pull/418)
 - Bump codacy/codacy-analysis-cli-action from 1.1.0 to 4.0.0 [\#417](https://github.com/jmuelbert/jmbde-python/pull/417)

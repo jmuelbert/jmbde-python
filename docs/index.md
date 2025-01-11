@@ -4,7 +4,7 @@
 ![jmbde-python Logo](assets/images/logo.svg){ role="img" }
 
 |         |                                                                                                                                                                                                                                                  |
-|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | CI/ CD  | [![test][test-badge]{ loading=lazy .off-glb }][test-wf-url] [![CI - Build jmbde-python][ci-cd-badge]{ loading=lazy .off-glb }][ci-cd-wf-url]                                                                                                     |
 | Docs    | [![Docs][docs-badge]{ loading=lazy .off-glb }][docs-wf-url]                                                                                                                                                                                      |
 | Package | [![PyPI - Version][pypi-version-badge]{ loading=lazy .off-glb }][pypi-version-url] [![PyPI - Downloads][pypi-downloads-badge]{ loading=lazy .off-glb }][pypi-downloads-url] [![PyPI - Python Version][python-version-badge]][python-version-url] |
@@ -18,7 +18,7 @@ jmbde-python is a tool to check the availability of a website or ntp-server.
 
 <div class="grid cards" Markdown>
 
-- ## :material-hammer-wrench:{ .lg .middle } __Build system__
+- ## :material-hammer-wrench:{ .lg .middle } **Build system**
 
   Reproducible builds by default with a rich ecosystem of plugins
 
@@ -35,7 +35,7 @@ jmbde-python is distributed under the terms of the [European Public License V1.2
 Documentation for specific `MAJOR.MINOR` versions can be chosen by using the dropdown on the top of every page. The `dev` version reflects changes that have not yet been released.
 
 | Keys                                                         | Action                          |
-|--------------------------------------------------------------|---------------------------------|
+| ------------------------------------------------------------ | ------------------------------- |
 | <ul><li><kbd>,</kbd> (comma)</li><li><kbd>p</kbd></li></ul>  | Navigate to the "previous" page |
 | <ul><li><kbd>.</kbd> (period)</li><li><kbd>n</kbd></li></ul> | Navigate to the "next" page     |
 | <ul><li><kbd>/</kbd></li><li><kbd>s</kbd></li></ul>          | Display the search modal        |
