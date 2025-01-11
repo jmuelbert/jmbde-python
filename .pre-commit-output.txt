@@ -1,10 +1,27 @@
-trim trailing whitespace.................................................Passed
-fix end of files.........................................................Passed
-check yaml...............................................................Passed
-check for added large files..............................................Passed
+trim trailing whitespace.................................................Failed
+- hook id: trailing-whitespace
+- exit code: 1
+- files were modified by this hook
+
+Fixing quality_report.md
+
+fix end of files.........................................................Failed
+- hook id: end-of-file-fixer
+- exit code: 1
+- files were modified by this hook
+
+Fixing .pre-commit-output.txt
+
+check yaml...............................................................Failed
+- hook id: check-yaml
+- files were modified by this hook
+check for added large files..............................................Failed
+- hook id: check-added-large-files
+- files were modified by this hook
 check python ast.........................................................Failed
 - hook id: check-ast
 - exit code: 1
+- files were modified by this hook
 
 tests/pyside6/unsafeconnection.py: failed parsing with CPython 3.12.8:
 
@@ -19,13 +36,22 @@ tests/pyside6/unsafeconnection.py: failed parsing with CPython 3.12.8:
                                ^^^^^^^
     SyntaxError: invalid syntax
 
-check json...............................................................Passed
-check for merge conflicts................................................Passed
-check for case conflicts.................................................Passed
-check xml................................................................Passed
+check json...............................................................Failed
+- hook id: check-json
+- files were modified by this hook
+check for merge conflicts................................................Failed
+- hook id: check-merge-conflict
+- files were modified by this hook
+check for case conflicts.................................................Failed
+- hook id: check-case-conflict
+- files were modified by this hook
+check xml................................................................Failed
+- hook id: check-xml
+- files were modified by this hook
 debug statements (python)................................................Failed
 - hook id: debug-statements
 - exit code: 1
+- files were modified by this hook
 
 tests/pyside6/unsafeconnection.py - Could not parse ast
 
@@ -41,11 +67,16 @@ tests/pyside6/unsafeconnection.py - Could not parse ast
 	                           ^^^^^^^
 	SyntaxError: invalid syntax
 
-detect private key.......................................................Passed
-mixed line ending........................................................Passed
+detect private key.......................................................Failed
+- hook id: detect-private-key
+- files were modified by this hook
+mixed line ending........................................................Failed
+- hook id: mixed-line-ending
+- files were modified by this hook
 check builtin type constructor use.......................................Failed
 - hook id: check-builtin-literals
 - exit code: 1
+- files were modified by this hook
 
 Traceback (most recent call last):
   File "/home/runner/.cache/pre-commit/repo60ae3fei/py_env-python3.12/bin/check-builtin-literals", line 8, in <module>
@@ -65,12 +96,19 @@ Traceback (most recent call last):
                            ^^^^^^^
 SyntaxError: invalid syntax
 
-Check hooks apply to the repository......................................Passed
-Check for useless excludes...............................................Passed
-sync-pre-commit-deps.....................................................Passed
+Check hooks apply to the repository......................................Failed
+- hook id: check-hooks-apply
+- files were modified by this hook
+Check for useless excludes...............................................Failed
+- hook id: check-useless-excludes
+- files were modified by this hook
+sync-pre-commit-deps.....................................................Failed
+- hook id: sync-pre-commit-deps
+- files were modified by this hook
 black....................................................................Failed
 - hook id: black
 - exit code: 123
+- files were modified by this hook
 
 error: cannot format tests/pyside6/unsafeconnection.py: Cannot parse for target version Python 3.11: 6:23: class UnsafeConnection extends FunctionCall {
 
@@ -81,27 +119,18 @@ isort....................................................................Failed
 - hook id: isort
 - files were modified by this hook
 
+Fixing /home/runner/work/jmbde-python/jmbde-python/scripts/build_ui.py
 Fixing /home/runner/work/jmbde-python/jmbde-python/src/jmbde/__main.py
 Fixing /home/runner/work/jmbde-python/jmbde-python/src/jmbde/core/database.py
-Fixing /home/runner/work/jmbde-python/jmbde-python/src/jmbde/core/settings.py
-Fixing /home/runner/work/jmbde-python/jmbde-python/src/jmbde/gui/employee_model.py
 Fixing /home/runner/work/jmbde-python/jmbde-python/src/jmbde/gui/main_app.py
 Fixing /home/runner/work/jmbde-python/jmbde-python/tests/test_main.py
-Fixing /home/runner/work/jmbde-python/jmbde-python/tests/unit/test_employee_model.py
+Fixing /home/runner/work/jmbde-python/jmbde-python/tests/unit/test_database.py
 
 prettier.................................................................Failed
 - hook id: prettier
 - files were modified by this hook
 
-CHANGELOG.md
-docs/about/EUPL-1.2.md
-docs/developer/overview.md
-building/README.md
-docs/community/code_of_conduct.md
-.devcontainer/docker-compose.yml
-SECURITY.md
-docs/developer/changelog.md
-docs/index.md
+quality_report.md
 
 ruff.....................................................................Failed
 - hook id: ruff
@@ -3651,6 +3680,7 @@ No fixes available (95 hidden fixes can be enabled with the `--unsafe-fixes` opt
 ruff-format..............................................................Failed
 - hook id: ruff-format
 - exit code: 2
+- files were modified by this hook
 
 warning: The top-level linter settings are deprecated in favour of their counterparts in the `lint` section. Please update the following options in `pyproject.toml`:
   - 'flake8-bugbear' -> 'lint.flake8-bugbear'
@@ -3666,6 +3696,7 @@ error: Failed to parse tests/pyside6/unsafeconnection.py:6:24: Expected ':', fou
 mypy.....................................................................Failed
 - hook id: mypy
 - exit code: 2
+- files were modified by this hook
 
 tests/pyside6/unsafeconnection.py:6:25: error: invalid syntax  [syntax]
     class UnsafeConnection extends FunctionCall {
@@ -3675,6 +3706,7 @@ Found 1 error in 1 file (errors prevented further checking)
 pylint...................................................................Failed
 - hook id: pylint
 - exit code: 30
+- files were modified by this hook
 
 [7;33m************* Module pyproject.toml[0m
 pyproject.toml:1:0: R0022: [1;3;35mUseless option value for '--disable', 'C0330' was removed from pylint, see https://github.com/pylint-dev/pylint/pull/3571.[0m ([1;3;35museless-option-value[0m)
@@ -3840,6 +3872,7 @@ Your code has been rated at 6.73/10
 bandit...................................................................Failed
 - hook id: bandit
 - exit code: 1
+- files were modified by this hook
 
 [main]	INFO	profile include tests: None
 [main]	INFO	profile exclude tests: None
@@ -3847,7 +3880,7 @@ bandit...................................................................Failed
 [main]	INFO	cli exclude tests: None
 [main]	INFO	using config: pyproject.toml
 [main]	INFO	running on Python 3.12.8
-Run started:2025-01-11 10:38:02.657406
+Run started:2025-01-11 11:04:04.604455
 
 Test results:
 >> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
@@ -4045,20 +4078,27 @@ Run metrics:
 		High: 13
 Files skipped (0):
 
-pip-audit................................................................Passed
-pyupgrade................................................................Passed
+pip-audit................................................................Failed
+- hook id: pip-audit
+- files were modified by this hook
+
+No known vulnerabilities found
+
+pyupgrade................................................................Failed
+- hook id: pyupgrade
+- files were modified by this hook
 Lint Dockerfiles.........................................................Failed
 - hook id: hadolint
 - exit code: 1
+- files were modified by this hook
 
 Executable `hadolint` not found
 
 markdownlint.............................................................Failed
 - hook id: markdownlint
 - exit code: 1
+- files were modified by this hook
 
-docs/index.md:21:46 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
-docs/index.md:21:60 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
 building/README.md:96:29 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
 building/README.md:96:35 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
 building/README.md:103 MD040/fenced-code-language Fenced code blocks should have a language specified [Context: "```"]
@@ -4085,6 +4125,111 @@ docs/developer/overview.md:8:3 MD050/strong-style Strong style [Expected: unders
 docs/developer/overview.md:8:20 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
 docs/developer/overview.md:9:3 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
 docs/developer/overview.md:9:33 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+quality_report.md:5 MD040/fenced-code-language Fenced code blocks should have a language specified [Context: "````"]
+quality_report.md:37:1 MD010/no-hard-tabs Hard tabs [Column: 1]
+quality_report.md:38:1 MD010/no-hard-tabs Hard tabs [Column: 1]
+quality_report.md:39:1 MD010/no-hard-tabs Hard tabs [Column: 1]
+quality_report.md:40:1 MD010/no-hard-tabs Hard tabs [Column: 1]
+quality_report.md:41:1 MD010/no-hard-tabs Hard tabs [Column: 1]
+quality_report.md:42:1 MD010/no-hard-tabs Hard tabs [Column: 1]
+quality_report.md:43:1 MD010/no-hard-tabs Hard tabs [Column: 1]
+quality_report.md:44:1 MD010/no-hard-tabs Hard tabs [Column: 1]
+quality_report.md:45:1 MD010/no-hard-tabs Hard tabs [Column: 1]
+quality_report.md:46:1 MD010/no-hard-tabs Hard tabs [Column: 1]
+quality_report.md:47:1 MD010/no-hard-tabs Hard tabs [Column: 1]
+quality_report.md:3849:12 MD010/no-hard-tabs Hard tabs [Column: 12]
+quality_report.md:3849:7 MD010/no-hard-tabs Hard tabs [Column: 7]
+quality_report.md:3850:12 MD010/no-hard-tabs Hard tabs [Column: 12]
+quality_report.md:3850:7 MD010/no-hard-tabs Hard tabs [Column: 7]
+quality_report.md:3851:12 MD010/no-hard-tabs Hard tabs [Column: 12]
+quality_report.md:3851:7 MD010/no-hard-tabs Hard tabs [Column: 7]
+quality_report.md:3852:12 MD010/no-hard-tabs Hard tabs [Column: 12]
+quality_report.md:3852:7 MD010/no-hard-tabs Hard tabs [Column: 7]
+quality_report.md:3853:12 MD010/no-hard-tabs Hard tabs [Column: 12]
+quality_report.md:3853:7 MD010/no-hard-tabs Hard tabs [Column: 7]
+quality_report.md:3854:12 MD010/no-hard-tabs Hard tabs [Column: 12]
+quality_report.md:3854:7 MD010/no-hard-tabs Hard tabs [Column: 7]
+quality_report.md:3863:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3864:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3873:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3874:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3875:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3876:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3877:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3878:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3879:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3880:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3889:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3890:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3891:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3892:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3893:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3894:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3895:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3896:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3905:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3906:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3907:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3915:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3916:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3917:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3925:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3926:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3927:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3935:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3936:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3937:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3945:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3946:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3955:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3956:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3965:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3966:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3967:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3968:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3969:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3970:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3971:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3980:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3981:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3982:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3983:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3984:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3985:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3986:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3995:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3996:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3997:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3998:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:3999:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:4000:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:4001:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:4010:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:4011:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:4012:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:4013:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:4014:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:4015:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:4016:3 MD010/no-hard-tabs Hard tabs [Column: 3]
+quality_report.md:4026:4 MD010/no-hard-tabs Hard tabs [Column: 4]
+quality_report.md:4027:4 MD010/no-hard-tabs Hard tabs [Column: 4]
+quality_report.md:4028:4 MD010/no-hard-tabs Hard tabs [Column: 4]
+quality_report.md:4029:4 MD010/no-hard-tabs Hard tabs [Column: 4]
+quality_report.md:4030:4 MD010/no-hard-tabs Hard tabs [Column: 4]
+quality_report.md:4031:4 MD010/no-hard-tabs Hard tabs [Column: 4]
+quality_report.md:4036:1 MD010/no-hard-tabs Hard tabs [Column: 1]
+quality_report.md:4037:1 MD010/no-hard-tabs Hard tabs [Column: 1]
+quality_report.md:4038:1 MD010/no-hard-tabs Hard tabs [Column: 1]
+quality_report.md:4041:1 MD010/no-hard-tabs Hard tabs [Column: 1]
+quality_report.md:4042:1 MD010/no-hard-tabs Hard tabs [Column: 1]
+quality_report.md:4043:1 MD010/no-hard-tabs Hard tabs [Column: 1]
+quality_report.md:4044:1 MD010/no-hard-tabs Hard tabs [Column: 1]
+quality_report.md:4045:1 MD010/no-hard-tabs Hard tabs [Column: 1]
+quality_report.md:4046:1 MD010/no-hard-tabs Hard tabs [Column: 1]
+quality_report.md:4047:1 MD010/no-hard-tabs Hard tabs [Column: 1]
+quality_report.md:4048:1 MD010/no-hard-tabs Hard tabs [Column: 1]
+quality_report.md:4049:1 MD010/no-hard-tabs Hard tabs [Column: 1]
+quality_report.md:4050:1 MD010/no-hard-tabs Hard tabs [Column: 1]
 docs/community/code_of_conduct.md:52:1 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
 docs/community/code_of_conduct.md:52:19 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
 docs/community/code_of_conduct.md:54:1 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
@@ -4107,14 +4252,50 @@ docs/developer/changelog.md:13:1 MD050/strong-style Strong style [Expected: unde
 docs/developer/changelog.md:13:11 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
 docs/developer/changelog.md:15:1 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
 docs/developer/changelog.md:15:11 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/index.md:21:46 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/index.md:21:60 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
 
-Validate Dependabot Config (v2)..........................................Passed
-Validate GitHub Workflows................................................Passed
-Validate ReadTheDocs Config..............................................Passed
-Detect hardcoded secrets.................................................Passed
+Validate Dependabot Config (v2)..........................................Failed
+- hook id: check-dependabot
+- files were modified by this hook
+
+ok -- validation done
+
+Validate GitHub Workflows................................................Failed
+- hook id: check-github-workflows
+- files were modified by this hook
+
+ok -- validation done
+ok -- validation done
+ok -- validation done
+ok -- validation done
+
+Validate ReadTheDocs Config..............................................Failed
+- hook id: check-readthedocs
+- files were modified by this hook
+
+ok -- validation done
+The following files were checked:
+  .readthedocs.yml
+
+Detect hardcoded secrets.................................................Failed
+- hook id: gitleaks
+- files were modified by this hook
+
+○
+    │╲
+    │ ○
+    ○ ░
+    ░    gitleaks
+
+[90m11:04AM[0m [32mINF[0m 0 commits scanned.
+[90m11:04AM[0m [32mINF[0m scanned ~0 bytes (0) in 3.73ms
+[90m11:04AM[0m [32mINF[0m no leaks found
+
 yamllint.................................................................Failed
 - hook id: yamllint
 - exit code: 1
+- files were modified by this hook
 
 ::group::.github/workflows/mega-linter.yml
 ::warning file=.github/workflows/mega-linter.yml,line=124,col=90::124:90 [comments] missing starting space in comment
@@ -4201,10 +4382,43 @@ yamllint.................................................................Failed
 ::warning file=.github/workflows/dependabot-merge.yml,line=162,col=121::162:121 [line-length] line too long (126 > 120 characters)
 ::endgroup::
 
-codespell................................................................Passed
+codespell................................................................Failed
+- hook id: codespell
+- files were modified by this hook
+
+- Add new features on the master branch, and fix bug on the latest active (master,
+ Choose an option (blank for none):  0) primary 1) leader 2) active 3) writer 4) coordinator 5) parent 6) manager 7) main: fram
+ Choose an option (blank for none):  0) frame 1) gram 2) dram 3) cram: inout
+ Choose an option (blank for none):  0) input 1) in out: rsource
+ Choose an option (blank for none):  0) resource 1) source: unstall
+ Choose an option (blank for none):  0) install 1) uninstall: unstalling
+ Choose an option (blank for none):  0) installing 1) uninstalling: wheight
+ Choose an option (blank for none):  0) weight 1) height: - Fix typos by misspell-fixer for refs/heads/master [\#418](https://github.com/jmuelbert/jmbde-python/pull/418)
+ Choose an option (blank for none):  0) primary 1) leader 2) active 3) writer 4) coordinator 5) parent 6) manager 7) main: - Fix typos by misspell-fixer for refs/heads/master [\#416](https://github.com/jmuelbert/jmbde-python/pull/416)
+ Choose an option (blank for none):  0) primary 1) leader 2) active 3) writer 4) coordinator 5) parent 6) manager 7) main: 0
+        [CHANGELOG.md](https://github.com/jmuelbert/jmbde-QT/blob/master/CHANGELOG.md).
+ Choose an option (blank for none):  0) primary 1) leader 2) active 3) writer 4) coordinator 5) parent 6) manager 7) main: link: https://github.com/MicrosoftDocs/microsoft-style-guide/blob/master/styleguide/grammar/nouns-pronouns.md#pronouns-and-gender
+ Choose an option (blank for none):  0) primary 1) leader 2) active 3) writer 4) coordinator 5) parent 6) manager 7) main:   - cunt
+ Choose an option (blank for none):  0) count 1) hunt:   subtile: subtle
+ Choose an option (blank for none):  0) subtle 1) subtitle 2) subfile:         uses: sobolevn/misspell-fixer-action@8842a5615f83fed75e8a87015e9300a54d049961 # master
+ Choose an option (blank for none):  0) primary 1) leader 2) active 3) writer 4) coordinator 5) parent 6) manager 7) main:     resolution: {integrity: sha512-Q8qQfPiZ+THO/3ZrOrO0cJJKfpYCagtMUkXbnEfmgUjwXg6z/WBeOyS9APBBPCTSiDV+s4SwQGu8yFsiMRIudg==}
+ Choose an option (blank for none):  0) THOUGH 1) TO 2) THOU:     resolution: {integrity: sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==}
+ Choose an option (blank for none):  0) view 1) vow 2) vex: >> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+	blacklist ==> blocklist (Y/n)    More Info: https://bandit.readthedocs.io/en/0.0.0/blacklists/blacklist_imports.html#b404-import-subprocess
+	blacklists ==> blocklists (Y/n)  - Fix typos by misspell-fixer for refs/heads/master [\#418](https://github.com/jmuelbert/jmbde-python/pull/418)
+ Choose an option (blank for none):  0) primary 1) leader 2) active 3) writer 4) coordinator 5) parent 6) manager 7) main:  - Fix typos by misspell-fixer for refs/heads/master [\#418](https://github.com/jmuelbert/jmbde-python/pull/418)
+ Choose an option (blank for none):  0) primary 1) leader 2) active 3) writer 4) coordinator 5) parent 6) manager 7) main: FIXED: quality_report.md
+0
+0
+  - whet (?:the|your) appetite
+ Choose an option (blank for none):  0) when 1) what 2) wet:     "--doctest-modules" # Aktiviert automatische Doctests für alle Module     # Führt xdoctests für alle Python-Dateien aus
+ Choose an option (blank for none):  0) all 1) alley: ignore-words-list = "master"
+ Choose an option (blank for none):  0) primary 1) leader 2) active 3) writer 4) coordinator 5) parent 6) manager 7) main: 0
+
 Lint GitHub Actions workflow files.......................................Failed
 - hook id: actionlint
 - exit code: 1
+- files were modified by this hook
 
 .github/workflows/reuse-check.yml:104:9: shellcheck reported issue in this script: SC2129:style:13:3: Consider using { cmd1; cmd2; } >> file instead of individual redirects [shellcheck]
     |
@@ -4214,6 +4428,7 @@ Lint GitHub Actions workflow files.......................................Failed
 reuse lint...............................................................Failed
 - hook id: reuse
 - exit code: 1
+- files were modified by this hook
 
 # MISSING COPYRIGHT AND LICENSING INFORMATION
 
@@ -4347,6 +4562,7 @@ The following files have no copyright and licensing information:
 * docs/usage.md
 * jmbde.pyproject.user
 * pnpm-lock.yaml
+* quality_report.md
 * results/README.md
 * scripts/build.ps1
 * scripts/check_signals.py
@@ -4381,10 +4597,10 @@ The following files have no licensing information:
 * Licenses without file extension: 0
 * Missing licenses: 0
 * Unused licenses: 0
-* Used licenses: CC-BY-SA-4.0, EUPL-1.2, GPL-2.0-or-later, Apache-2.0, MIT, BSD-3-Clause, GPL-3.0-or-later
+* Used licenses: GPL-3.0-or-later, CC-BY-SA-4.0, GPL-2.0-or-later, Apache-2.0, BSD-3-Clause, MIT, EUPL-1.2
 * Read errors: 0
-* Files with copyright information: 191 / 338
-* Files with license information: 191 / 338
+* Files with copyright information: 191 / 339
+* Files with license information: 191 / 339
 
 Unfortunately, your project is not compliant with version 3.3 of the REUSE Specification :-(
 
@@ -4401,403 +4617,3084 @@ pre-commit hook(s) made changes.
 If you are seeing this message in CI, reproduce locally with: `pre-commit run --all-files`.
 To run `pre-commit` as part of git workflow, use `pre-commit install`.
 All changes made by hooks:
-diff --git a/.devcontainer/docker-compose.yml b/.devcontainer/docker-compose.yml
-index aa2443e..6b78030 100644
---- a/.devcontainer/docker-compose.yml
-+++ b/.devcontainer/docker-compose.yml
-@@ -25,7 +25,7 @@
- # Use `docker-compose exec db pg_dump -U postgres -d postgres > dump.sql` to dump the database.
- # Use `docker-compose exec db psql -U postgres -d postgres < dump.sql` to restore the database.
- 
--version: "3.8"
-+version: '3.8'
- 
- services:
-   app:
-@@ -46,9 +46,9 @@ services:
-     deploy:
-       resources:
-         limits:
--          cpus: "0.5" # Limit to 50% of one CPU core
-+          cpus: '0.5' # Limit to 50% of one CPU core
-         reservations:
--          cpus: "0.25" # Reserve 25% of one CPU core
-+          cpus: '0.25' # Reserve 25% of one CPU core
- 
-   db:
-     image: postgres:14 # Use a specific version for stability
-@@ -67,13 +67,13 @@ services:
-     deploy:
-       resources:
-         limits:
--          cpus: "1.0" # Limit to 100% of one CPU core
-+          cpus: '1.0' # Limit to 100% of one CPU core
-         reservations:
--          cpus: "0.5" # Reserve 50% of one CPU core
-+          cpus: '0.5' # Reserve 50% of one CPU core
- 
-     # Health check configuration
-     healthcheck:
--      test: [CMD-SHELL, "pg_isready -U ${POSTGRES_USER:-postgres}"]
-+      test: [CMD-SHELL, 'pg_isready -U ${POSTGRES_USER:-postgres}']
-       interval: 30s
-       timeout: 10s
-       retries: 5
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-index 59702c1..e90104b 100644
---- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -2,16 +2,16 @@
- 
- ## [Unreleased](https://github.com/jmuelbert/jmbde-python/tree/HEAD)
- 
--__Implemented enhancements:__
-+**Implemented enhancements:**
- 
- - PR Update workflows [\#414](https://github.com/jmuelbert/jmbde-python/pull/414)
- 
--__Closed issues:__
-+**Closed issues:**
- 
- - Dependabot can't resolve your Python dependency files [\#196](https://github.com/jmuelbert/jmbde-python/issues/196)
- - Dependabot can't resolve your Python dependency files [\#195](https://github.com/jmuelbert/jmbde-python/issues/195)
- 
--__Merged pull requests:__
-+**Merged pull requests:**
- 
- - Fix typos by misspell-fixer for refs/heads/master [\#418](https://github.com/jmuelbert/jmbde-python/pull/418)
- - Bump codacy/codacy-analysis-cli-action from 1.1.0 to 4.0.0 [\#417](https://github.com/jmuelbert/jmbde-python/pull/417)
-diff --git a/SECURITY.md b/SECURITY.md
-index 72c063c..3062008 100644
---- a/SECURITY.md
-+++ b/SECURITY.md
-@@ -5,7 +5,7 @@
- Use this section to tell people about which versions of your project are currently being supported with security updates.
- 
- | Version | Supported          |
--|---------|--------------------|
-+| ------- | ------------------ |
- | 5.1.x   | :white_check_mark: |
- | 5.0.x   | :x:                |
- | 4.0.x   | :white_check_mark: |
-diff --git a/building/README.md b/building/README.md
-index e7124b3..4a017ae 100644
---- a/building/README.md
-+++ b/building/README.md
-@@ -93,7 +93,7 @@
- 
-    pyside2-rcc resources/resources.qrc -o src/jmbde/resource.py
- 
--   pyinstaller -w src/jmbde/__main__.py ^ --hidden-import "socks" ^ --hidden-import "PIL" ^ --add-data "LICENSE;." ^ --add-data "conf/jmbde.conf;conf" ^ --add-data "conf/qtquickcontrols2.conf;conf" ^ --add-data "resources/translations/\*.qm;translations"
-+   pyinstaller -w src/jmbde/**main**.py ^ --hidden-import "socks" ^ --hidden-import "PIL" ^ --add-data "LICENSE;." ^ --add-data "conf/jmbde.conf;conf" ^ --add-data "conf/qtquickcontrols2.conf;conf" ^ --add-data "resources/translations/\*.qm;translations"
-    ^ --name "jmbde" ^ --icon "resources/icons/app.ico" ^ --version-file "building/Windows/jmbde.win.version" ^ --noupx
- 
-    :: Remove useless libraries cd dist/jmbde del /F /S /Q Qt3D*QtBluetooth QtBodymovin QtCharts QtDataVisualization QtGamepad QtLocation QtMultimedia QtMultimediaQuick QtNfc QtPositioning QtPositioningQuick QtPurchasing QtQuick3D* QtQuickTest
-diff --git a/docs/about/EUPL-1.2.md b/docs/about/EUPL-1.2.md
-index 9209455..0847baa 100644
---- a/docs/about/EUPL-1.2.md
-+++ b/docs/about/EUPL-1.2.md
-@@ -52,21 +52,21 @@ Nothing in this Licence is intended to deprive the Licensee of the benefits from
- 
- The grant of the rights mentioned above is subject to some restrictions and obligations imposed on the Licensee. Those obligations are the following:
- 
--__Attribution right:__ The Licensee shall keep intact all copyright, patent or trademarks notices and all notices that refer to the Licence and to the disclaimer of warranties. The Licensee must include a copy of such notices and a copy of the Licence
-+**Attribution right:** The Licensee shall keep intact all copyright, patent or trademarks notices and all notices that refer to the Licence and to the disclaimer of warranties. The Licensee must include a copy of such notices and a copy of the Licence
- with every copy of the Work he/she distributes or communicates. The Licensee must cause any Derivative Work to carry prominent notices stating that the Work has been modified and the date of modification.
- 
--__Copyleft clause:__ If the Licensee distributes or communicates copies of the Original Works or Derivative Works, this Distribution or Communication will be done under the terms of this Licence or of a later version of this Licence unless the Original
-+**Copyleft clause:** If the Licensee distributes or communicates copies of the Original Works or Derivative Works, this Distribution or Communication will be done under the terms of this Licence or of a later version of this Licence unless the Original
- Work is expressly distributed only under this version of the Licence — for example by communicating ‘EUPL v. 1.2 only’. The Licensee (becoming Licensor) cannot offer or impose any additional terms or conditions on the Work or Derivative Work that alter or
- restrict the terms of the Licence.
- 
--__Compatibility clause:__ If the Licensee Distributes or Communicates Derivative Works or copies thereof based upon both the Work and another work licensed under a Compatible Licence, this Distribution or Communication can be done under the terms of this
-+**Compatibility clause:** If the Licensee Distributes or Communicates Derivative Works or copies thereof based upon both the Work and another work licensed under a Compatible Licence, this Distribution or Communication can be done under the terms of this
- Compatible Licence. For the sake of this clause, ‘Compatible Licence’ refers to the licences listed in the appendix attached to this Licence. Should the Licensee's obligations under the Compatible Licence conflict with his/her obligations under this
- Licence, the obligations of the Compatible Licence shall prevail.
- 
--__Provision of Source Code:__ When distributing or communicating copies of the Work, the Licensee will provide a machine-readable copy of the Source Code or indicate a repository where this Source will be easily and freely available for as long as the
-+**Provision of Source Code:** When distributing or communicating copies of the Work, the Licensee will provide a machine-readable copy of the Source Code or indicate a repository where this Source will be easily and freely available for as long as the
- Licensee continues to distribute or communicate the Work.
- 
--__Legal Protection:__ This Licence does not grant permission to use the trade names, trademarks, service marks, or names of the Licensor, except as required for reasonable and customary use in describing the origin of the Work and reproducing the content
-+**Legal Protection:** This Licence does not grant permission to use the trade names, trademarks, service marks, or names of the Licensor, except as required for reasonable and customary use in describing the origin of the Work and reproducing the content
- of the copyright notice.
- 
- ## 6.Chain of Authorship
-diff --git a/docs/community/code_of_conduct.md b/docs/community/code_of_conduct.md
-index 2859651..6e5031b 100644
---- a/docs/community/code_of_conduct.md
-+++ b/docs/community/code_of_conduct.md
-@@ -49,29 +49,29 @@ Community leaders will follow these Community Impact Guidelines in determining t
- 
- ### 1. Correction
- 
--__Community Impact__: Use of inappropriate language or other behavior deemed unprofessional or unwelcome in the community.
-+**Community Impact**: Use of inappropriate language or other behavior deemed unprofessional or unwelcome in the community.
- 
--__Consequence__: A private, written warning from community leaders, providing clarity around the nature of the violation and an explanation of why the behavior was inappropriate. A public apology may be requested.
-+**Consequence**: A private, written warning from community leaders, providing clarity around the nature of the violation and an explanation of why the behavior was inappropriate. A public apology may be requested.
- 
- ### 2. Warning
- 
--__Community Impact__: A violation through a single incident or series of actions.
-+**Community Impact**: A violation through a single incident or series of actions.
- 
--__Consequence__: A warning with consequences for continued behavior. No interaction with the people involved, including unsolicited interaction with those enforcing the Code of Conduct, for a specified period of time. This includes avoiding interactions
-+**Consequence**: A warning with consequences for continued behavior. No interaction with the people involved, including unsolicited interaction with those enforcing the Code of Conduct, for a specified period of time. This includes avoiding interactions
- in community spaces as well as external channels like social media. Violating these terms may lead to a temporary or permanent ban.
- 
- ### 3. Temporary Ban
- 
--__Community Impact__: A serious violation of community standards, including sustained inappropriate behavior.
-+**Community Impact**: A serious violation of community standards, including sustained inappropriate behavior.
- 
--__Consequence__: A temporary ban from any sort of interaction or public communication with the community for a specified period of time. No public or private interaction with the people involved, including unsolicited interaction with those enforcing the
-+**Consequence**: A temporary ban from any sort of interaction or public communication with the community for a specified period of time. No public or private interaction with the people involved, including unsolicited interaction with those enforcing the
- Code of Conduct, is allowed during this period. Violating these terms may lead to a permanent ban.
- 
- ### 4. Permanent Ban
- 
--__Community Impact__: Demonstrating a pattern of violation of community standards, including sustained inappropriate behavior, harassment of an individual, or aggression toward or disparagement of classes of individuals.
-+**Community Impact**: Demonstrating a pattern of violation of community standards, including sustained inappropriate behavior, harassment of an individual, or aggression toward or disparagement of classes of individuals.
- 
--__Consequence__: A permanent ban from any sort of public interaction within the community.
-+**Consequence**: A permanent ban from any sort of public interaction within the community.
- 
- ## Attribution
- 
-diff --git a/docs/developer/changelog.md b/docs/developer/changelog.md
-index b9a7556..cd93e5a 100644
---- a/docs/developer/changelog.md
-+++ b/docs/developer/changelog.md
-@@ -8,10 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
- 
- ## Unreleased
- 
--___Changed:___
-+**_Changed:_**
- 
--___Added:___
-+**_Added:_**
- 
--___Fixed:___
-+**_Fixed:_**
- 
- ## [0.0.1](https://github.com/jmuelbert/jmbde-python/releases/tag/jmbde-python-v0.0.1) - 2024-03-12 ## {: #jmbde-python-v0.0.1}
-diff --git a/docs/developer/overview.md b/docs/developer/overview.md
-index 29cbda8..c60f07a 100644
---- a/docs/developer/overview.md
-+++ b/docs/developer/overview.md
-@@ -4,6 +4,6 @@
- 
- Auto-generates reference documentation for the following components:
- 
--- __[Core](./core.md)__
--- __[CLI](./cli.md)__
--- __[Config](./configuration.md)__
-+- **[Core](./core.md)**
-+- **[CLI](./cli.md)**
-+- **[Config](./configuration.md)**
-diff --git a/docs/index.md b/docs/index.md
-index 74efa89..374a458 100644
---- a/docs/index.md
-+++ b/docs/index.md
-@@ -4,7 +4,7 @@
- ![jmbde-python Logo](assets/images/logo.svg){ role="img" }
- 
- |         |                                                                                                                                                                                                                                                  |
--|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
- | CI/ CD  | [![test][test-badge]{ loading=lazy .off-glb }][test-wf-url] [![CI - Build jmbde-python][ci-cd-badge]{ loading=lazy .off-glb }][ci-cd-wf-url]                                                                                                     |
- | Docs    | [![Docs][docs-badge]{ loading=lazy .off-glb }][docs-wf-url]                                                                                                                                                                                      |
- | Package | [![PyPI - Version][pypi-version-badge]{ loading=lazy .off-glb }][pypi-version-url] [![PyPI - Downloads][pypi-downloads-badge]{ loading=lazy .off-glb }][pypi-downloads-url] [![PyPI - Python Version][python-version-badge]][python-version-url] |
-@@ -18,7 +18,7 @@ jmbde-python is a tool to check the availability of a website or ntp-server.
- 
- <div class="grid cards" Markdown>
- 
--- ## :material-hammer-wrench:{ .lg .middle } __Build system__
-+- ## :material-hammer-wrench:{ .lg .middle } **Build system**
- 
-   Reproducible builds by default with a rich ecosystem of plugins
- 
-@@ -35,7 +35,7 @@ jmbde-python is distributed under the terms of the [European Public License V1.2
- Documentation for specific `MAJOR.MINOR` versions can be chosen by using the dropdown on the top of every page. The `dev` version reflects changes that have not yet been released.
- 
- | Keys                                                         | Action                          |
--|--------------------------------------------------------------|---------------------------------|
-+| ------------------------------------------------------------ | ------------------------------- |
- | <ul><li><kbd>,</kbd> (comma)</li><li><kbd>p</kbd></li></ul>  | Navigate to the "previous" page |
- | <ul><li><kbd>.</kbd> (period)</li><li><kbd>n</kbd></li></ul> | Navigate to the "next" page     |
- | <ul><li><kbd>/</kbd></li><li><kbd>s</kbd></li></ul>          | Display the search modal        |
-diff --git a/scripts/build_ui.py b/scripts/build_ui.py
-index 3f256ca..d456adb 100755
---- a/scripts/build_ui.py
-+++ b/scripts/build_ui.py
-@@ -15,9 +15,9 @@
- #
- """The qt ui builder."""
- 
-+from glob import glob
- import os
- import shutil
--from glob import glob
- from subprocess import Popen
- 
- package = "jmbde"
-diff --git a/src/jmbde/__main.py b/src/jmbde/__main.py
-index f73ebb3..87a3ddf 100644
---- a/src/jmbde/__main.py
-+++ b/src/jmbde/__main.py
-@@ -14,20 +14,21 @@ the Free Software Foundation, either version 3 of the License, or
- """
- 
- import logging
--import sys
- from pathlib import Path
-+import sys
- from typing import Optional
- 
- import click
-+from PySide6.QtCore import QCoreApplication
-+from PySide6.QtGui import QGuiApplication, QIcon
-+from PySide6.QtQml import QQmlApplicationEngine
+diff --git a/.pre-commit-output.txt b/.pre-commit-output.txt
+index e0dffc0..f1c8584 100644
+--- a/.pre-commit-output.txt
++++ b/.pre-commit-output.txt
+@@ -1,10 +1,27 @@
+-trim trailing whitespace.................................................Passed
+-fix end of files.........................................................Passed
+-check yaml...............................................................Passed
+-check for added large files..............................................Passed
++trim trailing whitespace.................................................Failed
++- hook id: trailing-whitespace
++- exit code: 1
++- files were modified by this hook
 +
- from jmbde.core.database import Database, DatabaseError
- from jmbde.core.settings import Settings
- from jmbde.gui.employee_model import EmployeeModel
- from jmbde.gui.main_app import MainApp
- from jmbde.utils.exceptions import ApplicationError
- from jmbde.utils.logger import setup_logging
--from PySide6.QtCore import QCoreApplication
--from PySide6.QtGui import QGuiApplication, QIcon
--from PySide6.QtQml import QQmlApplicationEngine
- 
- # Initialize logging
- logger = logging.getLogger(__name__)
-diff --git a/src/jmbde/core/database.py b/src/jmbde/core/database.py
-index 813beb4..f770184 100644
---- a/src/jmbde/core/database.py
-+++ b/src/jmbde/core/database.py
-@@ -9,16 +9,17 @@ Copyright (C) 2018-2024 Jürgen Mülbert
- License: GPL-3.0
- """
- 
--import logging
--import sqlite3
- from contextlib import contextmanager
- from datetime import datetime
-+import logging
- from pathlib import Path
-+import sqlite3
- from typing import Any, Optional, Union
- 
-+from pydantic import BaseModel
++Fixing quality_report.md
 +
- from jmbde.core.config import Config
- from jmbde.utils.exceptions import DatabaseError
--from pydantic import BaseModel
- 
- # Initialize logger
- logger = logging.getLogger(__name__)
-diff --git a/src/jmbde/core/settings.py b/src/jmbde/core/settings.py
-index 1691c8b..4ffda9e 100644
---- a/src/jmbde/core/settings.py
-+++ b/src/jmbde/core/settings.py
-@@ -14,10 +14,11 @@ import logging
- from pathlib import Path
- from typing import Any, Optional
- 
--from jmbde.utils.exceptions import ConfigurationError
- from pydantic import BaseModel, Field, ValidationError
- from PySide6.QtCore import Property, QObject, Signal, Slot
- 
-+from jmbde.utils.exceptions import ConfigurationError
++fix end of files.........................................................Failed
++- hook id: end-of-file-fixer
++- exit code: 1
++- files were modified by this hook
 +
- # Initialize logger
- logger = logging.getLogger(__name__)
- 
-diff --git a/src/jmbde/gui/employee_model.py b/src/jmbde/gui/employee_model.py
-index bf9917f..948fccb 100644
---- a/src/jmbde/gui/employee_model.py
-+++ b/src/jmbde/gui/employee_model.py
-@@ -12,8 +12,6 @@ License: GPL-3.0
- import logging
- from typing import Any, Optional
- 
--from jmbde.core.database import Database, DatabaseError
--from jmbde.utils.exceptions import ModelError
- from PySide6.QtCore import (
-     Property,
-     QAbstractListModel,
-@@ -24,6 +22,9 @@ from PySide6.QtCore import (
-     Slot,
- )
- 
-+from jmbde.core.database import Database, DatabaseError
-+from jmbde.utils.exceptions import ModelError
++Fixing .pre-commit-output.txt
 +
- # Initialize logger
- logger = logging.getLogger(__name__)
++check yaml...............................................................Failed
++- hook id: check-yaml
++- files were modified by this hook
++check for added large files..............................................Failed
++- hook id: check-added-large-files
++- files were modified by this hook
+ check python ast.........................................................Failed
+ - hook id: check-ast
+ - exit code: 1
++- files were modified by this hook
  
-diff --git a/src/jmbde/gui/main_app.py b/src/jmbde/gui/main_app.py
-index dcc3202..907ddb1 100644
---- a/src/jmbde/gui/main_app.py
-+++ b/src/jmbde/gui/main_app.py
-@@ -9,16 +9,17 @@ Copyright (C) 2018-2024 Jürgen Mülbert
- License: GPL-3.0
- """
+ tests/pyside6/unsafeconnection.py: failed parsing with CPython 3.12.8:
  
--import logging
- from datetime import datetime
-+import logging
- from typing import Any, Optional
+@@ -19,13 +36,22 @@ tests/pyside6/unsafeconnection.py: failed parsing with CPython 3.12.8:
+                                ^^^^^^^
+     SyntaxError: invalid syntax
  
-+from PySide6.QtCore import QObject, Signal, Slot
+-check json...............................................................Passed
+-check for merge conflicts................................................Passed
+-check for case conflicts.................................................Passed
+-check xml................................................................Passed
++check json...............................................................Failed
++- hook id: check-json
++- files were modified by this hook
++check for merge conflicts................................................Failed
++- hook id: check-merge-conflict
++- files were modified by this hook
++check for case conflicts.................................................Failed
++- hook id: check-case-conflict
++- files were modified by this hook
++check xml................................................................Failed
++- hook id: check-xml
++- files were modified by this hook
+ debug statements (python)................................................Failed
+ - hook id: debug-statements
+ - exit code: 1
++- files were modified by this hook
+ 
+ tests/pyside6/unsafeconnection.py - Could not parse ast
+ 
+@@ -41,11 +67,16 @@ tests/pyside6/unsafeconnection.py - Could not parse ast
+ 	                           ^^^^^^^
+ 	SyntaxError: invalid syntax
+ 
+-detect private key.......................................................Passed
+-mixed line ending........................................................Passed
++detect private key.......................................................Failed
++- hook id: detect-private-key
++- files were modified by this hook
++mixed line ending........................................................Failed
++- hook id: mixed-line-ending
++- files were modified by this hook
+ check builtin type constructor use.......................................Failed
+ - hook id: check-builtin-literals
+ - exit code: 1
++- files were modified by this hook
+ 
+ Traceback (most recent call last):
+   File "/home/runner/.cache/pre-commit/repo60ae3fei/py_env-python3.12/bin/check-builtin-literals", line 8, in <module>
+@@ -65,12 +96,19 @@ Traceback (most recent call last):
+                            ^^^^^^^
+ SyntaxError: invalid syntax
+ 
+-Check hooks apply to the repository......................................Passed
+-Check for useless excludes...............................................Passed
+-sync-pre-commit-deps.....................................................Passed
++Check hooks apply to the repository......................................Failed
++- hook id: check-hooks-apply
++- files were modified by this hook
++Check for useless excludes...............................................Failed
++- hook id: check-useless-excludes
++- files were modified by this hook
++sync-pre-commit-deps.....................................................Failed
++- hook id: sync-pre-commit-deps
++- files were modified by this hook
+ black....................................................................Failed
+ - hook id: black
+ - exit code: 123
++- files were modified by this hook
+ 
+ error: cannot format tests/pyside6/unsafeconnection.py: Cannot parse for target version Python 3.11: 6:23: class UnsafeConnection extends FunctionCall {
+ 
+@@ -81,27 +119,18 @@ isort....................................................................Failed
+ - hook id: isort
+ - files were modified by this hook
+ 
++Fixing /home/runner/work/jmbde-python/jmbde-python/scripts/build_ui.py
+ Fixing /home/runner/work/jmbde-python/jmbde-python/src/jmbde/__main.py
+ Fixing /home/runner/work/jmbde-python/jmbde-python/src/jmbde/core/database.py
+-Fixing /home/runner/work/jmbde-python/jmbde-python/src/jmbde/core/settings.py
+-Fixing /home/runner/work/jmbde-python/jmbde-python/src/jmbde/gui/employee_model.py
+ Fixing /home/runner/work/jmbde-python/jmbde-python/src/jmbde/gui/main_app.py
+ Fixing /home/runner/work/jmbde-python/jmbde-python/tests/test_main.py
+-Fixing /home/runner/work/jmbde-python/jmbde-python/tests/unit/test_employee_model.py
++Fixing /home/runner/work/jmbde-python/jmbde-python/tests/unit/test_database.py
+ 
+ prettier.................................................................Failed
+ - hook id: prettier
+ - files were modified by this hook
+ 
+-CHANGELOG.md
+-docs/about/EUPL-1.2.md
+-docs/developer/overview.md
+-building/README.md
+-docs/community/code_of_conduct.md
+-.devcontainer/docker-compose.yml
+-SECURITY.md
+-docs/developer/changelog.md
+-docs/index.md
++quality_report.md
+ 
+ ruff.....................................................................Failed
+ - hook id: ruff
+@@ -3651,6 +3680,7 @@ No fixes available (95 hidden fixes can be enabled with the `--unsafe-fixes` opt
+ ruff-format..............................................................Failed
+ - hook id: ruff-format
+ - exit code: 2
++- files were modified by this hook
+ 
+ warning: The top-level linter settings are deprecated in favour of their counterparts in the `lint` section. Please update the following options in `pyproject.toml`:
+   - 'flake8-bugbear' -> 'lint.flake8-bugbear'
+@@ -3666,6 +3696,7 @@ error: Failed to parse tests/pyside6/unsafeconnection.py:6:24: Expected ':', fou
+ mypy.....................................................................Failed
+ - hook id: mypy
+ - exit code: 2
++- files were modified by this hook
+ 
+ tests/pyside6/unsafeconnection.py:6:25: error: invalid syntax  [syntax]
+     class UnsafeConnection extends FunctionCall {
+@@ -3675,6 +3706,7 @@ Found 1 error in 1 file (errors prevented further checking)
+ pylint...................................................................Failed
+ - hook id: pylint
+ - exit code: 30
++- files were modified by this hook
+ 
+ [7;33m************* Module pyproject.toml[0m
+ pyproject.toml:1:0: R0022: [1;3;35mUseless option value for '--disable', 'C0330' was removed from pylint, see https://github.com/pylint-dev/pylint/pull/3571.[0m ([1;3;35museless-option-value[0m)
+@@ -3840,6 +3872,7 @@ Your code has been rated at 6.73/10
+ bandit...................................................................Failed
+ - hook id: bandit
+ - exit code: 1
++- files were modified by this hook
+ 
+ [main]	INFO	profile include tests: None
+ [main]	INFO	profile exclude tests: None
+@@ -3847,7 +3880,7 @@ bandit...................................................................Failed
+ [main]	INFO	cli exclude tests: None
+ [main]	INFO	using config: pyproject.toml
+ [main]	INFO	running on Python 3.12.8
+-Run started:2025-01-11 10:38:02.657406
++Run started:2025-01-11 11:04:04.604455
+ 
+ Test results:
+ >> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+@@ -4045,20 +4078,27 @@ Run metrics:
+ 		High: 13
+ Files skipped (0):
+ 
+-pip-audit................................................................Passed
+-pyupgrade................................................................Passed
++pip-audit................................................................Failed
++- hook id: pip-audit
++- files were modified by this hook
 +
- from jmbde.core.database import Database
- from jmbde.core.settings import Settings
- from jmbde.gui.employee_model import EmployeeModel
- from jmbde.utils.exceptions import ApplicationError
- from jmbde.utils.validators import validate_email, validate_phone
--from PySide6.QtCore import QObject, Signal, Slot
- 
- # Initialize logger
- logger = logging.getLogger(__name__)
-diff --git a/tests/test_main.py b/tests/test_main.py
-index 808af1e..17678a5 100644
---- a/tests/test_main.py
-+++ b/tests/test_main.py
-@@ -6,8 +6,9 @@
- #
- """Tests for `jmbde_python` package."""
- 
--import pytest
- from click.testing import CliRunner
-+import pytest
++No known vulnerabilities found
 +
- from jmbde import __main__
++pyupgrade................................................................Failed
++- hook id: pyupgrade
++- files were modified by this hook
+ Lint Dockerfiles.........................................................Failed
+ - hook id: hadolint
+ - exit code: 1
++- files were modified by this hook
  
+ Executable `hadolint` not found
  
-diff --git a/tests/unit/test_database.py b/tests/unit/test_database.py
-index c4e8f20..e5480d5 100644
---- a/tests/unit/test_database.py
-+++ b/tests/unit/test_database.py
-@@ -1,5 +1,5 @@
--import pytest
- from database import Database
-+import pytest
+ markdownlint.............................................................Failed
+ - hook id: markdownlint
+ - exit code: 1
++- files were modified by this hook
  
- 
- @pytest.fixture
-diff --git a/tests/unit/test_employee_model.py b/tests/unit/test_employee_model.py
-index 967bb56..974ba69 100644
---- a/tests/unit/test_employee_model.py
-+++ b/tests/unit/test_employee_model.py
-@@ -1,6 +1,7 @@
- from unittest.mock import Mock
- 
- import pytest
+-docs/index.md:21:46 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+-docs/index.md:21:60 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+ building/README.md:96:29 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+ building/README.md:96:35 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+ building/README.md:103 MD040/fenced-code-language Fenced code blocks should have a language specified [Context: "```"]
+@@ -4085,6 +4125,111 @@ docs/developer/overview.md:8:3 MD050/strong-style Strong style [Expected: unders
+ docs/developer/overview.md:8:20 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+ docs/developer/overview.md:9:3 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+ docs/developer/overview.md:9:33 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
++quality_report.md:5 MD040/fenced-code-language Fenced code blocks should have a language specified [Context: "````"]
++quality_report.md:37:1 MD010/no-hard-tabs Hard tabs [Column: 1]
++quality_report.md:38:1 MD010/no-hard-tabs Hard tabs [Column: 1]
++quality_report.md:39:1 MD010/no-hard-tabs Hard tabs [Column: 1]
++quality_report.md:40:1 MD010/no-hard-tabs Hard tabs [Column: 1]
++quality_report.md:41:1 MD010/no-hard-tabs Hard tabs [Column: 1]
++quality_report.md:42:1 MD010/no-hard-tabs Hard tabs [Column: 1]
++quality_report.md:43:1 MD010/no-hard-tabs Hard tabs [Column: 1]
++quality_report.md:44:1 MD010/no-hard-tabs Hard tabs [Column: 1]
++quality_report.md:45:1 MD010/no-hard-tabs Hard tabs [Column: 1]
++quality_report.md:46:1 MD010/no-hard-tabs Hard tabs [Column: 1]
++quality_report.md:47:1 MD010/no-hard-tabs Hard tabs [Column: 1]
++quality_report.md:3849:12 MD010/no-hard-tabs Hard tabs [Column: 12]
++quality_report.md:3849:7 MD010/no-hard-tabs Hard tabs [Column: 7]
++quality_report.md:3850:12 MD010/no-hard-tabs Hard tabs [Column: 12]
++quality_report.md:3850:7 MD010/no-hard-tabs Hard tabs [Column: 7]
++quality_report.md:3851:12 MD010/no-hard-tabs Hard tabs [Column: 12]
++quality_report.md:3851:7 MD010/no-hard-tabs Hard tabs [Column: 7]
++quality_report.md:3852:12 MD010/no-hard-tabs Hard tabs [Column: 12]
++quality_report.md:3852:7 MD010/no-hard-tabs Hard tabs [Column: 7]
++quality_report.md:3853:12 MD010/no-hard-tabs Hard tabs [Column: 12]
++quality_report.md:3853:7 MD010/no-hard-tabs Hard tabs [Column: 7]
++quality_report.md:3854:12 MD010/no-hard-tabs Hard tabs [Column: 12]
++quality_report.md:3854:7 MD010/no-hard-tabs Hard tabs [Column: 7]
++quality_report.md:3863:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3864:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3873:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3874:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3875:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3876:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3877:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3878:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3879:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3880:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3889:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3890:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3891:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3892:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3893:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3894:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3895:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3896:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3905:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3906:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3907:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3915:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3916:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3917:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3925:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3926:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3927:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3935:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3936:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3937:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3945:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3946:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3955:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3956:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3965:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3966:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3967:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3968:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3969:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3970:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3971:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3980:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3981:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3982:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3983:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3984:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3985:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3986:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3995:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3996:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3997:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3998:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:3999:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:4000:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:4001:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:4010:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:4011:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:4012:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:4013:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:4014:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:4015:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:4016:3 MD010/no-hard-tabs Hard tabs [Column: 3]
++quality_report.md:4026:4 MD010/no-hard-tabs Hard tabs [Column: 4]
++quality_report.md:4027:4 MD010/no-hard-tabs Hard tabs [Column: 4]
++quality_report.md:4028:4 MD010/no-hard-tabs Hard tabs [Column: 4]
++quality_report.md:4029:4 MD010/no-hard-tabs Hard tabs [Column: 4]
++quality_report.md:4030:4 MD010/no-hard-tabs Hard tabs [Column: 4]
++quality_report.md:4031:4 MD010/no-hard-tabs Hard tabs [Column: 4]
++quality_report.md:4036:1 MD010/no-hard-tabs Hard tabs [Column: 1]
++quality_report.md:4037:1 MD010/no-hard-tabs Hard tabs [Column: 1]
++quality_report.md:4038:1 MD010/no-hard-tabs Hard tabs [Column: 1]
++quality_report.md:4041:1 MD010/no-hard-tabs Hard tabs [Column: 1]
++quality_report.md:4042:1 MD010/no-hard-tabs Hard tabs [Column: 1]
++quality_report.md:4043:1 MD010/no-hard-tabs Hard tabs [Column: 1]
++quality_report.md:4044:1 MD010/no-hard-tabs Hard tabs [Column: 1]
++quality_report.md:4045:1 MD010/no-hard-tabs Hard tabs [Column: 1]
++quality_report.md:4046:1 MD010/no-hard-tabs Hard tabs [Column: 1]
++quality_report.md:4047:1 MD010/no-hard-tabs Hard tabs [Column: 1]
++quality_report.md:4048:1 MD010/no-hard-tabs Hard tabs [Column: 1]
++quality_report.md:4049:1 MD010/no-hard-tabs Hard tabs [Column: 1]
++quality_report.md:4050:1 MD010/no-hard-tabs Hard tabs [Column: 1]
+ docs/community/code_of_conduct.md:52:1 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+ docs/community/code_of_conduct.md:52:19 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+ docs/community/code_of_conduct.md:54:1 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+@@ -4107,14 +4252,50 @@ docs/developer/changelog.md:13:1 MD050/strong-style Strong style [Expected: unde
+ docs/developer/changelog.md:13:11 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+ docs/developer/changelog.md:15:1 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+ docs/developer/changelog.md:15:11 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
++docs/index.md:21:46 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
++docs/index.md:21:60 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
 +
- from main import EmployeeModel
++Validate Dependabot Config (v2)..........................................Failed
++- hook id: check-dependabot
++- files were modified by this hook
++
++ok -- validation done
++
++Validate GitHub Workflows................................................Failed
++- hook id: check-github-workflows
++- files were modified by this hook
++
++ok -- validation done
++ok -- validation done
++ok -- validation done
++ok -- validation done
++
++Validate ReadTheDocs Config..............................................Failed
++- hook id: check-readthedocs
++- files were modified by this hook
++
++ok -- validation done
++The following files were checked:
++  .readthedocs.yml
++
++Detect hardcoded secrets.................................................Failed
++- hook id: gitleaks
++- files were modified by this hook
++
++○
++    │╲
++    │ ○
++    ○ ░
++    ░    gitleaks
++
++[90m11:04AM[0m [32mINF[0m 0 commits scanned.
++[90m11:04AM[0m [32mINF[0m scanned ~0 bytes (0) in 3.73ms
++[90m11:04AM[0m [32mINF[0m no leaks found
  
+-Validate Dependabot Config (v2)..........................................Passed
+-Validate GitHub Workflows................................................Passed
+-Validate ReadTheDocs Config..............................................Passed
+-Detect hardcoded secrets.................................................Passed
+ yamllint.................................................................Failed
+ - hook id: yamllint
+ - exit code: 1
++- files were modified by this hook
  
+ ::group::.github/workflows/mega-linter.yml
+ ::warning file=.github/workflows/mega-linter.yml,line=124,col=90::124:90 [comments] missing starting space in comment
+@@ -4201,10 +4382,43 @@ yamllint.................................................................Failed
+ ::warning file=.github/workflows/dependabot-merge.yml,line=162,col=121::162:121 [line-length] line too long (126 > 120 characters)
+ ::endgroup::
+ 
+-codespell................................................................Passed
++codespell................................................................Failed
++- hook id: codespell
++- files were modified by this hook
++
++- Add new features on the master branch, and fix bug on the latest active (master,
++ Choose an option (blank for none):  0) primary 1) leader 2) active 3) writer 4) coordinator 5) parent 6) manager 7) main: fram
++ Choose an option (blank for none):  0) frame 1) gram 2) dram 3) cram: inout
++ Choose an option (blank for none):  0) input 1) in out: rsource
++ Choose an option (blank for none):  0) resource 1) source: unstall
++ Choose an option (blank for none):  0) install 1) uninstall: unstalling
++ Choose an option (blank for none):  0) installing 1) uninstalling: wheight
++ Choose an option (blank for none):  0) weight 1) height: - Fix typos by misspell-fixer for refs/heads/master [\#418](https://github.com/jmuelbert/jmbde-python/pull/418)
++ Choose an option (blank for none):  0) primary 1) leader 2) active 3) writer 4) coordinator 5) parent 6) manager 7) main: - Fix typos by misspell-fixer for refs/heads/master [\#416](https://github.com/jmuelbert/jmbde-python/pull/416)
++ Choose an option (blank for none):  0) primary 1) leader 2) active 3) writer 4) coordinator 5) parent 6) manager 7) main: 0
++        [CHANGELOG.md](https://github.com/jmuelbert/jmbde-QT/blob/master/CHANGELOG.md).
++ Choose an option (blank for none):  0) primary 1) leader 2) active 3) writer 4) coordinator 5) parent 6) manager 7) main: link: https://github.com/MicrosoftDocs/microsoft-style-guide/blob/master/styleguide/grammar/nouns-pronouns.md#pronouns-and-gender
++ Choose an option (blank for none):  0) primary 1) leader 2) active 3) writer 4) coordinator 5) parent 6) manager 7) main:   - cunt
++ Choose an option (blank for none):  0) count 1) hunt:   subtile: subtle
++ Choose an option (blank for none):  0) subtle 1) subtitle 2) subfile:         uses: sobolevn/misspell-fixer-action@8842a5615f83fed75e8a87015e9300a54d049961 # master
++ Choose an option (blank for none):  0) primary 1) leader 2) active 3) writer 4) coordinator 5) parent 6) manager 7) main:     resolution: {integrity: sha512-Q8qQfPiZ+THO/3ZrOrO0cJJKfpYCagtMUkXbnEfmgUjwXg6z/WBeOyS9APBBPCTSiDV+s4SwQGu8yFsiMRIudg==}
++ Choose an option (blank for none):  0) THOUGH 1) TO 2) THOU:     resolution: {integrity: sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==}
++ Choose an option (blank for none):  0) view 1) vow 2) vex: >> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
++	blacklist ==> blocklist (Y/n)    More Info: https://bandit.readthedocs.io/en/0.0.0/blacklists/blacklist_imports.html#b404-import-subprocess
++	blacklists ==> blocklists (Y/n)  - Fix typos by misspell-fixer for refs/heads/master [\#418](https://github.com/jmuelbert/jmbde-python/pull/418)
++ Choose an option (blank for none):  0) primary 1) leader 2) active 3) writer 4) coordinator 5) parent 6) manager 7) main:  - Fix typos by misspell-fixer for refs/heads/master [\#418](https://github.com/jmuelbert/jmbde-python/pull/418)
++ Choose an option (blank for none):  0) primary 1) leader 2) active 3) writer 4) coordinator 5) parent 6) manager 7) main: FIXED: quality_report.md
++0
++0
++  - whet (?:the|your) appetite
++ Choose an option (blank for none):  0) when 1) what 2) wet:     "--doctest-modules" # Aktiviert automatische Doctests für alle Module     # Führt xdoctests für alle Python-Dateien aus
++ Choose an option (blank for none):  0) all 1) alley: ignore-words-list = "master"
++ Choose an option (blank for none):  0) primary 1) leader 2) active 3) writer 4) coordinator 5) parent 6) manager 7) main: 0
++
+ Lint GitHub Actions workflow files.......................................Failed
+ - hook id: actionlint
+ - exit code: 1
++- files were modified by this hook
+ 
+ .github/workflows/reuse-check.yml:104:9: shellcheck reported issue in this script: SC2129:style:13:3: Consider using { cmd1; cmd2; } >> file instead of individual redirects [shellcheck]
+     |
+@@ -4214,6 +4428,7 @@ Lint GitHub Actions workflow files.......................................Failed
+ reuse lint...............................................................Failed
+ - hook id: reuse
+ - exit code: 1
++- files were modified by this hook
+ 
+ # MISSING COPYRIGHT AND LICENSING INFORMATION
+ 
+@@ -4347,6 +4562,7 @@ The following files have no copyright and licensing information:
+ * docs/usage.md
+ * jmbde.pyproject.user
+ * pnpm-lock.yaml
++* quality_report.md
+ * results/README.md
+ * scripts/build.ps1
+ * scripts/check_signals.py
+@@ -4381,10 +4597,10 @@ The following files have no licensing information:
+ * Licenses without file extension: 0
+ * Missing licenses: 0
+ * Unused licenses: 0
+-* Used licenses: CC-BY-SA-4.0, EUPL-1.2, GPL-2.0-or-later, Apache-2.0, MIT, BSD-3-Clause, GPL-3.0-or-later
++* Used licenses: GPL-3.0-or-later, CC-BY-SA-4.0, GPL-2.0-or-later, Apache-2.0, BSD-3-Clause, MIT, EUPL-1.2
+ * Read errors: 0
+-* Files with copyright information: 191 / 338
+-* Files with license information: 191 / 338
++* Files with copyright information: 191 / 339
++* Files with license information: 191 / 339
+ 
+ Unfortunately, your project is not compliant with version 3.3 of the REUSE Specification :-(
+ 
+@@ -4401,403 +4617,3 @@ pre-commit hook(s) made changes.
+ If you are seeing this message in CI, reproduce locally with: `pre-commit run --all-files`.
+ To run `pre-commit` as part of git workflow, use `pre-commit install`.
+ All changes made by hooks:
+-diff --git a/.devcontainer/docker-compose.yml b/.devcontainer/docker-compose.yml
+-index aa2443e..6b78030 100644
+---- a/.devcontainer/docker-compose.yml
+-+++ b/.devcontainer/docker-compose.yml
+-@@ -25,7 +25,7 @@
+- # Use `docker-compose exec db pg_dump -U postgres -d postgres > dump.sql` to dump the database.
+- # Use `docker-compose exec db psql -U postgres -d postgres < dump.sql` to restore the database.
+- 
+--version: "3.8"
+-+version: '3.8'
+- 
+- services:
+-   app:
+-@@ -46,9 +46,9 @@ services:
+-     deploy:
+-       resources:
+-         limits:
+--          cpus: "0.5" # Limit to 50% of one CPU core
+-+          cpus: '0.5' # Limit to 50% of one CPU core
+-         reservations:
+--          cpus: "0.25" # Reserve 25% of one CPU core
+-+          cpus: '0.25' # Reserve 25% of one CPU core
+- 
+-   db:
+-     image: postgres:14 # Use a specific version for stability
+-@@ -67,13 +67,13 @@ services:
+-     deploy:
+-       resources:
+-         limits:
+--          cpus: "1.0" # Limit to 100% of one CPU core
+-+          cpus: '1.0' # Limit to 100% of one CPU core
+-         reservations:
+--          cpus: "0.5" # Reserve 50% of one CPU core
+-+          cpus: '0.5' # Reserve 50% of one CPU core
+- 
+-     # Health check configuration
+-     healthcheck:
+--      test: [CMD-SHELL, "pg_isready -U ${POSTGRES_USER:-postgres}"]
+-+      test: [CMD-SHELL, 'pg_isready -U ${POSTGRES_USER:-postgres}']
+-       interval: 30s
+-       timeout: 10s
+-       retries: 5
+-diff --git a/CHANGELOG.md b/CHANGELOG.md
+-index 59702c1..e90104b 100644
+---- a/CHANGELOG.md
+-+++ b/CHANGELOG.md
+-@@ -2,16 +2,16 @@
+- 
+- ## [Unreleased](https://github.com/jmuelbert/jmbde-python/tree/HEAD)
+- 
+--__Implemented enhancements:__
+-+**Implemented enhancements:**
+- 
+- - PR Update workflows [\#414](https://github.com/jmuelbert/jmbde-python/pull/414)
+- 
+--__Closed issues:__
+-+**Closed issues:**
+- 
+- - Dependabot can't resolve your Python dependency files [\#196](https://github.com/jmuelbert/jmbde-python/issues/196)
+- - Dependabot can't resolve your Python dependency files [\#195](https://github.com/jmuelbert/jmbde-python/issues/195)
+- 
+--__Merged pull requests:__
+-+**Merged pull requests:**
+- 
+- - Fix typos by misspell-fixer for refs/heads/master [\#418](https://github.com/jmuelbert/jmbde-python/pull/418)
+- - Bump codacy/codacy-analysis-cli-action from 1.1.0 to 4.0.0 [\#417](https://github.com/jmuelbert/jmbde-python/pull/417)
+-diff --git a/SECURITY.md b/SECURITY.md
+-index 72c063c..3062008 100644
+---- a/SECURITY.md
+-+++ b/SECURITY.md
+-@@ -5,7 +5,7 @@
+- Use this section to tell people about which versions of your project are currently being supported with security updates.
+- 
+- | Version | Supported          |
+--|---------|--------------------|
+-+| ------- | ------------------ |
+- | 5.1.x   | :white_check_mark: |
+- | 5.0.x   | :x:                |
+- | 4.0.x   | :white_check_mark: |
+-diff --git a/building/README.md b/building/README.md
+-index e7124b3..4a017ae 100644
+---- a/building/README.md
+-+++ b/building/README.md
+-@@ -93,7 +93,7 @@
+- 
+-    pyside2-rcc resources/resources.qrc -o src/jmbde/resource.py
+- 
+--   pyinstaller -w src/jmbde/__main__.py ^ --hidden-import "socks" ^ --hidden-import "PIL" ^ --add-data "LICENSE;." ^ --add-data "conf/jmbde.conf;conf" ^ --add-data "conf/qtquickcontrols2.conf;conf" ^ --add-data "resources/translations/\*.qm;translations"
+-+   pyinstaller -w src/jmbde/**main**.py ^ --hidden-import "socks" ^ --hidden-import "PIL" ^ --add-data "LICENSE;." ^ --add-data "conf/jmbde.conf;conf" ^ --add-data "conf/qtquickcontrols2.conf;conf" ^ --add-data "resources/translations/\*.qm;translations"
+-    ^ --name "jmbde" ^ --icon "resources/icons/app.ico" ^ --version-file "building/Windows/jmbde.win.version" ^ --noupx
+- 
+-    :: Remove useless libraries cd dist/jmbde del /F /S /Q Qt3D*QtBluetooth QtBodymovin QtCharts QtDataVisualization QtGamepad QtLocation QtMultimedia QtMultimediaQuick QtNfc QtPositioning QtPositioningQuick QtPurchasing QtQuick3D* QtQuickTest
+-diff --git a/docs/about/EUPL-1.2.md b/docs/about/EUPL-1.2.md
+-index 9209455..0847baa 100644
+---- a/docs/about/EUPL-1.2.md
+-+++ b/docs/about/EUPL-1.2.md
+-@@ -52,21 +52,21 @@ Nothing in this Licence is intended to deprive the Licensee of the benefits from
+- 
+- The grant of the rights mentioned above is subject to some restrictions and obligations imposed on the Licensee. Those obligations are the following:
+- 
+--__Attribution right:__ The Licensee shall keep intact all copyright, patent or trademarks notices and all notices that refer to the Licence and to the disclaimer of warranties. The Licensee must include a copy of such notices and a copy of the Licence
+-+**Attribution right:** The Licensee shall keep intact all copyright, patent or trademarks notices and all notices that refer to the Licence and to the disclaimer of warranties. The Licensee must include a copy of such notices and a copy of the Licence
+- with every copy of the Work he/she distributes or communicates. The Licensee must cause any Derivative Work to carry prominent notices stating that the Work has been modified and the date of modification.
+- 
+--__Copyleft clause:__ If the Licensee distributes or communicates copies of the Original Works or Derivative Works, this Distribution or Communication will be done under the terms of this Licence or of a later version of this Licence unless the Original
+-+**Copyleft clause:** If the Licensee distributes or communicates copies of the Original Works or Derivative Works, this Distribution or Communication will be done under the terms of this Licence or of a later version of this Licence unless the Original
+- Work is expressly distributed only under this version of the Licence — for example by communicating ‘EUPL v. 1.2 only’. The Licensee (becoming Licensor) cannot offer or impose any additional terms or conditions on the Work or Derivative Work that alter or
+- restrict the terms of the Licence.
+- 
+--__Compatibility clause:__ If the Licensee Distributes or Communicates Derivative Works or copies thereof based upon both the Work and another work licensed under a Compatible Licence, this Distribution or Communication can be done under the terms of this
+-+**Compatibility clause:** If the Licensee Distributes or Communicates Derivative Works or copies thereof based upon both the Work and another work licensed under a Compatible Licence, this Distribution or Communication can be done under the terms of this
+- Compatible Licence. For the sake of this clause, ‘Compatible Licence’ refers to the licences listed in the appendix attached to this Licence. Should the Licensee's obligations under the Compatible Licence conflict with his/her obligations under this
+- Licence, the obligations of the Compatible Licence shall prevail.
+- 
+--__Provision of Source Code:__ When distributing or communicating copies of the Work, the Licensee will provide a machine-readable copy of the Source Code or indicate a repository where this Source will be easily and freely available for as long as the
+-+**Provision of Source Code:** When distributing or communicating copies of the Work, the Licensee will provide a machine-readable copy of the Source Code or indicate a repository where this Source will be easily and freely available for as long as the
+- Licensee continues to distribute or communicate the Work.
+- 
+--__Legal Protection:__ This Licence does not grant permission to use the trade names, trademarks, service marks, or names of the Licensor, except as required for reasonable and customary use in describing the origin of the Work and reproducing the content
+-+**Legal Protection:** This Licence does not grant permission to use the trade names, trademarks, service marks, or names of the Licensor, except as required for reasonable and customary use in describing the origin of the Work and reproducing the content
+- of the copyright notice.
+- 
+- ## 6.Chain of Authorship
+-diff --git a/docs/community/code_of_conduct.md b/docs/community/code_of_conduct.md
+-index 2859651..6e5031b 100644
+---- a/docs/community/code_of_conduct.md
+-+++ b/docs/community/code_of_conduct.md
+-@@ -49,29 +49,29 @@ Community leaders will follow these Community Impact Guidelines in determining t
+- 
+- ### 1. Correction
+- 
+--__Community Impact__: Use of inappropriate language or other behavior deemed unprofessional or unwelcome in the community.
+-+**Community Impact**: Use of inappropriate language or other behavior deemed unprofessional or unwelcome in the community.
+- 
+--__Consequence__: A private, written warning from community leaders, providing clarity around the nature of the violation and an explanation of why the behavior was inappropriate. A public apology may be requested.
+-+**Consequence**: A private, written warning from community leaders, providing clarity around the nature of the violation and an explanation of why the behavior was inappropriate. A public apology may be requested.
+- 
+- ### 2. Warning
+- 
+--__Community Impact__: A violation through a single incident or series of actions.
+-+**Community Impact**: A violation through a single incident or series of actions.
+- 
+--__Consequence__: A warning with consequences for continued behavior. No interaction with the people involved, including unsolicited interaction with those enforcing the Code of Conduct, for a specified period of time. This includes avoiding interactions
+-+**Consequence**: A warning with consequences for continued behavior. No interaction with the people involved, including unsolicited interaction with those enforcing the Code of Conduct, for a specified period of time. This includes avoiding interactions
+- in community spaces as well as external channels like social media. Violating these terms may lead to a temporary or permanent ban.
+- 
+- ### 3. Temporary Ban
+- 
+--__Community Impact__: A serious violation of community standards, including sustained inappropriate behavior.
+-+**Community Impact**: A serious violation of community standards, including sustained inappropriate behavior.
+- 
+--__Consequence__: A temporary ban from any sort of interaction or public communication with the community for a specified period of time. No public or private interaction with the people involved, including unsolicited interaction with those enforcing the
+-+**Consequence**: A temporary ban from any sort of interaction or public communication with the community for a specified period of time. No public or private interaction with the people involved, including unsolicited interaction with those enforcing the
+- Code of Conduct, is allowed during this period. Violating these terms may lead to a permanent ban.
+- 
+- ### 4. Permanent Ban
+- 
+--__Community Impact__: Demonstrating a pattern of violation of community standards, including sustained inappropriate behavior, harassment of an individual, or aggression toward or disparagement of classes of individuals.
+-+**Community Impact**: Demonstrating a pattern of violation of community standards, including sustained inappropriate behavior, harassment of an individual, or aggression toward or disparagement of classes of individuals.
+- 
+--__Consequence__: A permanent ban from any sort of public interaction within the community.
+-+**Consequence**: A permanent ban from any sort of public interaction within the community.
+- 
+- ## Attribution
+- 
+-diff --git a/docs/developer/changelog.md b/docs/developer/changelog.md
+-index b9a7556..cd93e5a 100644
+---- a/docs/developer/changelog.md
+-+++ b/docs/developer/changelog.md
+-@@ -8,10 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+- 
+- ## Unreleased
+- 
+--___Changed:___
+-+**_Changed:_**
+- 
+--___Added:___
+-+**_Added:_**
+- 
+--___Fixed:___
+-+**_Fixed:_**
+- 
+- ## [0.0.1](https://github.com/jmuelbert/jmbde-python/releases/tag/jmbde-python-v0.0.1) - 2024-03-12 ## {: #jmbde-python-v0.0.1}
+-diff --git a/docs/developer/overview.md b/docs/developer/overview.md
+-index 29cbda8..c60f07a 100644
+---- a/docs/developer/overview.md
+-+++ b/docs/developer/overview.md
+-@@ -4,6 +4,6 @@
+- 
+- Auto-generates reference documentation for the following components:
+- 
+--- __[Core](./core.md)__
+--- __[CLI](./cli.md)__
+--- __[Config](./configuration.md)__
+-+- **[Core](./core.md)**
+-+- **[CLI](./cli.md)**
+-+- **[Config](./configuration.md)**
+-diff --git a/docs/index.md b/docs/index.md
+-index 74efa89..374a458 100644
+---- a/docs/index.md
+-+++ b/docs/index.md
+-@@ -4,7 +4,7 @@
+- ![jmbde-python Logo](assets/images/logo.svg){ role="img" }
+- 
+- |         |                                                                                                                                                                                                                                                  |
+--|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+-+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+- | CI/ CD  | [![test][test-badge]{ loading=lazy .off-glb }][test-wf-url] [![CI - Build jmbde-python][ci-cd-badge]{ loading=lazy .off-glb }][ci-cd-wf-url]                                                                                                     |
+- | Docs    | [![Docs][docs-badge]{ loading=lazy .off-glb }][docs-wf-url]                                                                                                                                                                                      |
+- | Package | [![PyPI - Version][pypi-version-badge]{ loading=lazy .off-glb }][pypi-version-url] [![PyPI - Downloads][pypi-downloads-badge]{ loading=lazy .off-glb }][pypi-downloads-url] [![PyPI - Python Version][python-version-badge]][python-version-url] |
+-@@ -18,7 +18,7 @@ jmbde-python is a tool to check the availability of a website or ntp-server.
+- 
+- <div class="grid cards" Markdown>
+- 
+--- ## :material-hammer-wrench:{ .lg .middle } __Build system__
+-+- ## :material-hammer-wrench:{ .lg .middle } **Build system**
+- 
+-   Reproducible builds by default with a rich ecosystem of plugins
+- 
+-@@ -35,7 +35,7 @@ jmbde-python is distributed under the terms of the [European Public License V1.2
+- Documentation for specific `MAJOR.MINOR` versions can be chosen by using the dropdown on the top of every page. The `dev` version reflects changes that have not yet been released.
+- 
+- | Keys                                                         | Action                          |
+--|--------------------------------------------------------------|---------------------------------|
+-+| ------------------------------------------------------------ | ------------------------------- |
+- | <ul><li><kbd>,</kbd> (comma)</li><li><kbd>p</kbd></li></ul>  | Navigate to the "previous" page |
+- | <ul><li><kbd>.</kbd> (period)</li><li><kbd>n</kbd></li></ul> | Navigate to the "next" page     |
+- | <ul><li><kbd>/</kbd></li><li><kbd>s</kbd></li></ul>          | Display the search modal        |
+-diff --git a/scripts/build_ui.py b/scripts/build_ui.py
+-index 3f256ca..d456adb 100755
+---- a/scripts/build_ui.py
+-+++ b/scripts/build_ui.py
+-@@ -15,9 +15,9 @@
+- #
+- """The qt ui builder."""
+- 
+-+from glob import glob
+- import os
+- import shutil
+--from glob import glob
+- from subprocess import Popen
+- 
+- package = "jmbde"
+-diff --git a/src/jmbde/__main.py b/src/jmbde/__main.py
+-index f73ebb3..87a3ddf 100644
+---- a/src/jmbde/__main.py
+-+++ b/src/jmbde/__main.py
+-@@ -14,20 +14,21 @@ the Free Software Foundation, either version 3 of the License, or
+- """
+- 
+- import logging
+--import sys
+- from pathlib import Path
+-+import sys
+- from typing import Optional
+- 
+- import click
+-+from PySide6.QtCore import QCoreApplication
+-+from PySide6.QtGui import QGuiApplication, QIcon
+-+from PySide6.QtQml import QQmlApplicationEngine
+-+
+- from jmbde.core.database import Database, DatabaseError
+- from jmbde.core.settings import Settings
+- from jmbde.gui.employee_model import EmployeeModel
+- from jmbde.gui.main_app import MainApp
+- from jmbde.utils.exceptions import ApplicationError
+- from jmbde.utils.logger import setup_logging
+--from PySide6.QtCore import QCoreApplication
+--from PySide6.QtGui import QGuiApplication, QIcon
+--from PySide6.QtQml import QQmlApplicationEngine
+- 
+- # Initialize logging
+- logger = logging.getLogger(__name__)
+-diff --git a/src/jmbde/core/database.py b/src/jmbde/core/database.py
+-index 813beb4..f770184 100644
+---- a/src/jmbde/core/database.py
+-+++ b/src/jmbde/core/database.py
+-@@ -9,16 +9,17 @@ Copyright (C) 2018-2024 Jürgen Mülbert
+- License: GPL-3.0
+- """
+- 
+--import logging
+--import sqlite3
+- from contextlib import contextmanager
+- from datetime import datetime
+-+import logging
+- from pathlib import Path
+-+import sqlite3
+- from typing import Any, Optional, Union
+- 
+-+from pydantic import BaseModel
+-+
+- from jmbde.core.config import Config
+- from jmbde.utils.exceptions import DatabaseError
+--from pydantic import BaseModel
+- 
+- # Initialize logger
+- logger = logging.getLogger(__name__)
+-diff --git a/src/jmbde/core/settings.py b/src/jmbde/core/settings.py
+-index 1691c8b..4ffda9e 100644
+---- a/src/jmbde/core/settings.py
+-+++ b/src/jmbde/core/settings.py
+-@@ -14,10 +14,11 @@ import logging
+- from pathlib import Path
+- from typing import Any, Optional
+- 
+--from jmbde.utils.exceptions import ConfigurationError
+- from pydantic import BaseModel, Field, ValidationError
+- from PySide6.QtCore import Property, QObject, Signal, Slot
+- 
+-+from jmbde.utils.exceptions import ConfigurationError
+-+
+- # Initialize logger
+- logger = logging.getLogger(__name__)
+- 
+-diff --git a/src/jmbde/gui/employee_model.py b/src/jmbde/gui/employee_model.py
+-index bf9917f..948fccb 100644
+---- a/src/jmbde/gui/employee_model.py
+-+++ b/src/jmbde/gui/employee_model.py
+-@@ -12,8 +12,6 @@ License: GPL-3.0
+- import logging
+- from typing import Any, Optional
+- 
+--from jmbde.core.database import Database, DatabaseError
+--from jmbde.utils.exceptions import ModelError
+- from PySide6.QtCore import (
+-     Property,
+-     QAbstractListModel,
+-@@ -24,6 +22,9 @@ from PySide6.QtCore import (
+-     Slot,
+- )
+- 
+-+from jmbde.core.database import Database, DatabaseError
+-+from jmbde.utils.exceptions import ModelError
+-+
+- # Initialize logger
+- logger = logging.getLogger(__name__)
+- 
+-diff --git a/src/jmbde/gui/main_app.py b/src/jmbde/gui/main_app.py
+-index dcc3202..907ddb1 100644
+---- a/src/jmbde/gui/main_app.py
+-+++ b/src/jmbde/gui/main_app.py
+-@@ -9,16 +9,17 @@ Copyright (C) 2018-2024 Jürgen Mülbert
+- License: GPL-3.0
+- """
+- 
+--import logging
+- from datetime import datetime
+-+import logging
+- from typing import Any, Optional
+- 
+-+from PySide6.QtCore import QObject, Signal, Slot
+-+
+- from jmbde.core.database import Database
+- from jmbde.core.settings import Settings
+- from jmbde.gui.employee_model import EmployeeModel
+- from jmbde.utils.exceptions import ApplicationError
+- from jmbde.utils.validators import validate_email, validate_phone
+--from PySide6.QtCore import QObject, Signal, Slot
+- 
+- # Initialize logger
+- logger = logging.getLogger(__name__)
+-diff --git a/tests/test_main.py b/tests/test_main.py
+-index 808af1e..17678a5 100644
+---- a/tests/test_main.py
+-+++ b/tests/test_main.py
+-@@ -6,8 +6,9 @@
+- #
+- """Tests for `jmbde_python` package."""
+- 
+--import pytest
+- from click.testing import CliRunner
+-+import pytest
+-+
+- from jmbde import __main__
+- 
+- 
+-diff --git a/tests/unit/test_database.py b/tests/unit/test_database.py
+-index c4e8f20..e5480d5 100644
+---- a/tests/unit/test_database.py
+-+++ b/tests/unit/test_database.py
+-@@ -1,5 +1,5 @@
+--import pytest
+- from database import Database
+-+import pytest
+- 
+- 
+- @pytest.fixture
+-diff --git a/tests/unit/test_employee_model.py b/tests/unit/test_employee_model.py
+-index 967bb56..974ba69 100644
+---- a/tests/unit/test_employee_model.py
+-+++ b/tests/unit/test_employee_model.py
+-@@ -1,6 +1,7 @@
+- from unittest.mock import Mock
+- 
+- import pytest
+-+
+- from main import EmployeeModel
+- 
+- 
+diff --git a/quality_report.md b/quality_report.md
+index 98088eb..d7bce3c 100644
+--- a/quality_report.md
++++ b/quality_report.md
+@@ -1,7 +1,8 @@
+ ## 🔍 Code Quality Check Results
+ 
+ ### Pre-commit Output
+-```
++
++````
+ trim trailing whitespace.................................................Passed
+ fix end of files.........................................................Passed
+ check yaml...............................................................Passed
+@@ -122,7 +123,7 @@ warning: The top-level linter settings are deprecated in favour of their counter
+ scripts/build_ui.py:53:1: T201 `print` found
+    |
+ 51 | ]
+-52 | 
++52 |
+ 53 | print("Rebuilding PyQt UI files...")
+    | ^^^^^ T201
+ 54 | for f in glob(f"{resources_dir}/forms/*.ui"):
+@@ -197,7 +198,7 @@ scripts/build_ui.py:63:47: PTH119 `os.path.basename()` should be replaced by `Pa
+ scripts/build_ui.py:67:1: T201 `print` found
+    |
+ 65 |     )
+-66 | 
++66 |
+ 67 | print("Updating translations...")
+    | ^^^^^ T201
+ 68 | Popen(["lupdate", "jmbde.pro"])
+@@ -247,7 +248,7 @@ scripts/build_ui.py:73:1: S603 `subprocess` call: check for execution of untrust
+ 72 | Popen(["pyside2-lupdate", f"{source_dir}{package}/*.py -ts {lang_files}"])
+ 73 | Popen(["lrelease", f"{resources_dir}/translations/*.ts"])
+    | ^^^^^ S603
+-74 | 
++74 |
+ 75 | print("Rebuilding PyQt resource files in source directory...")
+    |
+ 
+@@ -257,14 +258,14 @@ scripts/build_ui.py:73:7: S607 Starting a process with a partial executable path
+ 72 | Popen(["pyside2-lupdate", f"{source_dir}{package}/*.py -ts {lang_files}"])
+ 73 | Popen(["lrelease", f"{resources_dir}/translations/*.ts"])
+    |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ S607
+-74 | 
++74 |
+ 75 | print("Rebuilding PyQt resource files in source directory...")
+    |
+ 
+ scripts/build_ui.py:75:1: T201 `print` found
+    |
+ 73 | Popen(["lrelease", f"{resources_dir}/translations/*.ts"])
+-74 | 
++74 |
+ 75 | print("Rebuilding PyQt resource files in source directory...")
+    | ^^^^^ T201
+ 76 | for f in glob(f"{source_dir}/*.qrc"):
+@@ -317,7 +318,7 @@ scripts/build_ui.py:80:54: PTH119 `os.path.basename()` should be replaced by `Pa
+ scripts/build_ui.py:84:1: T201 `print` found
+    |
+ 82 |     )
+-83 | 
++83 |
+ 84 | print("Rebuilding PyQt resource files in resources_dir directory...")
+    | ^^^^^ T201
+ 85 | for f in glob(f"{resources_dir}/*.qrc"):
+@@ -380,7 +381,7 @@ scripts/build_ui.py:89:89: E501 Line too long (99 > 88)
+ scripts/build_ui.py:93:1: T201 `print` found
+    |
+ 91 |     )
+-92 | 
++92 |
+ 93 | print("Regenerating .pyc files...")
+    | ^^^^^ T201
+ 94 | shutil.rmtree(f"{package}/__pycache__", ignore_errors=True)
+@@ -429,7 +430,7 @@ scripts/check_signals.py:6:9: ANN204 Missing return type annotation for special
+ scripts/check_signals.py:9:9: N802 Function name `visit_ClassDef` should be lowercase
+    |
+  7 |         self.unused_signals = []
+- 8 | 
++ 8 |
+  9 |     def visit_ClassDef(self, node):
+    |         ^^^^^^^^^^^^^^ N802
+ 10 |         for stmt in node.body:
+@@ -439,7 +440,7 @@ scripts/check_signals.py:9:9: N802 Function name `visit_ClassDef` should be lowe
+ scripts/check_signals.py:9:9: ANN201 Missing return type annotation for public function `visit_ClassDef`
+    |
+  7 |         self.unused_signals = []
+- 8 | 
++ 8 |
+  9 |     def visit_ClassDef(self, node):
+    |         ^^^^^^^^^^^^^^ ANN201
+ 10 |         for stmt in node.body:
+@@ -450,7 +451,7 @@ scripts/check_signals.py:9:9: ANN201 Missing return type annotation for public f
+ scripts/check_signals.py:9:9: D102 Missing docstring in public method
+    |
+  7 |         self.unused_signals = []
+- 8 | 
++ 8 |
+  9 |     def visit_ClassDef(self, node):
+    |         ^^^^^^^^^^^^^^ D102
+ 10 |         for stmt in node.body:
+@@ -460,7 +461,7 @@ scripts/check_signals.py:9:9: D102 Missing docstring in public method
+ scripts/check_signals.py:9:30: ANN001 Missing type annotation for function argument `node`
+    |
+  7 |         self.unused_signals = []
+- 8 | 
++ 8 |
+  9 |     def visit_ClassDef(self, node):
+    |                              ^^^^ ANN001
+ 10 |         for stmt in node.body:
+@@ -518,7 +519,7 @@ src/jmbde/__init__.py:7:1: D400 First line should end with a period
+ 6 | #
+ 7 | """Module for jmbde"""
+   | ^^^^^^^^^^^^^^^^^^^^^^ D400
+-8 | 
++8 |
+ 9 | """The configs."""
+   |
+   = help: Add period
+@@ -526,7 +527,7 @@ src/jmbde/__init__.py:7:1: D400 First line should end with a period
+ src/jmbde/__init__.py:11:12: F821 Undefined name `os`
+    |
+  9 | """The configs."""
+-10 | 
++10 |
+ 11 | BASE_DIR = os.path.join(os.path.dirname(__file__), "..")
+    |            ^^ F821
+ 12 | IMAGES_DIR = os.path.join(BASE_DIR, "images")
+@@ -536,7 +537,7 @@ src/jmbde/__init__.py:11:12: F821 Undefined name `os`
+ src/jmbde/__init__.py:11:25: F821 Undefined name `os`
+    |
+  9 | """The configs."""
+-10 | 
++10 |
+ 11 | BASE_DIR = os.path.join(os.path.dirname(__file__), "..")
+    |                         ^^ F821
+ 12 | IMAGES_DIR = os.path.join(BASE_DIR, "images")
+@@ -577,7 +578,7 @@ src/jmbde/__init__.py:15:10: F821 Undefined name `os`
+ 14 | TRANSLATION_DIR = os.path.join(BASE_DIR, "translations")
+ 15 | UI_DIR = os.path.join(BASE_DIR, "ui")
+    |          ^^ F821
+-16 | 
++16 |
+ 17 | __all__ = ["BASE_DIR", "CONF_DIR", "IMAGES_DIR", "TRANSLATION_DIR", "UI_DIR"]
+    |
+ 
+@@ -585,28 +586,28 @@ src/jmbde/__main.py:1:1: EXE001 Shebang is present but file is not executable
+   |
+ 1 | #!/usr/bin/env python3
+   | ^^^^^^^^^^^^^^^^^^^^^^ EXE001
+-2 | 
++2 |
+ 3 | """JMBDE - Business Data Management Application
+   |
+ 
+ src/jmbde/__main.py:3:1: D400 First line should end with a period
+    |
+  1 |   #!/usr/bin/env python3
+- 2 |   
++ 2 |
+  3 | / """JMBDE - Business Data Management Application
+- 4 | | 
++ 4 | |
+  5 | | This is the main entry point for the JMBDE application, a comprehensive tool
+  6 | | for managing business data and employee information.
+- 7 | | 
++ 7 | |
+  8 | | Copyright (C) 2018-2024 Jürgen Mülbert
+- 9 | | 
++ 9 | |
+ 10 | | This program is free software: you can redistribute it and/or modify
+ 11 | | it under the terms of the GNU General Public License as published by
+ 12 | | the Free Software Foundation, either version 3 of the License, or
+ 13 | | (at your option) any later version.
+ 14 | | """
+    | |___^ D400
+-15 |   
++15 |
+ 16 |   import logging
+    |
+    = help: Add period
+@@ -666,7 +667,7 @@ src/jmbde/__main.py:47:24: FA100 Add `from __future__ import annotations` to sim
+ 46 |         self.main_app: Optional[MainApp] = None
+ 47 |         self.settings: Optional[Settings] = None
+    |                        ^^^^^^^^ FA100
+-48 | 
++48 |
+ 49 |     def initialize_logging(self) -> None:
+    |
+ 
+@@ -705,7 +706,7 @@ src/jmbde/__main.py:79:19: TRY003 Avoid specifying long messages outside the exc
+ 78 |             logger.critical(f"Failed to setup application: {e}")
+ 79 |             raise ApplicationError("Application initialization failed") from e
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+-80 | 
++80 |
+ 81 |     def initialize_database(self) -> None:
+    |
+ 
+@@ -715,7 +716,7 @@ src/jmbde/__main.py:79:36: EM101 Exception must not use a string literal, assign
+ 78 |             logger.critical(f"Failed to setup application: {e}")
+ 79 |             raise ApplicationError("Application initialization failed") from e
+    |                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM101
+-80 | 
++80 |
+ 81 |     def initialize_database(self) -> None:
+    |
+    = help: Assign to variable; remove string literal
+@@ -756,7 +757,7 @@ src/jmbde/__main.py:89:19: TRY003 Avoid specifying long messages outside the exc
+ 88 |             logger.error(f"Database initialization failed: {e}")
+ 89 |             raise ApplicationError("Failed to initialize database") from e
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+-90 | 
++90 |
+ 91 |     def setup_models(self) -> None:
+    |
+ 
+@@ -766,7 +767,7 @@ src/jmbde/__main.py:89:36: EM101 Exception must not use a string literal, assign
+ 88 |             logger.error(f"Database initialization failed: {e}")
+ 89 |             raise ApplicationError("Failed to initialize database") from e
+    |                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM101
+-90 | 
++90 |
+ 91 |     def setup_models(self) -> None:
+    |
+    = help: Assign to variable; remove string literal
+@@ -796,7 +797,7 @@ src/jmbde/__main.py:99:19: TRY003 Avoid specifying long messages outside the exc
+  98 |             logger.error(f"Failed to initialize models: {e}")
+  99 |             raise ApplicationError("Model initialization failed") from e
+     |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+-100 | 
++100 |
+ 101 |     def setup_qml_engine(self) -> None:
+     |
+ 
+@@ -806,7 +807,7 @@ src/jmbde/__main.py:99:36: EM101 Exception must not use a string literal, assign
+  98 |             logger.error(f"Failed to initialize models: {e}")
+  99 |             raise ApplicationError("Model initialization failed") from e
+     |                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM101
+-100 | 
++100 |
+ 101 |     def setup_qml_engine(self) -> None:
+     |
+     = help: Assign to variable; remove string literal
+@@ -816,7 +817,7 @@ src/jmbde/__main.py:117:17: TRY301 Abstract `raise` to an inner function
+ 116 |             if not self.engine.rootObjects():
+ 117 |                 raise ApplicationError("Failed to load QML interface")
+     |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY301
+-118 | 
++118 |
+ 119 |             logger.info("QML engine initialized successfully")
+     |
+ 
+@@ -825,7 +826,7 @@ src/jmbde/__main.py:117:23: TRY003 Avoid specifying long messages outside the ex
+ 116 |             if not self.engine.rootObjects():
+ 117 |                 raise ApplicationError("Failed to load QML interface")
+     |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+-118 | 
++118 |
+ 119 |             logger.info("QML engine initialized successfully")
+     |
+ 
+@@ -834,7 +835,7 @@ src/jmbde/__main.py:117:40: EM101 Exception must not use a string literal, assig
+ 116 |             if not self.engine.rootObjects():
+ 117 |                 raise ApplicationError("Failed to load QML interface")
+     |                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM101
+-118 | 
++118 |
+ 119 |             logger.info("QML engine initialized successfully")
+     |
+     = help: Assign to variable; remove string literal
+@@ -864,7 +865,7 @@ src/jmbde/__main.py:122:19: TRY003 Avoid specifying long messages outside the ex
+ 121 |             logger.error(f"Failed to initialize QML engine: {e}")
+ 122 |             raise ApplicationError("QML initialization failed") from e
+     |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+-123 | 
++123 |
+ 124 |     def cleanup(self) -> None:
+     |
+ 
+@@ -874,7 +875,7 @@ src/jmbde/__main.py:122:36: EM101 Exception must not use a string literal, assig
+ 121 |             logger.error(f"Failed to initialize QML engine: {e}")
+ 122 |             raise ApplicationError("QML initialization failed") from e
+     |                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM101
+-123 | 
++123 |
+ 124 |     def cleanup(self) -> None:
+     |
+     = help: Assign to variable; remove string literal
+@@ -985,24 +986,24 @@ src/jmbde/core/database.py:1:1: EXE001 Shebang is present but file is not execut
+   |
+ 1 | #!/usr/bin/env python3
+   | ^^^^^^^^^^^^^^^^^^^^^^ EXE001
+-2 | 
++2 |
+ 3 | """Database Management Module for JMBDE
+   |
+ 
+ src/jmbde/core/database.py:3:1: D400 First line should end with a period
+    |
+  1 |   #!/usr/bin/env python3
+- 2 |   
++ 2 |
+  3 | / """Database Management Module for JMBDE
+- 4 | | 
++ 4 | |
+  5 | | This module provides database operations for the JMBDE application,
+  6 | | handling employee and device data using SQLite.
+- 7 | | 
++ 7 | |
+  8 | | Copyright (C) 2018-2024 Jürgen Mülbert
+  9 | | License: GPL-3.0
+ 10 | | """
+    | |___^ D400
+-11 |   
++11 |
+ 12 |   from contextlib import contextmanager
+    |
+    = help: Add period
+@@ -1010,7 +1011,7 @@ src/jmbde/core/database.py:3:1: D400 First line should end with a period
+ src/jmbde/core/database.py:31:9: FA100 Add `from __future__ import annotations` to simplify `typing.Optional`
+    |
+ 29 |     """Data model for Employee records."""
+-30 | 
++30 |
+ 31 |     id: Optional[int]
+    |         ^^^^^^^^ FA100
+ 32 |     name: str
+@@ -1020,7 +1021,7 @@ src/jmbde/core/database.py:31:9: FA100 Add `from __future__ import annotations`
+ src/jmbde/core/database.py:44:9: FA100 Add `from __future__ import annotations` to simplify `typing.Optional`
+    |
+ 42 |     """Data model for Device records."""
+-43 | 
++43 |
+ 44 |     id: Optional[int]
+    |         ^^^^^^^^ FA100
+ 45 |     employee_id: Optional[int]
+@@ -1048,7 +1049,7 @@ src/jmbde/core/database.py:50:23: FA100 Add `from __future__ import annotations`
+ src/jmbde/core/database.py:61:9: ANN204 Missing return type annotation for special method `__init__`
+    |
+ 59 |     """
+-60 | 
++60 |
+ 61 |     def __init__(self, db_path: Union[str, Path] = Config.DATABASE_PATH):
+    |         ^^^^^^^^ ANN204
+ 62 |         """Initialize database connection and setup.
+@@ -1058,7 +1059,7 @@ src/jmbde/core/database.py:61:9: ANN204 Missing return type annotation for speci
+ src/jmbde/core/database.py:61:33: FA100 Add `from __future__ import annotations` to simplify `typing.Union`
+    |
+ 59 |     """
+-60 | 
++60 |
+ 61 |     def __init__(self, db_path: Union[str, Path] = Config.DATABASE_PATH):
+    |                                 ^^^^^ FA100
+ 62 |         """Initialize database connection and setup.
+@@ -1099,7 +1100,7 @@ src/jmbde/core/database.py:85:19: TRY003 Avoid specifying long messages outside
+ 84 |             logger.error(f"Failed to initialize database: {e}")
+ 85 |             raise DatabaseError(f"Database initialization failed: {e}") from e
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+-86 | 
++86 |
+ 87 |     @contextmanager
+    |
+ 
+@@ -1109,7 +1110,7 @@ src/jmbde/core/database.py:85:33: EM102 Exception must not use an f-string liter
+ 84 |             logger.error(f"Failed to initialize database: {e}")
+ 85 |             raise DatabaseError(f"Database initialization failed: {e}") from e
+    |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM102
+-86 | 
++86 |
+ 87 |     @contextmanager
+    |
+    = help: Assign to variable; remove f-string literal
+@@ -1148,7 +1149,7 @@ src/jmbde/core/database.py:99:19: TRY003 Avoid specifying long messages outside
+  98 |             logger.error(f"Transaction failed: {e}")
+  99 |             raise DatabaseError(f"Transaction failed: {e}") from e
+     |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+-100 | 
++100 |
+ 101 |     def _create_tables(self) -> None:
+     |
+ 
+@@ -1158,7 +1159,7 @@ src/jmbde/core/database.py:99:33: EM102 Exception must not use an f-string liter
+  98 |             logger.error(f"Transaction failed: {e}")
+  99 |             raise DatabaseError(f"Transaction failed: {e}") from e
+     |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^ EM102
+-100 | 
++100 |
+ 101 |     def _create_tables(self) -> None:
+     |
+     = help: Assign to variable; remove f-string literal
+@@ -1197,7 +1198,7 @@ src/jmbde/core/database.py:157:19: TRY003 Avoid specifying long messages outside
+ 156 |             logger.error(f"Failed to create tables: {e}")
+ 157 |             raise DatabaseError(f"Table creation failed: {e}") from e
+     |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+-158 | 
++158 |
+ 159 |     def add_employee(self, employee: EmployeeModel) -> int:
+     |
+ 
+@@ -1207,7 +1208,7 @@ src/jmbde/core/database.py:157:33: EM102 Exception must not use an f-string lite
+ 156 |             logger.error(f"Failed to create tables: {e}")
+ 157 |             raise DatabaseError(f"Table creation failed: {e}") from e
+     |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM102
+-158 | 
++158 |
+ 159 |     def add_employee(self, employee: EmployeeModel) -> int:
+     |
+     = help: Assign to variable; remove f-string literal
+@@ -1247,7 +1248,7 @@ src/jmbde/core/database.py:199:19: TRY003 Avoid specifying long messages outside
+ 198 |             logger.error(f"Failed to add employee {employee.name}: {e}")
+ 199 |             raise DatabaseError(f"Failed to add employee: {e}") from e
+     |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+-200 | 
++200 |
+ 201 |     def get_employee(self, employee_id: int) -> Optional[dict[str, Any]]:
+     |
+ 
+@@ -1257,7 +1258,7 @@ src/jmbde/core/database.py:199:33: EM102 Exception must not use an f-string lite
+ 198 |             logger.error(f"Failed to add employee {employee.name}: {e}")
+ 199 |             raise DatabaseError(f"Failed to add employee: {e}") from e
+     |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM102
+-200 | 
++200 |
+ 201 |     def get_employee(self, employee_id: int) -> Optional[dict[str, Any]]:
+     |
+     = help: Assign to variable; remove f-string literal
+@@ -1265,7 +1266,7 @@ src/jmbde/core/database.py:199:33: EM102 Exception must not use an f-string lite
+ src/jmbde/core/database.py:201:49: FA100 Add `from __future__ import annotations` to simplify `typing.Optional`
+     |
+ 199 |             raise DatabaseError(f"Failed to add employee: {e}") from e
+-200 | 
++200 |
+ 201 |     def get_employee(self, employee_id: int) -> Optional[dict[str, Any]]:
+     |                                                 ^^^^^^^^ FA100
+ 202 |         """Retrieve employee data by ID.
+@@ -1296,7 +1297,7 @@ src/jmbde/core/database.py:225:19: TRY003 Avoid specifying long messages outside
+ 224 |             logger.error(f"Failed to retrieve employee {employee_id}: {e}")
+ 225 |             raise DatabaseError(f"Employee retrieval failed: {e}") from e
+     |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+-226 | 
++226 |
+ 227 |     def get_employees(
+     |
+ 
+@@ -1306,7 +1307,7 @@ src/jmbde/core/database.py:225:33: EM102 Exception must not use an f-string lite
+ 224 |             logger.error(f"Failed to retrieve employee {employee_id}: {e}")
+ 225 |             raise DatabaseError(f"Employee retrieval failed: {e}") from e
+     |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM102
+-226 | 
++226 |
+ 227 |     def get_employees(
+     |
+     = help: Assign to variable; remove f-string literal
+@@ -1366,7 +1367,7 @@ src/jmbde/core/database.py:263:19: TRY003 Avoid specifying long messages outside
+ 262 |             logger.error(f"Failed to retrieve employees: {e}")
+ 263 |             raise DatabaseError(f"Employee retrieval failed: {e}") from e
+     |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+-264 | 
++264 |
+ 265 |     def update_employee(self, employee_id: int, data: dict[str, Any]) -> bool:
+     |
+ 
+@@ -1376,7 +1377,7 @@ src/jmbde/core/database.py:263:33: EM102 Exception must not use an f-string lite
+ 262 |             logger.error(f"Failed to retrieve employees: {e}")
+ 263 |             raise DatabaseError(f"Employee retrieval failed: {e}") from e
+     |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM102
+-264 | 
++264 |
+ 265 |     def update_employee(self, employee_id: int, data: dict[str, Any]) -> bool:
+     |
+     = help: Assign to variable; remove f-string literal
+@@ -1384,7 +1385,7 @@ src/jmbde/core/database.py:263:33: EM102 Exception must not use an f-string lite
+ src/jmbde/core/database.py:298:21: S608 Possible SQL injection vector through string-based query construction
+     |
+ 296 |                   return False
+-297 |   
++297 |
+ 298 |               query = """
+     |  _____________________^
+ 299 | |                 UPDATE employees
+@@ -1394,7 +1395,7 @@ src/jmbde/core/database.py:298:21: S608 Possible SQL injection vector through st
+ 303 | |                 ", ".join(f"{field} = ?" for field in update_fields),
+ 304 | |             )
+     | |_____________^ S608
+-305 |   
++305 |
+ 306 |               with self.transaction() as cursor:
+     |
+ 
+@@ -1433,7 +1434,7 @@ src/jmbde/core/database.py:314:19: TRY003 Avoid specifying long messages outside
+ 313 |             logger.error(f"Failed to update employee {employee_id}: {e}")
+ 314 |             raise DatabaseError(f"Employee update failed: {e}") from e
+     |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+-315 | 
++315 |
+ 316 |     def delete_employee(self, employee_id: int) -> bool:
+     |
+ 
+@@ -1443,7 +1444,7 @@ src/jmbde/core/database.py:314:33: EM102 Exception must not use an f-string lite
+ 313 |             logger.error(f"Failed to update employee {employee_id}: {e}")
+ 314 |             raise DatabaseError(f"Employee update failed: {e}") from e
+     |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM102
+-315 | 
++315 |
+ 316 |     def delete_employee(self, employee_id: int) -> bool:
+     |
+     = help: Assign to variable; remove f-string literal
+@@ -1483,7 +1484,7 @@ src/jmbde/core/database.py:341:19: TRY003 Avoid specifying long messages outside
+ 340 |             logger.error(f"Failed to delete employee {employee_id}: {e}")
+ 341 |             raise DatabaseError(f"Employee deletion failed: {e}") from e
+     |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+-342 | 
++342 |
+ 343 |     def cleanup(self) -> None:
+     |
+ 
+@@ -1493,7 +1494,7 @@ src/jmbde/core/database.py:341:33: EM102 Exception must not use an f-string lite
+ 340 |             logger.error(f"Failed to delete employee {employee_id}: {e}")
+ 341 |             raise DatabaseError(f"Employee deletion failed: {e}") from e
+     |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM102
+-342 | 
++342 |
+ 343 |     def cleanup(self) -> None:
+     |
+     = help: Assign to variable; remove f-string literal
+@@ -1523,7 +1524,7 @@ src/jmbde/core/database.py:354:19: TRY003 Avoid specifying long messages outside
+ 353 |             logger.error(f"Database cleanup failed: {e}")
+ 354 |             raise DatabaseError(f"Database cleanup failed: {e}") from e
+     |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+-355 | 
++355 |
+ 356 |     def __enter__(self):
+     |
+ 
+@@ -1533,7 +1534,7 @@ src/jmbde/core/database.py:354:33: EM102 Exception must not use an f-string lite
+ 353 |             logger.error(f"Database cleanup failed: {e}")
+ 354 |             raise DatabaseError(f"Database cleanup failed: {e}") from e
+     |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM102
+-355 | 
++355 |
+ 356 |     def __enter__(self):
+     |
+     = help: Assign to variable; remove f-string literal
+@@ -1541,7 +1542,7 @@ src/jmbde/core/database.py:354:33: EM102 Exception must not use an f-string lite
+ src/jmbde/core/database.py:356:9: ANN204 Missing return type annotation for special method `__enter__`
+     |
+ 354 |             raise DatabaseError(f"Database cleanup failed: {e}") from e
+-355 | 
++355 |
+ 356 |     def __enter__(self):
+     |         ^^^^^^^^^ ANN204
+ 357 |         """Context manager enter."""
+@@ -1552,7 +1553,7 @@ src/jmbde/core/database.py:356:9: ANN204 Missing return type annotation for spec
+ src/jmbde/core/database.py:360:9: ANN204 Missing return type annotation for special method `__exit__`
+     |
+ 358 |         return self
+-359 | 
++359 |
+ 360 |     def __exit__(self, exc_type, exc_val, exc_tb):
+     |         ^^^^^^^^ ANN204
+ 361 |         """Context manager exit."""
+@@ -1563,7 +1564,7 @@ src/jmbde/core/database.py:360:9: ANN204 Missing return type annotation for spec
+ src/jmbde/core/database.py:360:24: ANN001 Missing type annotation for function argument `exc_type`
+     |
+ 358 |         return self
+-359 | 
++359 |
+ 360 |     def __exit__(self, exc_type, exc_val, exc_tb):
+     |                        ^^^^^^^^ ANN001
+ 361 |         """Context manager exit."""
+@@ -1573,7 +1574,7 @@ src/jmbde/core/database.py:360:24: ANN001 Missing type annotation for function a
+ src/jmbde/core/database.py:360:34: ANN001 Missing type annotation for function argument `exc_val`
+     |
+ 358 |         return self
+-359 | 
++359 |
+ 360 |     def __exit__(self, exc_type, exc_val, exc_tb):
+     |                                  ^^^^^^^ ANN001
+ 361 |         """Context manager exit."""
+@@ -1583,7 +1584,7 @@ src/jmbde/core/database.py:360:34: ANN001 Missing type annotation for function a
+ src/jmbde/core/database.py:360:43: ANN001 Missing type annotation for function argument `exc_tb`
+     |
+ 358 |         return self
+-359 | 
++359 |
+ 360 |     def __exit__(self, exc_type, exc_val, exc_tb):
+     |                                           ^^^^^^ ANN001
+ 361 |         """Context manager exit."""
+@@ -1621,7 +1622,7 @@ src/jmbde/core/security.py:8:29: FA100 Add `from __future__ import annotations`
+ src/jmbde/core/security.py:12:9: D102 Missing docstring in public method
+    |
+ 10 |         self._fernet = Fernet(self._key)
+-11 | 
++11 |
+ 12 |     def encrypt_data(self, data: str) -> bytes:
+    |         ^^^^^^^^^^^^ D102
+ 13 |         return self._fernet.encrypt(data.encode())
+@@ -1630,7 +1631,7 @@ src/jmbde/core/security.py:12:9: D102 Missing docstring in public method
+ src/jmbde/core/security.py:15:9: D102 Missing docstring in public method
+    |
+ 13 |         return self._fernet.encrypt(data.encode())
+-14 | 
++14 |
+ 15 |     def decrypt_data(self, encrypted_data: bytes) -> str:
+    |         ^^^^^^^^^^^^ D102
+ 16 |         return self._fernet.decrypt(encrypted_data).decode()
+@@ -1640,24 +1641,24 @@ src/jmbde/core/settings.py:1:1: EXE001 Shebang is present but file is not execut
+   |
+ 1 | #!/usr/bin/env python3
+   | ^^^^^^^^^^^^^^^^^^^^^^ EXE001
+-2 | 
++2 |
+ 3 | """Settings Management Module for JMBDE
+   |
+ 
+ src/jmbde/core/settings.py:3:1: D400 First line should end with a period
+    |
+  1 |   #!/usr/bin/env python3
+- 2 |   
++ 2 |
+  3 | / """Settings Management Module for JMBDE
+- 4 | | 
++ 4 | |
+  5 | | This module handles application settings and configuration management
+  6 | | for the JMBDE application.
+- 7 | | 
++ 7 | |
+  8 | | Copyright (C) 2018-2024 Jürgen Mülbert
+  9 | | License: GPL-3.0
+ 10 | | """
+    | |___^ D400
+-11 |   
++11 |
+ 12 |   import json
+    |
+    = help: Add period
+@@ -1686,14 +1687,14 @@ src/jmbde/core/settings.py:69:5: N815 Variable `languageChanged` in class scope
+ 68 |     themeChanged = Signal(str)
+ 69 |     languageChanged = Signal(str)
+    |     ^^^^^^^^^^^^^^^ N815
+-70 | 
++70 |
+ 71 |     def __init__(self, config_path: Optional[Path] = None) -> None:
+    |
+ 
+ src/jmbde/core/settings.py:71:37: FA100 Add `from __future__ import annotations` to simplify `typing.Optional`
+    |
+ 69 |     languageChanged = Signal(str)
+-70 | 
++70 |
+ 71 |     def __init__(self, config_path: Optional[Path] = None) -> None:
+    |                                     ^^^^^^^^ FA100
+ 72 |         """Initialize Settings manager.
+@@ -1702,10 +1703,10 @@ src/jmbde/core/settings.py:71:37: FA100 Add `from __future__ import annotations`
+ src/jmbde/core/settings.py:88:21: G004 Logging statement uses f-string
+    |
+ 86 |         self._application = ApplicationSettings()
+-87 | 
++87 |
+ 88 |         logger.info(f"Settings initialized with config path: {self._config_path}")
+    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+-89 | 
++89 |
+ 90 |     def load(self) -> None:
+    |
+ 
+@@ -1776,7 +1777,7 @@ src/jmbde/core/settings.py:119:19: TRY003 Avoid specifying long messages outside
+ 118 |             logger.error(f"Unexpected error loading settings: {e}")
+ 119 |             raise ConfigurationError(f"Failed to load settings: {e}") from e
+     |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+-120 | 
++120 |
+ 121 |     def save(self) -> None:
+     |
+ 
+@@ -1786,7 +1787,7 @@ src/jmbde/core/settings.py:119:38: EM102 Exception must not use an f-string lite
+ 118 |             logger.error(f"Unexpected error loading settings: {e}")
+ 119 |             raise ConfigurationError(f"Failed to load settings: {e}") from e
+     |                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM102
+-120 | 
++120 |
+ 121 |     def save(self) -> None:
+     |
+     = help: Assign to variable; remove f-string literal
+@@ -1816,7 +1817,7 @@ src/jmbde/core/settings.py:148:19: TRY003 Avoid specifying long messages outside
+ 147 |             logger.error(f"Failed to save settings: {e}")
+ 148 |             raise ConfigurationError(f"Failed to save settings: {e}") from e
+     |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+-149 | 
++149 |
+ 150 |     # Qt Property Getters/Setters for QML binding
+     |
+ 
+@@ -1826,7 +1827,7 @@ src/jmbde/core/settings.py:148:38: EM102 Exception must not use an f-string lite
+ 147 |             logger.error(f"Failed to save settings: {e}")
+ 148 |             raise ConfigurationError(f"Failed to save settings: {e}") from e
+     |                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM102
+-149 | 
++149 |
+ 150 |     # Qt Property Getters/Setters for QML binding
+     |
+     = help: Assign to variable; remove f-string literal
+@@ -1919,7 +1920,7 @@ src/jmbde/core/settings.py:225:13: TRY400 Use `logging.exception` instead of `lo
+ 224 |         except Exception as e:
+ 225 |             logger.error(f"Failed to set setting {key}: {e}")
+     |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+-226 | 
++226 |
+ 227 |     @Slot()
+     |
+     = help: Replace with `exception`
+@@ -1930,7 +1931,7 @@ src/jmbde/core/settings.py:225:26: G004 Logging statement uses f-string
+ 224 |         except Exception as e:
+ 225 |             logger.error(f"Failed to set setting {key}: {e}")
+     |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+-226 | 
++226 |
+ 227 |     @Slot()
+     |
+ 
+@@ -1958,7 +1959,7 @@ src/jmbde/core/settings.py:238:13: TRY400 Use `logging.exception` instead of `lo
+ 237 |         except Exception as e:
+ 238 |             logger.error(f"Failed to reset settings: {e}")
+     |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+-239 | 
++239 |
+ 240 |     def get_database_path(self) -> Path:
+     |
+     = help: Replace with `exception`
+@@ -1969,7 +1970,7 @@ src/jmbde/core/settings.py:238:26: G004 Logging statement uses f-string
+ 237 |         except Exception as e:
+ 238 |             logger.error(f"Failed to reset settings: {e}")
+     |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+-239 | 
++239 |
+ 240 |     def get_database_path(self) -> Path:
+     |
+ 
+@@ -1978,24 +1979,24 @@ src/jmbde/gui/employee_model.py:1:1: EXE001 Shebang is present but file is not e
+   |
+ 1 | #!/usr/bin/env python3
+   | ^^^^^^^^^^^^^^^^^^^^^^ EXE001
+-2 | 
++2 |
+ 3 | """Employee Model Module for JMBDE
+   |
+ 
+ src/jmbde/gui/employee_model.py:3:1: D400 First line should end with a period
+    |
+  1 |   #!/usr/bin/env python3
+- 2 |   
++ 2 |
+  3 | / """Employee Model Module for JMBDE
+- 4 | | 
++ 4 | |
+  5 | | This module provides a Qt model for exposing employee data to QML interfaces,
+  6 | | implementing the necessary methods for data access and modification.
+- 7 | | 
++ 7 | |
+  8 | | Copyright (C) 2018-2024 Jürgen Mülbert
+  9 | | License: GPL-3.0
+ 10 | | """
+    | |___^ D400
+-11 |   
++11 |
+ 12 |   import logging
+    |
+    = help: Add period
+@@ -2024,14 +2025,14 @@ src/jmbde/gui/employee_model.py:54:5: N815 Variable `errorOccurred` in class sco
+ 53 |     filterChanged = Signal()
+ 54 |     errorOccurred = Signal(str)
+    |     ^^^^^^^^^^^^^ N815
+-55 | 
++55 |
+ 56 |     def __init__(self, database: Database, parent: Optional[Any] = None) -> None:
+    |
+ 
+ src/jmbde/gui/employee_model.py:56:52: FA100 Add `from __future__ import annotations` to simplify `typing.Optional`
+    |
+ 54 |     errorOccurred = Signal(str)
+-55 | 
++55 |
+ 56 |     def __init__(self, database: Database, parent: Optional[Any] = None) -> None:
+    |                                                    ^^^^^^^^ FA100
+ 57 |         """Initialize the Employee Model.
+@@ -2040,7 +2041,7 @@ src/jmbde/gui/employee_model.py:56:52: FA100 Add `from __future__ import annotat
+ src/jmbde/gui/employee_model.py:56:52: ANN401 Dynamically typed expressions (typing.Any) are disallowed in `parent`
+    |
+ 54 |     errorOccurred = Signal(str)
+-55 | 
++55 |
+ 56 |     def __init__(self, database: Database, parent: Optional[Any] = None) -> None:
+    |                                                    ^^^^^^^^^^^^^ ANN401
+ 57 |         """Initialize the Employee Model.
+@@ -2058,7 +2059,7 @@ src/jmbde/gui/employee_model.py:69:34: FA100 Add `from __future__ import annotat
+ src/jmbde/gui/employee_model.py:75:9: N802 Function name `rowCount` should be lowercase
+    |
+ 73 |         logger.info("EmployeeModel initialized")
+-74 | 
++74 |
+ 75 |     def rowCount(self, parent: QModelIndex = QModelIndex()) -> int:
+    |         ^^^^^^^^ N802
+ 76 |         """Get the number of rows in the model.
+@@ -2067,7 +2068,7 @@ src/jmbde/gui/employee_model.py:75:9: N802 Function name `rowCount` should be lo
+ src/jmbde/gui/employee_model.py:75:24: ARG002 Unused method argument: `parent`
+    |
+ 73 |         logger.info("EmployeeModel initialized")
+-74 | 
++74 |
+ 75 |     def rowCount(self, parent: QModelIndex = QModelIndex()) -> int:
+    |                        ^^^^^^ ARG002
+ 76 |         """Get the number of rows in the model.
+@@ -2076,7 +2077,7 @@ src/jmbde/gui/employee_model.py:75:24: ARG002 Unused method argument: `parent`
+ src/jmbde/gui/employee_model.py:75:46: B008 Do not perform function call `QModelIndex` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
+    |
+ 73 |         logger.info("EmployeeModel initialized")
+-74 | 
++74 |
+ 75 |     def rowCount(self, parent: QModelIndex = QModelIndex()) -> int:
+    |                                              ^^^^^^^^^^^^^ B008
+ 76 |         """Get the number of rows in the model.
+@@ -2085,7 +2086,7 @@ src/jmbde/gui/employee_model.py:75:46: B008 Do not perform function call `QModel
+ src/jmbde/gui/employee_model.py:89:71: ANN401 Dynamically typed expressions (typing.Any) are disallowed in `data`
+    |
+ 87 |         return len(self._data)
+-88 | 
++88 |
+ 89 |     def data(self, index: QModelIndex, role: int = Qt.DisplayRole) -> Any:
+    |                                                                       ^^^ ANN401
+ 90 |         """Get data for the specified index and role.
+@@ -2123,7 +2124,7 @@ src/jmbde/gui/employee_model.py:111:26: G004 Logging statement uses f-string
+ src/jmbde/gui/employee_model.py:114:9: N802 Function name `roleNames` should be lowercase
+     |
+ 112 |             return None
+-113 | 
++113 |
+ 114 |     def roleNames(self) -> dict[int, QByteArray]:
+     |         ^^^^^^^^^ N802
+ 115 |         """Get the role names for QML binding.
+@@ -2171,7 +2172,7 @@ src/jmbde/gui/employee_model.py:134:26: G004 Logging statement uses f-string
+ src/jmbde/gui/employee_model.py:162:13: TRY300 Consider moving this statement to an `else` block
+     |
+ 160 |                 ]
+-161 | 
++161 |
+ 162 |             return employees
+     |             ^^^^^^^^^^^^^^^^ TRY300
+ 163 |         except DatabaseError as e:
+@@ -2203,7 +2204,7 @@ src/jmbde/gui/employee_model.py:165:19: TRY003 Avoid specifying long messages ou
+ 164 |             logger.error(f"Database error loading employees: {e}")
+ 165 |             raise ModelError(f"Failed to load employee data: {e}") from e
+     |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+-166 | 
++166 |
+ 167 |     @Property(str)
+     |
+ 
+@@ -2213,7 +2214,7 @@ src/jmbde/gui/employee_model.py:165:30: EM102 Exception must not use an f-string
+ 164 |             logger.error(f"Database error loading employees: {e}")
+ 165 |             raise ModelError(f"Failed to load employee data: {e}") from e
+     |                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM102
+-166 | 
++166 |
+ 167 |     @Property(str)
+     |
+     = help: Assign to variable; remove f-string literal
+@@ -2521,24 +2522,24 @@ src/jmbde/gui/main_app.py:1:1: EXE001 Shebang is present but file is not executa
+   |
+ 1 | #!/usr/bin/env python3
+   | ^^^^^^^^^^^^^^^^^^^^^^ EXE001
+-2 | 
++2 |
+ 3 | """Main Application Logic Module for JMBDE
+   |
+ 
+ src/jmbde/gui/main_app.py:3:1: D400 First line should end with a period
+    |
+  1 |   #!/usr/bin/env python3
+- 2 |   
++ 2 |
+  3 | / """Main Application Logic Module for JMBDE
+- 4 | | 
++ 4 | |
+  5 | | This module provides the main application logic and business operations
+  6 | | for the JMBDE application, serving as a bridge between the UI and data layers.
+- 7 | | 
++ 7 | |
+  8 | | Copyright (C) 2018-2024 Jürgen Mülbert
+  9 | | License: GPL-3.0
+ 10 | | """
+    | |___^ D400
+-11 |   
++11 |
+ 12 |   from datetime import datetime
+    |
+    = help: Add period
+@@ -2587,7 +2588,7 @@ src/jmbde/gui/main_app.py:40:5: N815 Variable `operationSucceeded` in class scop
+ 39 |     errorOccurred = Signal(str)  # error message
+ 40 |     operationSucceeded = Signal(str)  # success message
+    |     ^^^^^^^^^^^^^^^^^^ N815
+-41 | 
++41 |
+ 42 |     def __init__(
+    |
+ 
+@@ -2617,7 +2618,7 @@ src/jmbde/gui/main_app.py:100:17: TRY301 Abstract `raise` to an inner function
+  99 |             if not name or not position:
+ 100 |                 raise ValueError("Name and position are required")
+     |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY301
+-101 | 
++101 |
+ 102 |             if email and not validate_email(email):
+     |
+ 
+@@ -2627,7 +2628,7 @@ src/jmbde/gui/main_app.py:100:23: TRY003 Avoid specifying long messages outside
+  99 |             if not name or not position:
+ 100 |                 raise ValueError("Name and position are required")
+     |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+-101 | 
++101 |
+ 102 |             if email and not validate_email(email):
+     |
+ 
+@@ -2637,7 +2638,7 @@ src/jmbde/gui/main_app.py:100:34: EM101 Exception must not use a string literal,
+  99 |             if not name or not position:
+ 100 |                 raise ValueError("Name and position are required")
+     |                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM101
+-101 | 
++101 |
+ 102 |             if email and not validate_email(email):
+     |
+     = help: Assign to variable; remove string literal
+@@ -2647,7 +2648,7 @@ src/jmbde/gui/main_app.py:103:17: TRY301 Abstract `raise` to an inner function
+ 102 |             if email and not validate_email(email):
+ 103 |                 raise ValueError("Invalid email format")
+     |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY301
+-104 | 
++104 |
+ 105 |             if phone and not validate_phone(phone):
+     |
+ 
+@@ -2656,7 +2657,7 @@ src/jmbde/gui/main_app.py:103:23: TRY003 Avoid specifying long messages outside
+ 102 |             if email and not validate_email(email):
+ 103 |                 raise ValueError("Invalid email format")
+     |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+-104 | 
++104 |
+ 105 |             if phone and not validate_phone(phone):
+     |
+ 
+@@ -2665,7 +2666,7 @@ src/jmbde/gui/main_app.py:103:34: EM101 Exception must not use a string literal,
+ 102 |             if email and not validate_email(email):
+ 103 |                 raise ValueError("Invalid email format")
+     |                                  ^^^^^^^^^^^^^^^^^^^^^^ EM101
+-104 | 
++104 |
+ 105 |             if phone and not validate_phone(phone):
+     |
+     = help: Assign to variable; remove string literal
+@@ -2675,7 +2676,7 @@ src/jmbde/gui/main_app.py:106:17: TRY301 Abstract `raise` to an inner function
+ 105 |             if phone and not validate_phone(phone):
+ 106 |                 raise ValueError("Invalid phone format")
+     |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY301
+-107 | 
++107 |
+ 108 |             # Create employee record
+     |
+ 
+@@ -2684,7 +2685,7 @@ src/jmbde/gui/main_app.py:106:23: TRY003 Avoid specifying long messages outside
+ 105 |             if phone and not validate_phone(phone):
+ 106 |                 raise ValueError("Invalid phone format")
+     |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+-107 | 
++107 |
+ 108 |             # Create employee record
+     |
+ 
+@@ -2693,7 +2694,7 @@ src/jmbde/gui/main_app.py:106:34: EM101 Exception must not use a string literal,
+ 105 |             if phone and not validate_phone(phone):
+ 106 |                 raise ValueError("Invalid phone format")
+     |                                  ^^^^^^^^^^^^^^^^^^^^^^ EM101
+-107 | 
++107 |
+ 108 |             # Create employee record
+     |
+     = help: Assign to variable; remove string literal
+@@ -2714,7 +2715,7 @@ src/jmbde/gui/main_app.py:123:17: TRY301 Abstract `raise` to an inner function
+ 122 |             if not employee_id:
+ 123 |                 raise ApplicationError("Failed to create employee record")
+     |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY301
+-124 | 
++124 |
+ 125 |             # Refresh model and notify
+     |
+ 
+@@ -2723,7 +2724,7 @@ src/jmbde/gui/main_app.py:123:23: TRY003 Avoid specifying long messages outside
+ 122 |             if not employee_id:
+ 123 |                 raise ApplicationError("Failed to create employee record")
+     |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+-124 | 
++124 |
+ 125 |             # Refresh model and notify
+     |
+ 
+@@ -2732,7 +2733,7 @@ src/jmbde/gui/main_app.py:123:40: EM101 Exception must not use a string literal,
+ 122 |             if not employee_id:
+ 123 |                 raise ApplicationError("Failed to create employee record")
+     |                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM101
+-124 | 
++124 |
+ 125 |             # Refresh model and notify
+     |
+     = help: Assign to variable; remove string literal
+@@ -2740,7 +2741,7 @@ src/jmbde/gui/main_app.py:123:40: EM101 Exception must not use a string literal,
+ src/jmbde/gui/main_app.py:130:25: G004 Logging statement uses f-string
+     |
+ 128 |             self.operationSucceeded.emit(f"Employee {name} added successfully")
+-129 | 
++129 |
+ 130 |             logger.info(f"Added employee: {name} (ID: {employee_id})")
+     |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+ 131 |             return True
+@@ -2751,7 +2752,7 @@ src/jmbde/gui/main_app.py:131:13: TRY300 Consider moving this statement to an `e
+ 130 |             logger.info(f"Added employee: {name} (ID: {employee_id})")
+ 131 |             return True
+     |             ^^^^^^^^^^^ TRY300
+-132 | 
++132 |
+ 133 |         except (ValueError, ApplicationError) as e:
+     |
+ 
+@@ -2809,7 +2810,7 @@ src/jmbde/gui/main_app.py:177:17: TRY301 Abstract `raise` to an inner function
+ 176 |             if not name or not position:
+ 177 |                 raise ValueError("Name and position are required")
+     |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY301
+-178 | 
++178 |
+ 179 |             if email and not validate_email(email):
+     |
+ 
+@@ -2819,7 +2820,7 @@ src/jmbde/gui/main_app.py:177:23: TRY003 Avoid specifying long messages outside
+ 176 |             if not name or not position:
+ 177 |                 raise ValueError("Name and position are required")
+     |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+-178 | 
++178 |
+ 179 |             if email and not validate_email(email):
+     |
+ 
+@@ -2829,7 +2830,7 @@ src/jmbde/gui/main_app.py:177:34: EM101 Exception must not use a string literal,
+ 176 |             if not name or not position:
+ 177 |                 raise ValueError("Name and position are required")
+     |                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM101
+-178 | 
++178 |
+ 179 |             if email and not validate_email(email):
+     |
+     = help: Assign to variable; remove string literal
+@@ -2839,7 +2840,7 @@ src/jmbde/gui/main_app.py:180:17: TRY301 Abstract `raise` to an inner function
+ 179 |             if email and not validate_email(email):
+ 180 |                 raise ValueError("Invalid email format")
+     |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY301
+-181 | 
++181 |
+ 182 |             if phone and not validate_phone(phone):
+     |
+ 
+@@ -2848,7 +2849,7 @@ src/jmbde/gui/main_app.py:180:23: TRY003 Avoid specifying long messages outside
+ 179 |             if email and not validate_email(email):
+ 180 |                 raise ValueError("Invalid email format")
+     |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+-181 | 
++181 |
+ 182 |             if phone and not validate_phone(phone):
+     |
+ 
+@@ -2857,7 +2858,7 @@ src/jmbde/gui/main_app.py:180:34: EM101 Exception must not use a string literal,
+ 179 |             if email and not validate_email(email):
+ 180 |                 raise ValueError("Invalid email format")
+     |                                  ^^^^^^^^^^^^^^^^^^^^^^ EM101
+-181 | 
++181 |
+ 182 |             if phone and not validate_phone(phone):
+     |
+     = help: Assign to variable; remove string literal
+@@ -2867,7 +2868,7 @@ src/jmbde/gui/main_app.py:183:17: TRY301 Abstract `raise` to an inner function
+ 182 |             if phone and not validate_phone(phone):
+ 183 |                 raise ValueError("Invalid phone format")
+     |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY301
+-184 | 
++184 |
+ 185 |             # Update employee record
+     |
+ 
+@@ -2876,7 +2877,7 @@ src/jmbde/gui/main_app.py:183:23: TRY003 Avoid specifying long messages outside
+ 182 |             if phone and not validate_phone(phone):
+ 183 |                 raise ValueError("Invalid phone format")
+     |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+-184 | 
++184 |
+ 185 |             # Update employee record
+     |
+ 
+@@ -2885,7 +2886,7 @@ src/jmbde/gui/main_app.py:183:34: EM101 Exception must not use a string literal,
+ 182 |             if phone and not validate_phone(phone):
+ 183 |                 raise ValueError("Invalid phone format")
+     |                                  ^^^^^^^^^^^^^^^^^^^^^^ EM101
+-184 | 
++184 |
+ 185 |             # Update employee record
+     |
+     = help: Assign to variable; remove string literal
+@@ -2895,7 +2896,7 @@ src/jmbde/gui/main_app.py:198:17: TRY301 Abstract `raise` to an inner function
+ 197 |             if not success:
+ 198 |                 raise ApplicationError("Failed to update employee record")
+     |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY301
+-199 | 
++199 |
+ 200 |             # Refresh model and notify
+     |
+ 
+@@ -2904,7 +2905,7 @@ src/jmbde/gui/main_app.py:198:23: TRY003 Avoid specifying long messages outside
+ 197 |             if not success:
+ 198 |                 raise ApplicationError("Failed to update employee record")
+     |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+-199 | 
++199 |
+ 200 |             # Refresh model and notify
+     |
+ 
+@@ -2913,7 +2914,7 @@ src/jmbde/gui/main_app.py:198:40: EM101 Exception must not use a string literal,
+ 197 |             if not success:
+ 198 |                 raise ApplicationError("Failed to update employee record")
+     |                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM101
+-199 | 
++199 |
+ 200 |             # Refresh model and notify
+     |
+     = help: Assign to variable; remove string literal
+@@ -2921,7 +2922,7 @@ src/jmbde/gui/main_app.py:198:40: EM101 Exception must not use a string literal,
+ src/jmbde/gui/main_app.py:205:25: G004 Logging statement uses f-string
+     |
+ 203 |             self.operationSucceeded.emit(f"Employee {name} updated successfully")
+-204 | 
++204 |
+ 205 |             logger.info(f"Updated employee {emp_id}: {name}")
+     |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+ 206 |             return True
+@@ -2932,7 +2933,7 @@ src/jmbde/gui/main_app.py:206:13: TRY300 Consider moving this statement to an `e
+ 205 |             logger.info(f"Updated employee {emp_id}: {name}")
+ 206 |             return True
+     |             ^^^^^^^^^^^ TRY300
+-207 | 
++207 |
+ 208 |         except (ValueError, ApplicationError) as e:
+     |
+ 
+@@ -2961,7 +2962,7 @@ src/jmbde/gui/main_app.py:238:17: TRY301 Abstract `raise` to an inner function
+ 237 |             if not employee:
+ 238 |                 raise ApplicationError("Employee not found")
+     |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY301
+-239 | 
++239 |
+ 240 |             # Delete employee
+     |
+ 
+@@ -2971,7 +2972,7 @@ src/jmbde/gui/main_app.py:238:23: TRY003 Avoid specifying long messages outside
+ 237 |             if not employee:
+ 238 |                 raise ApplicationError("Employee not found")
+     |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+-239 | 
++239 |
+ 240 |             # Delete employee
+     |
+ 
+@@ -2981,7 +2982,7 @@ src/jmbde/gui/main_app.py:238:40: EM101 Exception must not use a string literal,
+ 237 |             if not employee:
+ 238 |                 raise ApplicationError("Employee not found")
+     |                                        ^^^^^^^^^^^^^^^^^^^^ EM101
+-239 | 
++239 |
+ 240 |             # Delete employee
+     |
+     = help: Assign to variable; remove string literal
+@@ -2991,7 +2992,7 @@ src/jmbde/gui/main_app.py:244:17: TRY301 Abstract `raise` to an inner function
+ 243 |             if not success:
+ 244 |                 raise ApplicationError("Failed to delete employee record")
+     |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY301
+-245 | 
++245 |
+ 246 |             # Refresh model and notify
+     |
+ 
+@@ -3000,7 +3001,7 @@ src/jmbde/gui/main_app.py:244:23: TRY003 Avoid specifying long messages outside
+ 243 |             if not success:
+ 244 |                 raise ApplicationError("Failed to delete employee record")
+     |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+-245 | 
++245 |
+ 246 |             # Refresh model and notify
+     |
+ 
+@@ -3009,7 +3010,7 @@ src/jmbde/gui/main_app.py:244:40: EM101 Exception must not use a string literal,
+ 243 |             if not success:
+ 244 |                 raise ApplicationError("Failed to delete employee record")
+     |                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM101
+-245 | 
++245 |
+ 246 |             # Refresh model and notify
+     |
+     = help: Assign to variable; remove string literal
+@@ -3017,7 +3018,7 @@ src/jmbde/gui/main_app.py:244:40: EM101 Exception must not use a string literal,
+ src/jmbde/gui/main_app.py:253:25: G004 Logging statement uses f-string
+     |
+ 251 |             )
+-252 | 
++252 |
+ 253 |             logger.info(f"Deleted employee {emp_id}: {employee['name']}")
+     |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+ 254 |             return True
+@@ -3028,7 +3029,7 @@ src/jmbde/gui/main_app.py:254:13: TRY300 Consider moving this statement to an `e
+ 253 |             logger.info(f"Deleted employee {emp_id}: {employee['name']}")
+ 254 |             return True
+     |             ^^^^^^^^^^^ TRY300
+-255 | 
++255 |
+ 256 |         except ApplicationError as e:
+     |
+ 
+@@ -3329,7 +3330,7 @@ tests/pyside6/test_gui_interaction.py:5:9: ANN204 Missing return type annotation
+ tests/pyside6/test_gui_interaction.py:15:9: ANN201 Missing return type annotation for public function `on_submit`
+    |
+ 13 |         self.button.clicked.connect(self.on_submit)
+-14 | 
++14 |
+ 15 |     def on_submit(self):
+    |         ^^^^^^^^^ ANN201
+ 16 |         self.edit.setText("Submitted!")
+@@ -3364,7 +3365,7 @@ tests/pyside6/test_gui_interaction.py:28:37: F821 Undefined name `Qt`
+ tests/pyside6/test_signal_emission.py:7:9: ANN201 Missing return type annotation for public function `emit_signal`
+   |
+ 5 |     my_signal = Signal(int)
+-6 | 
++6 |
+ 7 |     def emit_signal(self, value):
+   |         ^^^^^^^^^^^ ANN201
+ 8 |         self.my_signal.emit(value)
+@@ -3374,7 +3375,7 @@ tests/pyside6/test_signal_emission.py:7:9: ANN201 Missing return type annotation
+ tests/pyside6/test_signal_emission.py:7:27: ANN001 Missing type annotation for function argument `value`
+   |
+ 5 |     my_signal = Signal(int)
+-6 | 
++6 |
+ 7 |     def emit_signal(self, value):
+   |                           ^^^^^ ANN001
+ 8 |         self.my_signal.emit(value)
+@@ -3463,7 +3464,7 @@ tests/pyside6/unsafeconnection.py:9:44: SyntaxError: Expected ',', found name
+ tests/pyside6/unsafeconnection.py:13:23: SyntaxError: Expected 'import', found name
+    |
+ 11 | }
+-12 | 
++12 |
+ 13 | from UnsafeConnection unsafe
+    |                       ^
+ 14 | select unsafe, "Unsafe signal-slot connection detected"
+@@ -3854,14 +3855,14 @@ bandit...................................................................Failed
+ Run started:2025-01-11 10:38:02.657406
+ 
+ Test results:
+->> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
++>> Issue: [B404:blocklist] Consider possible security implications associated with the subprocess module.
+    Severity: Low   Confidence: High
+    CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+-   More Info: https://bandit.readthedocs.io/en/0.0.0/blacklists/blacklist_imports.html#b404-import-subprocess
++   More Info: https://bandit.readthedocs.io/en/0.0.0/blocklists/blacklist_imports.html#b404-import-subprocess
+    Location: ./scripts/build_ui.py:21:0
+ 20	import shutil
+ 21	from subprocess import Popen
+-22	
++22
+ 
+ --------------------------------------------------
+ >> Issue: [B607:start_process_with_partial_path] Starting a process with a partial executable path
+@@ -3877,7 +3878,7 @@ Test results:
+ 63	            f"-o {source_dir}{package}/ui/ui_{os.path.basename(f[:-3])}.py {f}",
+ 64	        ],
+ 65	    )
+-66	
++66
+ 
+ --------------------------------------------------
+ >> Issue: [B603:subprocess_without_shell_equals_true] subprocess call - check for execution of untrusted input.
+@@ -3893,7 +3894,7 @@ Test results:
+ 63	            f"-o {source_dir}{package}/ui/ui_{os.path.basename(f[:-3])}.py {f}",
+ 64	        ],
+ 65	    )
+-66	
++66
+ 
+ --------------------------------------------------
+ >> Issue: [B607:start_process_with_partial_path] Starting a process with a partial executable path
+@@ -3943,7 +3944,7 @@ Test results:
+    Location: ./scripts/build_ui.py:73:0
+ 72	Popen(["pyside2-lupdate", f"{source_dir}{package}/*.py -ts {lang_files}"])
+ 73	Popen(["lrelease", f"{resources_dir}/translations/*.ts"])
+-74	
++74
+ 
+ --------------------------------------------------
+ >> Issue: [B603:subprocess_without_shell_equals_true] subprocess call - check for execution of untrusted input.
+@@ -3953,7 +3954,7 @@ Test results:
+    Location: ./scripts/build_ui.py:73:0
+ 72	Popen(["pyside2-lupdate", f"{source_dir}{package}/*.py -ts {lang_files}"])
+ 73	Popen(["lrelease", f"{resources_dir}/translations/*.ts"])
+-74	
++74
+ 
+ --------------------------------------------------
+ >> Issue: [B607:start_process_with_partial_path] Starting a process with a partial executable path
+@@ -3968,7 +3969,7 @@ Test results:
+ 80	            f" -g python -o {package}/resources/qrc_{os.path.basename(f[:-4])}.py {f}",
+ 81	        ],
+ 82	    )
+-83	
++83
+ 
+ --------------------------------------------------
+ >> Issue: [B603:subprocess_without_shell_equals_true] subprocess call - check for execution of untrusted input.
+@@ -3983,7 +3984,7 @@ Test results:
+ 80	            f" -g python -o {package}/resources/qrc_{os.path.basename(f[:-4])}.py {f}",
+ 81	        ],
+ 82	    )
+-83	
++83
+ 
+ --------------------------------------------------
+ >> Issue: [B607:start_process_with_partial_path] Starting a process with a partial executable path
+@@ -3998,7 +3999,7 @@ Test results:
+ 89	            f" -g python --verbose -o {source_dir}{package}/qrc_{os.path.basename(f[:-4])}.py {f}",
+ 90	        ],
+ 91	    )
+-92	
++92
+ 
+ --------------------------------------------------
+ >> Issue: [B603:subprocess_without_shell_equals_true] subprocess call - check for execution of untrusted input.
+@@ -4013,7 +4014,7 @@ Test results:
+ 89	            f" -g python --verbose -o {source_dir}{package}/qrc_{os.path.basename(f[:-4])}.py {f}",
+ 90	        ],
+ 91	    )
+-92	
++92
+ 
+ --------------------------------------------------
+ >> Issue: [B608:hardcoded_sql_expressions] Possible SQL injection vector through string-based query construction.
+@@ -4021,7 +4022,7 @@ Test results:
+    CWE: CWE-89 (https://cwe.mitre.org/data/definitions/89.html)
+    More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b608_hardcoded_sql_expressions.html
+    Location: ./src/jmbde/core/database.py:298:20
+-297	
++297
+ 298	            query = """
+ 299	                UPDATE employees
+ 300	                SET {}
+@@ -4412,10 +4413,10 @@ index aa2443e..6b78030 100644
+ @@ -25,7 +25,7 @@
+  # Use `docker-compose exec db pg_dump -U postgres -d postgres > dump.sql` to dump the database.
+  # Use `docker-compose exec db psql -U postgres -d postgres < dump.sql` to restore the database.
+- 
++
+ -version: "3.8"
+ +version: '3.8'
+- 
++
+  services:
+    app:
+ @@ -46,9 +46,9 @@ services:
+@@ -4427,7 +4428,7 @@ index aa2443e..6b78030 100644
+          reservations:
+ -          cpus: "0.25" # Reserve 25% of one CPU core
+ +          cpus: '0.25' # Reserve 25% of one CPU core
+- 
++
+    db:
+      image: postgres:14 # Use a specific version for stability
+ @@ -67,13 +67,13 @@ services:
+@@ -4439,7 +4440,7 @@ index aa2443e..6b78030 100644
+          reservations:
+ -          cpus: "0.5" # Reserve 50% of one CPU core
+ +          cpus: '0.5' # Reserve 50% of one CPU core
+- 
++
+      # Health check configuration
+      healthcheck:
+ -      test: [CMD-SHELL, "pg_isready -U ${POSTGRES_USER:-postgres}"]
+@@ -4452,23 +4453,23 @@ index 59702c1..e90104b 100644
+ --- a/CHANGELOG.md
+ +++ b/CHANGELOG.md
+ @@ -2,16 +2,16 @@
+- 
++
+  ## [Unreleased](https://github.com/jmuelbert/jmbde-python/tree/HEAD)
+- 
++
+ -__Implemented enhancements:__
+ +**Implemented enhancements:**
+- 
++
+  - PR Update workflows [\#414](https://github.com/jmuelbert/jmbde-python/pull/414)
+- 
++
+ -__Closed issues:__
+ +**Closed issues:**
+- 
++
+  - Dependabot can't resolve your Python dependency files [\#196](https://github.com/jmuelbert/jmbde-python/issues/196)
+  - Dependabot can't resolve your Python dependency files [\#195](https://github.com/jmuelbert/jmbde-python/issues/195)
+- 
++
+ -__Merged pull requests:__
+ +**Merged pull requests:**
+- 
++
+  - Fix typos by misspell-fixer for refs/heads/master [\#418](https://github.com/jmuelbert/jmbde-python/pull/418)
+  - Bump codacy/codacy-analysis-cli-action from 1.1.0 to 4.0.0 [\#417](https://github.com/jmuelbert/jmbde-python/pull/417)
+ diff --git a/SECURITY.md b/SECURITY.md
+@@ -4477,7 +4478,7 @@ index 72c063c..3062008 100644
+ +++ b/SECURITY.md
+ @@ -5,7 +5,7 @@
+  Use this section to tell people about which versions of your project are currently being supported with security updates.
+- 
++
+  | Version | Supported          |
+ -|---------|--------------------|
+ +| ------- | ------------------ |
+@@ -4489,113 +4490,113 @@ index e7124b3..4a017ae 100644
+ --- a/building/README.md
+ +++ b/building/README.md
+ @@ -93,7 +93,7 @@
+- 
++
+     pyside2-rcc resources/resources.qrc -o src/jmbde/resource.py
+- 
++
+ -   pyinstaller -w src/jmbde/__main__.py ^ --hidden-import "socks" ^ --hidden-import "PIL" ^ --add-data "LICENSE;." ^ --add-data "conf/jmbde.conf;conf" ^ --add-data "conf/qtquickcontrols2.conf;conf" ^ --add-data "resources/translations/\*.qm;translations"
+ +   pyinstaller -w src/jmbde/**main**.py ^ --hidden-import "socks" ^ --hidden-import "PIL" ^ --add-data "LICENSE;." ^ --add-data "conf/jmbde.conf;conf" ^ --add-data "conf/qtquickcontrols2.conf;conf" ^ --add-data "resources/translations/\*.qm;translations"
+     ^ --name "jmbde" ^ --icon "resources/icons/app.ico" ^ --version-file "building/Windows/jmbde.win.version" ^ --noupx
+- 
++
+     :: Remove useless libraries cd dist/jmbde del /F /S /Q Qt3D*QtBluetooth QtBodymovin QtCharts QtDataVisualization QtGamepad QtLocation QtMultimedia QtMultimediaQuick QtNfc QtPositioning QtPositioningQuick QtPurchasing QtQuick3D* QtQuickTest
+ diff --git a/docs/about/EUPL-1.2.md b/docs/about/EUPL-1.2.md
+ index 9209455..0847baa 100644
+ --- a/docs/about/EUPL-1.2.md
+ +++ b/docs/about/EUPL-1.2.md
+ @@ -52,21 +52,21 @@ Nothing in this Licence is intended to deprive the Licensee of the benefits from
+- 
++
+  The grant of the rights mentioned above is subject to some restrictions and obligations imposed on the Licensee. Those obligations are the following:
+- 
++
+ -__Attribution right:__ The Licensee shall keep intact all copyright, patent or trademarks notices and all notices that refer to the Licence and to the disclaimer of warranties. The Licensee must include a copy of such notices and a copy of the Licence
+ +**Attribution right:** The Licensee shall keep intact all copyright, patent or trademarks notices and all notices that refer to the Licence and to the disclaimer of warranties. The Licensee must include a copy of such notices and a copy of the Licence
+  with every copy of the Work he/she distributes or communicates. The Licensee must cause any Derivative Work to carry prominent notices stating that the Work has been modified and the date of modification.
+- 
++
+ -__Copyleft clause:__ If the Licensee distributes or communicates copies of the Original Works or Derivative Works, this Distribution or Communication will be done under the terms of this Licence or of a later version of this Licence unless the Original
+ +**Copyleft clause:** If the Licensee distributes or communicates copies of the Original Works or Derivative Works, this Distribution or Communication will be done under the terms of this Licence or of a later version of this Licence unless the Original
+  Work is expressly distributed only under this version of the Licence — for example by communicating ‘EUPL v. 1.2 only’. The Licensee (becoming Licensor) cannot offer or impose any additional terms or conditions on the Work or Derivative Work that alter or
+  restrict the terms of the Licence.
+- 
++
+ -__Compatibility clause:__ If the Licensee Distributes or Communicates Derivative Works or copies thereof based upon both the Work and another work licensed under a Compatible Licence, this Distribution or Communication can be done under the terms of this
+ +**Compatibility clause:** If the Licensee Distributes or Communicates Derivative Works or copies thereof based upon both the Work and another work licensed under a Compatible Licence, this Distribution or Communication can be done under the terms of this
+  Compatible Licence. For the sake of this clause, ‘Compatible Licence’ refers to the licences listed in the appendix attached to this Licence. Should the Licensee's obligations under the Compatible Licence conflict with his/her obligations under this
+  Licence, the obligations of the Compatible Licence shall prevail.
+- 
++
+ -__Provision of Source Code:__ When distributing or communicating copies of the Work, the Licensee will provide a machine-readable copy of the Source Code or indicate a repository where this Source will be easily and freely available for as long as the
+ +**Provision of Source Code:** When distributing or communicating copies of the Work, the Licensee will provide a machine-readable copy of the Source Code or indicate a repository where this Source will be easily and freely available for as long as the
+  Licensee continues to distribute or communicate the Work.
+- 
++
+ -__Legal Protection:__ This Licence does not grant permission to use the trade names, trademarks, service marks, or names of the Licensor, except as required for reasonable and customary use in describing the origin of the Work and reproducing the content
+ +**Legal Protection:** This Licence does not grant permission to use the trade names, trademarks, service marks, or names of the Licensor, except as required for reasonable and customary use in describing the origin of the Work and reproducing the content
+  of the copyright notice.
+- 
++
+  ## 6.Chain of Authorship
+ diff --git a/docs/community/code_of_conduct.md b/docs/community/code_of_conduct.md
+ index 2859651..6e5031b 100644
+ --- a/docs/community/code_of_conduct.md
+ +++ b/docs/community/code_of_conduct.md
+ @@ -49,29 +49,29 @@ Community leaders will follow these Community Impact Guidelines in determining t
+- 
++
+  ### 1. Correction
+- 
++
+ -__Community Impact__: Use of inappropriate language or other behavior deemed unprofessional or unwelcome in the community.
+ +**Community Impact**: Use of inappropriate language or other behavior deemed unprofessional or unwelcome in the community.
+- 
++
+ -__Consequence__: A private, written warning from community leaders, providing clarity around the nature of the violation and an explanation of why the behavior was inappropriate. A public apology may be requested.
+ +**Consequence**: A private, written warning from community leaders, providing clarity around the nature of the violation and an explanation of why the behavior was inappropriate. A public apology may be requested.
+- 
++
+  ### 2. Warning
+- 
++
+ -__Community Impact__: A violation through a single incident or series of actions.
+ +**Community Impact**: A violation through a single incident or series of actions.
+- 
++
+ -__Consequence__: A warning with consequences for continued behavior. No interaction with the people involved, including unsolicited interaction with those enforcing the Code of Conduct, for a specified period of time. This includes avoiding interactions
+ +**Consequence**: A warning with consequences for continued behavior. No interaction with the people involved, including unsolicited interaction with those enforcing the Code of Conduct, for a specified period of time. This includes avoiding interactions
+  in community spaces as well as external channels like social media. Violating these terms may lead to a temporary or permanent ban.
+- 
++
+  ### 3. Temporary Ban
+- 
++
+ -__Community Impact__: A serious violation of community standards, including sustained inappropriate behavior.
+ +**Community Impact**: A serious violation of community standards, including sustained inappropriate behavior.
+- 
++
+ -__Consequence__: A temporary ban from any sort of interaction or public communication with the community for a specified period of time. No public or private interaction with the people involved, including unsolicited interaction with those enforcing the
+ +**Consequence**: A temporary ban from any sort of interaction or public communication with the community for a specified period of time. No public or private interaction with the people involved, including unsolicited interaction with those enforcing the
+  Code of Conduct, is allowed during this period. Violating these terms may lead to a permanent ban.
+- 
++
+  ### 4. Permanent Ban
+- 
++
+ -__Community Impact__: Demonstrating a pattern of violation of community standards, including sustained inappropriate behavior, harassment of an individual, or aggression toward or disparagement of classes of individuals.
+ +**Community Impact**: Demonstrating a pattern of violation of community standards, including sustained inappropriate behavior, harassment of an individual, or aggression toward or disparagement of classes of individuals.
+- 
++
+ -__Consequence__: A permanent ban from any sort of public interaction within the community.
+ +**Consequence**: A permanent ban from any sort of public interaction within the community.
+- 
++
+  ## Attribution
+- 
++
+ diff --git a/docs/developer/changelog.md b/docs/developer/changelog.md
+ index b9a7556..cd93e5a 100644
+ --- a/docs/developer/changelog.md
+ +++ b/docs/developer/changelog.md
+ @@ -8,10 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+- 
++
+  ## Unreleased
+- 
++
+ -___Changed:___
+ +**_Changed:_**
+- 
++
+ -___Added:___
+ +**_Added:_**
+- 
++
+ -___Fixed:___
+ +**_Fixed:_**
+- 
++
+  ## [0.0.1](https://github.com/jmuelbert/jmbde-python/releases/tag/jmbde-python-v0.0.1) - 2024-03-12 ## {: #jmbde-python-v0.0.1}
+ diff --git a/docs/developer/overview.md b/docs/developer/overview.md
+ index 29cbda8..c60f07a 100644
+ --- a/docs/developer/overview.md
+ +++ b/docs/developer/overview.md
+ @@ -4,6 +4,6 @@
+- 
++
+  Auto-generates reference documentation for the following components:
+- 
++
+ -- __[Core](./core.md)__
+ -- __[CLI](./cli.md)__
+ -- __[Config](./configuration.md)__
+@@ -4608,7 +4609,7 @@ index 74efa89..374a458 100644
+ +++ b/docs/index.md
+ @@ -4,7 +4,7 @@
+  ![jmbde-python Logo](assets/images/logo.svg){ role="img" }
+- 
++
+  |         |                                                                                                                                                                                                                                                  |
+ -|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+ +| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+@@ -4616,17 +4617,17 @@ index 74efa89..374a458 100644
+  | Docs    | [![Docs][docs-badge]{ loading=lazy .off-glb }][docs-wf-url]                                                                                                                                                                                      |
+  | Package | [![PyPI - Version][pypi-version-badge]{ loading=lazy .off-glb }][pypi-version-url] [![PyPI - Downloads][pypi-downloads-badge]{ loading=lazy .off-glb }][pypi-downloads-url] [![PyPI - Python Version][python-version-badge]][python-version-url] |
+ @@ -18,7 +18,7 @@ jmbde-python is a tool to check the availability of a website or ntp-server.
+- 
++
+  <div class="grid cards" Markdown>
+- 
++
+ -- ## :material-hammer-wrench:{ .lg .middle } __Build system__
+ +- ## :material-hammer-wrench:{ .lg .middle } **Build system**
+- 
++
+    Reproducible builds by default with a rich ecosystem of plugins
+- 
++
+ @@ -35,7 +35,7 @@ jmbde-python is distributed under the terms of the [European Public License V1.2
+  Documentation for specific `MAJOR.MINOR` versions can be chosen by using the dropdown on the top of every page. The `dev` version reflects changes that have not yet been released.
+- 
++
+  | Keys                                                         | Action                          |
+ -|--------------------------------------------------------------|---------------------------------|
+ +| ------------------------------------------------------------ | ------------------------------- |
+@@ -4640,13 +4641,13 @@ index 3f256ca..d456adb 100755
+ @@ -15,9 +15,9 @@
+  #
+  """The qt ui builder."""
+- 
++
+ +from glob import glob
+  import os
+  import shutil
+ -from glob import glob
+  from subprocess import Popen
+- 
++
+  package = "jmbde"
+ diff --git a/src/jmbde/__main.py b/src/jmbde/__main.py
+ index f73ebb3..87a3ddf 100644
+@@ -4654,13 +4655,13 @@ index f73ebb3..87a3ddf 100644
+ +++ b/src/jmbde/__main.py
+ @@ -14,20 +14,21 @@ the Free Software Foundation, either version 3 of the License, or
+  """
+- 
++
+  import logging
+ -import sys
+  from pathlib import Path
+ +import sys
+  from typing import Optional
+- 
++
+  import click
+ +from PySide6.QtCore import QCoreApplication
+ +from PySide6.QtGui import QGuiApplication, QIcon
+@@ -4675,7 +4676,7 @@ index f73ebb3..87a3ddf 100644
+ -from PySide6.QtCore import QCoreApplication
+ -from PySide6.QtGui import QGuiApplication, QIcon
+ -from PySide6.QtQml import QQmlApplicationEngine
+- 
++
+  # Initialize logging
+  logger = logging.getLogger(__name__)
+ diff --git a/src/jmbde/core/database.py b/src/jmbde/core/database.py
+@@ -4685,7 +4686,7 @@ index 813beb4..f770184 100644
+ @@ -9,16 +9,17 @@ Copyright (C) 2018-2024 Jürgen Mülbert
+  License: GPL-3.0
+  """
+- 
++
+ -import logging
+ -import sqlite3
+  from contextlib import contextmanager
+@@ -4694,13 +4695,13 @@ index 813beb4..f770184 100644
+  from pathlib import Path
+ +import sqlite3
+  from typing import Any, Optional, Union
+- 
++
+ +from pydantic import BaseModel
+ +
+  from jmbde.core.config import Config
+  from jmbde.utils.exceptions import DatabaseError
+ -from pydantic import BaseModel
+- 
++
+  # Initialize logger
+  logger = logging.getLogger(__name__)
+ diff --git a/src/jmbde/core/settings.py b/src/jmbde/core/settings.py
+@@ -4710,16 +4711,16 @@ index 1691c8b..4ffda9e 100644
+ @@ -14,10 +14,11 @@ import logging
+  from pathlib import Path
+  from typing import Any, Optional
+- 
++
+ -from jmbde.utils.exceptions import ConfigurationError
+  from pydantic import BaseModel, Field, ValidationError
+  from PySide6.QtCore import Property, QObject, Signal, Slot
+- 
++
+ +from jmbde.utils.exceptions import ConfigurationError
+ +
+  # Initialize logger
+  logger = logging.getLogger(__name__)
+- 
++
+ diff --git a/src/jmbde/gui/employee_model.py b/src/jmbde/gui/employee_model.py
+ index bf9917f..948fccb 100644
+ --- a/src/jmbde/gui/employee_model.py
+@@ -4727,7 +4728,7 @@ index bf9917f..948fccb 100644
+ @@ -12,8 +12,6 @@ License: GPL-3.0
+  import logging
+  from typing import Any, Optional
+- 
++
+ -from jmbde.core.database import Database, DatabaseError
+ -from jmbde.utils.exceptions import ModelError
+  from PySide6.QtCore import (
+@@ -4736,13 +4737,13 @@ index bf9917f..948fccb 100644
+ @@ -24,6 +22,9 @@ from PySide6.QtCore import (
+      Slot,
+  )
+- 
++
+ +from jmbde.core.database import Database, DatabaseError
+ +from jmbde.utils.exceptions import ModelError
+ +
+  # Initialize logger
+  logger = logging.getLogger(__name__)
+- 
++
+ diff --git a/src/jmbde/gui/main_app.py b/src/jmbde/gui/main_app.py
+ index dcc3202..907ddb1 100644
+ --- a/src/jmbde/gui/main_app.py
+@@ -4750,12 +4751,12 @@ index dcc3202..907ddb1 100644
+ @@ -9,16 +9,17 @@ Copyright (C) 2018-2024 Jürgen Mülbert
+  License: GPL-3.0
+  """
+- 
++
+ -import logging
+  from datetime import datetime
+ +import logging
+  from typing import Any, Optional
+- 
++
+ +from PySide6.QtCore import QObject, Signal, Slot
+ +
+  from jmbde.core.database import Database
+@@ -4764,7 +4765,7 @@ index dcc3202..907ddb1 100644
+  from jmbde.utils.exceptions import ApplicationError
+  from jmbde.utils.validators import validate_email, validate_phone
+ -from PySide6.QtCore import QObject, Signal, Slot
+- 
++
+  # Initialize logger
+  logger = logging.getLogger(__name__)
+ diff --git a/tests/test_main.py b/tests/test_main.py
+@@ -4774,14 +4775,14 @@ index 808af1e..17678a5 100644
+ @@ -6,8 +6,9 @@
+  #
+  """Tests for `jmbde_python` package."""
+- 
++
+ -import pytest
+  from click.testing import CliRunner
+ +import pytest
+ +
+  from jmbde import __main__
+- 
+- 
++
++
+ diff --git a/tests/unit/test_database.py b/tests/unit/test_database.py
+ index c4e8f20..e5480d5 100644
+ --- a/tests/unit/test_database.py
+@@ -4790,8 +4791,8 @@ index c4e8f20..e5480d5 100644
+ -import pytest
+  from database import Database
+ +import pytest
+- 
+- 
++
++
+  @pytest.fixture
+ diff --git a/tests/unit/test_employee_model.py b/tests/unit/test_employee_model.py
+ index 967bb56..974ba69 100644
+@@ -4799,14 +4800,16 @@ index 967bb56..974ba69 100644
+ +++ b/tests/unit/test_employee_model.py
+ @@ -1,6 +1,7 @@
+  from unittest.mock import Mock
+- 
++
+  import pytest
+ +
+  from main import EmployeeModel
+- 
+- 
+-```
++
++
++````
++
+ ### 📝 Required Changes
++
+ ```diff
+ diff --git a/.devcontainer/docker-compose.yml b/.devcontainer/docker-compose.yml
+ index aa2443e..6b78030 100644
+@@ -4815,10 +4818,10 @@ index aa2443e..6b78030 100644
+ @@ -25,7 +25,7 @@
+  # Use `docker-compose exec db pg_dump -U postgres -d postgres > dump.sql` to dump the database.
+  # Use `docker-compose exec db psql -U postgres -d postgres < dump.sql` to restore the database.
+- 
++
+ -version: "3.8"
+ +version: '3.8'
+- 
++
+  services:
+    app:
+ @@ -46,9 +46,9 @@ services:
+@@ -4830,7 +4833,7 @@ index aa2443e..6b78030 100644
+          reservations:
+ -          cpus: "0.25" # Reserve 25% of one CPU core
+ +          cpus: '0.25' # Reserve 25% of one CPU core
+- 
++
+    db:
+      image: postgres:14 # Use a specific version for stability
+ @@ -67,13 +67,13 @@ services:
+@@ -4842,7 +4845,7 @@ index aa2443e..6b78030 100644
+          reservations:
+ -          cpus: "0.5" # Reserve 50% of one CPU core
+ +          cpus: '0.5' # Reserve 50% of one CPU core
+- 
++
+      # Health check configuration
+      healthcheck:
+ -      test: [CMD-SHELL, "pg_isready -U ${POSTGRES_USER:-postgres}"]
+@@ -4855,23 +4858,23 @@ index 59702c1..e90104b 100644
+ --- a/CHANGELOG.md
+ +++ b/CHANGELOG.md
+ @@ -2,16 +2,16 @@
+- 
++
+  ## [Unreleased](https://github.com/jmuelbert/jmbde-python/tree/HEAD)
+- 
++
+ -__Implemented enhancements:__
+ +**Implemented enhancements:**
+- 
++
+  - PR Update workflows [\#414](https://github.com/jmuelbert/jmbde-python/pull/414)
+- 
++
+ -__Closed issues:__
+ +**Closed issues:**
+- 
++
+  - Dependabot can't resolve your Python dependency files [\#196](https://github.com/jmuelbert/jmbde-python/issues/196)
+  - Dependabot can't resolve your Python dependency files [\#195](https://github.com/jmuelbert/jmbde-python/issues/195)
+- 
++
+ -__Merged pull requests:__
+ +**Merged pull requests:**
+- 
++
+  - Fix typos by misspell-fixer for refs/heads/master [\#418](https://github.com/jmuelbert/jmbde-python/pull/418)
+  - Bump codacy/codacy-analysis-cli-action from 1.1.0 to 4.0.0 [\#417](https://github.com/jmuelbert/jmbde-python/pull/417)
+ diff --git a/SECURITY.md b/SECURITY.md
+@@ -4880,7 +4883,7 @@ index 72c063c..3062008 100644
+ +++ b/SECURITY.md
+ @@ -5,7 +5,7 @@
+  Use this section to tell people about which versions of your project are currently being supported with security updates.
+- 
++
+  | Version | Supported          |
+ -|---------|--------------------|
+ +| ------- | ------------------ |
+@@ -4892,113 +4895,113 @@ index e7124b3..4a017ae 100644
+ --- a/building/README.md
+ +++ b/building/README.md
+ @@ -93,7 +93,7 @@
+- 
++
+     pyside2-rcc resources/resources.qrc -o src/jmbde/resource.py
+- 
++
+ -   pyinstaller -w src/jmbde/__main__.py ^ --hidden-import "socks" ^ --hidden-import "PIL" ^ --add-data "LICENSE;." ^ --add-data "conf/jmbde.conf;conf" ^ --add-data "conf/qtquickcontrols2.conf;conf" ^ --add-data "resources/translations/\*.qm;translations"
+ +   pyinstaller -w src/jmbde/**main**.py ^ --hidden-import "socks" ^ --hidden-import "PIL" ^ --add-data "LICENSE;." ^ --add-data "conf/jmbde.conf;conf" ^ --add-data "conf/qtquickcontrols2.conf;conf" ^ --add-data "resources/translations/\*.qm;translations"
+     ^ --name "jmbde" ^ --icon "resources/icons/app.ico" ^ --version-file "building/Windows/jmbde.win.version" ^ --noupx
+- 
++
+     :: Remove useless libraries cd dist/jmbde del /F /S /Q Qt3D*QtBluetooth QtBodymovin QtCharts QtDataVisualization QtGamepad QtLocation QtMultimedia QtMultimediaQuick QtNfc QtPositioning QtPositioningQuick QtPurchasing QtQuick3D* QtQuickTest
+ diff --git a/docs/about/EUPL-1.2.md b/docs/about/EUPL-1.2.md
+ index 9209455..0847baa 100644
+ --- a/docs/about/EUPL-1.2.md
+ +++ b/docs/about/EUPL-1.2.md
+ @@ -52,21 +52,21 @@ Nothing in this Licence is intended to deprive the Licensee of the benefits from
+- 
++
+  The grant of the rights mentioned above is subject to some restrictions and obligations imposed on the Licensee. Those obligations are the following:
+- 
++
+ -__Attribution right:__ The Licensee shall keep intact all copyright, patent or trademarks notices and all notices that refer to the Licence and to the disclaimer of warranties. The Licensee must include a copy of such notices and a copy of the Licence
+ +**Attribution right:** The Licensee shall keep intact all copyright, patent or trademarks notices and all notices that refer to the Licence and to the disclaimer of warranties. The Licensee must include a copy of such notices and a copy of the Licence
+  with every copy of the Work he/she distributes or communicates. The Licensee must cause any Derivative Work to carry prominent notices stating that the Work has been modified and the date of modification.
+- 
++
+ -__Copyleft clause:__ If the Licensee distributes or communicates copies of the Original Works or Derivative Works, this Distribution or Communication will be done under the terms of this Licence or of a later version of this Licence unless the Original
+ +**Copyleft clause:** If the Licensee distributes or communicates copies of the Original Works or Derivative Works, this Distribution or Communication will be done under the terms of this Licence or of a later version of this Licence unless the Original
+  Work is expressly distributed only under this version of the Licence — for example by communicating ‘EUPL v. 1.2 only’. The Licensee (becoming Licensor) cannot offer or impose any additional terms or conditions on the Work or Derivative Work that alter or
+  restrict the terms of the Licence.
+- 
++
+ -__Compatibility clause:__ If the Licensee Distributes or Communicates Derivative Works or copies thereof based upon both the Work and another work licensed under a Compatible Licence, this Distribution or Communication can be done under the terms of this
+ +**Compatibility clause:** If the Licensee Distributes or Communicates Derivative Works or copies thereof based upon both the Work and another work licensed under a Compatible Licence, this Distribution or Communication can be done under the terms of this
+  Compatible Licence. For the sake of this clause, ‘Compatible Licence’ refers to the licences listed in the appendix attached to this Licence. Should the Licensee's obligations under the Compatible Licence conflict with his/her obligations under this
+  Licence, the obligations of the Compatible Licence shall prevail.
+- 
++
+ -__Provision of Source Code:__ When distributing or communicating copies of the Work, the Licensee will provide a machine-readable copy of the Source Code or indicate a repository where this Source will be easily and freely available for as long as the
+ +**Provision of Source Code:** When distributing or communicating copies of the Work, the Licensee will provide a machine-readable copy of the Source Code or indicate a repository where this Source will be easily and freely available for as long as the
+  Licensee continues to distribute or communicate the Work.
+- 
++
+ -__Legal Protection:__ This Licence does not grant permission to use the trade names, trademarks, service marks, or names of the Licensor, except as required for reasonable and customary use in describing the origin of the Work and reproducing the content
+ +**Legal Protection:** This Licence does not grant permission to use the trade names, trademarks, service marks, or names of the Licensor, except as required for reasonable and customary use in describing the origin of the Work and reproducing the content
+  of the copyright notice.
+- 
++
+  ## 6.Chain of Authorship
+ diff --git a/docs/community/code_of_conduct.md b/docs/community/code_of_conduct.md
+ index 2859651..6e5031b 100644
+ --- a/docs/community/code_of_conduct.md
+ +++ b/docs/community/code_of_conduct.md
+ @@ -49,29 +49,29 @@ Community leaders will follow these Community Impact Guidelines in determining t
+- 
++
+  ### 1. Correction
+- 
++
+ -__Community Impact__: Use of inappropriate language or other behavior deemed unprofessional or unwelcome in the community.
+ +**Community Impact**: Use of inappropriate language or other behavior deemed unprofessional or unwelcome in the community.
+- 
++
+ -__Consequence__: A private, written warning from community leaders, providing clarity around the nature of the violation and an explanation of why the behavior was inappropriate. A public apology may be requested.
+ +**Consequence**: A private, written warning from community leaders, providing clarity around the nature of the violation and an explanation of why the behavior was inappropriate. A public apology may be requested.
+- 
++
+  ### 2. Warning
+- 
++
+ -__Community Impact__: A violation through a single incident or series of actions.
+ +**Community Impact**: A violation through a single incident or series of actions.
+- 
++
+ -__Consequence__: A warning with consequences for continued behavior. No interaction with the people involved, including unsolicited interaction with those enforcing the Code of Conduct, for a specified period of time. This includes avoiding interactions
+ +**Consequence**: A warning with consequences for continued behavior. No interaction with the people involved, including unsolicited interaction with those enforcing the Code of Conduct, for a specified period of time. This includes avoiding interactions
+  in community spaces as well as external channels like social media. Violating these terms may lead to a temporary or permanent ban.
+- 
++
+  ### 3. Temporary Ban
+- 
++
+ -__Community Impact__: A serious violation of community standards, including sustained inappropriate behavior.
+ +**Community Impact**: A serious violation of community standards, including sustained inappropriate behavior.
+- 
++
+ -__Consequence__: A temporary ban from any sort of interaction or public communication with the community for a specified period of time. No public or private interaction with the people involved, including unsolicited interaction with those enforcing the
+ +**Consequence**: A temporary ban from any sort of interaction or public communication with the community for a specified period of time. No public or private interaction with the people involved, including unsolicited interaction with those enforcing the
+  Code of Conduct, is allowed during this period. Violating these terms may lead to a permanent ban.
+- 
++
+  ### 4. Permanent Ban
+- 
++
+ -__Community Impact__: Demonstrating a pattern of violation of community standards, including sustained inappropriate behavior, harassment of an individual, or aggression toward or disparagement of classes of individuals.
+ +**Community Impact**: Demonstrating a pattern of violation of community standards, including sustained inappropriate behavior, harassment of an individual, or aggression toward or disparagement of classes of individuals.
+- 
++
+ -__Consequence__: A permanent ban from any sort of public interaction within the community.
+ +**Consequence**: A permanent ban from any sort of public interaction within the community.
+- 
++
+  ## Attribution
+- 
++
+ diff --git a/docs/developer/changelog.md b/docs/developer/changelog.md
+ index b9a7556..cd93e5a 100644
+ --- a/docs/developer/changelog.md
+ +++ b/docs/developer/changelog.md
+ @@ -8,10 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+- 
++
+  ## Unreleased
+- 
++
+ -___Changed:___
+ +**_Changed:_**
+- 
++
+ -___Added:___
+ +**_Added:_**
+- 
++
+ -___Fixed:___
+ +**_Fixed:_**
+- 
++
+  ## [0.0.1](https://github.com/jmuelbert/jmbde-python/releases/tag/jmbde-python-v0.0.1) - 2024-03-12 ## {: #jmbde-python-v0.0.1}
+ diff --git a/docs/developer/overview.md b/docs/developer/overview.md
+ index 29cbda8..c60f07a 100644
+ --- a/docs/developer/overview.md
+ +++ b/docs/developer/overview.md
+ @@ -4,6 +4,6 @@
+- 
++
+  Auto-generates reference documentation for the following components:
+- 
++
+ -- __[Core](./core.md)__
+ -- __[CLI](./cli.md)__
+ -- __[Config](./configuration.md)__
+@@ -5011,7 +5014,7 @@ index 74efa89..374a458 100644
+ +++ b/docs/index.md
+ @@ -4,7 +4,7 @@
+  ![jmbde-python Logo](assets/images/logo.svg){ role="img" }
+- 
++
+  |         |                                                                                                                                                                                                                                                  |
+ -|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+ +| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+@@ -5019,17 +5022,17 @@ index 74efa89..374a458 100644
+  | Docs    | [![Docs][docs-badge]{ loading=lazy .off-glb }][docs-wf-url]                                                                                                                                                                                      |
+  | Package | [![PyPI - Version][pypi-version-badge]{ loading=lazy .off-glb }][pypi-version-url] [![PyPI - Downloads][pypi-downloads-badge]{ loading=lazy .off-glb }][pypi-downloads-url] [![PyPI - Python Version][python-version-badge]][python-version-url] |
+ @@ -18,7 +18,7 @@ jmbde-python is a tool to check the availability of a website or ntp-server.
+- 
++
+  <div class="grid cards" Markdown>
+- 
++
+ -- ## :material-hammer-wrench:{ .lg .middle } __Build system__
+ +- ## :material-hammer-wrench:{ .lg .middle } **Build system**
+- 
++
+    Reproducible builds by default with a rich ecosystem of plugins
+- 
++
+ @@ -35,7 +35,7 @@ jmbde-python is distributed under the terms of the [European Public License V1.2
+  Documentation for specific `MAJOR.MINOR` versions can be chosen by using the dropdown on the top of every page. The `dev` version reflects changes that have not yet been released.
+- 
++
+  | Keys                                                         | Action                          |
+ -|--------------------------------------------------------------|---------------------------------|
+ +| ------------------------------------------------------------ | ------------------------------- |
+@@ -5043,13 +5046,13 @@ index 3f256ca..d456adb 100755
+ @@ -15,9 +15,9 @@
+  #
+  """The qt ui builder."""
+- 
++
+ +from glob import glob
+  import os
+  import shutil
+ -from glob import glob
+  from subprocess import Popen
+- 
++
+  package = "jmbde"
+ diff --git a/src/jmbde/__main.py b/src/jmbde/__main.py
+ index f73ebb3..87a3ddf 100644
+@@ -5057,13 +5060,13 @@ index f73ebb3..87a3ddf 100644
+ +++ b/src/jmbde/__main.py
+ @@ -14,20 +14,21 @@ the Free Software Foundation, either version 3 of the License, or
+  """
+- 
++
+  import logging
+ -import sys
+  from pathlib import Path
+ +import sys
+  from typing import Optional
+- 
++
+  import click
+ +from PySide6.QtCore import QCoreApplication
+ +from PySide6.QtGui import QGuiApplication, QIcon
+@@ -5078,7 +5081,7 @@ index f73ebb3..87a3ddf 100644
+ -from PySide6.QtCore import QCoreApplication
+ -from PySide6.QtGui import QGuiApplication, QIcon
+ -from PySide6.QtQml import QQmlApplicationEngine
+- 
++
+  # Initialize logging
+  logger = logging.getLogger(__name__)
+ diff --git a/src/jmbde/core/database.py b/src/jmbde/core/database.py
+@@ -5088,7 +5091,7 @@ index 813beb4..f770184 100644
+ @@ -9,16 +9,17 @@ Copyright (C) 2018-2024 Jürgen Mülbert
+  License: GPL-3.0
+  """
+- 
++
+ -import logging
+ -import sqlite3
+  from contextlib import contextmanager
+@@ -5097,13 +5100,13 @@ index 813beb4..f770184 100644
+  from pathlib import Path
+ +import sqlite3
+  from typing import Any, Optional, Union
+- 
++
+ +from pydantic import BaseModel
+ +
+  from jmbde.core.config import Config
+  from jmbde.utils.exceptions import DatabaseError
+ -from pydantic import BaseModel
+- 
++
+  # Initialize logger
+  logger = logging.getLogger(__name__)
+ diff --git a/src/jmbde/core/settings.py b/src/jmbde/core/settings.py
+@@ -5113,16 +5116,16 @@ index 1691c8b..4ffda9e 100644
+ @@ -14,10 +14,11 @@ import logging
+  from pathlib import Path
+  from typing import Any, Optional
+- 
++
+ -from jmbde.utils.exceptions import ConfigurationError
+  from pydantic import BaseModel, Field, ValidationError
+  from PySide6.QtCore import Property, QObject, Signal, Slot
+- 
++
+ +from jmbde.utils.exceptions import ConfigurationError
+ +
+  # Initialize logger
+  logger = logging.getLogger(__name__)
+- 
++
+ diff --git a/src/jmbde/gui/employee_model.py b/src/jmbde/gui/employee_model.py
+ index bf9917f..948fccb 100644
+ --- a/src/jmbde/gui/employee_model.py
+@@ -5130,7 +5133,7 @@ index bf9917f..948fccb 100644
+ @@ -12,8 +12,6 @@ License: GPL-3.0
+  import logging
+  from typing import Any, Optional
+- 
++
+ -from jmbde.core.database import Database, DatabaseError
+ -from jmbde.utils.exceptions import ModelError
+  from PySide6.QtCore import (
+@@ -5139,13 +5142,13 @@ index bf9917f..948fccb 100644
+ @@ -24,6 +22,9 @@ from PySide6.QtCore import (
+      Slot,
+  )
+- 
++
+ +from jmbde.core.database import Database, DatabaseError
+ +from jmbde.utils.exceptions import ModelError
+ +
+  # Initialize logger
+  logger = logging.getLogger(__name__)
+- 
++
+ diff --git a/src/jmbde/gui/main_app.py b/src/jmbde/gui/main_app.py
+ index dcc3202..907ddb1 100644
+ --- a/src/jmbde/gui/main_app.py
+@@ -5153,12 +5156,12 @@ index dcc3202..907ddb1 100644
+ @@ -9,16 +9,17 @@ Copyright (C) 2018-2024 Jürgen Mülbert
+  License: GPL-3.0
+  """
+- 
++
+ -import logging
+  from datetime import datetime
+ +import logging
+  from typing import Any, Optional
+- 
++
+ +from PySide6.QtCore import QObject, Signal, Slot
+ +
+  from jmbde.core.database import Database
+@@ -5167,7 +5170,7 @@ index dcc3202..907ddb1 100644
+  from jmbde.utils.exceptions import ApplicationError
+  from jmbde.utils.validators import validate_email, validate_phone
+ -from PySide6.QtCore import QObject, Signal, Slot
+- 
++
+  # Initialize logger
+  logger = logging.getLogger(__name__)
+ diff --git a/tests/test_main.py b/tests/test_main.py
+@@ -5177,14 +5180,14 @@ index 808af1e..17678a5 100644
+ @@ -6,8 +6,9 @@
+  #
+  """Tests for `jmbde_python` package."""
+- 
++
+ -import pytest
+  from click.testing import CliRunner
+ +import pytest
+ +
+  from jmbde import __main__
+- 
+- 
++
++
+ diff --git a/tests/unit/test_database.py b/tests/unit/test_database.py
+ index c4e8f20..e5480d5 100644
+ --- a/tests/unit/test_database.py
+@@ -5193,8 +5196,8 @@ index c4e8f20..e5480d5 100644
+ -import pytest
+  from database import Database
+ +import pytest
+- 
+- 
++
++
+  @pytest.fixture
+ diff --git a/tests/unit/test_employee_model.py b/tests/unit/test_employee_model.py
+ index 967bb56..974ba69 100644
+@@ -5202,10 +5205,10 @@ index 967bb56..974ba69 100644
+ +++ b/tests/unit/test_employee_model.py
+ @@ -1,6 +1,7 @@
+  from unittest.mock import Mock
+- 
++
+  import pytest
+ +
+  from main import EmployeeModel
+- 
+- 
++
++
+ ```
