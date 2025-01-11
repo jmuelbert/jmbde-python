@@ -93,7 +93,7 @@
 
    pyside2-rcc resources/resources.qrc -o src/jmbde/resource.py
 
-   pyinstaller -w src/jmbde/__main__.py ^ --hidden-import "socks" ^ --hidden-import "PIL" ^ --add-data "LICENSE;." ^ --add-data "conf/jmbde.conf;conf" ^ --add-data "conf/qtquickcontrols2.conf;conf" ^ --add-data "resources/translations/\*.qm;translations"
+   pyinstaller -w src/jmbde/**main**.py ^ --hidden-import "socks" ^ --hidden-import "PIL" ^ --add-data "LICENSE;." ^ --add-data "conf/jmbde.conf;conf" ^ --add-data "conf/qtquickcontrols2.conf;conf" ^ --add-data "resources/translations/\*.qm;translations"
    ^ --name "jmbde" ^ --icon "resources/icons/app.ico" ^ --version-file "building/Windows/jmbde.win.version" ^ --noupx
 
    :: Remove useless libraries cd dist/jmbde del /F /S /Q Qt3D*QtBluetooth QtBodymovin QtCharts QtDataVisualization QtGamepad QtLocation QtMultimedia QtMultimediaQuick QtNfc QtPositioning QtPositioningQuick QtPurchasing QtQuick3D* QtQuickTest

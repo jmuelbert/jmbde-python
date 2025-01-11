@@ -1,5 +1,5 @@
-import pytest
 from database import Database
+import pytest
 
 
 @pytest.fixture

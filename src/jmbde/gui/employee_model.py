@@ -12,8 +12,6 @@ License: GPL-3.0
 import logging
 from typing import Any, Optional
 
-from jmbde.core.database import Database, DatabaseError
-from jmbde.utils.exceptions import ModelError
 from PySide6.QtCore import (
     Property,
     QAbstractListModel,
@@ -23,6 +21,9 @@ from PySide6.QtCore import (
     Signal,
     Slot,
 )
+
+from jmbde.core.database import Database, DatabaseError
+from jmbde.utils.exceptions import ModelError
 
 # Initialize logger
 logger = logging.getLogger(__name__)

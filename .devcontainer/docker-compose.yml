@@ -25,7 +25,7 @@
 # Use `docker-compose exec db pg_dump -U postgres -d postgres > dump.sql` to dump the database.
 # Use `docker-compose exec db psql -U postgres -d postgres < dump.sql` to restore the database.
 
-version: "3.8"
+version: '3.8'
 
 services:
   app:
@@ -46,9 +46,9 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.5" # Limit to 50% of one CPU core
+          cpus: '0.5' # Limit to 50% of one CPU core
         reservations:
-          cpus: "0.25" # Reserve 25% of one CPU core
+          cpus: '0.25' # Reserve 25% of one CPU core
 
   db:
     image: postgres:14 # Use a specific version for stability
@@ -67,13 +67,13 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "1.0" # Limit to 100% of one CPU core
+          cpus: '1.0' # Limit to 100% of one CPU core
         reservations:
-          cpus: "0.5" # Reserve 50% of one CPU core
+          cpus: '0.5' # Reserve 50% of one CPU core
 
     # Health check configuration
     healthcheck:
-      test: [CMD-SHELL, "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      test: [CMD-SHELL, 'pg_isready -U ${POSTGRES_USER:-postgres}']
       interval: 30s
       timeout: 10s
       retries: 5

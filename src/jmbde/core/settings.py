@@ -14,9 +14,10 @@ import logging
 from pathlib import Path
 from typing import Any, Optional
 
-from jmbde.utils.exceptions import ConfigurationError
 from pydantic import BaseModel, Field, ValidationError
 from PySide6.QtCore import Property, QObject, Signal, Slot
+
+from jmbde.utils.exceptions import ConfigurationError
 
 # Initialize logger
 logger = logging.getLogger(__name__)

@@ -14,20 +14,21 @@ the Free Software Foundation, either version 3 of the License, or
 """
 
 import logging
-import sys
 from pathlib import Path
+import sys
 from typing import Optional
 
 import click
+from PySide6.QtCore import QCoreApplication
+from PySide6.QtGui import QGuiApplication, QIcon
+from PySide6.QtQml import QQmlApplicationEngine
+
 from jmbde.core.database import Database, DatabaseError
 from jmbde.core.settings import Settings
 from jmbde.gui.employee_model import EmployeeModel
 from jmbde.gui.main_app import MainApp
 from jmbde.utils.exceptions import ApplicationError
 from jmbde.utils.logger import setup_logging
-from PySide6.QtCore import QCoreApplication
-from PySide6.QtGui import QGuiApplication, QIcon
-from PySide6.QtQml import QQmlApplicationEngine
 
 # Initialize logging
 logger = logging.getLogger(__name__)

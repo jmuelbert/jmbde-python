@@ -9,16 +9,17 @@ Copyright (C) 2018-2024 Jürgen Mülbert
 License: GPL-3.0
 """
 
-import logging
-import sqlite3
 from contextlib import contextmanager
 from datetime import datetime
+import logging
 from pathlib import Path
+import sqlite3
 from typing import Any, Optional, Union
+
+from pydantic import BaseModel
 
 from jmbde.core.config import Config
 from jmbde.utils.exceptions import DatabaseError
-from pydantic import BaseModel
 
 # Initialize logger
 logger = logging.getLogger(__name__)
