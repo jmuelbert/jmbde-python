@@ -1,7 +1,7 @@
 {
   "default": true,
   "line-length": {
-    "line_length": 100,
+    "line_length": 255,
     "tables": false
   },
   "ul-indent": {

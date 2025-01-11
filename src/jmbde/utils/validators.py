@@ -8,7 +8,7 @@ def validate_email(email: str) -> bool:
     ----
         email: Email address to validate
 
-    Returns:
+    Returns
     -------
         bool: True if email is valid
 
@@ -24,7 +24,7 @@ def validate_phone(phone: str) -> bool:
     ----
         phone: Phone number to validate
 
-    Returns:
+    Returns
     -------
         bool: True if phone number is valid
 

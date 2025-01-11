@@ -28,14 +28,11 @@ jmbde-python is a tool to check the availability of a website or ntp-server.
 
 ## License
 
-jmbde-python is distributed under the terms of the [European Public License
-V1.2][license].
+jmbde-python is distributed under the terms of the [European Public License V1.2][license].
 
 ## Navigation
 
-Documentation for specific `MAJOR.MINOR` versions can be chosen by using the
-dropdown on the top of every page. The `dev` version reflects changes that have
-not yet been released.
+Documentation for specific `MAJOR.MINOR` versions can be chosen by using the dropdown on the top of every page. The `dev` version reflects changes that have not yet been released.
 
 | Keys                                                         | Action                          |
 |--------------------------------------------------------------|---------------------------------|

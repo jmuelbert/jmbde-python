@@ -29,21 +29,23 @@ DISABLE_LINTERS:
   # - SPELL_PROSELINT
   # - SPELL_MISSPELL
   # - SPELL_VALE
+  - SQL_TSQLLINT
 DISABLE_ERRORS_LINTERS:
   # - PYTHON_BANDIT
   - REPOSITORY_DEVSKIM
-  - REPOSITORY_GRYPE
-  - REPOSITORY_SEMGREP
+  # - REPOSITORY_GRYPE
+  # - REPOSITORY_SEMGREP
   - REPOSITORY_TRUFFLEHOG
-  - SPELL_LYCHEE
+  # - SPELL_LYCHEE
 PRINT_ALL_FILES: false
-FILTER_REGEX_EXCLUDE: '(\.automation/test|\.automation/generated|\.venv|ocs/overridesflavors|clj-kondo|TEMPLATES)'
+FILTER_REGEX_EXCLUDE: '(\.venv|pnpm-lock\.yaml)'
 # JSON-Linter
 JSON_JSONLINT_FILTER_REGEX_EXCLUDE: (\.vscode/|\.devcontainer/devcontainer.json)
-JSON_V8R_FILTER_REGEX_EXCLUDE: (\.devskim.json|\.secretlintrc.json|\.devcontainer/devcontainer.json|\.vscode/|\.github/linters/valestyles/)
+JSON_V8R_FILTER_REGEX_EXCLUDE: (\.secretlintrc.json|\.devcontainer/devcontainer.json|\.vscode/|\.github/linters/valestyles/)
 # YAML
 YAML_FILTER_REGEX_EXCLUDE: (\.github/linters/valestyles/)
-YAML_V8R_FILTER_REGEX_EXCLUDE: (\.hound\.yml|\.goodcheck\.yml|\.grype\.yaml|\.github/invite-contributors\.yml|\.checkov\.yml|\.devcontainer/docker-compose\.yml|\.github/dependency-review-config\.yml|\.github/release-drafter\.yml|\.github/linters/valestyles/)
+# TODO: #1181 Prettier, MkDocs and Github Labeler has more schema in the Schema Store Y8RR can't handle this
+YAML_V8R_FILTER_REGEX_EXCLUDE: (\.grype\.yaml|\.hound\.yml|\.github/invite-contributors\.yml|\.checkov\.yml|\.devcontainer/docker-compose\.yml|\.github/dependency-review-config\.yml|\.github/release-drafter\.yml|\.github/linters/valestyles/)
 # BASH
 BASH_FILTER_REGEX_EXCLUDE: "(lib)"
 # Markdown
@@ -72,9 +74,7 @@ EMAIL_REPORTER: false
 FILEIO_REPORTER: false
 JSON_REPORTER: true
 GITHUB_STATUS_REPORTER: false
-PLUGINS:
-  - https://raw.githubusercontent.com/oxsecurity/megalinter/main/.automation/test/
 # Run npm install before linting
-PRE_COMMAND: |
-  echo "Installing dependencies from package.json..."
-  npm install
+PRE_COMMANDS:
+  - command: echo "Installing dependencies from package.json..."
+  - command: npm install

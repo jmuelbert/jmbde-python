@@ -1,3 +1,4 @@
+---
 # SPDX-License-Identifier: BSD-3-Clause
 # yamllint configuration file
 extends: default
@@ -6,6 +7,7 @@ extends: default
 ignore:
   - .cache/
   - .direnv/
+  - .venv/
   - .flatpak/
   - .flatpak/builder/
   - build*/
@@ -20,7 +22,7 @@ ignore:
 rules:
   # Formatting rules
   line-length:
-    max: 80 # Matches Prettier's printWidth for YAML
+    max: 120 # Matches Prettier's printWidth for YAML
     level: warning
   indentation:
     spaces: 2 # Consistent with editorconfig and Prettier
@@ -37,7 +39,7 @@ rules:
   # Quotation rules
   quoted-strings:
     required: only-when-needed # Avoid unnecessary quoting
-    extra-allowed: ['{|}', '|']
+    extra-allowed: ["{|}", "|"]
     level: warning
 
   # Key and value rules

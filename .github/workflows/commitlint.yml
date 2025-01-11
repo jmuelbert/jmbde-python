@@ -50,6 +50,7 @@ jobs:
       - name: 🔎 Lint Commits
         uses: wagoid/commitlint-github-action@7f0a61df502599e1f1f50880aaa7ec1e2c0592f2 # v6.0.1
         with:
+          config: .github/linters/commitlint.config.js
           helpURL: https://github.com/conventional-changelog/commitlint/#what-is-commitlint
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -70,8 +71,8 @@ jobs:
                 : '❌ Some commit messages do not follow the conventional commits standard.';
 
               // Ensure pull_request exists in the context payload
-              const pullRequest = context.payload.pull_request;
-              if (!pullRequest) {
+              const pull request = context.payload.pull_request;
+              if (!pull request) {
                 throw new Error('This workflow must be triggered by a pull request event.');
               }
 
@@ -79,7 +80,7 @@ jobs:
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                issue_number: pullRequest.number,
+                issue_number: pull request.number,
                 body: message
               });
 
@@ -88,4 +89,3 @@ jobs:
               console.error('Failed to add a comment:', error.message);
               core.setFailed(error.message); // Mark the step as failed
             }
-

@@ -1,12 +1,10 @@
 ---
-# SPDX-License-Identifier: BSD-3-Clause
+# # SPDX-License-Identifier: BSD-3-Clause
 # SPDX-FileCopyrightText: 2023 - present Jürgen Mülbert
+#
 # yaml-language-server: $schema=https://json.schemastore.org/prettierrc.json
-# Prettier configuration file
-
-# SPDX-License-Identifier: BSD-3-Clause
-# Prettier configuration file
-$schema: https://json.schemastore.org/prettierrc.json
+# $schema=https://json.schemastore.org/prettierrc.json
+#
 
 # General Prettier settings
 printWidth: 80 # Aligns with yamllint and markdownlint defaults
@@ -28,13 +26,14 @@ overrides:
   - files: "*.md"
     options:
       proseWrap: always # Enforce wrapping for Markdown readability
-      printWidth: 80
+      printWidth: 255
       tabWidth: 2
 
   # YAML files
-  - files: "*.yaml"
+  - files: ["*.yml", "*.yaml"]
     options:
       tabWidth: 2
+      printWidth: 120
       singleQuote: false # YAML prefers double quotes for compatibility
 
   # JSON files

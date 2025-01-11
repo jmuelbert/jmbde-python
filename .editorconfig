@@ -49,7 +49,7 @@ max_line_length = 80 # Matches Prettier's proseWrap default
 # YAML and TOML files
 [*.{yml,yaml,toml}]
 indent_size = 2
-max_line_length = 80
+max_line_length = 120
 
 [*.xml]
 indent_style = space
@@ -82,5 +82,3 @@ indent_size = 2
 # Special files
 [{package.json,package-lock.json}]
 indent_size = 2
-
-

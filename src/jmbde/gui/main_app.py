@@ -82,7 +82,7 @@ class MainApp(QObject):
             phone: Phone number
             department: Department name
 
-        Returns:
+        Returns
         -------
             bool: True if operation was successful
 
@@ -160,7 +160,7 @@ class MainApp(QObject):
             department: Updated department
             active: Employee status
 
-        Returns:
+        Returns
         -------
             bool: True if operation was successful
 
@@ -220,7 +220,7 @@ class MainApp(QObject):
         ----
             emp_id: Employee ID to delete
 
-        Returns:
+        Returns
         -------
             bool: True if operation was successful
 

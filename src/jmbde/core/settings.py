@@ -182,7 +182,7 @@ class Settings(QObject):
         ----
             key: Dot-notation path to setting (e.g., 'ui.font_size')
 
-        Returns:
+        Returns
         -------
             Setting value or None if not found
 

@@ -1,0 +1,61 @@
+---
+# List of patterns describing local files to validate
+# Resolved relative to the current working directory
+# Overridden by positional arguments when running the linter
+patterns:
+  - "*.json"
+  - "mkdocs.yml" # Added to ensure mkdocs.yml is validated
+
+# Verbose logging level: 0 = standard, higher numbers are more verbose
+# Overridden by --verbose / -v
+# Default = 0
+verbose: 2
+
+# Ignore errors and exit with code 0 unless validation completed successfully
+# Overrides --ignore-errors
+# Default = false
+ignoreErrors: false # Changed to false for stricter validation enforcement
+
+# Cached HTTP responses older than cacheTtl (in seconds) are removed
+# 0 disables caching entirely
+# Overridden by --cache-ttl
+# Default = 600
+cacheTtl: 86400 # 1 day cache for efficiency with remote schema lookups
+
+# Output format for validation results
+# Overridden by --format
+# Default = text
+format: "json" # JSON output for better integration with other tools
+
+# Custom schema catalog with prioritized schemas
+# These are searched ahead of default SchemaStore.org schemas
+customCatalog:
+  schemas:
+    # Schema for GeoJSON files
+    - name: Custom GeoJSON Schema
+      description: Validates GeoJSON files with a custom schema
+      fileMatch:
+        - "*.geojson"
+      location: "foo/bar/geojson-schema.json"
+      parser: "json5"
+
+    # Schema for .prettierrc.yaml
+    - name: Prettier Configuration Schema
+      description: Validates .prettierrc.yaml using Prettierrc 1.6 schema
+      fileMatch:
+        - ".prettierrc.yaml"
+      location: "https://json.schemastore.org/prettierrc.json"
+
+    # Schema for mkdocs.yml
+    - name: MkDocs Configuration Schema
+      description: Validates mkdocs.yml using the MkDocs 1.6 schema
+      fileMatch:
+        - "mkdocs.yml"
+      location: "https://json.schemastore.org/mkdocs-1.6.json"
+
+    # Schema for labeler.yml
+    - name: GitHub Labeler Configuration Schema
+      description: Validates labeler.yml using the GitHub  Pullrequest Labeler schema
+      fileMatch:
+        - ".github/labeler.yml"
+      location: "https://json.schemastore.org/pull-request-labeler.json"

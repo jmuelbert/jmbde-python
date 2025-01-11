@@ -167,5 +167,3 @@
             script: |
               const processingTime = Date.now() - new Date(context.payload.issue.created_at).getTime();
               console.log(`Processing time: ${processingTime}ms`);
-
-

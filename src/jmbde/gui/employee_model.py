@@ -78,7 +78,7 @@ class EmployeeModel(QAbstractListModel):
         ----
             parent: Parent model index (unused in list models)
 
-        Returns:
+        Returns
         -------
             Number of employees in the filtered dataset
 
@@ -93,7 +93,7 @@ class EmployeeModel(QAbstractListModel):
             index: Model index to get data for
             role: Data role to retrieve
 
-        Returns:
+        Returns
         -------
             Requested data or None if invalid
 
@@ -221,7 +221,7 @@ class EmployeeModel(QAbstractListModel):
             email: New email
             phone: New phone number
 
-        Returns:
+        Returns
         -------
             bool: True if update was successful
 
@@ -267,7 +267,7 @@ class EmployeeModel(QAbstractListModel):
             phone: Phone number
             department: Department name
 
-        Returns:
+        Returns
         -------
             bool: True if addition was successful
 
@@ -304,7 +304,7 @@ class EmployeeModel(QAbstractListModel):
         ----
             index: Row index to remove
 
-        Returns:
+        Returns
         -------
             bool: True if removal was successful
 

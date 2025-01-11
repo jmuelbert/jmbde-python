@@ -1,10 +1,8 @@
 # Contributing
 
-Thank you for being interested in contributing to jmbde-python. There are many
-ways you can contribute to the project:
+Thank you for being interested in contributing to jmbde-python. There are many ways you can contribute to the project:
 
-- Try jmbde-python and
-  [report bugs/issues you find](https://github.com/jmuelbert/jmbde-python/issues/new)
+- Try jmbde-python and [report bugs/issues you find](https://github.com/jmuelbert/jmbde-python/issues/new)
 - [Implement new features](https://github.com/jmuelbert/jmbde-python/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
 - [Review Pull Requests of others](https://github.com/jmuelbert/jmbde-python/pulls)
 - Write documentation
@@ -12,17 +10,12 @@ ways you can contribute to the project:
 
 ## Reporting Bugs or Other Issues
 
-Found something that jmbde-python should support? Stumbled upon some unexpected
-behavior?
+Found something that jmbde-python should support? Stumbled upon some unexpected behavior?
 
-Contributions should generally start out with
-[a discussion](https://github.com/jmuelbert/jmbde-python/discussions). Possible
-bugs may be raised as a "Potential Issue" discussion, feature requests may be
-raised as an "Ideas" discussion. We can then determine if the discussion needs
-to be escalated into an "Issue" or not, or if we'd consider a pull request.
+Contributions should generally start out with [a discussion](https://github.com/jmuelbert/jmbde-python/discussions). Possible bugs may be raised as a "Potential Issue" discussion, feature requests may be raised as an "Ideas" discussion. We can then
+determine if the discussion needs to be escalated into an "Issue" or not, or if we'd consider a pull request.
 
-Try to be more descriptive as you can and in case of a bug report, provide as
-much information as possible like:
+Try to be more descriptive as you can and in case of a bug report, provide as much information as possible like:
 
 - OS platform
 - Python version
@@ -30,8 +23,7 @@ much information as possible like:
 - Code snippet
 - Error traceback
 
-You should always try to reduce any examples to the _simplest possible case_
-that demonstrates the issue.
+You should always try to reduce any examples to the _simplest possible case_ that demonstrates the issue.
 
 The usual process to make a contribution is to:
 
@@ -44,8 +36,7 @@ The usual process to make a contribution is to:
 
 ## Clone the repository
 
-Clone the `jmbde-python` repository, `cd` into it, and create a new branch for
-your contribution:
+Clone the `jmbde-python` repository, `cd` into it, and create a new branch for your contribution:
 
 ```bash
 cd jmbde-python

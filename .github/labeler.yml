@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: EUPL-1.2
 # SPDX-FileCopyrightText: 2024 Jürgen Mülbert <juergen.muelbert@outlook.de>
 # yaml-language-server: $schema=https://json.schemastore.org/pull-request-labeler.json
-
+# $schema=https://json.schemastore.org/pull-request-labeler.json
 # Configuration for labeling pull requests based on file changes
 
 project:

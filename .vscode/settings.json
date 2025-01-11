@@ -1,17 +1,6 @@
 {
-  "code-runner.executorMapByFileExtension": {
-    ".qml": "qml",
-    ".qrc": "qtcreator -client",
-    ".ui": "qtcreator -client"
-  },
   "files.associations": {
     "*.ts": "xml"
-  },
-
-  "yaml.schemas": {
-    "https://raw.githubusercontent.com/TingPing/flatpak-manifest-schema/master/flatpak-manifest.schema": [
-      "com.github.Desktop.yaml"
-    ]
   },
   "esbonio.server.enabled": true,
   "files.exclude": {
@@ -25,7 +14,5 @@
     "**/.factorypath": true,
     "**/.project": true,
     "**/.settings": true
-  },
-  "explorerExclude.backup": {},
-  "cSpell.words": ["JMBDE"]
+  }
 }

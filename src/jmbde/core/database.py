@@ -64,7 +64,7 @@ class Database:
         ----
             db_path: Path to SQLite database file
 
-        Raises:
+        Raises
         ------
             DatabaseError: If database initialization fails
 
@@ -162,11 +162,11 @@ class Database:
         ----
             employee: EmployeeModel instance containing employee data
 
-        Returns:
+        Returns
         -------
             int: ID of the newly created employee record
 
-        Raises:
+        Raises
         ------
             DatabaseError: If employee creation fails
 
@@ -204,7 +204,7 @@ class Database:
         ----
             employee_id: ID of the employee to retrieve
 
-        Returns:
+        Returns
         -------
             Optional[Dict]: Employee data or None if not found
 
@@ -235,7 +235,7 @@ class Database:
             active_only: If True, return only active employees
             department: Filter by department name
 
-        Returns:
+        Returns
         -------
             List[Dict]: List of employee records
 
@@ -269,11 +269,11 @@ class Database:
             employee_id: ID of the employee to update
             data: Dictionary containing fields to update
 
-        Returns:
+        Returns
         -------
             bool: True if update was successful
 
-        Raises:
+        Raises
         ------
             DatabaseError: If update fails
 
@@ -319,11 +319,11 @@ class Database:
         ----
             employee_id: ID of the employee to delete
 
-        Returns:
+        Returns
         -------
             bool: True if deletion was successful
 
-        Raises:
+        Raises
         ------
             DatabaseError: If deletion fails
 

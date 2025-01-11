@@ -31,7 +31,7 @@ benchmark/results/
 .envrc
 megalinter-reports
 LICENSES/
-resources/translations
+assets/translations
 
 # Files
 pnpm-lock.yaml
