@@ -1,10 +1,9 @@
----
 # SPDX-FileCopyrightText: Jürgen Mülbert
 # SPDX-License-Identifier: MIT
 
 name: Code Quality Checks
 
-on: # # yamlint disable-line rule:truthy
+on:
   push:
     branches:
       - main
@@ -36,8 +35,7 @@ on: # # yamlint disable-line rule:truthy
   workflow_dispatch:
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -76,12 +74,12 @@ jobs:
           check-latest: true
 
       - name: 📦 Setup Cache
-        uses: actions/cache@v4.2.0
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 #v4.2.0
         with:
           path: |
             ~/.cache/pre-commit
             ~/.cache/pip
-          key: ${{ runner.os }}-precommit-${{ hashFiles('.pre-commit-config.yaml') }}
+          key: ${{ runner.os }}-precommit-${{ hashFiles('.pre-commit-config.yaml', '.github/workflows/requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-precommit-
             ${{ runner.os }}-
@@ -89,14 +87,14 @@ jobs:
       - name: 🛠️ Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pre-commit hatch pyside6
+          pip install --require-hashes -r .github/workflows/requirements.txt
           pre-commit install-hooks
 
       - name: 🔍 Run Pre-commit Checks
         id: check
         run: |
           # Run pre-commit
-          pre-commit run --all-files --show-diff-on-failure | tee .pre-commit-output.txt
+          pre-commit run --all-files --show-diff-on-failure | tee pre-commit-output.txt
 
           # Check for changes
           if [ -n "$(git status --porcelain)" ]; then
@@ -114,11 +112,11 @@ jobs:
           echo "## 🔍 Code Quality Check Results" > quality_report.md
           echo "" >> quality_report.md
 
-          if [ -f ".pre-commit-output.txt" ]; then
+          if [ -f "pre-commit-output.txt" ]; then
             {
               echo "### Pre-commit Output"
               echo "\`\`\`"
-              cat .pre-commit-output.txt
+              cat pre-commit-output.txt
               echo "\`\`\`"
             } >> quality_report.md
           fi
@@ -132,9 +130,19 @@ jobs:
             } >> quality_report.md
           fi
 
+      - name: 📤 Upload Results
+        if: always()
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 #v4.3.4
+        with:
+          name: code-quality-results
+          path: |
+            quality_report.md
+            pre-commit-output.txt
+          retention-days: 7
+
       - name: 🔄 Create Fix PR
         if: steps.check.outputs.files-changed == 'true' && github.event_name == 'push'
-        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c  #v5.0.2
+        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c #v5.0.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: 'style: apply automatic code quality fixes'
@@ -160,37 +168,4 @@ jobs:
               repo: context.repo.repo,
               issue_number: context.payload.pull_request.number,
               body: report
-            });
-
-      - name: 📤 Upload Results
-        if: always()
-        uses: actions/upload-artifact@v4.3.4
-        with:
-          name: code-quality-results
-          path: |
-            quality_report.md
-            .pre-commit-output.txt
-          retention-days: 7
-
-  notify:
-    needs: pre-commit
-    if: always() && needs.pre-commit.outputs.files-changed == 'true'
-    runs-on: ubuntu-latest
-    steps:
-      - name: 📢 Notify Team
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
-        with:
-          script: |
-            const message = `## 🔍 Code Quality Issues Found
-
-            Code quality checks have identified issues that need attention.
-            Please review the [workflow results](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID})
-
-            Changes have been proposed in a new PR.`;
-
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              body: message
             });

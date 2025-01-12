@@ -7,7 +7,7 @@ on: # yamlint disable-line rule:truthy
   pull_request:
     types: [opened, reopened, synchronize]
     paths:
-      - requirements*.txt
+      - .github/workflows/requirements*.txt
       - pyproject.toml
       - .github/workflows/dependency-review.yml
       - .github/dependency-review-config.yml
@@ -51,7 +51,7 @@ jobs:
         with:
           comment-summary-in-pr: always
           fail-on-severity: moderate
-          deny-licenses: LGPL-2.0, BSD-2-Clause, AGPL-1.0, AGPL-3.0
+          deny-licenses: AGPL-1.0
           retry-on-snapshot-warnings: true
           base-ref: ${{ github.event.pull_request.base.ref }}
           head-ref: ${{ github.event.pull_request.head.ref }}

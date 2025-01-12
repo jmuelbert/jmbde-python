@@ -93,6 +93,12 @@ jobs:
           pip install hatch
           hatch env create
 
+      - name: 🛠️ Install Linux Dependencies (Ubuntu)
+        if: runner.os == 'Linux'
+        run: |
+            sudo apt-get update
+            sudo apt-get install -y libegl-mesa0
+
       - name: 🧪 Run Tests
         run: hatch run test:cov
 
@@ -116,6 +122,8 @@ jobs:
           flags: ${{ matrix.os }},python-${{ matrix.python-version }}
           fail_ci_if_error: true
           verbose: true
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV }}
 
       - name: 📦 Upload Test Results
         if: always()

@@ -210,9 +210,7 @@ extend-exclude = '''
 \.ipynb_checkpoints$|^/\.env|^/\.git|^/\.nox|^/\.pytest_cache|^/\.tox
 '''
 
-
-
-[tool.isort]
+[tool.lint.isort]
 profile = "black"
 line_length = 88
 
@@ -238,18 +236,19 @@ ignore = [
     "UP007",  # Suppress type annotation updates for older versions.
 ]
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 "tests/**/*.py" = ["S101", "FBT", "INP001", "D", "S603", "PLR2004"]
 "*.py" = ["Q000"] # Example: Ignore specific PyQt warnings
 
 # --- ruff plugins --------------------
-[tool.ruff.flake8-bugbear]
+[tool.ruff.lint.flake8-bugbear]
 extend-immutable-calls = [
 "chr",
 "typer.Argument",
 "typer.Option",
 ]
-[tool.ruff.isort]
+
+[tool.ruff.lint.isort]
 combine-as-imports = true
 # extra-standard-library = ["path"]
 forced-separate = ["scipy", "sklearn", "statsmodels", "ds_utils", "src"]
@@ -257,10 +256,13 @@ force-sort-within-sections = true
 force-wrap-aliases = true
 known-first-party = ["ds_utils", "src"]
 # known-local-folder = ["src"] # for relative imports
-[tool.ruff.mccabe]
+
+[tool.ruff.lint.mccabe]
 max-complexity = 18
-[tool.ruff.pep8-naming]
+
+[tool.ruff.lint.pep8-naming]
 ignore-names = []
+
 [tool.ruff.pydocstyle]
 convention = "numpy"
 
@@ -319,9 +321,17 @@ disable = [
     "C0330", # wrong-hanging-indentation
 ]
 
+[tool.cspell]
+files = ["**/*.py", "**/*.md", "**/*.yaml", "**/*.toml", "**/*.ini", "**/*.json"]
+dictionaries = ["en_US"]
+
 [tool.codespell]
 builtin = "clear,rare,informal,usage,code,names"
 write-changes = true
 count = true
 skip = "*.svg,pyproject.toml,LICENSE,LICENSES/*,.github/actions/*"
 ignore-words-list = "master"
+
+[tool.vale]
+StylesPath = "path/to/vale/styles"
+MinAlertLevel = "suggestion"

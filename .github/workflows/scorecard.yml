@@ -20,7 +20,10 @@ on: # yamllint disable-line rule:truthy
       - .github/*.md
 
   pull_request:
-    types: [opened, synchronize, reopened]
+    types:
+      - opened
+      - edited
+      - synchronize
     paths-ignore:
       - '**.md'
       - docs/**
@@ -45,7 +48,6 @@ jobs:
     permissions:
       security-events: write
       id-token: write
-      contents: read
       actions: read
       issues: write
 
@@ -139,8 +141,9 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const score = parseInt('${{ steps.scorecard.outputs.overall-score }}');
+            const score = parseInt(process.env.SECURITY_SCORE || '0', 10); // Default score to 0
             const labels = [];
+
             if (score >= 8) {
               labels.push('security: good');
             } else if (score >= 6) {
@@ -148,12 +151,22 @@ jobs:
             } else {
               labels.push('security: high-risk');
             }
+
+            const issue_number = context.issue.number;
+            if (!issue_number) {
+              throw new Error('No issue or pull request number found in context.');
+            }
+
             await github.rest.issues.addLabels({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: context.issue.number,
-              labels: labels
+              issue_number: issue_number,
+              labels: labels,
             });
+
+            console.log(`Labels added: ${labels.join(', ')}`);
+        env:
+          SECURITY_SCORE: ${{ secrets.SECURITY_SCORE }} # Example of passing a score dynamically
 
   notify:
     needs: analyze

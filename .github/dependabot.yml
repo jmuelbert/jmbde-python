@@ -74,6 +74,33 @@ updates:
         update-types: ['version-update:semver-major'] # yamlint disable-line
     versioning-strategy: lockfile-only
 
+  # Python Workflow Dependencies
+  - package-ecosystem: pip
+    directory: /.github/workflows
+    schedule:
+      interval: weekly
+    groups:
+      workflow-dependencies:
+        patterns:
+          - '*'
+    labels:
+      - dependencies
+      - python
+    commit-message:
+      prefix: chore(deps)
+      prefix-development: chore(deps-dev)
+      include: scope
+    open-pull-requests-limit: 5
+    pull-request-branch-name:
+      separator: /
+    rebase-strategy: auto
+    reviewers:
+      - jmuelbert
+    versioning-strategy: lockfile-only
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
+
   # Docker Dependencies
   - package-ecosystem: docker
     directory: /

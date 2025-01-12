@@ -5,16 +5,14 @@
 # yaml-lint: ignore line-length
 # yaml-language-server: schema=https://json.schemastore.org/mkdocs-1.6.json
 # $schema=https://json.schemastore.org/mkdocs-1.6.json
-#
 
-# Remove duplicate schema declaration
 site_name: JM BDE
-site_url: https://jmuelbert.github.io/jmbde-python/ # Fixed URL format
+site_url: https://jmuelbert.github.io/jmbde-python/
 site_description: JM BDE - Management of inventory and computer equipment
 site_author: Jürgen Mülbert
 repo_name: jmuelbert/jmbde-python
 repo_url: https://github.com/jmuelbert/jmbde-python
-edit_uri: edit/main/docs/ # Changed to edit instead of blob
+edit_uri: edit/main/docs/
 copyright: Copyright &copy; 2023-2024 Jürgen Mülbert
 
 docs_dir: docs
@@ -26,8 +24,8 @@ theme:
   language: en
   favicon: assets/images/logo.svg
   font:
-    text: Roboto
-    code: Fira Code # Changed to Fira Code for better code readability
+    text: Source Sans Pro
+    code: Fira Code
   icon:
     repo: fontawesome/brands/github
     logo: material/check-network-outline
@@ -68,46 +66,46 @@ theme:
 
 plugins:
   - search:
-    separator: '[\\s\\-,:!=\\[\\]()"/]+|(?!=[^=])'
-  - glightbox:
+      separator: '[\\s\\-,:!=\\[\\]()"/]+|(?!=[^=])'
+  - glightbox
   - minify:
-      - minify_html: true
-      - minify_js: true
-      - minify_css: true
+      minify_html: true
+      minify_js: true
+      minify_css: true
   - mike:
-      - alias_type: copy
-      - canonical_version: latest
+      alias_type: copy
+      canonical_version: latest
   - mkdocstrings:
-      - default_handler: python
-      - handlers:
-          - python:
-              - paths: [src]
-      - options:
-          - show_root_heading: true
-          - show_root_full_path: false
-          - show_if_no_docstring: true
-          - show_signature_annotations: true
-          - show_bases: false
-          - docstring_style: google
-          - docstring_section_style: table
+      default_handler: python
+      handlers:
+        python:
+          paths: [src]
+          options:
+            show_root_heading: true
+            show_root_full_path: false
+            show_if_no_docstring: true
+            show_signature_annotations: true
+            show_bases: false
+            docstring_style: google
+            docstring_section_style: table
   - i18n:
-      - docs_structure: suffix
-      - fallback_to_default: true
-      - reconfigure_material: true
-      - reconfigure_search: true
-      - languages:
-          - locale: en
-            default: true
-            name: English
-            build: true
-            site_name: JM BDE Documentation
-          - locale: de
-            name: Deutsch
-            build: true
-            site_name: JM BDE Dokumentation
-  - mermaid2:
+      docs_structure: suffix
+      fallback_to_default: true
+      reconfigure_material: true
+      reconfigure_search: true
+      languages:
+        - locale: en
+          default: true
+          name: English
+          build: true
+          site_name: JM BDE Documentation
+        - locale: de
+          name: Deutsch
+          build: true
+          site_name: JM BDE Dokumentation
+  - mermaid2
   - git-revision-date-localized:
-      - type: datetime
-      - timezone: Europe/Berlin
-      - enable_creation_date: true
-      - fallback_to_build_date: true
+      type: datetime
+      timezone: Europe/Berlin
+      enable_creation_date: true
+      fallback_to_build_date: true

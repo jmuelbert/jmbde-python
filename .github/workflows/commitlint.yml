@@ -71,8 +71,8 @@ jobs:
                 : '❌ Some commit messages do not follow the conventional commits standard.';
 
               // Ensure pull_request exists in the context payload
-              const pull request = context.payload.pull_request;
-              if (!pull request) {
+              const pull_request = context.payload.pull_request; // Fixed variable name
+              if (!pull_request) {
                 throw new Error('This workflow must be triggered by a pull request event.');
               }
 
@@ -80,8 +80,8 @@ jobs:
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                issue_number: pull request.number,
-                body: message
+                issue_number: pull_request.number,
+                body: message,
               });
 
               console.log('Comment added successfully.');

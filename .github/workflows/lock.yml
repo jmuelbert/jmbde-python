@@ -88,8 +88,6 @@ jobs:
             keep-unlocked
             security
             dependencies
-          exclude-created-by-bots: true
-          exclude-assigned: false
           add-issue-labels: 'status: locked'
           add-pr-labels: 'status: locked'
 

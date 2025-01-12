@@ -1,0 +1,6 @@
+pip==24.3.1 --hash=sha256:<pip_hash>
+pre-commit==4.0.1 --hash=sha256:<pre_commit_hash>
+hatch==1.14.0 --hash=sha256:<hatch_hash>
+hatchling==1.27.0 --hash=sha256:<hatchling_hash>
+pyside6==6.8.1.1 --hash=sha256:<pyside6_hash>
+wheel==0.45.1 --hash=sha256:<wheel_hash>

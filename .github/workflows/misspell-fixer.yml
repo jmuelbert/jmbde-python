@@ -10,7 +10,6 @@ on: # yamllint disable-line rule:truthy
       - main
       - develop
       - release/**
-      - resolve-**
     paths-ignore:
       - '**/*.svg'
       - '**/*.png'
