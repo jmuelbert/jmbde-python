@@ -102,7 +102,7 @@ jobs:
       - name: 🔍 Run REUSE Check
         id: check
         run: |
-
+          set +x
           # Run initial check
           reuse lint > reuse-report.txt
 
