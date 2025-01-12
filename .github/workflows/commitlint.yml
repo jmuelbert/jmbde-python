@@ -61,7 +61,7 @@ jobs:
         with:
           script: |
             try {
-              const conclusion = process.env.JOB_STATUS; // Pass job status as an environment variable
+              const conclusion = context.job.status; // Use the job.status context variable
               if (!['success', 'failure'].includes(conclusion)) {
                 throw new Error('Invalid job status provided.');
               }
@@ -71,7 +71,7 @@ jobs:
                 : '❌ Some commit messages do not follow the conventional commits standard.';
 
               // Ensure pull_request exists in the context payload
-              const pull_request = context.payload.pull_request; // Fixed variable name
+              const pull_request = context.payload.pull_request;
               if (!pull_request) {
                 throw new Error('This workflow must be triggered by a pull request event.');
               }
