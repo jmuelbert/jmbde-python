@@ -1,0 +1,7 @@
+version: 1.0
+checks:
+  - id: "CICD"
+    enabled: true
+  - id: "VULNERABILITIES"
+    enabled: true
+  # Add other checks as needed
