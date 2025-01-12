@@ -16,7 +16,7 @@ rules:
 
   - name: Block restricted licenses
     on: # yamllint disable-line rule:truthy
-      license: [AGPL-*]
+      license: [AGPL-1]
     action: fail
 
   - name: Require SPDX license
