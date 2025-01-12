@@ -1,7 +1,8 @@
 from unittest.mock import Mock
 
-from main import EmployeeModel
 import pytest
+
+from main import EmployeeModel
 
 
 @pytest.fixture

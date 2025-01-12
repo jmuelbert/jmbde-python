@@ -7,8 +7,9 @@
 """Tests for `jmbde_python` package."""
 
 from click.testing import CliRunner
-from jmbde import __main__
 import pytest
+
+from jmbde import __main__
 
 
 @pytest.fixture
