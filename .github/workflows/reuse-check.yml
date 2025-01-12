@@ -106,6 +106,14 @@ jobs:
           # Run initial check
           reuse lint > reuse-report.txt
 
+          # Check if the reuse lint command was successful
+          if [ $? -ne 0 ]; then
+            echo "Error: reuse lint command failed with exit code $?"
+            echo "status=failure" >> "$GITHUB_OUTPUT"
+            echo "issues=1" >> "$GITHUB_OUTPUT"
+            exit 1
+          fi
+
           # Process results
           if grep -q "not compliant" reuse-report.txt; then
             ISSUES=$(grep -c "not licensed" reuse-report.txt)
