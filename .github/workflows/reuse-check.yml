@@ -108,18 +108,18 @@ jobs:
 
           # Process results
           if grep -q "not compliant" reuse-report.txt; then
-            echo "status=failed" >> "$GITHUB_OUTPUT"
             ISSUES=$(grep -c "not licensed" reuse-report.txt)
-            echo "issues=${ISSUES}" >> "$GITHUB_OUTPUT"
+            echo "status=failure" >> "$GITHUB_OUTPUT"
+            echo "issues=$ISSUES" >> "$GITHUB_OUTPUT"
 
             # Generate detailed report
             echo "## 📋 License Compliance Issues" > compliance-report.md
             echo "" >> compliance-report.md
-            echo "Found ${ISSUES} files with licensing issues:" >> compliance-report.md
+            echo "Found $ISSUES files with licensing issues:" >> compliance-report.md
             echo "" >> compliance-report.md
-            echo "\`\`\`" >> compliance-report.md
+            echo "```" >> compliance-report.md
             cat reuse-report.txt >> compliance-report.md
-            echo "\`\`\`" >> compliance-report.md
+            echo "```" >> compliance-report.md
 
             # Add recommendations
             echo "" >> compliance-report.md
@@ -130,9 +130,6 @@ jobs:
           else
             echo "status=success" >> "$GITHUB_OUTPUT"
             echo "issues=0" >> "$GITHUB_OUTPUT"
-
-            echo "status=success" >> ./test_output.txt
-            echo "issues=0" >> ./test_output.txt
 
             echo "## ✅ License Compliance Check Passed" > compliance-report.md
             echo "" >> compliance-report.md
