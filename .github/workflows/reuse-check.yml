@@ -103,7 +103,7 @@ jobs:
         run: |
           set -x
           # Run initial check
-          reuse lint > reuse-report.txt
+          reuse lint > reuse-report.txt || true
 
           # Check if the reuse lint command was successful
           if [ $? -ne 0 ]; then
@@ -115,7 +115,7 @@ jobs:
 
           # Process results
           if grep -q "not compliant" reuse-report.txt; then
-            ISSUES=$(grep -c "not licensed" reuse-report.txt)
+            ISSUES=$(grep -c "not licensed" reuse-report.txt) || true
             echo "status=failure" >> "$GITHUB_OUTPUT"
             echo "issues=$ISSUES" >> "$GITHUB_OUTPUT"
 
@@ -124,9 +124,9 @@ jobs:
             echo "" >> compliance-report.md
             echo "Found $ISSUES files with licensing issues:" >> compliance-report.md
             echo "" >> compliance-report.md
-            echo "```" >> compliance-report.md
+            echo "\`\`\`" >> compliance-report.md
             cat reuse-report.txt >> compliance-report.md
-            echo "```" >> compliance-report.md
+            echo "\`\`\`" >> compliance-report.md
 
             # Add recommendations
             echo "" >> compliance-report.md
