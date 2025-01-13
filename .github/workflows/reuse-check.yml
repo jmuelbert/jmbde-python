@@ -121,26 +121,31 @@ jobs:
 
             # Generate detailed report
             echo "## 📋 License Compliance Issues" > compliance-report.md
-            echo "" >> compliance-report.md
-            echo "Found $ISSUES files with licensing issues:" >> compliance-report.md
-            echo "" >> compliance-report.md
-            echo "\`\`\`" >> compliance-report.md
+            {
+              echo ""
+              echo "Found $ISSUES files with licensing issues:"
+              echo ""
+              echo "\`\`\`"
+            } >> compliance-report.md
             cat reuse-report.txt >> compliance-report.md
             echo "\`\`\`" >> compliance-report.md
 
             # Add recommendations
-            echo "" >> compliance-report.md
-            echo "### 🔨 How to Fix" >> compliance-report.md
-            echo "1. Add SPDX headers to each file" >> compliance-report.md
-            echo "2. Use appropriate license identifiers" >> compliance-report.md
-            echo "3. Update dep5 file if needed" >> compliance-report.md
+            {
+              echo ""
+              echo "### 🔨 How to Fix"
+              echo "1. Add SPDX headers to each file"
+              echo "2. Use appropriate license identifiers"
+              echo "3. Update REUSE.toml file if needed"
+            } >> compliance-report.md
           else
             echo "status=success" >> "$GITHUB_OUTPUT"
             echo "issues=0" >> "$GITHUB_OUTPUT"
-
             echo "## ✅ License Compliance Check Passed" > compliance-report.md
-            echo "" >> compliance-report.md
-            echo "All files comply with REUSE specifications." >> compliance-report.md
+            {
+              echo ""
+              echo "All files comply with REUSE specifications."
+            } >> compliance-report.md
           fi
 
       - name: 📤 Upload Report
@@ -187,6 +192,9 @@ jobs:
     needs: reuse-check
     if: always()
     runs-on: ubuntu-latest
+
+    permissions:
+      issues: write
 
     steps:
       - name: 📢 Notify Team
