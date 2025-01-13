@@ -46,8 +46,6 @@ jobs:
     timeout-minutes: 30
 
     permissions:
-      security-events: write
-      id-token: write
       actions: read
       issues: write
 
@@ -135,38 +133,58 @@ jobs:
             .github/scorecard-policy.yml
           retention-days: 30
 
+      - name: 🏷️ Ensure Labels Exist
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            const labels = ['security: good', 'security: needs-improvement', 'security: high-risk'];
+            for (const label of labels) {
+              try {
+                await github.rest.issues.createLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  name: label,
+                  color: 'ededed', // Replace with your desired color
+                });
+              } catch (error) {
+                if (error.status !== 422) {
+                  throw error;
+                }
+              }
+            }
+
       - name: 🏷️ Update PR Labels
         if: github.event_name == 'pull_request'
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const score = parseInt(process.env.SECURITY_SCORE || '0', 10); // Default score to 0
-            const labels = [];
+            script: |
+              const score = parseInt(process.env.SECURITY_SCORE || '0', 10);
+              const labels = [];
 
-            if (score >= 8) {
-              labels.push('security: good');
-            } else if (score >= 6) {
-              labels.push('security: needs-improvement');
-            } else {
-              labels.push('security: high-risk');
-            }
+              if (score >= 8) {
+                labels.push('security: good');
+              } else if (score >= 6) {
+                labels.push('security: needs-improvement');
+              } else {
+                labels.push('security: high-risk');
+              }
 
-            const issue_number = context.issue.number;
-            if (!issue_number) {
-              throw new Error('No issue or pull request number found in context.');
-            }
+              const issue_number = context.payload.pull_request.number;
+              if (!issue_number) {
+                throw new Error('No pull request number found in context.');
+              }
 
-            await github.rest.issues.addLabels({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: issue_number,
-              labels: labels,
-            });
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue_number,
+                labels: labels,
+              });
 
-            console.log(`Labels added: ${labels.join(', ')}`);
-        env:
-          SECURITY_SCORE: ${{ secrets.SECURITY_SCORE }} # Example of passing a score dynamically
+              console.log(`Labels added: ${labels.join(', ')}`);
+                  env:
+                    SECURITY_SCORE: ${{ secrets.SECURITY_SCORE }} # Example of passing a score dynamically
 
   notify:
     needs: analyze
