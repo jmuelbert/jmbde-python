@@ -7,7 +7,7 @@ name: Lint Commit Messages
 
 on: # yamllint disable-line rule:truthy
   pull_request:
-    types: [opened, synchronize, reopened, edited]
+    types: [opened, reopened, synchronize]
     paths-ignore:
       - '**.md'
       - docs/**
@@ -50,33 +50,36 @@ jobs:
       - name: 🔎 Lint Commits
         uses: wagoid/commitlint-github-action@7f0a61df502599e1f1f50880aaa7ec1e2c0592f2 # v6.0.1
         with:
-          config: .github/linters/commitlint.config.js
+          # configFile: .github/linters/commitlint.config.js
           helpURL: https://github.com/conventional-changelog/commitlint/#what-is-commitlint
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 📊 Report Status
         if: always()
+        env:
+          JOB_STATUS: ${{ job.status }}
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
             try {
-              const conclusion = context.job.status; // Use the job.status context variable
-              if (!['success', 'failure'].includes(conclusion)) {
-                throw new Error('Invalid job status provided.');
+              const conclusion = process.env.JOB_STATUS || '';
+              if (!['success', 'failure', 'cancelled', 'skipped'].includes(conclusion)) {
+                throw new Error(`Invalid job status provided: ${conclusion}`);
               }
 
-              const message = conclusion === 'success'
-                ? '✅ All commit messages follow the conventional commits standard.'
-                : '❌ Some commit messages do not follow the conventional commits standard.';
+              const message = {
+                success: '✅ All commit messages follow the conventional commits standard.',
+                failure: '❌ Some commit messages do not follow the conventional commits standard.',
+                cancelled: '⚠️ The workflow was cancelled.',
+                skipped: '⚠️ The workflow was skipped.',
+              }[conclusion];
 
-              // Ensure pull_request exists in the context payload
               const pull_request = context.payload.pull_request;
               if (!pull_request) {
                 throw new Error('This workflow must be triggered by a pull request event.');
               }
 
-              // Add a comment to the pull request
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
@@ -87,5 +90,5 @@ jobs:
               console.log('Comment added successfully.');
             } catch (error) {
               console.error('Failed to add a comment:', error.message);
-              core.setFailed(error.message); // Mark the step as failed
+              core.setFailed(error.message);
             }
