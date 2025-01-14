@@ -100,7 +100,7 @@ jobs:
               await github.rest.issues.addLabels({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                issue_number: pull request.number,
+                issue_number: context.payload.pull_request.number
                 labels: labels
               });
 
@@ -158,7 +158,7 @@ jobs:
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: context.issue.number,
+              issue_number: context.payload.pull_request.number,
               body: `✅ Successfully auto-merged this PR!\n\nUpdated dependencies:\n${steps.metadata.outputs.dependency-names}`
             });
 
@@ -179,6 +179,6 @@ jobs:
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: context.issue.number,
+              issue_number: context.payload.pull_request.number,
               body: '❌ Auto-merge workflow failed. Please check the workflow logs.'
             });
