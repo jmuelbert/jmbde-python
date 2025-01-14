@@ -6,7 +6,7 @@ name: Dependabot Auto-Merge
 
 on: # yamlint disable-line rule:truthy
   pull_request:
-    types: [opened, synchronize, reopened, labeled]
+    types: [opened, reopened, synchronize]
   pull_request_review:
     types: [submitted]
 
