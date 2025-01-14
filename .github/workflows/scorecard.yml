@@ -13,7 +13,6 @@ on: # yamllint disable-line rule:truthy
       - main
       - develop
       - release/**
-      - resolve-**
     paths-ignore:
       - '**.md'
       - docs/**
@@ -184,7 +183,7 @@ jobs:
 
             console.log(`Labels added: ${labels.join(', ')}`);
                 env:
-                  SECURITY_SCORE: ${{ secrets.SECURITY_SCORE }} # Example of passing a score dynamically
+                  SECURITY_SCORE: ${{ steps.scorecard.outputs.overall-score }} # Passed dynamically
 
   notify:
     needs: analyze
