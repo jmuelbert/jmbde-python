@@ -27,6 +27,7 @@ jobs:
     permissions:
       pull-requests: write
       statuses: write
+      issues: write
 
     outputs:
       title-valid: ${{ steps.check-title.outputs.valid }}
@@ -48,21 +49,17 @@ jobs:
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
-            const conventionalCommitRegex = /^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)(\([a-z -]+\))?: .{1,100}$/;
-            const prTitle = context.payload.pull_request.title;
-            const isValid = conventionalCommitRegex.test(prTitle);
+            const core = require('@actions/core');
+            const { pull_request: { title } } = context.payload;
+            const conventionalCommitRegex = /^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)\b(\([\w-]+\))?: .{1,100}$/;
 
+            const isValid = conventionalCommitRegex.test(title);
             core.setOutput('valid', isValid);
 
             if (!isValid) {
-              core.setFailed(`Invalid PR title: "${prTitle}"`);
-
-              const validTypes = [
-                'build', 'chore', 'ci', 'docs', 'feat', 'fix',
-                'perf', 'refactor', 'revert', 'style', 'test'
-              ];
-
-              const comment = `### ❌ Invalid Pull Request Title
+              const validTypes = ['build', 'chore', 'ci', 'docs', 'feat', 'fix', 'perf', 'refactor', 'revert', 'style', 'test'];
+              const comment = `
+              ### ❌ Invalid PR Title
 
               Your PR title must follow the [Conventional Commits](https://www.conventionalcommits.org/) format:
 
@@ -78,7 +75,8 @@ jobs:
               - \`fix(api): handle null response\`
               - \`docs(readme): update installation steps\`
 
-              Please edit your PR title to match this format.`;
+              Please edit your PR title to match this format.
+              `;
 
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
@@ -86,6 +84,7 @@ jobs:
                 issue_number: context.issue.number,
                 body: comment
               });
+              core.setFailed(`Invalid PR title: "${title}"`);
             }
 
       - name: 📝 Check PR Body
@@ -93,12 +92,16 @@ jobs:
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
+            const core = require('@actions/core');
+            const github = require('@actions/github');
+
             const body = context.payload.pull_request.body || '';
-            const requiredSections = ['Description', 'Related Issue', 'Testing'];
+            const bodyLower = body.toLowerCase(); // Normalize case for matching
+            const requiredSections = ['description', 'related issue', 'testing'];
             const missingTemplates = [];
 
             for (const section of requiredSections) {
-              if (!body.includes(`### ${section}`)) {
+              if (!bodyLower.includes(`### ${section.toLowerCase()}`)) {
                 missingTemplates.push(section);
               }
             }
@@ -107,12 +110,19 @@ jobs:
             core.setOutput('valid', isValid);
 
             if (!isValid) {
-              const comment = `### ❌ Incomplete Pull Request Description
+              const comment = `
+              ### ❌ Incomplete Pull Request Description
 
-              Please add the following required sections to your PR description:
+              Your PR description is missing the following required sections:
               ${missingTemplates.map(section => `- [ ] ${section}`).join('\n')}
 
-              Use our [PR template](.github/pull_request_template.md) as a guide.`;
+              Please include the missing sections in the PR description. Use our [PR template](.github/pull_request_template.md) as a guide.
+
+              Required sections:
+              - \`### Description\`
+              - \`### Related Issue\`
+              - \`### Testing\`
+              `;
 
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
@@ -121,7 +131,7 @@ jobs:
                 body: comment
               });
 
-              core.setFailed('PR description is missing required sections');
+              core.setFailed('PR description is missing required sections.');
             }
 
       - name: 🏷️ Update Labels
@@ -150,13 +160,17 @@ jobs:
             }
 
             // Apply labels
-            if (labelsToAdd.length > 0) {
-              await github.rest.issues.addLabels({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.issue.number,
-                labels: labelsToAdd
-              });
+            try {
+              if (labelsToAdd.length > 0) {
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.issue.number,
+                  labels: labelsToAdd
+                });
+              }
+            } catch (error) {
+              console.error(`Failed to add labels: ${error.message}`);
             }
 
             // Remove labels
@@ -178,6 +192,11 @@ jobs:
     if: always()
     runs-on: ubuntu-latest
 
+    permissions:
+      pull-requests: write
+      statuses: write
+      issues: write
+
     steps:
       - name: 📊 Check Results
         if: |
@@ -186,4 +205,5 @@ jobs:
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
+            const core = require('@actions/core'); // Import the core module
             core.setFailed('Pull request validation failed. Please check the comments for details.');
