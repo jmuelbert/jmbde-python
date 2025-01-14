@@ -161,11 +161,32 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            const report = fs.readFileSync('quality_report.md', 'utf8');
+            const path = require('path');
 
+            const filePath = path.resolve('quality_report.md');
+            const fileSize = fs.statSync(filePath).size;
+
+            // Limit the size to prevent overly large comments
+            if (fileSize > 50000) { // Adjust limit as necessary
+              throw new Error('The report file is too large to post as a comment.');
+            }
+
+            const stream = fs.createReadStream(filePath, { encoding: 'utf8' });
+            let content = '';
+
+            for await (const chunk of stream) {
+              content += chunk;
+
+              // Optional: Add a size limit for safety
+              if (content.length > 100000) {
+                throw new Error('Report content exceeds the allowed size for comments.');
+              }
+            }
+
+            // Post the content as a comment
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.payload.pull_request.number,
-              body: report
+              body: content
             });
