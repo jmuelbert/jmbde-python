@@ -3,7 +3,7 @@
 # GitHub Dependency Security Review Workflow
 name: Dependency Security Review
 
-on: # yamlint disable-line rule:truthy
+on: # yamllint disable-line rule:truthy
   pull_request:
     types: [opened, reopened, synchronize]
     paths:
@@ -47,7 +47,7 @@ jobs:
       # Step 3: Dependency Review
       - name: 🔍 Review Dependencies
         id: reviewdeps
-        uses: actions/dependency-review-action@3b139cfc5fae8b618d3eae3675e383bb1769c019 #v 4.5.0
+        uses: actions/dependency-review-action@3b139cfc5fae8b618d3eae3675e383bb1769c019 # v4.5.0
         with:
           comment-summary-in-pr: always
           fail-on-severity: moderate
