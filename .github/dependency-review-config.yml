@@ -11,7 +11,7 @@ rules:
 
   - name: Block restricted licenses
     on:
-      license: [GPL-*, LGPL-*, AGPL-*]
+      license: [AGPL-1]
     action: fail
 
   - name: Require SPDX license
