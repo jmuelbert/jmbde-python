@@ -2,169 +2,170 @@
 # SPDX-FileCopyrightText: GitHub, Inc. and contributors
 # SPDX-License-Identifier: MIT
 
-  name: Issue Header Automation
+name: Issue Header Automation
 
-  on: # yamllint disable-line rule:truthy
-    issues:
-      types: [opened, labeled]
 
-  permissions:
-    contents: read
+on: # yamllint disable-line rule:truthy
+  issues:
+    types: [opened, labeled]
 
-  concurrency:
-    group: ${{ github.workflow }}-${{ github.event.issue.number }}
-    cancel-in-progress: true
+permissions:
+  contents: read
 
-  jobs:
-    add-header:
-      name: Process Issue Header
-      if: "!contains(join(github.event.issue.labels.*.name, ','), 'invalid')" # Ignore invalid issues
-      runs-on: ubuntu-latest
-      timeout-minutes: 5
-      permissions:
-        issues: write # Needed for updating issues and adding reactions.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.issue.number }}
+  cancel-in-progress: true
 
-      steps:
-        - name: 🔒 Harden Runner
-          uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
-          with:
-            egress-policy: audit
+jobs:
+  add-header:
+    name: Process Issue Header
+    if: "!contains(join(github.event.issue.labels.*.name, ','), 'invalid')" # Ignore invalid issues
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      issues: write # Needed for updating issues and adding reactions.
 
-        - name: 📝 Process Issue Header
-          uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
-          with:
-            script: |
-              const ISSUE_TYPES = {
-                'type-bug': {
-                  header: 'Bug Report',
-                  emoji: '🐛',
-                  template: `
-                    ### Issue Type
-                    Bug Report
+    steps:
+      - name: 🔒 Harden Runner
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        with:
+          egress-policy: audit
 
-                    ### Description
-                    {body}
+      - name: 📝 Process Issue Header
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            const ISSUE_TYPES = {
+              'type-bug': {
+                header: 'Bug Report',
+                emoji: '🐛',
+                template: `
+                  ### Issue Type
+                  Bug Report
 
-                    ### Environment
-                    - OS:
-                    - Python Version:
-                    - Package Version:
+                  ### Description
+                  {body}
 
-                    ### Steps to Reproduce
-                    1.
-                    2.
-                    3.
-                  `
-                },
-                'type-crash': {
-                  header: 'Crash Report',
-                  emoji: '💥',
-                  template: `
-                    ### Issue Type
-                    Crash Report
+                  ### Environment
+                  - OS:
+                  - Python Version:
+                  - Package Version:
 
-                    ### Description
-                    {body}
+                  ### Steps to Reproduce
+                  1.
+                  2.
+                  3.
+                `
+              },
+              'type-crash': {
+                header: 'Crash Report',
+                emoji: '💥',
+                template: `
+                  ### Issue Type
+                  Crash Report
 
-                    ### Stack Trace
-                    \`\`\`
-                    Paste stack trace here
-                    \`\`\`
+                  ### Description
+                  {body}
 
-                    ### System Information
-                    - OS:
-                    - Python Version:
-                    - Package Version:
-                  `
-                },
-                'type-feature': {
-                  header: 'Feature Request',
-                  emoji: '✨',
-                  template: `
-                    ### Issue Type
-                    Feature Request
+                  ### Stack Trace
+                  \`\`\`
+                  Paste stack trace here
+                  \`\`\`
 
-                    ### Description
-                    {body}
+                  ### System Information
+                  - OS:
+                  - Python Version:
+                  - Package Version:
+                `
+              },
+              'type-feature': {
+                header: 'Feature Request',
+                emoji: '✨',
+                template: `
+                  ### Issue Type
+                  Feature Request
 
-                    ### Use Case
-                    <!-- Describe the use case for this feature -->
+                  ### Description
+                  {body}
 
-                    ### Proposed Solution
-                    <!-- If you have ideas about implementation -->
+                  ### Use Case
+                  <!-- Describe the use case for this feature -->
 
-                    ### Alternatives Considered
-                    <!-- Any alternative solutions you've considered -->
-                  `
-                }
-              };
+                  ### Proposed Solution
+                  <!-- If you have ideas about implementation -->
 
-              async function processIssue() {
-                const { data: issue } = await github.rest.issues.get({
-                  ...context.repo,
-                  issue_number: context.issue.number
-                });
+                  ### Alternatives Considered
+                  <!-- Any alternative solutions you've considered -->
+                `
+              }
+            };
 
-                console.log('Processing issue:', issue.title);
+            async function processIssue() {
+              const { data: issue } = await github.rest.issues.get({
+                ...context.repo,
+                issue_number: context.issue.number
+              });
 
-                const matchedLabel = issue.labels
-                  .map(label => (typeof label === 'string' ? label : label.name))
-                  .find(labelName => ISSUE_TYPES[labelName]);
+              console.log('Processing issue:', issue.title);
 
-                if (!matchedLabel) {
-                  console.log('No matching issue type label found');
-                  return;
-                }
+              const matchedLabel = issue.labels
+                .map(label => (typeof label === 'string' ? label : label.name))
+                .find(labelName => ISSUE_TYPES[labelName]);
 
-                const issueType = ISSUE_TYPES[matchedLabel];
-                const originalBody = issue.body?.replaceAll('\r', '') || '';
-
-                // Don't modify if already processed
-                if (originalBody.includes('### Issue Type')) {
-                  console.log('Issue already processed');
-                  return;
-                }
-
-                const newBody = issueType.template
-                  .replace('{body}', originalBody)
-                  .trim();
-
-                console.log('Updating issue body...');
-                await github.rest.issues.update({
-                  ...context.repo,
-                  issue_number: context.issue.number,
-                  body: newBody
-                });
-
-                console.log('Adding reaction...');
-                await github.rest.reactions.createForIssue({
-                  ...context.repo,
-                  issue_number: context.issue.number,
-                  content: 'rocket'
-                });
-
-                console.log(`Successfully processed ${issueType.header}`);
+              if (!matchedLabel) {
+                console.log('No matching issue type label found');
+                return;
               }
 
-              try {
-                await processIssue();
-              } catch (error) {
-                console.error('Error processing issue:', error);
+              const issueType = ISSUE_TYPES[matchedLabel];
+              const originalBody = issue.body?.replaceAll('\r', '') || '';
 
-                // Notify maintainers about the error
-                await github.rest.issues.createComment({
-                  ...context.repo,
-                  issue_number: context.issue.number,
-                  body: `❌ Error processing issue: ${error.message}\n\nPlease contact the maintainers.`
-                });
-
-                throw error; // Mark the action as failed
+              // Don't modify if already processed
+              if (originalBody.includes('### Issue Type')) {
+                console.log('Issue already processed');
+                return;
               }
 
-        - name: ⏱️ Add Processing Time
-          if: success()
-          uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
-          with:
-            script: |
-              const processingTime = Date.now() - new Date(context.payload.issue.created_at).getTime();
-              console.log(`Processing time: ${processingTime}ms`);
+              const newBody = issueType.template
+                .replace('{body}', originalBody)
+                .trim();
+
+              console.log('Updating issue body...');
+              await github.rest.issues.update({
+                ...context.repo,
+                issue_number: context.issue.number,
+                body: newBody
+              });
+
+              console.log('Adding reaction...');
+              await github.rest.reactions.createForIssue({
+                ...context.repo,
+                issue_number: context.issue.number,
+                content: 'rocket'
+              });
+
+              console.log(`Successfully processed ${issueType.header}`);
+            }
+
+            try {
+              await processIssue();
+            } catch (error) {
+              console.error('Error processing issue:', error);
+
+              // Notify maintainers about the error
+              await github.rest.issues.createComment({
+                ...context.repo,
+                issue_number: context.issue.number,
+                body: `❌ Error processing issue: ${error.message}\n\nPlease contact the maintainers.`
+              });
+
+              throw error; // Mark the action as failed
+            }
+
+      - name: ⏱️ Add Processing Time
+        if: success()
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            const processingTime = Date.now() - new Date(context.payload.issue.created_at).getTime();
+            console.log(`Processing time: ${processingTime}ms`);
