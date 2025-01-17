@@ -47,6 +47,7 @@ jobs:
     permissions:
       actions: read
       issues: write
+      id-token: write
 
     outputs:
       score: ${{ steps.scorecard.outputs.overall-score }}
