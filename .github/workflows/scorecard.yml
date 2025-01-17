@@ -195,6 +195,7 @@ jobs:
 
     permissions:
       issues: write
+      id-token: write
 
     steps:
       - name: 🚨 Security Alert
