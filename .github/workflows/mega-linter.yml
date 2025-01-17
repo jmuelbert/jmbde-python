@@ -82,42 +82,38 @@ jobs:
         if: always()
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
-          script: >
+          script: |
             const fs = require('fs');
+            const reportPath = 'megalinter-reports/megalinter-report.json';
 
-            try {
-              const report = JSON.parse(fs.readFileSync('megalinter-reports/megalinter-report.json', 'utf8'));
+            if (!fs.existsSync(reportPath)) {
+              console.log('MegaLinter report not found. Please check if MegaLinter ran successfully.');
+              return;
+            }
 
-              let summary = '## 🔍 MegaLinter Results\n\n';
+            const report = JSON.parse(fs.readFileSync(reportPath, 'utf8'));
+            let summary = '## 🔍 MegaLinter Results\n\n';
+            summary += '### 📊 Statistics\n';
+            summary += `- Files analyzed: ${report.files_analyzed}\n`;
+            summary += `- Errors found: ${report.total_errors}\n`;
+            summary += `- Fixes applied: ${report.fixed_errors}\n\n`;
 
-              // Add statistics
-              summary += '### 📊 Statistics\n';
-              summary += `- Files analyzed: ${report.files_analyzed}\n`;
-              summary += `- Errors found: ${report.total_errors}\n`;
-              summary += `- Fixes applied: ${report.fixed_errors}\n\n`;
-
-              // Add errors by linter
-              if (report.total_errors > 0) {
-                summary += '### ❌ Errors by Linter\n';
-                Object.entries(report.linters_stats).forEach(([linter, stats]) => {
+            if (report.total_errors > 0) {
+              summary += '### ❌ Errors by Linter\n';
+              Object.entries(report.linters_stats).forEach(([linter, stats]) => {
                 if (stats.errors > 0) {
                   summary += `- ${linter}: ${stats.errors} error(s)\n`;
                 }
-                });
-              }
+              });
+            }
 
-              // Add comment to PR
-              if (context.payload.pull_request) {
-                await github.rest.issues.createComment({
-                  ...context.repo,
+            if (context.payload.pull_request) {
+              await github.rest.issues.createComment({
+                ...context.repo,
                 issue_number: context.payload.pull_request.number,
-                body: summary
-                });
-              }
-
-              } catch (error) {
-                console.error('Error processing results:', error);
-              }
+                body: summary,
+              });
+            }
 
       - name: 📝 Create Fix PR
         if: steps.ml.outputs.has_updated_sources == 1
@@ -145,33 +141,26 @@ jobs:
         if: success() && github.event_name == 'pull_request'
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
         with:
-          script: |
-            const labels = [];
-            if (process.env.has_updated_sources === '1') {
-              labels.push('needs-review');
-            } else {
-              labels.push('linter-approved');
-            }
+           script: |
+            const labels = process.env.has_updated_sources === '1'
+              ? ['needs-review']
+              : ['linter-approved'];
 
             await github.rest.issues.addLabels({
               ...context.repo,
-            issue_number: context.payload.pull_request.number,
-            labels: labels
+              issue_number: context.payload.pull_request.number,
+              labels: labels,
             });
 
       - name: 🚨 Check Failure
         if: failure()
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
         with:
-          script: >
-            const message = `❌ MegaLinter checks failed. Please review the [workflow
-            logs](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID})
-            for details.`;
+          script: |
+            const message = `❌ MegaLinter checks failed. Please review the [workflow logs](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}) for details.`;
 
             await github.rest.issues.createComment({
               ...context.repo,
-            issue_number: context.payload.pull_request.number,
-
-            body: message
-
+              issue_number: context.payload.pull_request.number,
+              body: message,
             });
