@@ -125,6 +125,7 @@ jobs:
 
     permissions:
       issues: write
+      pull-requests: write
 
     steps:
       - name: 🔔 Notify on Failure
