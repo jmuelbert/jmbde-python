@@ -35,7 +35,7 @@ jobs:
     name: Code Quality Check
     if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     permissions:
       contents: write
       issues: write
@@ -66,7 +66,7 @@ jobs:
         id: ml
         env:
           VALIDATE_ALL_CODEBASE: true
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
 
       - name: 📤 Upload Artifacts
         if: success() || failure()
