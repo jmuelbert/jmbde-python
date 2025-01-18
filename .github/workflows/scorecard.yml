@@ -168,6 +168,11 @@ jobs:
         env:
           SCORE: ${{ steps.scorecard.outputs.overall-score }}
 
+      - name: 🧹 Cleanup
+        if: always()
+        run: |
+          rm -rf results/
+
   notify:
     needs: analyze
     if: needs.analyze.outputs.high-risks > 0
