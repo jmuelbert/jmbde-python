@@ -55,7 +55,7 @@ jobs:
           retry-on-snapshot-warnings: true
           base-ref: ${{ github.event.pull_request.base.ref }}
           head-ref: ${{ github.event.pull_request.head.ref }}
-          config-file: .github/dependency-review-config.yml # Use external config if necessary
+          config-file: .github/dependency-review-config.yml
 
       # Step 4: Generate Dependency Report
       - name: 📊 Generate Dependency Report
@@ -63,7 +63,7 @@ jobs:
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
-            const review = JSON.parse(process.env.REVIEW_RESULT || '{}');
+            const review = JSON.parse(`{{ steps.reviewdeps.outputs.result }}`);
             let report = '## 📋 Dependency Review Summary\n\n';
 
             if (review.violations?.length > 0) {
@@ -88,8 +88,6 @@ jobs:
               issue_number: context.issue.number,
               body: report
             });
-        env:
-          REVIEW_RESULT: ${{ steps.reviewdeps.outputs.result }}
 
       # Step 5: Add Labels Based on Results
       - name: 🏷️ Add Labels
@@ -98,7 +96,7 @@ jobs:
         with:
           script: |
             const labels = [];
-            const review = JSON.parse(process.env.REVIEW_RESULT || '{}');
+            const review = JSON.parse(`{{ steps.reviewdeps.outputs.result }}`);
 
             if (review.violations?.length > 0 || review.licenses?.denied?.length > 0) {
               labels.push('security-risk');
@@ -115,8 +113,6 @@ jobs:
               issue_number: context.issue.number,
               labels
             });
-        env:
-          REVIEW_RESULT: ${{ steps.reviewdeps.outputs.result }}
 
   notify:
     needs: dependency-review
