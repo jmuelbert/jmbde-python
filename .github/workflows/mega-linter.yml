@@ -141,7 +141,7 @@ jobs:
         if: success() && github.event_name == 'pull_request'
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
         with:
-           script: |
+          script: |
             const labels = process.env.has_updated_sources === '1'
               ? ['needs-review']
               : ['linter-approved'];
