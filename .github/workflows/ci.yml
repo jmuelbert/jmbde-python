@@ -60,7 +60,7 @@ jobs:
 
       - name: 🔧 Install Build Tools
         run: |
-       pip install -r .github/workflows/requirements.txt
+          pip install -r .github/workflows/requirements.txt
           hatch --version
 
       - name: 📝 Get Version
