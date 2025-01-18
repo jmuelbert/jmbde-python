@@ -5,4 +5,4 @@ hatchling==1.27.0
 pyside6==6.8.1.1
 wheel==0.45.1
 twine==6.0.1
-check-wheel-contents 0.6.1
+check-wheel-contents==0.6.1
