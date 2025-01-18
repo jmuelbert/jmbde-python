@@ -60,8 +60,7 @@ jobs:
 
       - name: 🔧 Install Build Tools
         run: |
-          python -m pip install --upgrade pip wheel
-          pip install hatch
+       pip install -r .github/workflows/requirements.txt
           hatch --version
 
       - name: 📝 Get Version
@@ -84,7 +83,7 @@ jobs:
 
       - name: 🔍 Check Distribution
         run: |
-          pip install twine check-wheel-contents
+          # TODO: separate requirements pip install twine check-wheel-contents
           twine check dist/*
           check-wheel-contents dist/*.whl
 
