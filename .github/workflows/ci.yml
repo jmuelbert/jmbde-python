@@ -29,6 +29,7 @@ jobs:
     name: Build & Release
     runs-on: ubuntu-latest
     timeout-minutes: 30
+
     permissions:
       contents: write
       id-token: write
@@ -119,21 +120,20 @@ jobs:
             - Change log: https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md
 
       - name: 📋 Update Release Draft
+        if: ${{ !steps.release.outputs.release_created }}
         uses: release-drafter/release-drafter@3f0f87098bd6b5c5b9a36d49c41d998ea58f9348 # v6.0
-        if: "!startsWith(github.ref, 'refs/tags/v')"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 📢 Notify Success
-        if: success()
+        if: ${{ steps.release.outputs.release_created }}
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
-            const releaseType = context.ref.startsWith('refs/tags/v') ? 'PyPI' : 'TestPyPI';
             const version = '${{ steps.version.outputs.version }}';
 
             await github.rest.issues.createComment({
               ...context.repo,
               issue_number: context.issue.number,
-              body: `✅ Successfully published version ${version} to ${releaseType}`
+              body: `✅ Successfully published version ${version} to PyPI.`
             });
