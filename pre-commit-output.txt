@@ -1,0 +1,4388 @@
+trim trailing whitespace.................................................Passed
+fix end of files.........................................................Passed
+check yaml...............................................................Passed
+check for added large files..............................................Passed
+check python ast.........................................................Failed
+- hook id: check-ast
+- exit code: 1
+
+tests/pyside6/unsafeconnection.py: failed parsing with CPython 3.12.8:
+
+    Traceback (most recent call last):
+      File "/home/runner/.cache/pre-commit/repo60ae3fei/py_env-python3.12/lib/python3.12/site-packages/pre_commit_hooks/check_ast.py", line 21, in main
+        ast.parse(f.read(), filename=filename)
+      File "/opt/hostedtoolcache/Python/3.12.8/x64/lib/python3.12/ast.py", line 52, in parse
+        return compile(source, filename, mode, flags,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "tests/pyside6/unsafeconnection.py", line 6
+        class UnsafeConnection extends FunctionCall {
+                               ^^^^^^^
+    SyntaxError: invalid syntax
+
+check json...............................................................Passed
+check for merge conflicts................................................Passed
+check for case conflicts.................................................Passed
+check xml................................................................Passed
+debug statements (python)................................................Failed
+- hook id: debug-statements
+- exit code: 1
+
+tests/pyside6/unsafeconnection.py - Could not parse ast
+
+	Traceback (most recent call last):
+	  File "/home/runner/.cache/pre-commit/repo60ae3fei/py_env-python3.12/lib/python3.12/site-packages/pre_commit_hooks/debug_statement_hook.py", line 57, in check_file
+	    ast_obj = ast.parse(f.read(), filename=filename)
+	              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	  File "/opt/hostedtoolcache/Python/3.12.8/x64/lib/python3.12/ast.py", line 52, in parse
+	    return compile(source, filename, mode, flags,
+	           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	  File "tests/pyside6/unsafeconnection.py", line 6
+	    class UnsafeConnection extends FunctionCall {
+	                           ^^^^^^^
+	SyntaxError: invalid syntax
+
+detect private key.......................................................Passed
+mixed line ending........................................................Passed
+check builtin type constructor use.......................................Failed
+- hook id: check-builtin-literals
+- exit code: 1
+
+Traceback (most recent call last):
+  File "/home/runner/.cache/pre-commit/repo60ae3fei/py_env-python3.12/bin/check-builtin-literals", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/runner/.cache/pre-commit/repo60ae3fei/py_env-python3.12/lib/python3.12/site-packages/pre_commit_hooks/check_builtin_literals.py", line 89, in main
+    calls = check_file(
+            ^^^^^^^^^^^
+  File "/home/runner/.cache/pre-commit/repo60ae3fei/py_env-python3.12/lib/python3.12/site-packages/pre_commit_hooks/check_builtin_literals.py", line 62, in check_file
+    tree = ast.parse(f.read(), filename=filename)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.8/x64/lib/python3.12/ast.py", line 52, in parse
+    return compile(source, filename, mode, flags,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tests/pyside6/unsafeconnection.py", line 6
+    class UnsafeConnection extends FunctionCall {
+                           ^^^^^^^
+SyntaxError: invalid syntax
+
+Check hooks apply to the repository......................................Passed
+Check for useless excludes...............................................Passed
+sync-pre-commit-deps.....................................................Passed
+black....................................................................Failed
+- hook id: black
+- exit code: 123
+
+error: cannot format tests/pyside6/unsafeconnection.py: Cannot parse for target version Python 3.11: 6:23: class UnsafeConnection extends FunctionCall {
+
+Oh no! 💥 💔 💥
+40 files left unchanged, 1 file failed to reformat.
+
+isort....................................................................Failed
+- hook id: isort
+- files were modified by this hook
+
+Fixing /home/runner/work/jmbde-python/jmbde-python/scripts/build_ui.py
+Fixing /home/runner/work/jmbde-python/jmbde-python/src/jmbde/__main.py
+Fixing /home/runner/work/jmbde-python/jmbde-python/src/jmbde/core/database.py
+Fixing /home/runner/work/jmbde-python/jmbde-python/src/jmbde/gui/employee_model.py
+Fixing /home/runner/work/jmbde-python/jmbde-python/src/jmbde/gui/main_app.py
+Fixing /home/runner/work/jmbde-python/jmbde-python/tests/test_main.py
+Fixing /home/runner/work/jmbde-python/jmbde-python/tests/unit/test_database.py
+
+prettier.................................................................Passed
+ruff.....................................................................Failed
+- hook id: ruff
+- exit code: 1
+- files were modified by this hook
+
+warning: The top-level linter settings are deprecated in favour of their counterparts in the `lint` section. Please update the following options in `pyproject.toml`:
+  - 'pydocstyle' -> 'lint.pydocstyle'
+scripts/build_ui.py:53:1: T201 `print` found
+   |
+51 | ]
+52 | 
+53 | print("Rebuilding PyQt UI files...")
+   | ^^^^^ T201
+54 | for f in glob(f"{resources_dir}/forms/*.ui"):
+55 |     print(
+   |
+   = help: Remove `print`
+
+scripts/build_ui.py:54:10: PTH207 Replace `glob` with `Path.glob` or `Path.rglob`
+   |
+53 | print("Rebuilding PyQt UI files...")
+54 | for f in glob(f"{resources_dir}/forms/*.ui"):
+   |          ^^^^ PTH207
+55 |     print(
+56 |         "-g python",
+   |
+
+scripts/build_ui.py:55:5: T201 `print` found
+   |
+53 | print("Rebuilding PyQt UI files...")
+54 | for f in glob(f"{resources_dir}/forms/*.ui"):
+55 |     print(
+   |     ^^^^^ T201
+56 |         "-g python",
+57 |         f"-o {source_dir}{package}/ui/ui_{os.path.basename(f[:-3])}.py {f}",
+   |
+   = help: Remove `print`
+
+scripts/build_ui.py:57:43: PTH119 `os.path.basename()` should be replaced by `Path.name`
+   |
+55 |     print(
+56 |         "-g python",
+57 |         f"-o {source_dir}{package}/ui/ui_{os.path.basename(f[:-3])}.py {f}",
+   |                                           ^^^^^^^^^^^^^^^^ PTH119
+58 |     )
+59 |     Popen(
+   |
+
+scripts/build_ui.py:59:5: S603 `subprocess` call: check for execution of untrusted input
+   |
+57 |         f"-o {source_dir}{package}/ui/ui_{os.path.basename(f[:-3])}.py {f}",
+58 |     )
+59 |     Popen(
+   |     ^^^^^ S603
+60 |         [
+61 |             "uic",
+   |
+
+scripts/build_ui.py:60:9: S607 Starting a process with a partial executable path
+   |
+58 |       )
+59 |       Popen(
+60 |           [
+   |  _________^
+61 | |             "uic",
+62 | |             "-g python",
+63 | |             f"-o {source_dir}{package}/ui/ui_{os.path.basename(f[:-3])}.py {f}",
+64 | |         ],
+   | |_________^ S607
+65 |       )
+   |
+
+scripts/build_ui.py:63:47: PTH119 `os.path.basename()` should be replaced by `Path.name`
+   |
+61 |             "uic",
+62 |             "-g python",
+63 |             f"-o {source_dir}{package}/ui/ui_{os.path.basename(f[:-3])}.py {f}",
+   |                                               ^^^^^^^^^^^^^^^^ PTH119
+64 |         ],
+65 |     )
+   |
+
+scripts/build_ui.py:67:1: T201 `print` found
+   |
+65 |     )
+66 | 
+67 | print("Updating translations...")
+   | ^^^^^ T201
+68 | Popen(["lupdate", "jmbde.pro"])
+69 | lang_files = " ".join(
+   |
+   = help: Remove `print`
+
+scripts/build_ui.py:68:1: S603 `subprocess` call: check for execution of untrusted input
+   |
+67 | print("Updating translations...")
+68 | Popen(["lupdate", "jmbde.pro"])
+   | ^^^^^ S603
+69 | lang_files = " ".join(
+70 |     f"{resources_dir}/translations/{package}_{lang}.ts" for lang in languages
+   |
+
+scripts/build_ui.py:68:7: S607 Starting a process with a partial executable path
+   |
+67 | print("Updating translations...")
+68 | Popen(["lupdate", "jmbde.pro"])
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^ S607
+69 | lang_files = " ".join(
+70 |     f"{resources_dir}/translations/{package}_{lang}.ts" for lang in languages
+   |
+
+scripts/build_ui.py:72:1: S603 `subprocess` call: check for execution of untrusted input
+   |
+70 |     f"{resources_dir}/translations/{package}_{lang}.ts" for lang in languages
+71 | )
+72 | Popen(["pyside2-lupdate", f"{source_dir}{package}/*.py -ts {lang_files}"])
+   | ^^^^^ S603
+73 | Popen(["lrelease", f"{resources_dir}/translations/*.ts"])
+   |
+
+scripts/build_ui.py:72:7: S607 Starting a process with a partial executable path
+   |
+70 |     f"{resources_dir}/translations/{package}_{lang}.ts" for lang in languages
+71 | )
+72 | Popen(["pyside2-lupdate", f"{source_dir}{package}/*.py -ts {lang_files}"])
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ S607
+73 | Popen(["lrelease", f"{resources_dir}/translations/*.ts"])
+   |
+
+scripts/build_ui.py:73:1: S603 `subprocess` call: check for execution of untrusted input
+   |
+71 | )
+72 | Popen(["pyside2-lupdate", f"{source_dir}{package}/*.py -ts {lang_files}"])
+73 | Popen(["lrelease", f"{resources_dir}/translations/*.ts"])
+   | ^^^^^ S603
+74 | 
+75 | print("Rebuilding PyQt resource files in source directory...")
+   |
+
+scripts/build_ui.py:73:7: S607 Starting a process with a partial executable path
+   |
+71 | )
+72 | Popen(["pyside2-lupdate", f"{source_dir}{package}/*.py -ts {lang_files}"])
+73 | Popen(["lrelease", f"{resources_dir}/translations/*.ts"])
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ S607
+74 | 
+75 | print("Rebuilding PyQt resource files in source directory...")
+   |
+
+scripts/build_ui.py:75:1: T201 `print` found
+   |
+73 | Popen(["lrelease", f"{resources_dir}/translations/*.ts"])
+74 | 
+75 | print("Rebuilding PyQt resource files in source directory...")
+   | ^^^^^ T201
+76 | for f in glob(f"{source_dir}/*.qrc"):
+77 |     Popen(
+   |
+   = help: Remove `print`
+
+scripts/build_ui.py:76:10: PTH207 Replace `glob` with `Path.glob` or `Path.rglob`
+   |
+75 | print("Rebuilding PyQt resource files in source directory...")
+76 | for f in glob(f"{source_dir}/*.qrc"):
+   |          ^^^^ PTH207
+77 |     Popen(
+78 |         [
+   |
+
+scripts/build_ui.py:77:5: S603 `subprocess` call: check for execution of untrusted input
+   |
+75 | print("Rebuilding PyQt resource files in source directory...")
+76 | for f in glob(f"{source_dir}/*.qrc"):
+77 |     Popen(
+   |     ^^^^^ S603
+78 |         [
+79 |             "rcc",
+   |
+
+scripts/build_ui.py:78:9: S607 Starting a process with a partial executable path
+   |
+76 |   for f in glob(f"{source_dir}/*.qrc"):
+77 |       Popen(
+78 |           [
+   |  _________^
+79 | |             "rcc",
+80 | |             f" -g python -o {package}/resources/qrc_{os.path.basename(f[:-4])}.py {f}",
+81 | |         ],
+   | |_________^ S607
+82 |       )
+   |
+
+scripts/build_ui.py:80:54: PTH119 `os.path.basename()` should be replaced by `Path.name`
+   |
+78 |         [
+79 |             "rcc",
+80 |             f" -g python -o {package}/resources/qrc_{os.path.basename(f[:-4])}.py {f}",
+   |                                                      ^^^^^^^^^^^^^^^^ PTH119
+81 |         ],
+82 |     )
+   |
+
+scripts/build_ui.py:84:1: T201 `print` found
+   |
+82 |     )
+83 | 
+84 | print("Rebuilding PyQt resource files in resources_dir directory...")
+   | ^^^^^ T201
+85 | for f in glob(f"{resources_dir}/*.qrc"):
+86 |     Popen(
+   |
+   = help: Remove `print`
+
+scripts/build_ui.py:85:10: PTH207 Replace `glob` with `Path.glob` or `Path.rglob`
+   |
+84 | print("Rebuilding PyQt resource files in resources_dir directory...")
+85 | for f in glob(f"{resources_dir}/*.qrc"):
+   |          ^^^^ PTH207
+86 |     Popen(
+87 |         [
+   |
+
+scripts/build_ui.py:86:5: S603 `subprocess` call: check for execution of untrusted input
+   |
+84 | print("Rebuilding PyQt resource files in resources_dir directory...")
+85 | for f in glob(f"{resources_dir}/*.qrc"):
+86 |     Popen(
+   |     ^^^^^ S603
+87 |         [
+88 |             "rcc",
+   |
+
+scripts/build_ui.py:87:9: S607 Starting a process with a partial executable path
+   |
+85 |   for f in glob(f"{resources_dir}/*.qrc"):
+86 |       Popen(
+87 |           [
+   |  _________^
+88 | |             "rcc",
+89 | |             f" -g python --verbose -o {source_dir}{package}/qrc_{os.path.basename(f[:-4])}.py {f}",
+90 | |         ],
+   | |_________^ S607
+91 |       )
+   |
+
+scripts/build_ui.py:89:66: PTH119 `os.path.basename()` should be replaced by `Path.name`
+   |
+87 |         [
+88 |             "rcc",
+89 |             f" -g python --verbose -o {source_dir}{package}/qrc_{os.path.basename(f[:-4])}.py {f}",
+   |                                                                  ^^^^^^^^^^^^^^^^ PTH119
+90 |         ],
+91 |     )
+   |
+
+scripts/build_ui.py:89:89: E501 Line too long (99 > 88)
+   |
+87 |         [
+88 |             "rcc",
+89 |             f" -g python --verbose -o {source_dir}{package}/qrc_{os.path.basename(f[:-4])}.py {f}",
+   |                                                                                         ^^^^^^^^^^^ E501
+90 |         ],
+91 |     )
+   |
+
+scripts/build_ui.py:93:1: T201 `print` found
+   |
+91 |     )
+92 | 
+93 | print("Regenerating .pyc files...")
+   | ^^^^^ T201
+94 | shutil.rmtree(f"{package}/__pycache__", ignore_errors=True)
+95 | for f in glob(f"{package}/*.pyc"):
+   |
+   = help: Remove `print`
+
+scripts/build_ui.py:95:10: PTH207 Replace `glob` with `Path.glob` or `Path.rglob`
+   |
+93 | print("Regenerating .pyc files...")
+94 | shutil.rmtree(f"{package}/__pycache__", ignore_errors=True)
+95 | for f in glob(f"{package}/*.pyc"):
+   |          ^^^^ PTH207
+96 |     os.remove(f)
+97 | __import__(f"{package}.__main__")
+   |
+
+scripts/build_ui.py:96:5: PTH107 `os.remove()` should be replaced by `Path.unlink()`
+   |
+94 | shutil.rmtree(f"{package}/__pycache__", ignore_errors=True)
+95 | for f in glob(f"{package}/*.pyc"):
+96 |     os.remove(f)
+   |     ^^^^^^^^^ PTH107
+97 | __import__(f"{package}.__main__")
+   |
+
+scripts/check_signals.py:1:1: INP001 File `scripts/check_signals.py` is part of an implicit namespace package. Add an `__init__.py`.
+scripts/check_signals.py:1:1: D100 Missing docstring in public module
+scripts/check_signals.py:5:7: D101 Missing docstring in public class
+  |
+5 | class SignalCheckVisitor(ast.NodeVisitor):
+  |       ^^^^^^^^^^^^^^^^^^ D101
+6 |     def __init__(self):
+7 |         self.unused_signals = []
+  |
+
+scripts/check_signals.py:6:9: ANN204 Missing return type annotation for special method `__init__`
+  |
+5 | class SignalCheckVisitor(ast.NodeVisitor):
+6 |     def __init__(self):
+  |         ^^^^^^^^ ANN204
+7 |         self.unused_signals = []
+  |
+  = help: Add return type annotation: `None`
+
+scripts/check_signals.py:9:9: N802 Function name `visit_ClassDef` should be lowercase
+   |
+ 7 |         self.unused_signals = []
+ 8 | 
+ 9 |     def visit_ClassDef(self, node):
+   |         ^^^^^^^^^^^^^^ N802
+10 |         for stmt in node.body:
+11 |             if isinstance(stmt, ast.Assign) and any(
+   |
+
+scripts/check_signals.py:9:9: ANN201 Missing return type annotation for public function `visit_ClassDef`
+   |
+ 7 |         self.unused_signals = []
+ 8 | 
+ 9 |     def visit_ClassDef(self, node):
+   |         ^^^^^^^^^^^^^^ ANN201
+10 |         for stmt in node.body:
+11 |             if isinstance(stmt, ast.Assign) and any(
+   |
+   = help: Add return type annotation: `None`
+
+scripts/check_signals.py:9:9: D102 Missing docstring in public method
+   |
+ 7 |         self.unused_signals = []
+ 8 | 
+ 9 |     def visit_ClassDef(self, node):
+   |         ^^^^^^^^^^^^^^ D102
+10 |         for stmt in node.body:
+11 |             if isinstance(stmt, ast.Assign) and any(
+   |
+
+scripts/check_signals.py:9:30: ANN001 Missing type annotation for function argument `node`
+   |
+ 7 |         self.unused_signals = []
+ 8 | 
+ 9 |     def visit_ClassDef(self, node):
+   |                              ^^^^ ANN001
+10 |         for stmt in node.body:
+11 |             if isinstance(stmt, ast.Assign) and any(
+   |
+
+scripts/check_signals.py:22:5: ANN201 Missing return type annotation for public function `main`
+   |
+22 | def main():
+   |     ^^^^ ANN201
+23 |     for filename in sys.argv[1:]:
+24 |         with open(filename) as file:
+   |
+   = help: Add return type annotation: `None`
+
+scripts/check_signals.py:22:5: D103 Missing docstring in public function
+   |
+22 | def main():
+   |     ^^^^ D103
+23 |     for filename in sys.argv[1:]:
+24 |         with open(filename) as file:
+   |
+
+scripts/check_signals.py:24:14: PTH123 `open()` should be replaced by `Path.open()`
+   |
+22 | def main():
+23 |     for filename in sys.argv[1:]:
+24 |         with open(filename) as file:
+   |              ^^^^ PTH123
+25 |             tree = ast.parse(file.read(), filename=filename)
+26 |             visitor = SignalCheckVisitor()
+   |
+
+scripts/check_signals.py:30:13: T201 `print` found
+   |
+29 |         if visitor.unused_signals:
+30 |             print(f"Unused signals in {filename}: {visitor.unused_signals}")
+   |             ^^^^^ T201
+31 |             sys.exit(1)
+   |
+   = help: Remove `print`
+
+src/jmbde/__about__.py:1:1: D100 Missing docstring in public module
+src/jmbde/__init__.py:1:1: EXE001 Shebang is present but file is not executable
+  |
+1 | #!/usr/bin/python3
+  | ^^^^^^^^^^^^^^^^^^ EXE001
+2 | #
+3 | # SPDX-FileCopyrightText: 2023 Jürgen Mülbert <juergen.muelbert@web.de>
+  |
+
+src/jmbde/__init__.py:7:1: D400 First line should end with a period
+  |
+5 | # SPDX-License-Identifier: EUPL-1.2
+6 | #
+7 | """Module for jmbde"""
+  | ^^^^^^^^^^^^^^^^^^^^^^ D400
+8 | 
+9 | """The configs."""
+  |
+  = help: Add period
+
+src/jmbde/__init__.py:11:12: F821 Undefined name `os`
+   |
+ 9 | """The configs."""
+10 | 
+11 | BASE_DIR = os.path.join(os.path.dirname(__file__), "..")
+   |            ^^ F821
+12 | IMAGES_DIR = os.path.join(BASE_DIR, "images")
+13 | CONF_DIR = os.path.join(BASE_DIR, "conf")
+   |
+
+src/jmbde/__init__.py:11:25: F821 Undefined name `os`
+   |
+ 9 | """The configs."""
+10 | 
+11 | BASE_DIR = os.path.join(os.path.dirname(__file__), "..")
+   |                         ^^ F821
+12 | IMAGES_DIR = os.path.join(BASE_DIR, "images")
+13 | CONF_DIR = os.path.join(BASE_DIR, "conf")
+   |
+
+src/jmbde/__init__.py:12:14: F821 Undefined name `os`
+   |
+11 | BASE_DIR = os.path.join(os.path.dirname(__file__), "..")
+12 | IMAGES_DIR = os.path.join(BASE_DIR, "images")
+   |              ^^ F821
+13 | CONF_DIR = os.path.join(BASE_DIR, "conf")
+14 | TRANSLATION_DIR = os.path.join(BASE_DIR, "translations")
+   |
+
+src/jmbde/__init__.py:13:12: F821 Undefined name `os`
+   |
+11 | BASE_DIR = os.path.join(os.path.dirname(__file__), "..")
+12 | IMAGES_DIR = os.path.join(BASE_DIR, "images")
+13 | CONF_DIR = os.path.join(BASE_DIR, "conf")
+   |            ^^ F821
+14 | TRANSLATION_DIR = os.path.join(BASE_DIR, "translations")
+15 | UI_DIR = os.path.join(BASE_DIR, "ui")
+   |
+
+src/jmbde/__init__.py:14:19: F821 Undefined name `os`
+   |
+12 | IMAGES_DIR = os.path.join(BASE_DIR, "images")
+13 | CONF_DIR = os.path.join(BASE_DIR, "conf")
+14 | TRANSLATION_DIR = os.path.join(BASE_DIR, "translations")
+   |                   ^^ F821
+15 | UI_DIR = os.path.join(BASE_DIR, "ui")
+   |
+
+src/jmbde/__init__.py:15:10: F821 Undefined name `os`
+   |
+13 | CONF_DIR = os.path.join(BASE_DIR, "conf")
+14 | TRANSLATION_DIR = os.path.join(BASE_DIR, "translations")
+15 | UI_DIR = os.path.join(BASE_DIR, "ui")
+   |          ^^ F821
+16 | 
+17 | __all__ = ["BASE_DIR", "CONF_DIR", "IMAGES_DIR", "TRANSLATION_DIR", "UI_DIR"]
+   |
+
+src/jmbde/__main.py:1:1: EXE001 Shebang is present but file is not executable
+  |
+1 | #!/usr/bin/env python3
+  | ^^^^^^^^^^^^^^^^^^^^^^ EXE001
+2 | 
+3 | """JMBDE - Business Data Management Application
+  |
+
+src/jmbde/__main.py:3:1: D400 First line should end with a period
+   |
+ 1 |   #!/usr/bin/env python3
+ 2 |   
+ 3 | / """JMBDE - Business Data Management Application
+ 4 | | 
+ 5 | | This is the main entry point for the JMBDE application, a comprehensive tool
+ 6 | | for managing business data and employee information.
+ 7 | | 
+ 8 | | Copyright (C) 2018-2024 Jürgen Mülbert
+ 9 | | 
+10 | | This program is free software: you can redistribute it and/or modify
+11 | | it under the terms of the GNU General Public License as published by
+12 | | the Free Software Foundation, either version 3 of the License, or
+13 | | (at your option) any later version.
+14 | | """
+   | |___^ D400
+15 |   
+16 |   import logging
+   |
+   = help: Add period
+
+src/jmbde/__main.py:42:19: FA100 Add `from __future__ import annotations` to simplify `typing.Optional`
+   |
+40 |     def __init__(self) -> None:
+41 |         """Initialize the JMBDE application."""
+42 |         self.app: Optional[QGuiApplication] = None
+   |                   ^^^^^^^^ FA100
+43 |         self.engine: Optional[QQmlApplicationEngine] = None
+44 |         self.database: Optional[Database] = None
+   |
+
+src/jmbde/__main.py:43:22: FA100 Add `from __future__ import annotations` to simplify `typing.Optional`
+   |
+41 |         """Initialize the JMBDE application."""
+42 |         self.app: Optional[QGuiApplication] = None
+43 |         self.engine: Optional[QQmlApplicationEngine] = None
+   |                      ^^^^^^^^ FA100
+44 |         self.database: Optional[Database] = None
+45 |         self.employee_model: Optional[EmployeeModel] = None
+   |
+
+src/jmbde/__main.py:44:24: FA100 Add `from __future__ import annotations` to simplify `typing.Optional`
+   |
+42 |         self.app: Optional[QGuiApplication] = None
+43 |         self.engine: Optional[QQmlApplicationEngine] = None
+44 |         self.database: Optional[Database] = None
+   |                        ^^^^^^^^ FA100
+45 |         self.employee_model: Optional[EmployeeModel] = None
+46 |         self.main_app: Optional[MainApp] = None
+   |
+
+src/jmbde/__main.py:45:30: FA100 Add `from __future__ import annotations` to simplify `typing.Optional`
+   |
+43 |         self.engine: Optional[QQmlApplicationEngine] = None
+44 |         self.database: Optional[Database] = None
+45 |         self.employee_model: Optional[EmployeeModel] = None
+   |                              ^^^^^^^^ FA100
+46 |         self.main_app: Optional[MainApp] = None
+47 |         self.settings: Optional[Settings] = None
+   |
+
+src/jmbde/__main.py:46:24: FA100 Add `from __future__ import annotations` to simplify `typing.Optional`
+   |
+44 |         self.database: Optional[Database] = None
+45 |         self.employee_model: Optional[EmployeeModel] = None
+46 |         self.main_app: Optional[MainApp] = None
+   |                        ^^^^^^^^ FA100
+47 |         self.settings: Optional[Settings] = None
+   |
+
+src/jmbde/__main.py:47:24: FA100 Add `from __future__ import annotations` to simplify `typing.Optional`
+   |
+45 |         self.employee_model: Optional[EmployeeModel] = None
+46 |         self.main_app: Optional[MainApp] = None
+47 |         self.settings: Optional[Settings] = None
+   |                        ^^^^^^^^ FA100
+48 | 
+49 |     def initialize_logging(self) -> None:
+   |
+
+src/jmbde/__main.py:56:16: BLE001 Do not catch blind exception: `Exception`
+   |
+54 |             setup_logging(log_dir / "jmbde.log")
+55 |             logger.info("Logging initialized successfully")
+56 |         except Exception as e:
+   |                ^^^^^^^^^ BLE001
+57 |             print(f"Failed to initialize logging: {e}", file=sys.stderr)
+58 |             sys.exit(1)
+   |
+
+src/jmbde/__main.py:57:13: T201 `print` found
+   |
+55 |             logger.info("Logging initialized successfully")
+56 |         except Exception as e:
+57 |             print(f"Failed to initialize logging: {e}", file=sys.stderr)
+   |             ^^^^^ T201
+58 |             sys.exit(1)
+   |
+   = help: Remove `print`
+
+src/jmbde/__main.py:78:29: G004 Logging statement uses f-string
+   |
+76 |             logger.info("Application setup completed successfully")
+77 |         except Exception as e:
+78 |             logger.critical(f"Failed to setup application: {e}")
+   |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+79 |             raise ApplicationError("Application initialization failed") from e
+   |
+
+src/jmbde/__main.py:79:19: TRY003 Avoid specifying long messages outside the exception class
+   |
+77 |         except Exception as e:
+78 |             logger.critical(f"Failed to setup application: {e}")
+79 |             raise ApplicationError("Application initialization failed") from e
+   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+80 | 
+81 |     def initialize_database(self) -> None:
+   |
+
+src/jmbde/__main.py:79:36: EM101 Exception must not use a string literal, assign to variable first
+   |
+77 |         except Exception as e:
+78 |             logger.critical(f"Failed to setup application: {e}")
+79 |             raise ApplicationError("Application initialization failed") from e
+   |                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM101
+80 | 
+81 |     def initialize_database(self) -> None:
+   |
+   = help: Assign to variable; remove string literal
+
+src/jmbde/__main.py:85:13: ERA001 Found commented-out code
+   |
+83 |         try:
+84 |             self.database = Database()
+85 |             # self.database.initialize()
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ERA001
+86 |             logger.info("Database initialized successfully")
+87 |         except DatabaseError as e:
+   |
+   = help: Remove commented-out code
+
+src/jmbde/__main.py:88:13: TRY400 Use `logging.exception` instead of `logging.error`
+   |
+86 |             logger.info("Database initialized successfully")
+87 |         except DatabaseError as e:
+88 |             logger.error(f"Database initialization failed: {e}")
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+89 |             raise ApplicationError("Failed to initialize database") from e
+   |
+   = help: Replace with `exception`
+
+src/jmbde/__main.py:88:26: G004 Logging statement uses f-string
+   |
+86 |             logger.info("Database initialized successfully")
+87 |         except DatabaseError as e:
+88 |             logger.error(f"Database initialization failed: {e}")
+   |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+89 |             raise ApplicationError("Failed to initialize database") from e
+   |
+
+src/jmbde/__main.py:89:19: TRY003 Avoid specifying long messages outside the exception class
+   |
+87 |         except DatabaseError as e:
+88 |             logger.error(f"Database initialization failed: {e}")
+89 |             raise ApplicationError("Failed to initialize database") from e
+   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+90 | 
+91 |     def setup_models(self) -> None:
+   |
+
+src/jmbde/__main.py:89:36: EM101 Exception must not use a string literal, assign to variable first
+   |
+87 |         except DatabaseError as e:
+88 |             logger.error(f"Database initialization failed: {e}")
+89 |             raise ApplicationError("Failed to initialize database") from e
+   |                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM101
+90 | 
+91 |     def setup_models(self) -> None:
+   |
+   = help: Assign to variable; remove string literal
+
+src/jmbde/__main.py:98:13: TRY400 Use `logging.exception` instead of `logging.error`
+   |
+96 |             logger.info("Models initialized successfully")
+97 |         except Exception as e:
+98 |             logger.error(f"Failed to initialize models: {e}")
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+99 |             raise ApplicationError("Model initialization failed") from e
+   |
+   = help: Replace with `exception`
+
+src/jmbde/__main.py:98:26: G004 Logging statement uses f-string
+   |
+96 |             logger.info("Models initialized successfully")
+97 |         except Exception as e:
+98 |             logger.error(f"Failed to initialize models: {e}")
+   |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+99 |             raise ApplicationError("Model initialization failed") from e
+   |
+
+src/jmbde/__main.py:99:19: TRY003 Avoid specifying long messages outside the exception class
+    |
+ 97 |         except Exception as e:
+ 98 |             logger.error(f"Failed to initialize models: {e}")
+ 99 |             raise ApplicationError("Model initialization failed") from e
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+100 | 
+101 |     def setup_qml_engine(self) -> None:
+    |
+
+src/jmbde/__main.py:99:36: EM101 Exception must not use a string literal, assign to variable first
+    |
+ 97 |         except Exception as e:
+ 98 |             logger.error(f"Failed to initialize models: {e}")
+ 99 |             raise ApplicationError("Model initialization failed") from e
+    |                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM101
+100 | 
+101 |     def setup_qml_engine(self) -> None:
+    |
+    = help: Assign to variable; remove string literal
+
+src/jmbde/__main.py:117:17: TRY301 Abstract `raise` to an inner function
+    |
+116 |             if not self.engine.rootObjects():
+117 |                 raise ApplicationError("Failed to load QML interface")
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY301
+118 | 
+119 |             logger.info("QML engine initialized successfully")
+    |
+
+src/jmbde/__main.py:117:23: TRY003 Avoid specifying long messages outside the exception class
+    |
+116 |             if not self.engine.rootObjects():
+117 |                 raise ApplicationError("Failed to load QML interface")
+    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+118 | 
+119 |             logger.info("QML engine initialized successfully")
+    |
+
+src/jmbde/__main.py:117:40: EM101 Exception must not use a string literal, assign to variable first
+    |
+116 |             if not self.engine.rootObjects():
+117 |                 raise ApplicationError("Failed to load QML interface")
+    |                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM101
+118 | 
+119 |             logger.info("QML engine initialized successfully")
+    |
+    = help: Assign to variable; remove string literal
+
+src/jmbde/__main.py:121:13: TRY400 Use `logging.exception` instead of `logging.error`
+    |
+119 |             logger.info("QML engine initialized successfully")
+120 |         except Exception as e:
+121 |             logger.error(f"Failed to initialize QML engine: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+122 |             raise ApplicationError("QML initialization failed") from e
+    |
+    = help: Replace with `exception`
+
+src/jmbde/__main.py:121:26: G004 Logging statement uses f-string
+    |
+119 |             logger.info("QML engine initialized successfully")
+120 |         except Exception as e:
+121 |             logger.error(f"Failed to initialize QML engine: {e}")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+122 |             raise ApplicationError("QML initialization failed") from e
+    |
+
+src/jmbde/__main.py:122:19: TRY003 Avoid specifying long messages outside the exception class
+    |
+120 |         except Exception as e:
+121 |             logger.error(f"Failed to initialize QML engine: {e}")
+122 |             raise ApplicationError("QML initialization failed") from e
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+123 | 
+124 |     def cleanup(self) -> None:
+    |
+
+src/jmbde/__main.py:122:36: EM101 Exception must not use a string literal, assign to variable first
+    |
+120 |         except Exception as e:
+121 |             logger.error(f"Failed to initialize QML engine: {e}")
+122 |             raise ApplicationError("QML initialization failed") from e
+    |                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM101
+123 | 
+124 |     def cleanup(self) -> None:
+    |
+    = help: Assign to variable; remove string literal
+
+src/jmbde/__main.py:132:16: BLE001 Do not catch blind exception: `Exception`
+    |
+130 |                 self.settings.save()
+131 |             logger.info("Application cleanup completed successfully")
+132 |         except Exception as e:
+    |                ^^^^^^^^^ BLE001
+133 |             logger.error(f"Cleanup failed: {e}")
+    |
+
+src/jmbde/__main.py:133:13: TRY400 Use `logging.exception` instead of `logging.error`
+    |
+131 |             logger.info("Application cleanup completed successfully")
+132 |         except Exception as e:
+133 |             logger.error(f"Cleanup failed: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+    |
+    = help: Replace with `exception`
+
+src/jmbde/__main.py:133:26: G004 Logging statement uses f-string
+    |
+131 |             logger.info("Application cleanup completed successfully")
+132 |         except Exception as e:
+133 |             logger.error(f"Cleanup failed: {e}")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^ G004
+    |
+
+src/jmbde/__main.py:140:10: FBT001 Boolean-typed positional argument in function definition
+    |
+138 | @click.option("--debug", is_flag=True, help="Enable debug mode")
+139 | @click.option("--config", type=click.Path(), help="Path to configuration file")
+140 | def main(debug: bool, config: Optional[str]) -> None:
+    |          ^^^^^ FBT001
+141 |     """JMBDE - Business Data Management Application.
+    |
+
+src/jmbde/__main.py:140:23: ARG001 Unused function argument: `config`
+    |
+138 | @click.option("--debug", is_flag=True, help="Enable debug mode")
+139 | @click.option("--config", type=click.Path(), help="Path to configuration file")
+140 | def main(debug: bool, config: Optional[str]) -> None:
+    |                       ^^^^^^ ARG001
+141 |     """JMBDE - Business Data Management Application.
+    |
+
+src/jmbde/__main.py:140:31: FA100 Add `from __future__ import annotations` to simplify `typing.Optional`
+    |
+138 | @click.option("--debug", is_flag=True, help="Enable debug mode")
+139 | @click.option("--config", type=click.Path(), help="Path to configuration file")
+140 | def main(debug: bool, config: Optional[str]) -> None:
+    |                               ^^^^^^^^ FA100
+141 |     """JMBDE - Business Data Management Application.
+    |
+
+src/jmbde/__main.py:171:25: G004 Logging statement uses f-string
+    |
+170 |     except ApplicationError as e:
+171 |         logger.critical(f"Application failed to start: {e}")
+    |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+172 |         click.echo(f"Error: {e}", err=True)
+173 |         sys.exit(1)
+    |
+
+src/jmbde/__main.py:174:12: BLE001 Do not catch blind exception: `Exception`
+    |
+172 |         click.echo(f"Error: {e}", err=True)
+173 |         sys.exit(1)
+174 |     except Exception as e:
+    |            ^^^^^^^^^ BLE001
+175 |         logger.critical(f"Unexpected error: {e}", exc_info=True)
+176 |         click.echo(
+    |
+
+src/jmbde/__main.py:175:25: G004 Logging statement uses f-string
+    |
+173 |         sys.exit(1)
+174 |     except Exception as e:
+175 |         logger.critical(f"Unexpected error: {e}", exc_info=True)
+    |                         ^^^^^^^^^^^^^^^^^^^^^^^^ G004
+176 |         click.echo(
+177 |             "Fatal Error: An unexpected error occurred. Check logs for details.",
+    |
+
+src/jmbde/__main__.py:13:5: D103 Missing docstring in public function
+   |
+11 | @click.command()
+12 | @click.help_option()
+13 | def main() -> None:
+   |     ^^^^ D103
+14 |     print("Hello, world!")
+   |
+
+src/jmbde/__main__.py:14:5: T201 `print` found
+   |
+12 | @click.help_option()
+13 | def main() -> None:
+14 |     print("Hello, world!")
+   |     ^^^^^ T201
+   |
+   = help: Remove `print`
+
+src/jmbde/core/__init__.py:1:1: D104 Missing docstring in public package
+src/jmbde/core/config.py:1:1: D100 Missing docstring in public module
+src/jmbde/core/database.py:1:1: EXE001 Shebang is present but file is not executable
+  |
+1 | #!/usr/bin/env python3
+  | ^^^^^^^^^^^^^^^^^^^^^^ EXE001
+2 | 
+3 | """Database Management Module for JMBDE
+  |
+
+src/jmbde/core/database.py:3:1: D400 First line should end with a period
+   |
+ 1 |   #!/usr/bin/env python3
+ 2 |   
+ 3 | / """Database Management Module for JMBDE
+ 4 | | 
+ 5 | | This module provides database operations for the JMBDE application,
+ 6 | | handling employee and device data using SQLite.
+ 7 | | 
+ 8 | | Copyright (C) 2018-2024 Jürgen Mülbert
+ 9 | | License: GPL-3.0
+10 | | """
+   | |___^ D400
+11 |   
+12 |   from contextlib import contextmanager
+   |
+   = help: Add period
+
+src/jmbde/core/database.py:31:9: FA100 Add `from __future__ import annotations` to simplify `typing.Optional`
+   |
+29 |     """Data model for Employee records."""
+30 | 
+31 |     id: Optional[int]
+   |         ^^^^^^^^ FA100
+32 |     name: str
+33 |     position: str
+   |
+
+src/jmbde/core/database.py:44:9: FA100 Add `from __future__ import annotations` to simplify `typing.Optional`
+   |
+42 |     """Data model for Device records."""
+43 | 
+44 |     id: Optional[int]
+   |         ^^^^^^^^ FA100
+45 |     employee_id: Optional[int]
+46 |     device_name: str
+   |
+
+src/jmbde/core/database.py:45:18: FA100 Add `from __future__ import annotations` to simplify `typing.Optional`
+   |
+44 |     id: Optional[int]
+45 |     employee_id: Optional[int]
+   |                  ^^^^^^^^ FA100
+46 |     device_name: str
+47 |     device_type: str
+   |
+
+src/jmbde/core/database.py:50:23: FA100 Add `from __future__ import annotations` to simplify `typing.Optional`
+   |
+48 |     serial_number: str
+49 |     purchase_date: datetime
+50 |     warranty_expires: Optional[datetime]
+   |                       ^^^^^^^^ FA100
+51 |     status: str = "active"
+   |
+
+src/jmbde/core/database.py:61:9: ANN204 Missing return type annotation for special method `__init__`
+   |
+59 |     """
+60 | 
+61 |     def __init__(self, db_path: Union[str, Path] = Config.DATABASE_PATH):
+   |         ^^^^^^^^ ANN204
+62 |         """Initialize database connection and setup.
+   |
+   = help: Add return type annotation: `None`
+
+src/jmbde/core/database.py:61:33: FA100 Add `from __future__ import annotations` to simplify `typing.Union`
+   |
+59 |     """
+60 | 
+61 |     def __init__(self, db_path: Union[str, Path] = Config.DATABASE_PATH):
+   |                                 ^^^^^ FA100
+62 |         """Initialize database connection and setup.
+   |
+
+src/jmbde/core/database.py:82:25: G004 Logging statement uses f-string
+   |
+80 |             self.connection.row_factory = sqlite3.Row
+81 |             self._create_tables()
+82 |             logger.info(f"Database initialized successfully at {self.db_path}")
+   |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+83 |         except Exception as e:
+84 |             logger.error(f"Failed to initialize database: {e}")
+   |
+
+src/jmbde/core/database.py:84:13: TRY400 Use `logging.exception` instead of `logging.error`
+   |
+82 |             logger.info(f"Database initialized successfully at {self.db_path}")
+83 |         except Exception as e:
+84 |             logger.error(f"Failed to initialize database: {e}")
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+85 |             raise DatabaseError(f"Database initialization failed: {e}") from e
+   |
+   = help: Replace with `exception`
+
+src/jmbde/core/database.py:84:26: G004 Logging statement uses f-string
+   |
+82 |             logger.info(f"Database initialized successfully at {self.db_path}")
+83 |         except Exception as e:
+84 |             logger.error(f"Failed to initialize database: {e}")
+   |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+85 |             raise DatabaseError(f"Database initialization failed: {e}") from e
+   |
+
+src/jmbde/core/database.py:85:19: TRY003 Avoid specifying long messages outside the exception class
+   |
+83 |         except Exception as e:
+84 |             logger.error(f"Failed to initialize database: {e}")
+85 |             raise DatabaseError(f"Database initialization failed: {e}") from e
+   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+86 | 
+87 |     @contextmanager
+   |
+
+src/jmbde/core/database.py:85:33: EM102 Exception must not use an f-string literal, assign to variable first
+   |
+83 |         except Exception as e:
+84 |             logger.error(f"Failed to initialize database: {e}")
+85 |             raise DatabaseError(f"Database initialization failed: {e}") from e
+   |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM102
+86 | 
+87 |     @contextmanager
+   |
+   = help: Assign to variable; remove f-string literal
+
+src/jmbde/core/database.py:88:9: ANN201 Missing return type annotation for public function `transaction`
+   |
+87 |     @contextmanager
+88 |     def transaction(self):
+   |         ^^^^^^^^^^^ ANN201
+89 |         """Context manager for database transactions.
+   |
+   = help: Add return type annotation
+
+src/jmbde/core/database.py:98:13: TRY400 Use `logging.exception` instead of `logging.error`
+   |
+96 |         except Exception as e:
+97 |             self.connection.rollback()
+98 |             logger.error(f"Transaction failed: {e}")
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+99 |             raise DatabaseError(f"Transaction failed: {e}") from e
+   |
+   = help: Replace with `exception`
+
+src/jmbde/core/database.py:98:26: G004 Logging statement uses f-string
+   |
+96 |         except Exception as e:
+97 |             self.connection.rollback()
+98 |             logger.error(f"Transaction failed: {e}")
+   |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+99 |             raise DatabaseError(f"Transaction failed: {e}") from e
+   |
+
+src/jmbde/core/database.py:99:19: TRY003 Avoid specifying long messages outside the exception class
+    |
+ 97 |             self.connection.rollback()
+ 98 |             logger.error(f"Transaction failed: {e}")
+ 99 |             raise DatabaseError(f"Transaction failed: {e}") from e
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+100 | 
+101 |     def _create_tables(self) -> None:
+    |
+
+src/jmbde/core/database.py:99:33: EM102 Exception must not use an f-string literal, assign to variable first
+    |
+ 97 |             self.connection.rollback()
+ 98 |             logger.error(f"Transaction failed: {e}")
+ 99 |             raise DatabaseError(f"Transaction failed: {e}") from e
+    |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^ EM102
+100 | 
+101 |     def _create_tables(self) -> None:
+    |
+    = help: Assign to variable; remove f-string literal
+
+src/jmbde/core/database.py:151:89: E501 Line too long (93 > 88)
+    |
+149 |                 )
+150 |                 cursor.execute(
+151 |                     "CREATE INDEX IF NOT EXISTS idx_device_serial ON devices(serial_number)",
+    |                                                                                         ^^^^^ E501
+152 |                 )
+    |
+
+src/jmbde/core/database.py:156:13: TRY400 Use `logging.exception` instead of `logging.error`
+    |
+154 |                 logger.info("Database tables and indices created successfully")
+155 |         except Exception as e:
+156 |             logger.error(f"Failed to create tables: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+157 |             raise DatabaseError(f"Table creation failed: {e}") from e
+    |
+    = help: Replace with `exception`
+
+src/jmbde/core/database.py:156:26: G004 Logging statement uses f-string
+    |
+154 |                 logger.info("Database tables and indices created successfully")
+155 |         except Exception as e:
+156 |             logger.error(f"Failed to create tables: {e}")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+157 |             raise DatabaseError(f"Table creation failed: {e}") from e
+    |
+
+src/jmbde/core/database.py:157:19: TRY003 Avoid specifying long messages outside the exception class
+    |
+155 |         except Exception as e:
+156 |             logger.error(f"Failed to create tables: {e}")
+157 |             raise DatabaseError(f"Table creation failed: {e}") from e
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+158 | 
+159 |     def add_employee(self, employee: EmployeeModel) -> int:
+    |
+
+src/jmbde/core/database.py:157:33: EM102 Exception must not use an f-string literal, assign to variable first
+    |
+155 |         except Exception as e:
+156 |             logger.error(f"Failed to create tables: {e}")
+157 |             raise DatabaseError(f"Table creation failed: {e}") from e
+    |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM102
+158 | 
+159 |     def add_employee(self, employee: EmployeeModel) -> int:
+    |
+    = help: Assign to variable; remove f-string literal
+
+src/jmbde/core/database.py:195:29: G004 Logging statement uses f-string
+    |
+193 |                 )
+194 |                 employee_id = cursor.lastrowid
+195 |                 logger.info(f"Added employee: {employee.name} (ID: {employee_id})")
+    |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+196 |                 return employee_id
+197 |         except Exception as e:
+    |
+
+src/jmbde/core/database.py:198:13: TRY400 Use `logging.exception` instead of `logging.error`
+    |
+196 |                 return employee_id
+197 |         except Exception as e:
+198 |             logger.error(f"Failed to add employee {employee.name}: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+199 |             raise DatabaseError(f"Failed to add employee: {e}") from e
+    |
+    = help: Replace with `exception`
+
+src/jmbde/core/database.py:198:26: G004 Logging statement uses f-string
+    |
+196 |                 return employee_id
+197 |         except Exception as e:
+198 |             logger.error(f"Failed to add employee {employee.name}: {e}")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+199 |             raise DatabaseError(f"Failed to add employee: {e}") from e
+    |
+
+src/jmbde/core/database.py:199:19: TRY003 Avoid specifying long messages outside the exception class
+    |
+197 |         except Exception as e:
+198 |             logger.error(f"Failed to add employee {employee.name}: {e}")
+199 |             raise DatabaseError(f"Failed to add employee: {e}") from e
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+200 | 
+201 |     def get_employee(self, employee_id: int) -> Optional[dict[str, Any]]:
+    |
+
+src/jmbde/core/database.py:199:33: EM102 Exception must not use an f-string literal, assign to variable first
+    |
+197 |         except Exception as e:
+198 |             logger.error(f"Failed to add employee {employee.name}: {e}")
+199 |             raise DatabaseError(f"Failed to add employee: {e}") from e
+    |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM102
+200 | 
+201 |     def get_employee(self, employee_id: int) -> Optional[dict[str, Any]]:
+    |
+    = help: Assign to variable; remove f-string literal
+
+src/jmbde/core/database.py:201:49: FA100 Add `from __future__ import annotations` to simplify `typing.Optional`
+    |
+199 |             raise DatabaseError(f"Failed to add employee: {e}") from e
+200 | 
+201 |     def get_employee(self, employee_id: int) -> Optional[dict[str, Any]]:
+    |                                                 ^^^^^^^^ FA100
+202 |         """Retrieve employee data by ID.
+    |
+
+src/jmbde/core/database.py:224:13: TRY400 Use `logging.exception` instead of `logging.error`
+    |
+222 |                 return dict(result) if result else None
+223 |         except Exception as e:
+224 |             logger.error(f"Failed to retrieve employee {employee_id}: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+225 |             raise DatabaseError(f"Employee retrieval failed: {e}") from e
+    |
+    = help: Replace with `exception`
+
+src/jmbde/core/database.py:224:26: G004 Logging statement uses f-string
+    |
+222 |                 return dict(result) if result else None
+223 |         except Exception as e:
+224 |             logger.error(f"Failed to retrieve employee {employee_id}: {e}")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+225 |             raise DatabaseError(f"Employee retrieval failed: {e}") from e
+    |
+
+src/jmbde/core/database.py:225:19: TRY003 Avoid specifying long messages outside the exception class
+    |
+223 |         except Exception as e:
+224 |             logger.error(f"Failed to retrieve employee {employee_id}: {e}")
+225 |             raise DatabaseError(f"Employee retrieval failed: {e}") from e
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+226 | 
+227 |     def get_employees(
+    |
+
+src/jmbde/core/database.py:225:33: EM102 Exception must not use an f-string literal, assign to variable first
+    |
+223 |         except Exception as e:
+224 |             logger.error(f"Failed to retrieve employee {employee_id}: {e}")
+225 |             raise DatabaseError(f"Employee retrieval failed: {e}") from e
+    |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM102
+226 | 
+227 |     def get_employees(
+    |
+    = help: Assign to variable; remove f-string literal
+
+src/jmbde/core/database.py:229:9: FBT001 Boolean-typed positional argument in function definition
+    |
+227 |     def get_employees(
+228 |         self,
+229 |         active_only: bool = True,
+    |         ^^^^^^^^^^^ FBT001
+230 |         department: Optional[str] = None,
+231 |     ) -> list[dict[str, Any]]:
+    |
+
+src/jmbde/core/database.py:229:9: FBT002 Boolean default positional argument in function definition
+    |
+227 |     def get_employees(
+228 |         self,
+229 |         active_only: bool = True,
+    |         ^^^^^^^^^^^ FBT002
+230 |         department: Optional[str] = None,
+231 |     ) -> list[dict[str, Any]]:
+    |
+
+src/jmbde/core/database.py:230:21: FA100 Add `from __future__ import annotations` to simplify `typing.Optional`
+    |
+228 |         self,
+229 |         active_only: bool = True,
+230 |         department: Optional[str] = None,
+    |                     ^^^^^^^^ FA100
+231 |     ) -> list[dict[str, Any]]:
+232 |         """Retrieve all employees matching the specified criteria.
+    |
+
+src/jmbde/core/database.py:262:13: TRY400 Use `logging.exception` instead of `logging.error`
+    |
+260 |                 return [dict(row) for row in cursor.fetchall()]
+261 |         except Exception as e:
+262 |             logger.error(f"Failed to retrieve employees: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+263 |             raise DatabaseError(f"Employee retrieval failed: {e}") from e
+    |
+    = help: Replace with `exception`
+
+src/jmbde/core/database.py:262:26: G004 Logging statement uses f-string
+    |
+260 |                 return [dict(row) for row in cursor.fetchall()]
+261 |         except Exception as e:
+262 |             logger.error(f"Failed to retrieve employees: {e}")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+263 |             raise DatabaseError(f"Employee retrieval failed: {e}") from e
+    |
+
+src/jmbde/core/database.py:263:19: TRY003 Avoid specifying long messages outside the exception class
+    |
+261 |         except Exception as e:
+262 |             logger.error(f"Failed to retrieve employees: {e}")
+263 |             raise DatabaseError(f"Employee retrieval failed: {e}") from e
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+264 | 
+265 |     def update_employee(self, employee_id: int, data: dict[str, Any]) -> bool:
+    |
+
+src/jmbde/core/database.py:263:33: EM102 Exception must not use an f-string literal, assign to variable first
+    |
+261 |         except Exception as e:
+262 |             logger.error(f"Failed to retrieve employees: {e}")
+263 |             raise DatabaseError(f"Employee retrieval failed: {e}") from e
+    |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM102
+264 | 
+265 |     def update_employee(self, employee_id: int, data: dict[str, Any]) -> bool:
+    |
+    = help: Assign to variable; remove f-string literal
+
+src/jmbde/core/database.py:298:21: S608 Possible SQL injection vector through string-based query construction
+    |
+296 |                   return False
+297 |   
+298 |               query = """
+    |  _____________________^
+299 | |                 UPDATE employees
+300 | |                 SET {}
+301 | |                 WHERE id = ?
+302 | |             """.format(
+303 | |                 ", ".join(f"{field} = ?" for field in update_fields),
+304 | |             )
+    | |_____________^ S608
+305 |   
+306 |               with self.transaction() as cursor:
+    |
+
+src/jmbde/core/database.py:310:33: G004 Logging statement uses f-string
+    |
+308 |                 success = cursor.rowcount > 0
+309 |                 if success:
+310 |                     logger.info(f"Updated employee {employee_id}")
+    |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+311 |                 return success
+312 |         except Exception as e:
+    |
+
+src/jmbde/core/database.py:313:13: TRY400 Use `logging.exception` instead of `logging.error`
+    |
+311 |                 return success
+312 |         except Exception as e:
+313 |             logger.error(f"Failed to update employee {employee_id}: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+314 |             raise DatabaseError(f"Employee update failed: {e}") from e
+    |
+    = help: Replace with `exception`
+
+src/jmbde/core/database.py:313:26: G004 Logging statement uses f-string
+    |
+311 |                 return success
+312 |         except Exception as e:
+313 |             logger.error(f"Failed to update employee {employee_id}: {e}")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+314 |             raise DatabaseError(f"Employee update failed: {e}") from e
+    |
+
+src/jmbde/core/database.py:314:19: TRY003 Avoid specifying long messages outside the exception class
+    |
+312 |         except Exception as e:
+313 |             logger.error(f"Failed to update employee {employee_id}: {e}")
+314 |             raise DatabaseError(f"Employee update failed: {e}") from e
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+315 | 
+316 |     def delete_employee(self, employee_id: int) -> bool:
+    |
+
+src/jmbde/core/database.py:314:33: EM102 Exception must not use an f-string literal, assign to variable first
+    |
+312 |         except Exception as e:
+313 |             logger.error(f"Failed to update employee {employee_id}: {e}")
+314 |             raise DatabaseError(f"Employee update failed: {e}") from e
+    |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM102
+315 | 
+316 |     def delete_employee(self, employee_id: int) -> bool:
+    |
+    = help: Assign to variable; remove f-string literal
+
+src/jmbde/core/database.py:337:33: G004 Logging statement uses f-string
+    |
+335 |                 success = cursor.rowcount > 0
+336 |                 if success:
+337 |                     logger.info(f"Deleted employee {employee_id}")
+    |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+338 |                 return success
+339 |         except Exception as e:
+    |
+
+src/jmbde/core/database.py:340:13: TRY400 Use `logging.exception` instead of `logging.error`
+    |
+338 |                 return success
+339 |         except Exception as e:
+340 |             logger.error(f"Failed to delete employee {employee_id}: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+341 |             raise DatabaseError(f"Employee deletion failed: {e}") from e
+    |
+    = help: Replace with `exception`
+
+src/jmbde/core/database.py:340:26: G004 Logging statement uses f-string
+    |
+338 |                 return success
+339 |         except Exception as e:
+340 |             logger.error(f"Failed to delete employee {employee_id}: {e}")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+341 |             raise DatabaseError(f"Employee deletion failed: {e}") from e
+    |
+
+src/jmbde/core/database.py:341:19: TRY003 Avoid specifying long messages outside the exception class
+    |
+339 |         except Exception as e:
+340 |             logger.error(f"Failed to delete employee {employee_id}: {e}")
+341 |             raise DatabaseError(f"Employee deletion failed: {e}") from e
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+342 | 
+343 |     def cleanup(self) -> None:
+    |
+
+src/jmbde/core/database.py:341:33: EM102 Exception must not use an f-string literal, assign to variable first
+    |
+339 |         except Exception as e:
+340 |             logger.error(f"Failed to delete employee {employee_id}: {e}")
+341 |             raise DatabaseError(f"Employee deletion failed: {e}") from e
+    |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM102
+342 | 
+343 |     def cleanup(self) -> None:
+    |
+    = help: Assign to variable; remove f-string literal
+
+src/jmbde/core/database.py:353:13: TRY400 Use `logging.exception` instead of `logging.error`
+    |
+351 |                 logger.info("Database connection closed successfully")
+352 |         except Exception as e:
+353 |             logger.error(f"Database cleanup failed: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+354 |             raise DatabaseError(f"Database cleanup failed: {e}") from e
+    |
+    = help: Replace with `exception`
+
+src/jmbde/core/database.py:353:26: G004 Logging statement uses f-string
+    |
+351 |                 logger.info("Database connection closed successfully")
+352 |         except Exception as e:
+353 |             logger.error(f"Database cleanup failed: {e}")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+354 |             raise DatabaseError(f"Database cleanup failed: {e}") from e
+    |
+
+src/jmbde/core/database.py:354:19: TRY003 Avoid specifying long messages outside the exception class
+    |
+352 |         except Exception as e:
+353 |             logger.error(f"Database cleanup failed: {e}")
+354 |             raise DatabaseError(f"Database cleanup failed: {e}") from e
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+355 | 
+356 |     def __enter__(self):
+    |
+
+src/jmbde/core/database.py:354:33: EM102 Exception must not use an f-string literal, assign to variable first
+    |
+352 |         except Exception as e:
+353 |             logger.error(f"Database cleanup failed: {e}")
+354 |             raise DatabaseError(f"Database cleanup failed: {e}") from e
+    |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM102
+355 | 
+356 |     def __enter__(self):
+    |
+    = help: Assign to variable; remove f-string literal
+
+src/jmbde/core/database.py:356:9: ANN204 Missing return type annotation for special method `__enter__`
+    |
+354 |             raise DatabaseError(f"Database cleanup failed: {e}") from e
+355 | 
+356 |     def __enter__(self):
+    |         ^^^^^^^^^ ANN204
+357 |         """Context manager enter."""
+358 |         return self
+    |
+    = help: Add return type annotation
+
+src/jmbde/core/database.py:360:9: ANN204 Missing return type annotation for special method `__exit__`
+    |
+358 |         return self
+359 | 
+360 |     def __exit__(self, exc_type, exc_val, exc_tb):
+    |         ^^^^^^^^ ANN204
+361 |         """Context manager exit."""
+362 |         self.cleanup()
+    |
+    = help: Add return type annotation
+
+src/jmbde/core/database.py:360:24: ANN001 Missing type annotation for function argument `exc_type`
+    |
+358 |         return self
+359 | 
+360 |     def __exit__(self, exc_type, exc_val, exc_tb):
+    |                        ^^^^^^^^ ANN001
+361 |         """Context manager exit."""
+362 |         self.cleanup()
+    |
+
+src/jmbde/core/database.py:360:34: ANN001 Missing type annotation for function argument `exc_val`
+    |
+358 |         return self
+359 | 
+360 |     def __exit__(self, exc_type, exc_val, exc_tb):
+    |                                  ^^^^^^^ ANN001
+361 |         """Context manager exit."""
+362 |         self.cleanup()
+    |
+
+src/jmbde/core/database.py:360:43: ANN001 Missing type annotation for function argument `exc_tb`
+    |
+358 |         return self
+359 | 
+360 |     def __exit__(self, exc_type, exc_val, exc_tb):
+    |                                           ^^^^^^ ANN001
+361 |         """Context manager exit."""
+362 |         self.cleanup()
+    |
+
+src/jmbde/core/security.py:1:1: D100 Missing docstring in public module
+src/jmbde/core/security.py:7:7: D101 Missing docstring in public class
+  |
+7 | class SecurityManager:
+  |       ^^^^^^^^^^^^^^^ D101
+8 |     def __init__(self, key: Optional[bytes] = None):
+9 |         self._key = key or Fernet.generate_key()
+  |
+
+src/jmbde/core/security.py:8:9: ANN204 Missing return type annotation for special method `__init__`
+   |
+ 7 | class SecurityManager:
+ 8 |     def __init__(self, key: Optional[bytes] = None):
+   |         ^^^^^^^^ ANN204
+ 9 |         self._key = key or Fernet.generate_key()
+10 |         self._fernet = Fernet(self._key)
+   |
+   = help: Add return type annotation: `None`
+
+src/jmbde/core/security.py:8:29: FA100 Add `from __future__ import annotations` to simplify `typing.Optional`
+   |
+ 7 | class SecurityManager:
+ 8 |     def __init__(self, key: Optional[bytes] = None):
+   |                             ^^^^^^^^ FA100
+ 9 |         self._key = key or Fernet.generate_key()
+10 |         self._fernet = Fernet(self._key)
+   |
+
+src/jmbde/core/security.py:12:9: D102 Missing docstring in public method
+   |
+10 |         self._fernet = Fernet(self._key)
+11 | 
+12 |     def encrypt_data(self, data: str) -> bytes:
+   |         ^^^^^^^^^^^^ D102
+13 |         return self._fernet.encrypt(data.encode())
+   |
+
+src/jmbde/core/security.py:15:9: D102 Missing docstring in public method
+   |
+13 |         return self._fernet.encrypt(data.encode())
+14 | 
+15 |     def decrypt_data(self, encrypted_data: bytes) -> str:
+   |         ^^^^^^^^^^^^ D102
+16 |         return self._fernet.decrypt(encrypted_data).decode()
+   |
+
+src/jmbde/core/settings.py:1:1: EXE001 Shebang is present but file is not executable
+  |
+1 | #!/usr/bin/env python3
+  | ^^^^^^^^^^^^^^^^^^^^^^ EXE001
+2 | 
+3 | """Settings Management Module for JMBDE
+  |
+
+src/jmbde/core/settings.py:3:1: D400 First line should end with a period
+   |
+ 1 |   #!/usr/bin/env python3
+ 2 |   
+ 3 | / """Settings Management Module for JMBDE
+ 4 | | 
+ 5 | | This module handles application settings and configuration management
+ 6 | | for the JMBDE application.
+ 7 | | 
+ 8 | | Copyright (C) 2018-2024 Jürgen Mülbert
+ 9 | | License: GPL-3.0
+10 | | """
+   | |___^ D400
+11 |   
+12 |   import json
+   |
+   = help: Add period
+
+src/jmbde/core/settings.py:67:5: N815 Variable `settingsChanged` in class scope should not be mixedCase
+   |
+66 |     # Qt Signals for settings changes
+67 |     settingsChanged = Signal()
+   |     ^^^^^^^^^^^^^^^ N815
+68 |     themeChanged = Signal(str)
+69 |     languageChanged = Signal(str)
+   |
+
+src/jmbde/core/settings.py:68:5: N815 Variable `themeChanged` in class scope should not be mixedCase
+   |
+66 |     # Qt Signals for settings changes
+67 |     settingsChanged = Signal()
+68 |     themeChanged = Signal(str)
+   |     ^^^^^^^^^^^^ N815
+69 |     languageChanged = Signal(str)
+   |
+
+src/jmbde/core/settings.py:69:5: N815 Variable `languageChanged` in class scope should not be mixedCase
+   |
+67 |     settingsChanged = Signal()
+68 |     themeChanged = Signal(str)
+69 |     languageChanged = Signal(str)
+   |     ^^^^^^^^^^^^^^^ N815
+70 | 
+71 |     def __init__(self, config_path: Optional[Path] = None) -> None:
+   |
+
+src/jmbde/core/settings.py:71:37: FA100 Add `from __future__ import annotations` to simplify `typing.Optional`
+   |
+69 |     languageChanged = Signal(str)
+70 | 
+71 |     def __init__(self, config_path: Optional[Path] = None) -> None:
+   |                                     ^^^^^^^^ FA100
+72 |         """Initialize Settings manager.
+   |
+
+src/jmbde/core/settings.py:88:21: G004 Logging statement uses f-string
+   |
+86 |         self._application = ApplicationSettings()
+87 | 
+88 |         logger.info(f"Settings initialized with config path: {self._config_path}")
+   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+89 | 
+90 |     def load(self) -> None:
+   |
+
+src/jmbde/core/settings.py:115:13: TRY400 Use `logging.exception` instead of `logging.error`
+    |
+113 |                 self.save()  # Save defaults
+114 |         except (json.JSONDecodeError, ValidationError) as e:
+115 |             logger.error(f"Failed to load settings: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+116 |             raise ConfigurationError(f"Invalid configuration file: {e}") from e
+117 |         except Exception as e:
+    |
+    = help: Replace with `exception`
+
+src/jmbde/core/settings.py:115:26: G004 Logging statement uses f-string
+    |
+113 |                 self.save()  # Save defaults
+114 |         except (json.JSONDecodeError, ValidationError) as e:
+115 |             logger.error(f"Failed to load settings: {e}")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+116 |             raise ConfigurationError(f"Invalid configuration file: {e}") from e
+117 |         except Exception as e:
+    |
+
+src/jmbde/core/settings.py:116:19: TRY003 Avoid specifying long messages outside the exception class
+    |
+114 |         except (json.JSONDecodeError, ValidationError) as e:
+115 |             logger.error(f"Failed to load settings: {e}")
+116 |             raise ConfigurationError(f"Invalid configuration file: {e}") from e
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+117 |         except Exception as e:
+118 |             logger.error(f"Unexpected error loading settings: {e}")
+    |
+
+src/jmbde/core/settings.py:116:38: EM102 Exception must not use an f-string literal, assign to variable first
+    |
+114 |         except (json.JSONDecodeError, ValidationError) as e:
+115 |             logger.error(f"Failed to load settings: {e}")
+116 |             raise ConfigurationError(f"Invalid configuration file: {e}") from e
+    |                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM102
+117 |         except Exception as e:
+118 |             logger.error(f"Unexpected error loading settings: {e}")
+    |
+    = help: Assign to variable; remove f-string literal
+
+src/jmbde/core/settings.py:118:13: TRY400 Use `logging.exception` instead of `logging.error`
+    |
+116 |             raise ConfigurationError(f"Invalid configuration file: {e}") from e
+117 |         except Exception as e:
+118 |             logger.error(f"Unexpected error loading settings: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+119 |             raise ConfigurationError(f"Failed to load settings: {e}") from e
+    |
+    = help: Replace with `exception`
+
+src/jmbde/core/settings.py:118:26: G004 Logging statement uses f-string
+    |
+116 |             raise ConfigurationError(f"Invalid configuration file: {e}") from e
+117 |         except Exception as e:
+118 |             logger.error(f"Unexpected error loading settings: {e}")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+119 |             raise ConfigurationError(f"Failed to load settings: {e}") from e
+    |
+
+src/jmbde/core/settings.py:119:19: TRY003 Avoid specifying long messages outside the exception class
+    |
+117 |         except Exception as e:
+118 |             logger.error(f"Unexpected error loading settings: {e}")
+119 |             raise ConfigurationError(f"Failed to load settings: {e}") from e
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+120 | 
+121 |     def save(self) -> None:
+    |
+
+src/jmbde/core/settings.py:119:38: EM102 Exception must not use an f-string literal, assign to variable first
+    |
+117 |         except Exception as e:
+118 |             logger.error(f"Unexpected error loading settings: {e}")
+119 |             raise ConfigurationError(f"Failed to load settings: {e}") from e
+    |                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM102
+120 | 
+121 |     def save(self) -> None:
+    |
+    = help: Assign to variable; remove f-string literal
+
+src/jmbde/core/settings.py:147:13: TRY400 Use `logging.exception` instead of `logging.error`
+    |
+145 |             logger.info("Settings saved successfully")
+146 |         except Exception as e:
+147 |             logger.error(f"Failed to save settings: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+148 |             raise ConfigurationError(f"Failed to save settings: {e}") from e
+    |
+    = help: Replace with `exception`
+
+src/jmbde/core/settings.py:147:26: G004 Logging statement uses f-string
+    |
+145 |             logger.info("Settings saved successfully")
+146 |         except Exception as e:
+147 |             logger.error(f"Failed to save settings: {e}")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+148 |             raise ConfigurationError(f"Failed to save settings: {e}") from e
+    |
+
+src/jmbde/core/settings.py:148:19: TRY003 Avoid specifying long messages outside the exception class
+    |
+146 |         except Exception as e:
+147 |             logger.error(f"Failed to save settings: {e}")
+148 |             raise ConfigurationError(f"Failed to save settings: {e}") from e
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+149 | 
+150 |     # Qt Property Getters/Setters for QML binding
+    |
+
+src/jmbde/core/settings.py:148:38: EM102 Exception must not use an f-string literal, assign to variable first
+    |
+146 |         except Exception as e:
+147 |             logger.error(f"Failed to save settings: {e}")
+148 |             raise ConfigurationError(f"Failed to save settings: {e}") from e
+    |                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM102
+149 | 
+150 |     # Qt Property Getters/Setters for QML binding
+    |
+    = help: Assign to variable; remove f-string literal
+
+src/jmbde/core/settings.py:179:9: N802 Function name `getValue` should be lowercase
+    |
+177 |     # Slot methods for QML interaction
+178 |     @Slot(str, result=Any)
+179 |     def getValue(self, key: str) -> Any:
+    |         ^^^^^^^^ N802
+180 |         """Get setting value by key path.
+    |
+
+src/jmbde/core/settings.py:179:37: ANN401 Dynamically typed expressions (typing.Any) are disallowed in `getValue`
+    |
+177 |     # Slot methods for QML interaction
+178 |     @Slot(str, result=Any)
+179 |     def getValue(self, key: str) -> Any:
+    |                                     ^^^ ANN401
+180 |         """Get setting value by key path.
+    |
+
+src/jmbde/core/settings.py:199:13: TRY300 Consider moving this statement to an `else` block
+    |
+197 |             elif section == "application":
+198 |                 return getattr(self._application, setting)
+199 |             return None
+    |             ^^^^^^^^^^^ TRY300
+200 |         except Exception as e:
+201 |             logger.error(f"Failed to get setting {key}: {e}")
+    |
+
+src/jmbde/core/settings.py:200:16: BLE001 Do not catch blind exception: `Exception`
+    |
+198 |                 return getattr(self._application, setting)
+199 |             return None
+200 |         except Exception as e:
+    |                ^^^^^^^^^ BLE001
+201 |             logger.error(f"Failed to get setting {key}: {e}")
+202 |             return None
+    |
+
+src/jmbde/core/settings.py:201:13: TRY400 Use `logging.exception` instead of `logging.error`
+    |
+199 |             return None
+200 |         except Exception as e:
+201 |             logger.error(f"Failed to get setting {key}: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+202 |             return None
+    |
+    = help: Replace with `exception`
+
+src/jmbde/core/settings.py:201:26: G004 Logging statement uses f-string
+    |
+199 |             return None
+200 |         except Exception as e:
+201 |             logger.error(f"Failed to get setting {key}: {e}")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+202 |             return None
+    |
+
+src/jmbde/core/settings.py:205:9: N802 Function name `setValue` should be lowercase
+    |
+204 |     @Slot(str, Any)
+205 |     def setValue(self, key: str, value: Any) -> None:
+    |         ^^^^^^^^ N802
+206 |         """Set setting value by key path.
+    |
+
+src/jmbde/core/settings.py:205:41: ANN401 Dynamically typed expressions (typing.Any) are disallowed in `value`
+    |
+204 |     @Slot(str, Any)
+205 |     def setValue(self, key: str, value: Any) -> None:
+    |                                         ^^^ ANN401
+206 |         """Set setting value by key path.
+    |
+
+src/jmbde/core/settings.py:224:16: BLE001 Do not catch blind exception: `Exception`
+    |
+222 |             self.save()
+223 |             self.settingsChanged.emit()
+224 |         except Exception as e:
+    |                ^^^^^^^^^ BLE001
+225 |             logger.error(f"Failed to set setting {key}: {e}")
+    |
+
+src/jmbde/core/settings.py:225:13: TRY400 Use `logging.exception` instead of `logging.error`
+    |
+223 |             self.settingsChanged.emit()
+224 |         except Exception as e:
+225 |             logger.error(f"Failed to set setting {key}: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+226 | 
+227 |     @Slot()
+    |
+    = help: Replace with `exception`
+
+src/jmbde/core/settings.py:225:26: G004 Logging statement uses f-string
+    |
+223 |             self.settingsChanged.emit()
+224 |         except Exception as e:
+225 |             logger.error(f"Failed to set setting {key}: {e}")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+226 | 
+227 |     @Slot()
+    |
+
+src/jmbde/core/settings.py:228:9: N802 Function name `resetToDefaults` should be lowercase
+    |
+227 |     @Slot()
+228 |     def resetToDefaults(self) -> None:
+    |         ^^^^^^^^^^^^^^^ N802
+229 |         """Reset all settings to default values."""
+230 |         try:
+    |
+
+src/jmbde/core/settings.py:237:16: BLE001 Do not catch blind exception: `Exception`
+    |
+235 |             self.settingsChanged.emit()
+236 |             logger.info("Settings reset to defaults")
+237 |         except Exception as e:
+    |                ^^^^^^^^^ BLE001
+238 |             logger.error(f"Failed to reset settings: {e}")
+    |
+
+src/jmbde/core/settings.py:238:13: TRY400 Use `logging.exception` instead of `logging.error`
+    |
+236 |             logger.info("Settings reset to defaults")
+237 |         except Exception as e:
+238 |             logger.error(f"Failed to reset settings: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+239 | 
+240 |     def get_database_path(self) -> Path:
+    |
+    = help: Replace with `exception`
+
+src/jmbde/core/settings.py:238:26: G004 Logging statement uses f-string
+    |
+236 |             logger.info("Settings reset to defaults")
+237 |         except Exception as e:
+238 |             logger.error(f"Failed to reset settings: {e}")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+239 | 
+240 |     def get_database_path(self) -> Path:
+    |
+
+src/jmbde/gui/__init__.py:1:1: D104 Missing docstring in public package
+src/jmbde/gui/employee_model.py:1:1: EXE001 Shebang is present but file is not executable
+  |
+1 | #!/usr/bin/env python3
+  | ^^^^^^^^^^^^^^^^^^^^^^ EXE001
+2 | 
+3 | """Employee Model Module for JMBDE
+  |
+
+src/jmbde/gui/employee_model.py:3:1: D400 First line should end with a period
+   |
+ 1 |   #!/usr/bin/env python3
+ 2 |   
+ 3 | / """Employee Model Module for JMBDE
+ 4 | | 
+ 5 | | This module provides a Qt model for exposing employee data to QML interfaces,
+ 6 | | implementing the necessary methods for data access and modification.
+ 7 | | 
+ 8 | | Copyright (C) 2018-2024 Jürgen Mülbert
+ 9 | | License: GPL-3.0
+10 | | """
+   | |___^ D400
+11 |   
+12 |   import logging
+   |
+   = help: Add period
+
+src/jmbde/gui/employee_model.py:52:5: N815 Variable `dataChanged` in class scope should not be mixedCase
+   |
+51 |     # Qt Signals
+52 |     dataChanged = Signal()
+   |     ^^^^^^^^^^^ N815
+53 |     filterChanged = Signal()
+54 |     errorOccurred = Signal(str)
+   |
+
+src/jmbde/gui/employee_model.py:53:5: N815 Variable `filterChanged` in class scope should not be mixedCase
+   |
+51 |     # Qt Signals
+52 |     dataChanged = Signal()
+53 |     filterChanged = Signal()
+   |     ^^^^^^^^^^^^^ N815
+54 |     errorOccurred = Signal(str)
+   |
+
+src/jmbde/gui/employee_model.py:54:5: N815 Variable `errorOccurred` in class scope should not be mixedCase
+   |
+52 |     dataChanged = Signal()
+53 |     filterChanged = Signal()
+54 |     errorOccurred = Signal(str)
+   |     ^^^^^^^^^^^^^ N815
+55 | 
+56 |     def __init__(self, database: Database, parent: Optional[Any] = None) -> None:
+   |
+
+src/jmbde/gui/employee_model.py:56:52: FA100 Add `from __future__ import annotations` to simplify `typing.Optional`
+   |
+54 |     errorOccurred = Signal(str)
+55 | 
+56 |     def __init__(self, database: Database, parent: Optional[Any] = None) -> None:
+   |                                                    ^^^^^^^^ FA100
+57 |         """Initialize the Employee Model.
+   |
+
+src/jmbde/gui/employee_model.py:56:52: ANN401 Dynamically typed expressions (typing.Any) are disallowed in `parent`
+   |
+54 |     errorOccurred = Signal(str)
+55 | 
+56 |     def __init__(self, database: Database, parent: Optional[Any] = None) -> None:
+   |                                                    ^^^^^^^^^^^^^ ANN401
+57 |         """Initialize the Employee Model.
+   |
+
+src/jmbde/gui/employee_model.py:69:34: FA100 Add `from __future__ import annotations` to simplify `typing.Optional`
+   |
+67 |         self._data: list[dict[str, Any]] = []
+68 |         self._filter_text: str = ""
+69 |         self._department_filter: Optional[str] = None
+   |                                  ^^^^^^^^ FA100
+70 |         self._show_inactive: bool = False
+   |
+
+src/jmbde/gui/employee_model.py:75:9: N802 Function name `rowCount` should be lowercase
+   |
+73 |         logger.info("EmployeeModel initialized")
+74 | 
+75 |     def rowCount(self, parent: QModelIndex = QModelIndex()) -> int:
+   |         ^^^^^^^^ N802
+76 |         """Get the number of rows in the model.
+   |
+
+src/jmbde/gui/employee_model.py:75:24: ARG002 Unused method argument: `parent`
+   |
+73 |         logger.info("EmployeeModel initialized")
+74 | 
+75 |     def rowCount(self, parent: QModelIndex = QModelIndex()) -> int:
+   |                        ^^^^^^ ARG002
+76 |         """Get the number of rows in the model.
+   |
+
+src/jmbde/gui/employee_model.py:75:46: B008 Do not perform function call `QModelIndex` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
+   |
+73 |         logger.info("EmployeeModel initialized")
+74 | 
+75 |     def rowCount(self, parent: QModelIndex = QModelIndex()) -> int:
+   |                                              ^^^^^^^^^^^^^ B008
+76 |         """Get the number of rows in the model.
+   |
+
+src/jmbde/gui/employee_model.py:89:71: ANN401 Dynamically typed expressions (typing.Any) are disallowed in `data`
+   |
+87 |         return len(self._data)
+88 | 
+89 |     def data(self, index: QModelIndex, role: int = Qt.DisplayRole) -> Any:
+   |                                                                       ^^^ ANN401
+90 |         """Get data for the specified index and role.
+   |
+
+src/jmbde/gui/employee_model.py:110:16: BLE001 Do not catch blind exception: `Exception`
+    |
+108 |         try:
+109 |             return employee.get(role_name)
+110 |         except Exception as e:
+    |                ^^^^^^^^^ BLE001
+111 |             logger.error(f"Error accessing employee data: {e}")
+112 |             return None
+    |
+
+src/jmbde/gui/employee_model.py:111:13: TRY400 Use `logging.exception` instead of `logging.error`
+    |
+109 |             return employee.get(role_name)
+110 |         except Exception as e:
+111 |             logger.error(f"Error accessing employee data: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+112 |             return None
+    |
+    = help: Replace with `exception`
+
+src/jmbde/gui/employee_model.py:111:26: G004 Logging statement uses f-string
+    |
+109 |             return employee.get(role_name)
+110 |         except Exception as e:
+111 |             logger.error(f"Error accessing employee data: {e}")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+112 |             return None
+    |
+
+src/jmbde/gui/employee_model.py:114:9: N802 Function name `roleNames` should be lowercase
+    |
+112 |             return None
+113 | 
+114 |     def roleNames(self) -> dict[int, QByteArray]:
+    |         ^^^^^^^^^ N802
+115 |         """Get the role names for QML binding.
+    |
+
+src/jmbde/gui/employee_model.py:132:26: G004 Logging statement uses f-string
+    |
+130 |             self.endResetModel()
+131 |             self.dataChanged.emit()
+132 |             logger.debug(f"Model refreshed with {len(self._data)} employees")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+133 |         except Exception as e:
+134 |             logger.error(f"Failed to refresh model: {e}")
+    |
+
+src/jmbde/gui/employee_model.py:133:16: BLE001 Do not catch blind exception: `Exception`
+    |
+131 |             self.dataChanged.emit()
+132 |             logger.debug(f"Model refreshed with {len(self._data)} employees")
+133 |         except Exception as e:
+    |                ^^^^^^^^^ BLE001
+134 |             logger.error(f"Failed to refresh model: {e}")
+135 |             self.errorOccurred.emit(str(e))
+    |
+
+src/jmbde/gui/employee_model.py:134:13: TRY400 Use `logging.exception` instead of `logging.error`
+    |
+132 |             logger.debug(f"Model refreshed with {len(self._data)} employees")
+133 |         except Exception as e:
+134 |             logger.error(f"Failed to refresh model: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+135 |             self.errorOccurred.emit(str(e))
+    |
+    = help: Replace with `exception`
+
+src/jmbde/gui/employee_model.py:134:26: G004 Logging statement uses f-string
+    |
+132 |             logger.debug(f"Model refreshed with {len(self._data)} employees")
+133 |         except Exception as e:
+134 |             logger.error(f"Failed to refresh model: {e}")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+135 |             self.errorOccurred.emit(str(e))
+    |
+
+src/jmbde/gui/employee_model.py:162:13: TRY300 Consider moving this statement to an `else` block
+    |
+160 |                 ]
+161 | 
+162 |             return employees
+    |             ^^^^^^^^^^^^^^^^ TRY300
+163 |         except DatabaseError as e:
+164 |             logger.error(f"Database error loading employees: {e}")
+    |
+
+src/jmbde/gui/employee_model.py:164:13: TRY400 Use `logging.exception` instead of `logging.error`
+    |
+162 |             return employees
+163 |         except DatabaseError as e:
+164 |             logger.error(f"Database error loading employees: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+165 |             raise ModelError(f"Failed to load employee data: {e}") from e
+    |
+    = help: Replace with `exception`
+
+src/jmbde/gui/employee_model.py:164:26: G004 Logging statement uses f-string
+    |
+162 |             return employees
+163 |         except DatabaseError as e:
+164 |             logger.error(f"Database error loading employees: {e}")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+165 |             raise ModelError(f"Failed to load employee data: {e}") from e
+    |
+
+src/jmbde/gui/employee_model.py:165:19: TRY003 Avoid specifying long messages outside the exception class
+    |
+163 |         except DatabaseError as e:
+164 |             logger.error(f"Database error loading employees: {e}")
+165 |             raise ModelError(f"Failed to load employee data: {e}") from e
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+166 | 
+167 |     @Property(str)
+    |
+
+src/jmbde/gui/employee_model.py:165:30: EM102 Exception must not use an f-string literal, assign to variable first
+    |
+163 |         except DatabaseError as e:
+164 |             logger.error(f"Database error loading employees: {e}")
+165 |             raise ModelError(f"Failed to load employee data: {e}") from e
+    |                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM102
+166 | 
+167 |     @Property(str)
+    |
+    = help: Assign to variable; remove f-string literal
+
+src/jmbde/gui/employee_model.py:168:9: N802 Function name `filterText` should be lowercase
+    |
+167 |     @Property(str)
+168 |     def filterText(self) -> str:
+    |         ^^^^^^^^^^ N802
+169 |         """Get current filter text."""
+170 |         return self._filter_text
+    |
+
+src/jmbde/gui/employee_model.py:173:9: N802 Function name `filterText` should be lowercase
+    |
+172 |     @filterText.setter
+173 |     def filterText(self, value: str) -> None:
+    |         ^^^^^^^^^^ N802
+174 |         """Set filter text and refresh model."""
+175 |         if value != self._filter_text:
+    |
+
+src/jmbde/gui/employee_model.py:181:9: N802 Function name `departmentFilter` should be lowercase
+    |
+180 |     @Property(str)
+181 |     def departmentFilter(self) -> Optional[str]:
+    |         ^^^^^^^^^^^^^^^^ N802
+182 |         """Get current department filter."""
+183 |         return self._department_filter
+    |
+
+src/jmbde/gui/employee_model.py:181:35: FA100 Add `from __future__ import annotations` to simplify `typing.Optional`
+    |
+180 |     @Property(str)
+181 |     def departmentFilter(self) -> Optional[str]:
+    |                                   ^^^^^^^^ FA100
+182 |         """Get current department filter."""
+183 |         return self._department_filter
+    |
+
+src/jmbde/gui/employee_model.py:186:9: N802 Function name `departmentFilter` should be lowercase
+    |
+185 |     @departmentFilter.setter
+186 |     def departmentFilter(self, value: Optional[str]) -> None:
+    |         ^^^^^^^^^^^^^^^^ N802
+187 |         """Set department filter and refresh model."""
+188 |         if value != self._department_filter:
+    |
+
+src/jmbde/gui/employee_model.py:186:39: FA100 Add `from __future__ import annotations` to simplify `typing.Optional`
+    |
+185 |     @departmentFilter.setter
+186 |     def departmentFilter(self, value: Optional[str]) -> None:
+    |                                       ^^^^^^^^ FA100
+187 |         """Set department filter and refresh model."""
+188 |         if value != self._department_filter:
+    |
+
+src/jmbde/gui/employee_model.py:194:9: N802 Function name `showInactive` should be lowercase
+    |
+193 |     @Property(bool)
+194 |     def showInactive(self) -> bool:
+    |         ^^^^^^^^^^^^ N802
+195 |         """Get inactive employees display setting."""
+196 |         return self._show_inactive
+    |
+
+src/jmbde/gui/employee_model.py:199:9: N802 Function name `showInactive` should be lowercase
+    |
+198 |     @showInactive.setter
+199 |     def showInactive(self, value: bool) -> None:
+    |         ^^^^^^^^^^^^ N802
+200 |         """Set inactive employees display setting and refresh model."""
+201 |         if value != self._show_inactive:
+    |
+
+src/jmbde/gui/employee_model.py:207:9: N802 Function name `updateEmployee` should be lowercase
+    |
+206 |     @Slot(int, str, str, str, str)
+207 |     def updateEmployee(
+    |         ^^^^^^^^^^^^^^ N802
+208 |         self,
+209 |         index: int,
+    |
+
+src/jmbde/gui/employee_model.py:244:33: G004 Logging statement uses f-string
+    |
+242 |                 if success:
+243 |                     self.refresh()
+244 |                     logger.info(f"Updated employee {employee_id}")
+    |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+245 |                 return success
+246 |             return False
+    |
+
+src/jmbde/gui/employee_model.py:246:13: TRY300 Consider moving this statement to an `else` block
+    |
+244 |                     logger.info(f"Updated employee {employee_id}")
+245 |                 return success
+246 |             return False
+    |             ^^^^^^^^^^^^ TRY300
+247 |         except Exception as e:
+248 |             logger.error(f"Failed to update employee: {e}")
+    |
+
+src/jmbde/gui/employee_model.py:247:16: BLE001 Do not catch blind exception: `Exception`
+    |
+245 |                 return success
+246 |             return False
+247 |         except Exception as e:
+    |                ^^^^^^^^^ BLE001
+248 |             logger.error(f"Failed to update employee: {e}")
+249 |             self.errorOccurred.emit(str(e))
+    |
+
+src/jmbde/gui/employee_model.py:248:13: TRY400 Use `logging.exception` instead of `logging.error`
+    |
+246 |             return False
+247 |         except Exception as e:
+248 |             logger.error(f"Failed to update employee: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+249 |             self.errorOccurred.emit(str(e))
+250 |             return False
+    |
+    = help: Replace with `exception`
+
+src/jmbde/gui/employee_model.py:248:26: G004 Logging statement uses f-string
+    |
+246 |             return False
+247 |         except Exception as e:
+248 |             logger.error(f"Failed to update employee: {e}")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+249 |             self.errorOccurred.emit(str(e))
+250 |             return False
+    |
+
+src/jmbde/gui/employee_model.py:253:9: N802 Function name `addEmployee` should be lowercase
+    |
+252 |     @Slot(str, str, str, str, str)
+253 |     def addEmployee(
+    |         ^^^^^^^^^^^ N802
+254 |         self,
+255 |         name: str,
+    |
+
+src/jmbde/gui/employee_model.py:286:34: DTZ005 `datetime.datetime.now()` called without a `tz` argument
+    |
+284 |                     "phone": phone,
+285 |                     "department": department,
+286 |                     "hire_date": datetime.now(),
+    |                                  ^^^^^^^^^^^^^^ DTZ005
+287 |                     "active": True,
+288 |                 },
+    |
+    = help: Pass a `datetime.timezone` object to the `tz` parameter
+
+src/jmbde/gui/employee_model.py:292:29: G004 Logging statement uses f-string
+    |
+290 |             if employee_id:
+291 |                 self.refresh()
+292 |                 logger.info(f"Added new employee: {name}")
+    |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+293 |                 return True
+294 |             return False
+    |
+
+src/jmbde/gui/employee_model.py:294:13: TRY300 Consider moving this statement to an `else` block
+    |
+292 |                 logger.info(f"Added new employee: {name}")
+293 |                 return True
+294 |             return False
+    |             ^^^^^^^^^^^^ TRY300
+295 |         except Exception as e:
+296 |             logger.error(f"Failed to add employee: {e}")
+    |
+
+src/jmbde/gui/employee_model.py:295:16: BLE001 Do not catch blind exception: `Exception`
+    |
+293 |                 return True
+294 |             return False
+295 |         except Exception as e:
+    |                ^^^^^^^^^ BLE001
+296 |             logger.error(f"Failed to add employee: {e}")
+297 |             self.errorOccurred.emit(str(e))
+    |
+
+src/jmbde/gui/employee_model.py:296:13: TRY400 Use `logging.exception` instead of `logging.error`
+    |
+294 |             return False
+295 |         except Exception as e:
+296 |             logger.error(f"Failed to add employee: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+297 |             self.errorOccurred.emit(str(e))
+298 |             return False
+    |
+    = help: Replace with `exception`
+
+src/jmbde/gui/employee_model.py:296:26: G004 Logging statement uses f-string
+    |
+294 |             return False
+295 |         except Exception as e:
+296 |             logger.error(f"Failed to add employee: {e}")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+297 |             self.errorOccurred.emit(str(e))
+298 |             return False
+    |
+
+src/jmbde/gui/employee_model.py:301:9: N802 Function name `removeEmployee` should be lowercase
+    |
+300 |     @Slot(int)
+301 |     def removeEmployee(self, index: int) -> bool:
+    |         ^^^^^^^^^^^^^^ N802
+302 |         """Remove employee at specified index.
+    |
+
+src/jmbde/gui/employee_model.py:319:33: G004 Logging statement uses f-string
+    |
+317 |                 if success:
+318 |                     self.refresh()
+319 |                     logger.info(f"Removed employee {employee_id}")
+    |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+320 |                 return success
+321 |             return False
+    |
+
+src/jmbde/gui/employee_model.py:321:13: TRY300 Consider moving this statement to an `else` block
+    |
+319 |                     logger.info(f"Removed employee {employee_id}")
+320 |                 return success
+321 |             return False
+    |             ^^^^^^^^^^^^ TRY300
+322 |         except Exception as e:
+323 |             logger.error(f"Failed to remove employee: {e}")
+    |
+
+src/jmbde/gui/employee_model.py:322:16: BLE001 Do not catch blind exception: `Exception`
+    |
+320 |                 return success
+321 |             return False
+322 |         except Exception as e:
+    |                ^^^^^^^^^ BLE001
+323 |             logger.error(f"Failed to remove employee: {e}")
+324 |             self.errorOccurred.emit(str(e))
+    |
+
+src/jmbde/gui/employee_model.py:323:13: TRY400 Use `logging.exception` instead of `logging.error`
+    |
+321 |             return False
+322 |         except Exception as e:
+323 |             logger.error(f"Failed to remove employee: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+324 |             self.errorOccurred.emit(str(e))
+325 |             return False
+    |
+    = help: Replace with `exception`
+
+src/jmbde/gui/employee_model.py:323:26: G004 Logging statement uses f-string
+    |
+321 |             return False
+322 |         except Exception as e:
+323 |             logger.error(f"Failed to remove employee: {e}")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+324 |             self.errorOccurred.emit(str(e))
+325 |             return False
+    |
+
+src/jmbde/gui/employee_model.py:328:9: N802 Function name `getDepartments` should be lowercase
+    |
+327 |     @Slot(result=list)
+328 |     def getDepartments(self) -> list[str]:
+    |         ^^^^^^^^^^^^^^ N802
+329 |         """Get list of unique departments.
+    |
+
+src/jmbde/gui/employee_model.py:341:16: BLE001 Do not catch blind exception: `Exception`
+    |
+339 |             }
+340 |             return sorted(departments)
+341 |         except Exception as e:
+    |                ^^^^^^^^^ BLE001
+342 |             logger.error(f"Failed to get departments: {e}")
+343 |             return []
+    |
+
+src/jmbde/gui/employee_model.py:342:13: TRY400 Use `logging.exception` instead of `logging.error`
+    |
+340 |             return sorted(departments)
+341 |         except Exception as e:
+342 |             logger.error(f"Failed to get departments: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+343 |             return []
+    |
+    = help: Replace with `exception`
+
+src/jmbde/gui/employee_model.py:342:26: G004 Logging statement uses f-string
+    |
+340 |             return sorted(departments)
+341 |         except Exception as e:
+342 |             logger.error(f"Failed to get departments: {e}")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+343 |             return []
+    |
+
+src/jmbde/gui/main_app.py:1:1: EXE001 Shebang is present but file is not executable
+  |
+1 | #!/usr/bin/env python3
+  | ^^^^^^^^^^^^^^^^^^^^^^ EXE001
+2 | 
+3 | """Main Application Logic Module for JMBDE
+  |
+
+src/jmbde/gui/main_app.py:3:1: D400 First line should end with a period
+   |
+ 1 |   #!/usr/bin/env python3
+ 2 |   
+ 3 | / """Main Application Logic Module for JMBDE
+ 4 | | 
+ 5 | | This module provides the main application logic and business operations
+ 6 | | for the JMBDE application, serving as a bridge between the UI and data layers.
+ 7 | | 
+ 8 | | Copyright (C) 2018-2024 Jürgen Mülbert
+ 9 | | License: GPL-3.0
+10 | | """
+   | |___^ D400
+11 |   
+12 |   from datetime import datetime
+   |
+   = help: Add period
+
+src/jmbde/gui/main_app.py:36:5: N815 Variable `employeeAdded` in class scope should not be mixedCase
+   |
+35 |     # Define signals for application events
+36 |     employeeAdded = Signal(int, str)  # id, name
+   |     ^^^^^^^^^^^^^ N815
+37 |     employeeUpdated = Signal(int)  # id
+38 |     employeeDeleted = Signal(int)  # id
+   |
+
+src/jmbde/gui/main_app.py:37:5: N815 Variable `employeeUpdated` in class scope should not be mixedCase
+   |
+35 |     # Define signals for application events
+36 |     employeeAdded = Signal(int, str)  # id, name
+37 |     employeeUpdated = Signal(int)  # id
+   |     ^^^^^^^^^^^^^^^ N815
+38 |     employeeDeleted = Signal(int)  # id
+39 |     errorOccurred = Signal(str)  # error message
+   |
+
+src/jmbde/gui/main_app.py:38:5: N815 Variable `employeeDeleted` in class scope should not be mixedCase
+   |
+36 |     employeeAdded = Signal(int, str)  # id, name
+37 |     employeeUpdated = Signal(int)  # id
+38 |     employeeDeleted = Signal(int)  # id
+   |     ^^^^^^^^^^^^^^^ N815
+39 |     errorOccurred = Signal(str)  # error message
+40 |     operationSucceeded = Signal(str)  # success message
+   |
+
+src/jmbde/gui/main_app.py:39:5: N815 Variable `errorOccurred` in class scope should not be mixedCase
+   |
+37 |     employeeUpdated = Signal(int)  # id
+38 |     employeeDeleted = Signal(int)  # id
+39 |     errorOccurred = Signal(str)  # error message
+   |     ^^^^^^^^^^^^^ N815
+40 |     operationSucceeded = Signal(str)  # success message
+   |
+
+src/jmbde/gui/main_app.py:40:5: N815 Variable `operationSucceeded` in class scope should not be mixedCase
+   |
+38 |     employeeDeleted = Signal(int)  # id
+39 |     errorOccurred = Signal(str)  # error message
+40 |     operationSucceeded = Signal(str)  # success message
+   |     ^^^^^^^^^^^^^^^^^^ N815
+41 | 
+42 |     def __init__(
+   |
+
+src/jmbde/gui/main_app.py:46:19: FA100 Add `from __future__ import annotations` to simplify `typing.Optional`
+   |
+44 |         database: Database,
+45 |         employee_model: EmployeeModel,
+46 |         settings: Optional[Settings] = None,
+   |                   ^^^^^^^^ FA100
+47 |         parent: Optional[QObject] = None,
+48 |     ) -> None:
+   |
+
+src/jmbde/gui/main_app.py:47:17: FA100 Add `from __future__ import annotations` to simplify `typing.Optional`
+   |
+45 |         employee_model: EmployeeModel,
+46 |         settings: Optional[Settings] = None,
+47 |         parent: Optional[QObject] = None,
+   |                 ^^^^^^^^ FA100
+48 |     ) -> None:
+49 |         """Initialize the main application handler.
+   |
+
+src/jmbde/gui/main_app.py:100:17: TRY301 Abstract `raise` to an inner function
+    |
+ 98 |             # Validate inputs
+ 99 |             if not name or not position:
+100 |                 raise ValueError("Name and position are required")
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY301
+101 | 
+102 |             if email and not validate_email(email):
+    |
+
+src/jmbde/gui/main_app.py:100:23: TRY003 Avoid specifying long messages outside the exception class
+    |
+ 98 |             # Validate inputs
+ 99 |             if not name or not position:
+100 |                 raise ValueError("Name and position are required")
+    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+101 | 
+102 |             if email and not validate_email(email):
+    |
+
+src/jmbde/gui/main_app.py:100:34: EM101 Exception must not use a string literal, assign to variable first
+    |
+ 98 |             # Validate inputs
+ 99 |             if not name or not position:
+100 |                 raise ValueError("Name and position are required")
+    |                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM101
+101 | 
+102 |             if email and not validate_email(email):
+    |
+    = help: Assign to variable; remove string literal
+
+src/jmbde/gui/main_app.py:103:17: TRY301 Abstract `raise` to an inner function
+    |
+102 |             if email and not validate_email(email):
+103 |                 raise ValueError("Invalid email format")
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY301
+104 | 
+105 |             if phone and not validate_phone(phone):
+    |
+
+src/jmbde/gui/main_app.py:103:23: TRY003 Avoid specifying long messages outside the exception class
+    |
+102 |             if email and not validate_email(email):
+103 |                 raise ValueError("Invalid email format")
+    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+104 | 
+105 |             if phone and not validate_phone(phone):
+    |
+
+src/jmbde/gui/main_app.py:103:34: EM101 Exception must not use a string literal, assign to variable first
+    |
+102 |             if email and not validate_email(email):
+103 |                 raise ValueError("Invalid email format")
+    |                                  ^^^^^^^^^^^^^^^^^^^^^^ EM101
+104 | 
+105 |             if phone and not validate_phone(phone):
+    |
+    = help: Assign to variable; remove string literal
+
+src/jmbde/gui/main_app.py:106:17: TRY301 Abstract `raise` to an inner function
+    |
+105 |             if phone and not validate_phone(phone):
+106 |                 raise ValueError("Invalid phone format")
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY301
+107 | 
+108 |             # Create employee record
+    |
+
+src/jmbde/gui/main_app.py:106:23: TRY003 Avoid specifying long messages outside the exception class
+    |
+105 |             if phone and not validate_phone(phone):
+106 |                 raise ValueError("Invalid phone format")
+    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+107 | 
+108 |             # Create employee record
+    |
+
+src/jmbde/gui/main_app.py:106:34: EM101 Exception must not use a string literal, assign to variable first
+    |
+105 |             if phone and not validate_phone(phone):
+106 |                 raise ValueError("Invalid phone format")
+    |                                  ^^^^^^^^^^^^^^^^^^^^^^ EM101
+107 | 
+108 |             # Create employee record
+    |
+    = help: Assign to variable; remove string literal
+
+src/jmbde/gui/main_app.py:115:30: DTZ005 `datetime.datetime.now()` called without a `tz` argument
+    |
+113 |                 "phone": phone.strip() if phone else None,
+114 |                 "department": department.strip() if department else None,
+115 |                 "hire_date": datetime.now(),
+    |                              ^^^^^^^^^^^^^^ DTZ005
+116 |                 "active": True,
+117 |             }
+    |
+    = help: Pass a `datetime.timezone` object to the `tz` parameter
+
+src/jmbde/gui/main_app.py:123:17: TRY301 Abstract `raise` to an inner function
+    |
+122 |             if not employee_id:
+123 |                 raise ApplicationError("Failed to create employee record")
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY301
+124 | 
+125 |             # Refresh model and notify
+    |
+
+src/jmbde/gui/main_app.py:123:23: TRY003 Avoid specifying long messages outside the exception class
+    |
+122 |             if not employee_id:
+123 |                 raise ApplicationError("Failed to create employee record")
+    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+124 | 
+125 |             # Refresh model and notify
+    |
+
+src/jmbde/gui/main_app.py:123:40: EM101 Exception must not use a string literal, assign to variable first
+    |
+122 |             if not employee_id:
+123 |                 raise ApplicationError("Failed to create employee record")
+    |                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM101
+124 | 
+125 |             # Refresh model and notify
+    |
+    = help: Assign to variable; remove string literal
+
+src/jmbde/gui/main_app.py:130:25: G004 Logging statement uses f-string
+    |
+128 |             self.operationSucceeded.emit(f"Employee {name} added successfully")
+129 | 
+130 |             logger.info(f"Added employee: {name} (ID: {employee_id})")
+    |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+131 |             return True
+    |
+
+src/jmbde/gui/main_app.py:131:13: TRY300 Consider moving this statement to an `else` block
+    |
+130 |             logger.info(f"Added employee: {name} (ID: {employee_id})")
+131 |             return True
+    |             ^^^^^^^^^^^ TRY300
+132 | 
+133 |         except (ValueError, ApplicationError) as e:
+    |
+
+src/jmbde/gui/main_app.py:134:13: TRY400 Use `logging.exception` instead of `logging.error`
+    |
+133 |         except (ValueError, ApplicationError) as e:
+134 |             logger.error(f"Failed to add employee: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+135 |             self.errorOccurred.emit(str(e))
+136 |             return False
+    |
+    = help: Replace with `exception`
+
+src/jmbde/gui/main_app.py:134:26: G004 Logging statement uses f-string
+    |
+133 |         except (ValueError, ApplicationError) as e:
+134 |             logger.error(f"Failed to add employee: {e}")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+135 |             self.errorOccurred.emit(str(e))
+136 |             return False
+    |
+
+src/jmbde/gui/main_app.py:142:9: PLR0913 Too many arguments in function definition (7 > 5)
+    |
+141 |     @Slot(int, str, str, str, str, str, bool, result=bool)
+142 |     def update_employee(
+    |         ^^^^^^^^^^^^^^^ PLR0913
+143 |         self,
+144 |         emp_id: int,
+    |
+
+src/jmbde/gui/main_app.py:150:9: FBT001 Boolean-typed positional argument in function definition
+    |
+148 |         phone: str,
+149 |         department: str,
+150 |         active: bool = True,
+    |         ^^^^^^ FBT001
+151 |     ) -> bool:
+152 |         """Update existing employee information.
+    |
+
+src/jmbde/gui/main_app.py:150:9: FBT002 Boolean default positional argument in function definition
+    |
+148 |         phone: str,
+149 |         department: str,
+150 |         active: bool = True,
+    |         ^^^^^^ FBT002
+151 |     ) -> bool:
+152 |         """Update existing employee information.
+    |
+
+src/jmbde/gui/main_app.py:177:17: TRY301 Abstract `raise` to an inner function
+    |
+175 |             # Validate inputs
+176 |             if not name or not position:
+177 |                 raise ValueError("Name and position are required")
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY301
+178 | 
+179 |             if email and not validate_email(email):
+    |
+
+src/jmbde/gui/main_app.py:177:23: TRY003 Avoid specifying long messages outside the exception class
+    |
+175 |             # Validate inputs
+176 |             if not name or not position:
+177 |                 raise ValueError("Name and position are required")
+    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+178 | 
+179 |             if email and not validate_email(email):
+    |
+
+src/jmbde/gui/main_app.py:177:34: EM101 Exception must not use a string literal, assign to variable first
+    |
+175 |             # Validate inputs
+176 |             if not name or not position:
+177 |                 raise ValueError("Name and position are required")
+    |                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM101
+178 | 
+179 |             if email and not validate_email(email):
+    |
+    = help: Assign to variable; remove string literal
+
+src/jmbde/gui/main_app.py:180:17: TRY301 Abstract `raise` to an inner function
+    |
+179 |             if email and not validate_email(email):
+180 |                 raise ValueError("Invalid email format")
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY301
+181 | 
+182 |             if phone and not validate_phone(phone):
+    |
+
+src/jmbde/gui/main_app.py:180:23: TRY003 Avoid specifying long messages outside the exception class
+    |
+179 |             if email and not validate_email(email):
+180 |                 raise ValueError("Invalid email format")
+    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+181 | 
+182 |             if phone and not validate_phone(phone):
+    |
+
+src/jmbde/gui/main_app.py:180:34: EM101 Exception must not use a string literal, assign to variable first
+    |
+179 |             if email and not validate_email(email):
+180 |                 raise ValueError("Invalid email format")
+    |                                  ^^^^^^^^^^^^^^^^^^^^^^ EM101
+181 | 
+182 |             if phone and not validate_phone(phone):
+    |
+    = help: Assign to variable; remove string literal
+
+src/jmbde/gui/main_app.py:183:17: TRY301 Abstract `raise` to an inner function
+    |
+182 |             if phone and not validate_phone(phone):
+183 |                 raise ValueError("Invalid phone format")
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY301
+184 | 
+185 |             # Update employee record
+    |
+
+src/jmbde/gui/main_app.py:183:23: TRY003 Avoid specifying long messages outside the exception class
+    |
+182 |             if phone and not validate_phone(phone):
+183 |                 raise ValueError("Invalid phone format")
+    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+184 | 
+185 |             # Update employee record
+    |
+
+src/jmbde/gui/main_app.py:183:34: EM101 Exception must not use a string literal, assign to variable first
+    |
+182 |             if phone and not validate_phone(phone):
+183 |                 raise ValueError("Invalid phone format")
+    |                                  ^^^^^^^^^^^^^^^^^^^^^^ EM101
+184 | 
+185 |             # Update employee record
+    |
+    = help: Assign to variable; remove string literal
+
+src/jmbde/gui/main_app.py:198:17: TRY301 Abstract `raise` to an inner function
+    |
+197 |             if not success:
+198 |                 raise ApplicationError("Failed to update employee record")
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY301
+199 | 
+200 |             # Refresh model and notify
+    |
+
+src/jmbde/gui/main_app.py:198:23: TRY003 Avoid specifying long messages outside the exception class
+    |
+197 |             if not success:
+198 |                 raise ApplicationError("Failed to update employee record")
+    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+199 | 
+200 |             # Refresh model and notify
+    |
+
+src/jmbde/gui/main_app.py:198:40: EM101 Exception must not use a string literal, assign to variable first
+    |
+197 |             if not success:
+198 |                 raise ApplicationError("Failed to update employee record")
+    |                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM101
+199 | 
+200 |             # Refresh model and notify
+    |
+    = help: Assign to variable; remove string literal
+
+src/jmbde/gui/main_app.py:205:25: G004 Logging statement uses f-string
+    |
+203 |             self.operationSucceeded.emit(f"Employee {name} updated successfully")
+204 | 
+205 |             logger.info(f"Updated employee {emp_id}: {name}")
+    |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+206 |             return True
+    |
+
+src/jmbde/gui/main_app.py:206:13: TRY300 Consider moving this statement to an `else` block
+    |
+205 |             logger.info(f"Updated employee {emp_id}: {name}")
+206 |             return True
+    |             ^^^^^^^^^^^ TRY300
+207 | 
+208 |         except (ValueError, ApplicationError) as e:
+    |
+
+src/jmbde/gui/main_app.py:209:13: TRY400 Use `logging.exception` instead of `logging.error`
+    |
+208 |         except (ValueError, ApplicationError) as e:
+209 |             logger.error(f"Failed to update employee {emp_id}: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+210 |             self.errorOccurred.emit(str(e))
+211 |             return False
+    |
+    = help: Replace with `exception`
+
+src/jmbde/gui/main_app.py:209:26: G004 Logging statement uses f-string
+    |
+208 |         except (ValueError, ApplicationError) as e:
+209 |             logger.error(f"Failed to update employee {emp_id}: {e}")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+210 |             self.errorOccurred.emit(str(e))
+211 |             return False
+    |
+
+src/jmbde/gui/main_app.py:238:17: TRY301 Abstract `raise` to an inner function
+    |
+236 |             employee = self._database.get_employee(emp_id)
+237 |             if not employee:
+238 |                 raise ApplicationError("Employee not found")
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY301
+239 | 
+240 |             # Delete employee
+    |
+
+src/jmbde/gui/main_app.py:238:23: TRY003 Avoid specifying long messages outside the exception class
+    |
+236 |             employee = self._database.get_employee(emp_id)
+237 |             if not employee:
+238 |                 raise ApplicationError("Employee not found")
+    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+239 | 
+240 |             # Delete employee
+    |
+
+src/jmbde/gui/main_app.py:238:40: EM101 Exception must not use a string literal, assign to variable first
+    |
+236 |             employee = self._database.get_employee(emp_id)
+237 |             if not employee:
+238 |                 raise ApplicationError("Employee not found")
+    |                                        ^^^^^^^^^^^^^^^^^^^^ EM101
+239 | 
+240 |             # Delete employee
+    |
+    = help: Assign to variable; remove string literal
+
+src/jmbde/gui/main_app.py:244:17: TRY301 Abstract `raise` to an inner function
+    |
+243 |             if not success:
+244 |                 raise ApplicationError("Failed to delete employee record")
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY301
+245 | 
+246 |             # Refresh model and notify
+    |
+
+src/jmbde/gui/main_app.py:244:23: TRY003 Avoid specifying long messages outside the exception class
+    |
+243 |             if not success:
+244 |                 raise ApplicationError("Failed to delete employee record")
+    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY003
+245 | 
+246 |             # Refresh model and notify
+    |
+
+src/jmbde/gui/main_app.py:244:40: EM101 Exception must not use a string literal, assign to variable first
+    |
+243 |             if not success:
+244 |                 raise ApplicationError("Failed to delete employee record")
+    |                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EM101
+245 | 
+246 |             # Refresh model and notify
+    |
+    = help: Assign to variable; remove string literal
+
+src/jmbde/gui/main_app.py:253:25: G004 Logging statement uses f-string
+    |
+251 |             )
+252 | 
+253 |             logger.info(f"Deleted employee {emp_id}: {employee['name']}")
+    |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+254 |             return True
+    |
+
+src/jmbde/gui/main_app.py:254:13: TRY300 Consider moving this statement to an `else` block
+    |
+253 |             logger.info(f"Deleted employee {emp_id}: {employee['name']}")
+254 |             return True
+    |             ^^^^^^^^^^^ TRY300
+255 | 
+256 |         except ApplicationError as e:
+    |
+
+src/jmbde/gui/main_app.py:257:13: TRY400 Use `logging.exception` instead of `logging.error`
+    |
+256 |         except ApplicationError as e:
+257 |             logger.error(f"Failed to delete employee {emp_id}: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+258 |             self.errorOccurred.emit(str(e))
+259 |             return False
+    |
+    = help: Replace with `exception`
+
+src/jmbde/gui/main_app.py:257:26: G004 Logging statement uses f-string
+    |
+256 |         except ApplicationError as e:
+257 |             logger.error(f"Failed to delete employee {emp_id}: {e}")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+258 |             self.errorOccurred.emit(str(e))
+259 |             return False
+    |
+
+src/jmbde/gui/main_app.py:275:16: BLE001 Do not catch blind exception: `Exception`
+    |
+273 |         try:
+274 |             return self._model.getDepartments()
+275 |         except Exception as e:
+    |                ^^^^^^^^^ BLE001
+276 |             logger.error(f"Failed to get departments: {e}")
+277 |             self.errorOccurred.emit("Failed to retrieve departments")
+    |
+
+src/jmbde/gui/main_app.py:276:13: TRY400 Use `logging.exception` instead of `logging.error`
+    |
+274 |             return self._model.getDepartments()
+275 |         except Exception as e:
+276 |             logger.error(f"Failed to get departments: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+277 |             self.errorOccurred.emit("Failed to retrieve departments")
+278 |             return []
+    |
+    = help: Replace with `exception`
+
+src/jmbde/gui/main_app.py:276:26: G004 Logging statement uses f-string
+    |
+274 |             return self._model.getDepartments()
+275 |         except Exception as e:
+276 |             logger.error(f"Failed to get departments: {e}")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+277 |             self.errorOccurred.emit("Failed to retrieve departments")
+278 |             return []
+    |
+
+src/jmbde/gui/main_app.py:291:40: SLF001 Private member accessed: `_data`
+    |
+289 |         try:
+290 |             return {
+291 |                 "total_employees": len(self._model._data),
+    |                                        ^^^^^^^^^^^^^^^^^ SLF001
+292 |                 "active_employees": sum(
+293 |                     1 for emp in self._model._data if emp["active"]
+    |
+
+src/jmbde/gui/main_app.py:293:34: SLF001 Private member accessed: `_data`
+    |
+291 |                 "total_employees": len(self._model._data),
+292 |                 "active_employees": sum(
+293 |                     1 for emp in self._model._data if emp["active"]
+    |                                  ^^^^^^^^^^^^^^^^^ SLF001
+294 |                 ),
+295 |                 "departments": len(self.get_departments()),
+    |
+
+src/jmbde/gui/main_app.py:296:33: DTZ005 `datetime.datetime.now()` called without a `tz` argument
+    |
+294 |                 ),
+295 |                 "departments": len(self.get_departments()),
+296 |                 "last_updated": datetime.now().isoformat(),
+    |                                 ^^^^^^^^^^^^^^ DTZ005
+297 |             }
+298 |         except Exception as e:
+    |
+    = help: Pass a `datetime.timezone` object to the `tz` parameter
+
+src/jmbde/gui/main_app.py:298:16: BLE001 Do not catch blind exception: `Exception`
+    |
+296 |                 "last_updated": datetime.now().isoformat(),
+297 |             }
+298 |         except Exception as e:
+    |                ^^^^^^^^^ BLE001
+299 |             logger.error(f"Failed to get statistics: {e}")
+300 |             return {}
+    |
+
+src/jmbde/gui/main_app.py:299:13: TRY400 Use `logging.exception` instead of `logging.error`
+    |
+297 |             }
+298 |         except Exception as e:
+299 |             logger.error(f"Failed to get statistics: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+300 |             return {}
+    |
+    = help: Replace with `exception`
+
+src/jmbde/gui/main_app.py:299:26: G004 Logging statement uses f-string
+    |
+297 |             }
+298 |         except Exception as e:
+299 |             logger.error(f"Failed to get statistics: {e}")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ G004
+300 |             return {}
+    |
+
+src/jmbde/gui/main_app.py:310:16: BLE001 Do not catch blind exception: `Exception`
+    |
+308 |                 self._settings.save()
+309 |             logger.info("MainApp cleanup completed successfully")
+310 |         except Exception as e:
+    |                ^^^^^^^^^ BLE001
+311 |             logger.error(f"Cleanup failed: {e}")
+    |
+
+src/jmbde/gui/main_app.py:311:13: TRY400 Use `logging.exception` instead of `logging.error`
+    |
+309 |             logger.info("MainApp cleanup completed successfully")
+310 |         except Exception as e:
+311 |             logger.error(f"Cleanup failed: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ TRY400
+    |
+    = help: Replace with `exception`
+
+src/jmbde/gui/main_app.py:311:26: G004 Logging statement uses f-string
+    |
+309 |             logger.info("MainApp cleanup completed successfully")
+310 |         except Exception as e:
+311 |             logger.error(f"Cleanup failed: {e}")
+    |                          ^^^^^^^^^^^^^^^^^^^^^^ G004
+    |
+
+src/jmbde/main.py:1:1: D100 Missing docstring in public module
+src/jmbde/services/__init__.py:1:1: D104 Missing docstring in public package
+src/jmbde/services/auth_service.py:1:1: D100 Missing docstring in public module
+src/jmbde/services/employee_service.py:1:1: D100 Missing docstring in public module
+src/jmbde/utils/__init__.py:1:1: D104 Missing docstring in public package
+src/jmbde/utils/helpers.py:1:1: D100 Missing docstring in public module
+src/jmbde/utils/logger.py:1:1: D100 Missing docstring in public module
+src/jmbde/utils/logger.py:7:29: FA100 Add `from __future__ import annotations` to simplify `typing.Union`
+  |
+7 | def setup_logging(log_file: Union[str, Path], level: int = logging.INFO) -> None:
+  |                             ^^^^^ FA100
+8 |     """Configure application logging.
+  |
+
+src/jmbde/utils/validators.py:1:1: D100 Missing docstring in public module
+src/main.py:1:1: D100 Missing docstring in public module
+tests/e2e/test_full_workflow.py:1:5: ANN201 Missing return type annotation for public function `test_full_workflow`
+  |
+1 | def test_full_workflow(qtbot):
+  |     ^^^^^^^^^^^^^^^^^^ ANN201
+2 |     window = MyWindow()
+3 |     qtbot.addWidget(window)
+  |
+  = help: Add return type annotation: `None`
+
+tests/e2e/test_full_workflow.py:1:24: ANN001 Missing type annotation for function argument `qtbot`
+  |
+1 | def test_full_workflow(qtbot):
+  |                        ^^^^^ ANN001
+2 |     window = MyWindow()
+3 |     qtbot.addWidget(window)
+  |
+
+tests/e2e/test_full_workflow.py:2:14: F821 Undefined name `MyWindow`
+  |
+1 | def test_full_workflow(qtbot):
+2 |     window = MyWindow()
+  |              ^^^^^^^^ F821
+3 |     qtbot.addWidget(window)
+  |
+
+tests/e2e/test_full_workflow.py:10:37: F821 Undefined name `Qt`
+   |
+ 9 |     # Step 2: Submit the input
+10 |     qtbot.mouseClick(window.button, Qt.LeftButton)
+   |                                     ^^ F821
+11 |     assert window.edit.text() == "Submitted!"
+   |
+
+tests/integration/test_database.py:1:1: EXE001 Shebang is present but file is not executable
+  |
+1 | #!/usr/bin/env python
+  | ^^^^^^^^^^^^^^^^^^^^^ EXE001
+2 | #
+3 | #   jmbde a BDE Tool for datacontext
+  |
+
+tests/pyside6/test_button_click.py:4:5: ANN201 Missing return type annotation for public function `test_button_click`
+  |
+4 | def test_button_click(qtbot):
+  |     ^^^^^^^^^^^^^^^^^ ANN201
+5 |     button = QPushButton("Click Me")
+6 |     qtbot.addWidget(button)
+  |
+  = help: Add return type annotation: `None`
+
+tests/pyside6/test_button_click.py:4:23: ANN001 Missing type annotation for function argument `qtbot`
+  |
+4 | def test_button_click(qtbot):
+  |                       ^^^^^ ANN001
+5 |     button = QPushButton("Click Me")
+6 |     qtbot.addWidget(button)
+  |
+
+tests/pyside6/test_dialog.py:4:5: ANN201 Missing return type annotation for public function `test_file_dialog`
+  |
+4 | def test_file_dialog(monkeypatch, qtbot):
+  |     ^^^^^^^^^^^^^^^^ ANN201
+5 |     def mock_get_open_file_name(*args, **kwargs):
+6 |         return "/path/to/file.txt", "Text Files (*.txt)"
+  |
+  = help: Add return type annotation: `None`
+
+tests/pyside6/test_dialog.py:4:22: ANN001 Missing type annotation for function argument `monkeypatch`
+  |
+4 | def test_file_dialog(monkeypatch, qtbot):
+  |                      ^^^^^^^^^^^ ANN001
+5 |     def mock_get_open_file_name(*args, **kwargs):
+6 |         return "/path/to/file.txt", "Text Files (*.txt)"
+  |
+
+tests/pyside6/test_dialog.py:4:35: ANN001 Missing type annotation for function argument `qtbot`
+  |
+4 | def test_file_dialog(monkeypatch, qtbot):
+  |                                   ^^^^^ ANN001
+5 |     def mock_get_open_file_name(*args, **kwargs):
+6 |         return "/path/to/file.txt", "Text Files (*.txt)"
+  |
+
+tests/pyside6/test_dialog.py:4:35: ARG001 Unused function argument: `qtbot`
+  |
+4 | def test_file_dialog(monkeypatch, qtbot):
+  |                                   ^^^^^ ARG001
+5 |     def mock_get_open_file_name(*args, **kwargs):
+6 |         return "/path/to/file.txt", "Text Files (*.txt)"
+  |
+
+tests/pyside6/test_dialog.py:5:9: ANN202 Missing return type annotation for private function `mock_get_open_file_name`
+  |
+4 | def test_file_dialog(monkeypatch, qtbot):
+5 |     def mock_get_open_file_name(*args, **kwargs):
+  |         ^^^^^^^^^^^^^^^^^^^^^^^ ANN202
+6 |         return "/path/to/file.txt", "Text Files (*.txt)"
+  |
+  = help: Add return type annotation
+
+tests/pyside6/test_dialog.py:5:33: ANN002 Missing type annotation for `*args`
+  |
+4 | def test_file_dialog(monkeypatch, qtbot):
+5 |     def mock_get_open_file_name(*args, **kwargs):
+  |                                 ^^^^^ ANN002
+6 |         return "/path/to/file.txt", "Text Files (*.txt)"
+  |
+
+tests/pyside6/test_dialog.py:5:34: ARG001 Unused function argument: `args`
+  |
+4 | def test_file_dialog(monkeypatch, qtbot):
+5 |     def mock_get_open_file_name(*args, **kwargs):
+  |                                  ^^^^ ARG001
+6 |         return "/path/to/file.txt", "Text Files (*.txt)"
+  |
+
+tests/pyside6/test_dialog.py:5:40: ANN003 Missing type annotation for `**kwargs`
+  |
+4 | def test_file_dialog(monkeypatch, qtbot):
+5 |     def mock_get_open_file_name(*args, **kwargs):
+  |                                        ^^^^^^^^ ANN003
+6 |         return "/path/to/file.txt", "Text Files (*.txt)"
+  |
+
+tests/pyside6/test_dialog.py:5:42: ARG001 Unused function argument: `kwargs`
+  |
+4 | def test_file_dialog(monkeypatch, qtbot):
+5 |     def mock_get_open_file_name(*args, **kwargs):
+  |                                          ^^^^^^ ARG001
+6 |         return "/path/to/file.txt", "Text Files (*.txt)"
+  |
+
+tests/pyside6/test_gui_interaction.py:5:9: ANN204 Missing return type annotation for special method `__init__`
+  |
+4 | class MyWindow(QWidget):
+5 |     def __init__(self):
+  |         ^^^^^^^^ ANN204
+6 |         super().__init__()
+7 |         self.edit = QLineEdit(self)
+  |
+  = help: Add return type annotation: `None`
+
+tests/pyside6/test_gui_interaction.py:15:9: ANN201 Missing return type annotation for public function `on_submit`
+   |
+13 |         self.button.clicked.connect(self.on_submit)
+14 | 
+15 |     def on_submit(self):
+   |         ^^^^^^^^^ ANN201
+16 |         self.edit.setText("Submitted!")
+   |
+   = help: Add return type annotation: `None`
+
+tests/pyside6/test_gui_interaction.py:19:5: ANN201 Missing return type annotation for public function `test_gui_interaction`
+   |
+19 | def test_gui_interaction(qtbot):
+   |     ^^^^^^^^^^^^^^^^^^^^ ANN201
+20 |     window = MyWindow()
+21 |     qtbot.addWidget(window)
+   |
+   = help: Add return type annotation: `None`
+
+tests/pyside6/test_gui_interaction.py:19:26: ANN001 Missing type annotation for function argument `qtbot`
+   |
+19 | def test_gui_interaction(qtbot):
+   |                          ^^^^^ ANN001
+20 |     window = MyWindow()
+21 |     qtbot.addWidget(window)
+   |
+
+tests/pyside6/test_gui_interaction.py:28:37: F821 Undefined name `Qt`
+   |
+27 |     # Simulate clicking the button
+28 |     qtbot.mouseClick(window.button, Qt.LeftButton)
+   |                                     ^^ F821
+29 |     assert window.edit.text() == "Submitted!"
+   |
+
+tests/pyside6/test_signal_emission.py:7:9: ANN201 Missing return type annotation for public function `emit_signal`
+  |
+5 |     my_signal = Signal(int)
+6 | 
+7 |     def emit_signal(self, value):
+  |         ^^^^^^^^^^^ ANN201
+8 |         self.my_signal.emit(value)
+  |
+  = help: Add return type annotation: `None`
+
+tests/pyside6/test_signal_emission.py:7:27: ANN001 Missing type annotation for function argument `value`
+  |
+5 |     my_signal = Signal(int)
+6 | 
+7 |     def emit_signal(self, value):
+  |                           ^^^^^ ANN001
+8 |         self.my_signal.emit(value)
+  |
+
+tests/pyside6/test_signal_emission.py:11:5: ANN201 Missing return type annotation for public function `test_signal_emission`
+   |
+11 | def test_signal_emission(qtbot):
+   |     ^^^^^^^^^^^^^^^^^^^^ ANN201
+12 |     obj = MyObject()
+13 |     with qtbot.wait_signal(obj.my_signal, timeout=1000) as blocker:
+   |
+   = help: Add return type annotation: `None`
+
+tests/pyside6/test_signal_emission.py:11:26: ANN001 Missing type annotation for function argument `qtbot`
+   |
+11 | def test_signal_emission(qtbot):
+   |                          ^^^^^ ANN001
+12 |     obj = MyObject()
+13 |     with qtbot.wait_signal(obj.my_signal, timeout=1000) as blocker:
+   |
+
+tests/pyside6/unsafeconnection.py:6:24: SyntaxError: Expected ':', found name
+  |
+6 | class UnsafeConnection extends FunctionCall {
+  |                        ^
+7 |   this.getFunction().getName() = "connect" and
+8 |   this.getFunction().getDeclaringType() instanceof (QObject or QWidget) and
+  |
+
+tests/pyside6/unsafeconnection.py:6:32: SyntaxError: Simple statements must be separated by newlines or semicolons
+  |
+6 | class UnsafeConnection extends FunctionCall {
+  |                                ^
+7 |   this.getFunction().getName() = "connect" and
+8 |   this.getFunction().getDeclaringType() instanceof (QObject or QWidget) and
+  |
+
+tests/pyside6/unsafeconnection.py:6:45: SyntaxError: Simple statements must be separated by newlines or semicolons
+  |
+6 | class UnsafeConnection extends FunctionCall {
+  |                                             ^
+7 |   this.getFunction().getName() = "connect" and
+8 |   this.getFunction().getDeclaringType() instanceof (QObject or QWidget) and
+  |
+
+tests/pyside6/unsafeconnection.py:7:32: SyntaxError: Expected an expression or a '}'
+  |
+6 | class UnsafeConnection extends FunctionCall {
+7 |   this.getFunction().getName() = "connect" and
+  |                                ^
+8 |   this.getFunction().getDeclaringType() instanceof (QObject or QWidget) and
+9 |   this.getArgument(1).getType() instanceof Class and
+  |
+
+tests/pyside6/unsafeconnection.py:8:41: SyntaxError: Expected ',', found name
+   |
+ 6 | class UnsafeConnection extends FunctionCall {
+ 7 |   this.getFunction().getName() = "connect" and
+ 8 |   this.getFunction().getDeclaringType() instanceof (QObject or QWidget) and
+   |                                         ^
+ 9 |   this.getArgument(1).getType() instanceof Class and
+10 |   not this.getArgument(1).hasAnnotation("safe_connection"),
+   |
+
+tests/pyside6/unsafeconnection.py:9:33: SyntaxError: Expected ',', found name
+   |
+ 7 |   this.getFunction().getName() = "connect" and
+ 8 |   this.getFunction().getDeclaringType() instanceof (QObject or QWidget) and
+ 9 |   this.getArgument(1).getType() instanceof Class and
+   |                                 ^
+10 |   not this.getArgument(1).hasAnnotation("safe_connection"),
+11 | }
+   |
+
+tests/pyside6/unsafeconnection.py:9:44: SyntaxError: Expected ',', found name
+   |
+ 7 |   this.getFunction().getName() = "connect" and
+ 8 |   this.getFunction().getDeclaringType() instanceof (QObject or QWidget) and
+ 9 |   this.getArgument(1).getType() instanceof Class and
+   |                                            ^
+10 |   not this.getArgument(1).hasAnnotation("safe_connection"),
+11 | }
+   |
+
+tests/pyside6/unsafeconnection.py:13:23: SyntaxError: Expected 'import', found name
+   |
+11 | }
+12 | 
+13 | from UnsafeConnection unsafe
+   |                       ^
+14 | select unsafe, "Unsafe signal-slot connection detected"
+   |
+
+tests/pyside6/unsafeconnection.py:14:8: SyntaxError: Simple statements must be separated by newlines or semicolons
+   |
+13 | from UnsafeConnection unsafe
+14 | select unsafe, "Unsafe signal-slot connection detected"
+   |        ^
+   |
+
+tests/unit/test_database.py:6:5: ANN201 Missing return type annotation for public function `db`
+  |
+5 | @pytest.fixture
+6 | def db():
+  |     ^^ ANN201
+7 |     """Fixture for a fresh database instance."""
+8 |     return Database(":memory:")
+  |
+  = help: Add return type annotation
+
+tests/unit/test_database.py:11:5: ANN201 Missing return type annotation for public function `test_create_tables`
+   |
+11 | def test_create_tables(db):
+   |     ^^^^^^^^^^^^^^^^^^ ANN201
+12 |     """Test if tables are created successfully."""
+13 |     cursor = db.connection.cursor()
+   |
+   = help: Add return type annotation: `None`
+
+tests/unit/test_database.py:11:24: ANN001 Missing type annotation for function argument `db`
+   |
+11 | def test_create_tables(db):
+   |                        ^^ ANN001
+12 |     """Test if tables are created successfully."""
+13 |     cursor = db.connection.cursor()
+   |
+
+tests/unit/test_database.py:20:5: ANN201 Missing return type annotation for public function `test_add_employee`
+   |
+20 | def test_add_employee(db):
+   |     ^^^^^^^^^^^^^^^^^ ANN201
+21 |     """Test adding an employee."""
+22 |     emp_id = db.add_employee("John Doe", "Developer")
+   |
+   = help: Add return type annotation: `None`
+
+tests/unit/test_database.py:20:23: ANN001 Missing type annotation for function argument `db`
+   |
+20 | def test_add_employee(db):
+   |                       ^^ ANN001
+21 |     """Test adding an employee."""
+22 |     emp_id = db.add_employee("John Doe", "Developer")
+   |
+
+tests/unit/test_database.py:26:5: ANN201 Missing return type annotation for public function `test_get_employees`
+   |
+26 | def test_get_employees(db):
+   |     ^^^^^^^^^^^^^^^^^^ ANN201
+27 |     """Test retrieving employees."""
+28 |     db.add_employee("Alice", "Manager")
+   |
+   = help: Add return type annotation: `None`
+
+tests/unit/test_database.py:26:24: ANN001 Missing type annotation for function argument `db`
+   |
+26 | def test_get_employees(db):
+   |                        ^^ ANN001
+27 |     """Test retrieving employees."""
+28 |     db.add_employee("Alice", "Manager")
+   |
+
+tests/unit/test_database.py:34:5: ANN201 Missing return type annotation for public function `test_update_employee`
+   |
+34 | def test_update_employee(db):
+   |     ^^^^^^^^^^^^^^^^^^^^ ANN201
+35 |     """Test updating an employee."""
+36 |     emp_id = db.add_employee("Charlie", "Designer")
+   |
+   = help: Add return type annotation: `None`
+
+tests/unit/test_database.py:34:26: ANN001 Missing type annotation for function argument `db`
+   |
+34 | def test_update_employee(db):
+   |                          ^^ ANN001
+35 |     """Test updating an employee."""
+36 |     emp_id = db.add_employee("Charlie", "Designer")
+   |
+
+tests/unit/test_database.py:43:5: ANN201 Missing return type annotation for public function `test_delete_employee`
+   |
+43 | def test_delete_employee(db):
+   |     ^^^^^^^^^^^^^^^^^^^^ ANN201
+44 |     """Test deleting an employee."""
+45 |     emp_id = db.add_employee("Dave", "Tester")
+   |
+   = help: Add return type annotation: `None`
+
+tests/unit/test_database.py:43:26: ANN001 Missing type annotation for function argument `db`
+   |
+43 | def test_delete_employee(db):
+   |                          ^^ ANN001
+44 |     """Test deleting an employee."""
+45 |     emp_id = db.add_employee("Dave", "Tester")
+   |
+
+tests/unit/test_employee_model.py:9:5: ANN201 Missing return type annotation for public function `mock_database`
+   |
+ 8 | @pytest.fixture
+ 9 | def mock_database():
+   |     ^^^^^^^^^^^^^ ANN201
+10 |     """Mocked database object."""
+11 |     mock = Mock()
+   |
+   = help: Add return type annotation
+
+tests/unit/test_employee_model.py:20:5: ANN201 Missing return type annotation for public function `model`
+   |
+19 | @pytest.fixture
+20 | def model(mock_database):
+   |     ^^^^^ ANN201
+21 |     """Fixture for the EmployeeModel."""
+22 |     return EmployeeModel(mock_database)
+   |
+   = help: Add return type annotation
+
+tests/unit/test_employee_model.py:20:11: ANN001 Missing type annotation for function argument `mock_database`
+   |
+19 | @pytest.fixture
+20 | def model(mock_database):
+   |           ^^^^^^^^^^^^^ ANN001
+21 |     """Fixture for the EmployeeModel."""
+22 |     return EmployeeModel(mock_database)
+   |
+
+tests/unit/test_employee_model.py:25:5: ANN201 Missing return type annotation for public function `test_row_count`
+   |
+25 | def test_row_count(model):
+   |     ^^^^^^^^^^^^^^ ANN201
+26 |     """Test row count of EmployeeModel."""
+27 |     assert model.rowCount() == 2
+   |
+   = help: Add return type annotation: `None`
+
+tests/unit/test_employee_model.py:25:20: ANN001 Missing type annotation for function argument `model`
+   |
+25 | def test_row_count(model):
+   |                    ^^^^^ ANN001
+26 |     """Test row count of EmployeeModel."""
+27 |     assert model.rowCount() == 2
+   |
+
+tests/unit/test_employee_model.py:30:5: ANN201 Missing return type annotation for public function `test_data`
+   |
+30 | def test_data(model):
+   |     ^^^^^^^^^ ANN201
+31 |     """Test data retrieval from EmployeeModel."""
+32 |     index = model.index(0, 0)
+   |
+   = help: Add return type annotation: `None`
+
+tests/unit/test_employee_model.py:30:15: ANN001 Missing type annotation for function argument `model`
+   |
+30 | def test_data(model):
+   |               ^^^^^ ANN001
+31 |     """Test data retrieval from EmployeeModel."""
+32 |     index = model.index(0, 0)
+   |
+
+
+Fixed 7 errors:
+- scripts/build_ui.py:
+    1 × I001 (unsorted-imports)
+- src/jmbde/__main.py:
+    1 × I001 (unsorted-imports)
+- src/jmbde/core/database.py:
+    1 × I001 (unsorted-imports)
+- src/jmbde/gui/employee_model.py:
+    1 × I001 (unsorted-imports)
+- src/jmbde/gui/main_app.py:
+    1 × I001 (unsorted-imports)
+- tests/test_main.py:
+    1 × I001 (unsorted-imports)
+- tests/unit/test_database.py:
+    1 × I001 (unsorted-imports)
+
+Found 384 errors (7 fixed, 377 remaining).
+No fixes available (95 hidden fixes can be enabled with the `--unsafe-fixes` option).
+
+ruff-format..............................................................Failed
+- hook id: ruff-format
+- exit code: 2
+
+warning: The top-level linter settings are deprecated in favour of their counterparts in the `lint` section. Please update the following options in `pyproject.toml`:
+  - 'pydocstyle' -> 'lint.pydocstyle'
+warning: The following rule may cause conflicts when used with the formatter: `COM812`. To avoid unexpected behavior, we recommend disabling this rule, either by removing it from the `select` or `extend-select` configuration, or adding it to the `ignore` configuration.
+error: Failed to parse tests/pyside6/unsafeconnection.py:6:24: Expected ':', found name
+40 files left unchanged
+
+mypy.....................................................................Failed
+- hook id: mypy
+- exit code: 2
+
+tests/pyside6/unsafeconnection.py:6:25: error: invalid syntax  [syntax]
+    class UnsafeConnection extends FunctionCall {
+                            ^
+Found 1 error in 1 file (errors prevented further checking)
+
+pylint...................................................................Failed
+- hook id: pylint
+- exit code: 30
+
+[7;33m************* Module pyproject.toml[0m
+pyproject.toml:1:0: R0022: [1;3;35mUseless option value for '--disable', 'C0330' was removed from pylint, see https://github.com/pylint-dev/pylint/pull/3571.[0m ([1;3;35museless-option-value[0m)
+[7;33m************* Module tests.pyside6.unsafeconnection[0m
+tests/pyside6/unsafeconnection.py:6:24: E0001: [1;31mParsing failed: 'invalid syntax (tests.pyside6.unsafeconnection, line 6)'[0m ([1;31msyntax-error[0m)
+[7;33m************* Module build_ui[0m
+scripts/build_ui.py:59:4: R1732: [1;3;35mConsider using 'with' for resource-allocating operations[0m ([1;3;35mconsider-using-with[0m)
+scripts/build_ui.py:68:0: R1732: [1;3;35mConsider using 'with' for resource-allocating operations[0m ([1;3;35mconsider-using-with[0m)
+scripts/build_ui.py:72:0: R1732: [1;3;35mConsider using 'with' for resource-allocating operations[0m ([1;3;35mconsider-using-with[0m)
+scripts/build_ui.py:73:0: R1732: [1;3;35mConsider using 'with' for resource-allocating operations[0m ([1;3;35mconsider-using-with[0m)
+scripts/build_ui.py:77:4: R1732: [1;3;35mConsider using 'with' for resource-allocating operations[0m ([1;3;35mconsider-using-with[0m)
+scripts/build_ui.py:86:4: R1732: [1;3;35mConsider using 'with' for resource-allocating operations[0m ([1;3;35mconsider-using-with[0m)
+[7;33m************* Module check_signals[0m
+scripts/check_signals.py:24:13: W1514: [35mUsing open without explicitly specifying an encoding[0m ([35munspecified-encoding[0m)
+[7;33m************* Module jmbde[0m
+src/jmbde/__init__.py:9:0: W0105: [35mString statement has no effect[0m ([35mpointless-string-statement[0m)
+src/jmbde/__init__.py:11:11: E0602: [1;31mUndefined variable 'os'[0m ([1;31mundefined-variable[0m)
+src/jmbde/__init__.py:11:24: E0602: [1;31mUndefined variable 'os'[0m ([1;31mundefined-variable[0m)
+src/jmbde/__init__.py:12:13: E0602: [1;31mUndefined variable 'os'[0m ([1;31mundefined-variable[0m)
+src/jmbde/__init__.py:13:11: E0602: [1;31mUndefined variable 'os'[0m ([1;31mundefined-variable[0m)
+src/jmbde/__init__.py:14:18: E0602: [1;31mUndefined variable 'os'[0m ([1;31mundefined-variable[0m)
+src/jmbde/__init__.py:15:9: E0602: [1;31mUndefined variable 'os'[0m ([1;31mundefined-variable[0m)
+[7;33m************* Module jmbde.__main[0m
+src/jmbde/__main.py:21:0: E0401: [1;31mUnable to import 'click'[0m ([1;31mimport-error[0m)
+src/jmbde/__main.py:22:0: E0401: [1;31mUnable to import 'PySide6.QtCore'[0m ([1;31mimport-error[0m)
+src/jmbde/__main.py:23:0: E0401: [1;31mUnable to import 'PySide6.QtGui'[0m ([1;31mimport-error[0m)
+src/jmbde/__main.py:24:0: E0401: [1;31mUnable to import 'PySide6.QtQml'[0m ([1;31mimport-error[0m)
+src/jmbde/__main.py:56:15: W0718: [35mCatching too general exception Exception[0m ([35mbroad-exception-caught[0m)
+src/jmbde/__main.py:78:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/__main.py:88:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/__main.py:98:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/__main.py:121:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/__main.py:132:15: W0718: [35mCatching too general exception Exception[0m ([35mbroad-exception-caught[0m)
+src/jmbde/__main.py:128:16: E1101: [1;31mInstance of 'Database' has no 'close' member[0m ([1;31mno-member[0m)
+src/jmbde/__main.py:133:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/__main.py:174:11: W0718: [35mCatching too general exception Exception[0m ([35mbroad-exception-caught[0m)
+src/jmbde/__main.py:171:8: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/__main.py:175:8: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/__main.py:140:22: W0613: [35mUnused argument 'config'[0m ([35munused-argument[0m)
+src/jmbde/__main.py:184:4: E1120: [1;31mNo value for argument 'debug' in function call[0m ([1;31mno-value-for-parameter[0m)
+src/jmbde/__main.py:184:4: E1120: [1;31mNo value for argument 'config' in function call[0m ([1;31mno-value-for-parameter[0m)
+[7;33m************* Module jmbde.__main__[0m
+src/jmbde/__main__.py:8:0: E0401: [1;31mUnable to import 'click'[0m ([1;31mimport-error[0m)
+[7;33m************* Module jmbde.core.config[0m
+src/jmbde/core/config.py:1:0: R0903: [1;3;35mToo few public methods (0/2)[0m ([1;3;35mtoo-few-public-methods[0m)
+[7;33m************* Module jmbde.core.database[0m
+src/jmbde/core/database.py:19:0: E0401: [1;31mUnable to import 'pydantic'[0m ([1;31mimport-error[0m)
+src/jmbde/core/database.py:28:0: R0903: [1;3;35mToo few public methods (0/2)[0m ([1;3;35mtoo-few-public-methods[0m)
+src/jmbde/core/database.py:41:0: R0903: [1;3;35mToo few public methods (0/2)[0m ([1;3;35mtoo-few-public-methods[0m)
+src/jmbde/core/database.py:82:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/core/database.py:84:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/core/database.py:98:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/core/database.py:156:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/core/database.py:195:16: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/core/database.py:198:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/core/database.py:224:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/core/database.py:262:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/core/database.py:298:20: C0209: [1mFormatting a regular string which could be an f-string[0m ([1mconsider-using-f-string[0m)
+src/jmbde/core/database.py:310:20: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/core/database.py:313:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/core/database.py:337:20: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/core/database.py:340:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/core/database.py:353:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+[7;33m************* Module jmbde.core.security[0m
+src/jmbde/core/security.py:4:0: E0401: [1;31mUnable to import 'cryptography.fernet'[0m ([1;31mimport-error[0m)
+[7;33m************* Module jmbde.core.settings[0m
+src/jmbde/core/settings.py:17:0: E0401: [1;31mUnable to import 'pydantic'[0m ([1;31mimport-error[0m)
+src/jmbde/core/settings.py:18:0: E0401: [1;31mUnable to import 'PySide6.QtCore'[0m ([1;31mimport-error[0m)
+src/jmbde/core/settings.py:26:0: R0903: [1;3;35mToo few public methods (0/2)[0m ([1;3;35mtoo-few-public-methods[0m)
+src/jmbde/core/settings.py:35:0: R0903: [1;3;35mToo few public methods (0/2)[0m ([1;3;35mtoo-few-public-methods[0m)
+src/jmbde/core/settings.py:47:0: R0903: [1;3;35mToo few public methods (0/2)[0m ([1;3;35mtoo-few-public-methods[0m)
+src/jmbde/core/settings.py:88:8: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/core/settings.py:115:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/core/settings.py:118:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/core/settings.py:147:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/core/settings.py:200:15: W0718: [35mCatching too general exception Exception[0m ([35mbroad-exception-caught[0m)
+src/jmbde/core/settings.py:193:12: R1705: [1;3;35mUnnecessary "elif" after "return", remove the leading "el" from "elif"[0m ([1;3;35mno-else-return[0m)
+src/jmbde/core/settings.py:201:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/core/settings.py:224:15: W0718: [35mCatching too general exception Exception[0m ([35mbroad-exception-caught[0m)
+src/jmbde/core/settings.py:225:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/core/settings.py:237:15: W0718: [35mCatching too general exception Exception[0m ([35mbroad-exception-caught[0m)
+src/jmbde/core/settings.py:238:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+[7;33m************* Module jmbde.gui.employee_model[0m
+src/jmbde/gui/employee_model.py:102:0: C0325: [1mUnnecessary parens after 'not' keyword[0m ([1msuperfluous-parens[0m)
+src/jmbde/gui/employee_model.py:15:0: E0401: [1;31mUnable to import 'PySide6.QtCore'[0m ([1;31mimport-error[0m)
+src/jmbde/gui/employee_model.py:75:23: W0613: [35mUnused argument 'parent'[0m ([35munused-argument[0m)
+src/jmbde/gui/employee_model.py:110:15: W0718: [35mCatching too general exception Exception[0m ([35mbroad-exception-caught[0m)
+src/jmbde/gui/employee_model.py:111:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/gui/employee_model.py:133:15: W0718: [35mCatching too general exception Exception[0m ([35mbroad-exception-caught[0m)
+src/jmbde/gui/employee_model.py:132:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/gui/employee_model.py:134:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/gui/employee_model.py:164:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/gui/employee_model.py:207:4: R0917: [1;3;35mToo many positional arguments (6/5)[0m ([1;3;35mtoo-many-positional-arguments[0m)
+src/jmbde/gui/employee_model.py:247:15: W0718: [35mCatching too general exception Exception[0m ([35mbroad-exception-caught[0m)
+src/jmbde/gui/employee_model.py:244:20: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/gui/employee_model.py:248:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/gui/employee_model.py:253:4: R0917: [1;3;35mToo many positional arguments (6/5)[0m ([1;3;35mtoo-many-positional-arguments[0m)
+src/jmbde/gui/employee_model.py:295:15: W0718: [35mCatching too general exception Exception[0m ([35mbroad-exception-caught[0m)
+src/jmbde/gui/employee_model.py:277:12: C0415: [1mImport outside toplevel (datetime.datetime)[0m ([1mimport-outside-toplevel[0m)
+src/jmbde/gui/employee_model.py:292:16: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/gui/employee_model.py:296:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/gui/employee_model.py:322:15: W0718: [35mCatching too general exception Exception[0m ([35mbroad-exception-caught[0m)
+src/jmbde/gui/employee_model.py:319:20: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/gui/employee_model.py:323:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/gui/employee_model.py:341:15: W0718: [35mCatching too general exception Exception[0m ([35mbroad-exception-caught[0m)
+src/jmbde/gui/employee_model.py:342:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+[7;33m************* Module jmbde.gui.main_app[0m
+src/jmbde/gui/main_app.py:16:0: E0401: [1;31mUnable to import 'PySide6.QtCore'[0m ([1;31mimport-error[0m)
+src/jmbde/gui/main_app.py:68:4: R0917: [1;3;35mToo many positional arguments (6/5)[0m ([1;3;35mtoo-many-positional-arguments[0m)
+src/jmbde/gui/main_app.py:130:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/gui/main_app.py:134:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/gui/main_app.py:142:4: R0917: [1;3;35mToo many positional arguments (8/5)[0m ([1;3;35mtoo-many-positional-arguments[0m)
+src/jmbde/gui/main_app.py:205:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/gui/main_app.py:209:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/gui/main_app.py:253:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/gui/main_app.py:257:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/gui/main_app.py:275:15: W0718: [35mCatching too general exception Exception[0m ([35mbroad-exception-caught[0m)
+src/jmbde/gui/main_app.py:276:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/gui/main_app.py:298:15: W0718: [35mCatching too general exception Exception[0m ([35mbroad-exception-caught[0m)
+src/jmbde/gui/main_app.py:291:39: W0212: [35mAccess to a protected member _data of a client class[0m ([35mprotected-access[0m)
+src/jmbde/gui/main_app.py:293:33: W0212: [35mAccess to a protected member _data of a client class[0m ([35mprotected-access[0m)
+src/jmbde/gui/main_app.py:299:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+src/jmbde/gui/main_app.py:310:15: W0718: [35mCatching too general exception Exception[0m ([35mbroad-exception-caught[0m)
+src/jmbde/gui/main_app.py:311:12: W1203: [35mUse lazy % formatting in logging functions[0m ([35mlogging-fstring-interpolation[0m)
+[7;33m************* Module test_full_workflow[0m
+tests/e2e/test_full_workflow.py:2:13: E0602: [1;31mUndefined variable 'MyWindow'[0m ([1;31mundefined-variable[0m)
+tests/e2e/test_full_workflow.py:10:36: E0602: [1;31mUndefined variable 'Qt'[0m ([1;31mundefined-variable[0m)
+[7;33m************* Module test_database[0m
+tests/integration/test_database.py:18:0: E0401: [1;31mUnable to import 'jmbde.models.datacontext'[0m ([1;31mimport-error[0m)
+tests/integration/test_database.py:18:0: E0611: [1;31mNo name 'models' in module 'jmbde'[0m ([1;31mno-name-in-module[0m)
+[7;33m************* Module tests.pyside6.test_button_click[0m
+tests/pyside6/test_button_click.py:1:0: E0401: [1;31mUnable to import 'PySide6.QtWidgets'[0m ([1;31mimport-error[0m)
+[7;33m************* Module tests.pyside6.test_dialog[0m
+tests/pyside6/test_dialog.py:1:0: E0401: [1;31mUnable to import 'PySide6.QtWidgets'[0m ([1;31mimport-error[0m)
+tests/pyside6/test_dialog.py:5:0: W0613: [35mUnused argument 'args'[0m ([35munused-argument[0m)
+tests/pyside6/test_dialog.py:5:0: W0613: [35mUnused argument 'kwargs'[0m ([35munused-argument[0m)
+tests/pyside6/test_dialog.py:4:34: W0613: [35mUnused argument 'qtbot'[0m ([35munused-argument[0m)
+[7;33m************* Module tests.pyside6.test_gui_interaction[0m
+tests/pyside6/test_gui_interaction.py:1:0: E0401: [1;31mUnable to import 'PySide6.QtWidgets'[0m ([1;31mimport-error[0m)
+tests/pyside6/test_gui_interaction.py:4:0: R0903: [1;3;35mToo few public methods (1/2)[0m ([1;3;35mtoo-few-public-methods[0m)
+tests/pyside6/test_gui_interaction.py:28:36: E0602: [1;31mUndefined variable 'Qt'[0m ([1;31mundefined-variable[0m)
+[7;33m************* Module tests.pyside6.test_signal_emission[0m
+tests/pyside6/test_signal_emission.py:1:0: E0401: [1;31mUnable to import 'PySide6.QtCore'[0m ([1;31mimport-error[0m)
+tests/pyside6/test_signal_emission.py:4:0: R0903: [1;3;35mToo few public methods (1/2)[0m ([1;3;35mtoo-few-public-methods[0m)
+[7;33m************* Module tests.test_main[0m
+tests/test_main.py:9:0: E0401: [1;31mUnable to import 'click.testing'[0m ([1;31mimport-error[0m)
+tests/test_main.py:21:23: W0621: [35mRedefining name 'runner' from outer scope (line 16)[0m ([35mredefined-outer-name[0m)
+tests/unit/test_database.py:1:0: E0401: [1;31mUnable to import 'database'[0m ([1;31mimport-error[0m)
+tests/unit/test_database.py:11:23: W0621: [35mRedefining name 'db' from outer scope (line 6)[0m ([35mredefined-outer-name[0m)
+tests/unit/test_database.py:20:22: W0621: [35mRedefining name 'db' from outer scope (line 6)[0m ([35mredefined-outer-name[0m)
+tests/unit/test_database.py:26:23: W0621: [35mRedefining name 'db' from outer scope (line 6)[0m ([35mredefined-outer-name[0m)
+tests/unit/test_database.py:34:25: W0621: [35mRedefining name 'db' from outer scope (line 6)[0m ([35mredefined-outer-name[0m)
+tests/unit/test_database.py:43:25: W0621: [35mRedefining name 'db' from outer scope (line 6)[0m ([35mredefined-outer-name[0m)
+[7;33m************* Module test_employee_model[0m
+tests/unit/test_employee_model.py:5:0: E0611: [1;31mNo name 'EmployeeModel' in module 'main'[0m ([1;31mno-name-in-module[0m)
+tests/unit/test_employee_model.py:20:10: W0621: [35mRedefining name 'mock_database' from outer scope (line 9)[0m ([35mredefined-outer-name[0m)
+tests/unit/test_employee_model.py:25:19: W0621: [35mRedefining name 'model' from outer scope (line 20)[0m ([35mredefined-outer-name[0m)
+tests/unit/test_employee_model.py:30:14: W0621: [35mRedefining name 'model' from outer scope (line 20)[0m ([35mredefined-outer-name[0m)
+
+-----------------------------------
+Your code has been rated at 6.73/10
+
+bandit...................................................................Failed
+- hook id: bandit
+- exit code: 1
+
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: None
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[main]	INFO	using config: pyproject.toml
+[main]	INFO	running on Python 3.12.8
+Run started:2025-01-18 09:41:38.466884
+
+Test results:
+>> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/blacklists/blacklist_imports.html#b404-import-subprocess
+   Location: ./scripts/build_ui.py:21:0
+20	import shutil
+21	from subprocess import Popen
+22	
+
+--------------------------------------------------
+>> Issue: [B607:start_process_with_partial_path] Starting a process with a partial executable path
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b607_start_process_with_partial_path.html
+   Location: ./scripts/build_ui.py:59:4
+58	    )
+59	    Popen(
+60	        [
+61	            "uic",
+62	            "-g python",
+63	            f"-o {source_dir}{package}/ui/ui_{os.path.basename(f[:-3])}.py {f}",
+64	        ],
+65	    )
+66	
+
+--------------------------------------------------
+>> Issue: [B603:subprocess_without_shell_equals_true] subprocess call - check for execution of untrusted input.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b603_subprocess_without_shell_equals_true.html
+   Location: ./scripts/build_ui.py:59:4
+58	    )
+59	    Popen(
+60	        [
+61	            "uic",
+62	            "-g python",
+63	            f"-o {source_dir}{package}/ui/ui_{os.path.basename(f[:-3])}.py {f}",
+64	        ],
+65	    )
+66	
+
+--------------------------------------------------
+>> Issue: [B607:start_process_with_partial_path] Starting a process with a partial executable path
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b607_start_process_with_partial_path.html
+   Location: ./scripts/build_ui.py:68:0
+67	print("Updating translations...")
+68	Popen(["lupdate", "jmbde.pro"])
+69	lang_files = " ".join(
+
+--------------------------------------------------
+>> Issue: [B603:subprocess_without_shell_equals_true] subprocess call - check for execution of untrusted input.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b603_subprocess_without_shell_equals_true.html
+   Location: ./scripts/build_ui.py:68:0
+67	print("Updating translations...")
+68	Popen(["lupdate", "jmbde.pro"])
+69	lang_files = " ".join(
+
+--------------------------------------------------
+>> Issue: [B607:start_process_with_partial_path] Starting a process with a partial executable path
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b607_start_process_with_partial_path.html
+   Location: ./scripts/build_ui.py:72:0
+71	)
+72	Popen(["pyside2-lupdate", f"{source_dir}{package}/*.py -ts {lang_files}"])
+73	Popen(["lrelease", f"{resources_dir}/translations/*.ts"])
+
+--------------------------------------------------
+>> Issue: [B603:subprocess_without_shell_equals_true] subprocess call - check for execution of untrusted input.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b603_subprocess_without_shell_equals_true.html
+   Location: ./scripts/build_ui.py:72:0
+71	)
+72	Popen(["pyside2-lupdate", f"{source_dir}{package}/*.py -ts {lang_files}"])
+73	Popen(["lrelease", f"{resources_dir}/translations/*.ts"])
+
+--------------------------------------------------
+>> Issue: [B607:start_process_with_partial_path] Starting a process with a partial executable path
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b607_start_process_with_partial_path.html
+   Location: ./scripts/build_ui.py:73:0
+72	Popen(["pyside2-lupdate", f"{source_dir}{package}/*.py -ts {lang_files}"])
+73	Popen(["lrelease", f"{resources_dir}/translations/*.ts"])
+74	
+
+--------------------------------------------------
+>> Issue: [B603:subprocess_without_shell_equals_true] subprocess call - check for execution of untrusted input.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b603_subprocess_without_shell_equals_true.html
+   Location: ./scripts/build_ui.py:73:0
+72	Popen(["pyside2-lupdate", f"{source_dir}{package}/*.py -ts {lang_files}"])
+73	Popen(["lrelease", f"{resources_dir}/translations/*.ts"])
+74	
+
+--------------------------------------------------
+>> Issue: [B607:start_process_with_partial_path] Starting a process with a partial executable path
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b607_start_process_with_partial_path.html
+   Location: ./scripts/build_ui.py:77:4
+76	for f in glob(f"{source_dir}/*.qrc"):
+77	    Popen(
+78	        [
+79	            "rcc",
+80	            f" -g python -o {package}/resources/qrc_{os.path.basename(f[:-4])}.py {f}",
+81	        ],
+82	    )
+83	
+
+--------------------------------------------------
+>> Issue: [B603:subprocess_without_shell_equals_true] subprocess call - check for execution of untrusted input.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b603_subprocess_without_shell_equals_true.html
+   Location: ./scripts/build_ui.py:77:4
+76	for f in glob(f"{source_dir}/*.qrc"):
+77	    Popen(
+78	        [
+79	            "rcc",
+80	            f" -g python -o {package}/resources/qrc_{os.path.basename(f[:-4])}.py {f}",
+81	        ],
+82	    )
+83	
+
+--------------------------------------------------
+>> Issue: [B607:start_process_with_partial_path] Starting a process with a partial executable path
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b607_start_process_with_partial_path.html
+   Location: ./scripts/build_ui.py:86:4
+85	for f in glob(f"{resources_dir}/*.qrc"):
+86	    Popen(
+87	        [
+88	            "rcc",
+89	            f" -g python --verbose -o {source_dir}{package}/qrc_{os.path.basename(f[:-4])}.py {f}",
+90	        ],
+91	    )
+92	
+
+--------------------------------------------------
+>> Issue: [B603:subprocess_without_shell_equals_true] subprocess call - check for execution of untrusted input.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b603_subprocess_without_shell_equals_true.html
+   Location: ./scripts/build_ui.py:86:4
+85	for f in glob(f"{resources_dir}/*.qrc"):
+86	    Popen(
+87	        [
+88	            "rcc",
+89	            f" -g python --verbose -o {source_dir}{package}/qrc_{os.path.basename(f[:-4])}.py {f}",
+90	        ],
+91	    )
+92	
+
+--------------------------------------------------
+>> Issue: [B608:hardcoded_sql_expressions] Possible SQL injection vector through string-based query construction.
+   Severity: Medium   Confidence: Low
+   CWE: CWE-89 (https://cwe.mitre.org/data/definitions/89.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b608_hardcoded_sql_expressions.html
+   Location: ./src/jmbde/core/database.py:298:20
+297	
+298	            query = """
+299	                UPDATE employees
+300	                SET {}
+301	                WHERE id = ?
+302	            """.format(
+303	                ", ".join(f"{field} = ?" for field in update_fields),
+
+--------------------------------------------------
+
+Code scanned:
+	Total lines of code: 1331
+	Total lines skipped (#nosec): 0
+	Total potential issues skipped due to specifically being disabled (e.g., #nosec BXXX): 0
+
+Run metrics:
+	Total issues (by severity):
+		Undefined: 0
+		Low: 13
+		Medium: 1
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 1
+		Medium: 0
+		High: 13
+Files skipped (0):
+
+pip-audit................................................................Passed
+pyupgrade................................................................Passed
+Lint Dockerfiles.........................................................Failed
+- hook id: hadolint
+- exit code: 1
+
+Executable `hadolint` not found
+
+markdownlint.............................................................Failed
+- hook id: markdownlint
+- exit code: 1
+
+docs/index.md:21:46 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/index.md:21:60 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+building/README.md:96:29 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+building/README.md:96:35 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+building/README.md:103 MD040/fenced-code-language Fenced code blocks should have a language specified [Context: "```"]
+CHANGELOG.md:5:1 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+CHANGELOG.md:5:28 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+CHANGELOG.md:9:1 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+CHANGELOG.md:9:17 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+CHANGELOG.md:14:1 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+CHANGELOG.md:14:24 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/about/EUPL-1.2.md:3 MD036/no-emphasis-as-heading Emphasis used instead of a heading [Context: "EUPL © the European Union 2007..."]
+docs/about/EUPL-1.2.md:55:1 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/about/EUPL-1.2.md:55:21 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/about/EUPL-1.2.md:58:1 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/about/EUPL-1.2.md:58:19 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/about/EUPL-1.2.md:62:1 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/about/EUPL-1.2.md:62:24 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/about/EUPL-1.2.md:66:1 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/about/EUPL-1.2.md:66:28 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/about/EUPL-1.2.md:69:1 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/about/EUPL-1.2.md:69:20 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/developer/overview.md:7:3 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/developer/overview.md:7:22 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/developer/overview.md:8:3 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/developer/overview.md:8:20 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/developer/overview.md:9:3 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/developer/overview.md:9:33 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/community/code_of_conduct.md:52:1 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/community/code_of_conduct.md:52:19 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/community/code_of_conduct.md:54:1 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/community/code_of_conduct.md:54:14 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/community/code_of_conduct.md:58:1 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/community/code_of_conduct.md:58:19 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/community/code_of_conduct.md:60:1 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/community/code_of_conduct.md:60:14 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/community/code_of_conduct.md:65:1 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/community/code_of_conduct.md:65:19 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/community/code_of_conduct.md:67:1 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/community/code_of_conduct.md:67:14 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/community/code_of_conduct.md:72:1 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/community/code_of_conduct.md:72:19 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/community/code_of_conduct.md:74:1 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/community/code_of_conduct.md:74:14 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/developer/changelog.md:11:1 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/developer/changelog.md:11:13 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/developer/changelog.md:13:1 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/developer/changelog.md:13:11 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/developer/changelog.md:15:1 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+docs/developer/changelog.md:15:11 MD050/strong-style Strong style [Expected: underscore; Actual: asterisk]
+
+Validate Dependabot Config (v2)..........................................Passed
+Validate GitHub Workflows................................................Passed
+Validate ReadTheDocs Config..............................................Passed
+Detect hardcoded secrets.................................................Passed
+yamllint.................................................................Failed
+- hook id: yamllint
+- exit code: 1
+
+::group::.github/workflows/pre-commit.yml
+::warning file=.github/workflows/pre-commit.yml,line=84,col=121::84:121 [line-length] line too long (123 > 120 characters)
+::endgroup::
+
+::group::.github/workflows/dependency-review.yml
+::warning file=.github/workflows/dependency-review.yml,line=131,col=121::131:121 [line-length] line too long (174 > 120 characters)
+::endgroup::
+
+::group::.github/workflows/dependabot-merge.yml
+::warning file=.github/workflows/dependabot-merge.yml,line=162,col=121::162:121 [line-length] line too long (126 > 120 characters)
+::endgroup::
+
+::group::.github/scorecard-policy.yml
+::warning file=.github/scorecard-policy.yml,line=11,col=3::11:3 [comments-indentation] comment not indented like content
+::endgroup::
+
+::group::.github/workflows/mega-linter.yml
+::warning file=.github/workflows/mega-linter.yml,line=120,col=90::120:90 [comments] missing starting space in comment
+::error file=.github/workflows/mega-linter.yml,line=144,col=12::144:12 [indentation] wrong indentation: expected 10 but found 11
+::warning file=.github/workflows/mega-linter.yml,line=160,col=121::160:121 [line-length] line too long (214 > 120 characters)
+::endgroup::
+
+::group::.mega-linter.yml
+::warning file=.mega-linter.yml,line=44,col=121::44:121 [line-length] line too long (124 > 120 characters)
+::warning file=.mega-linter.yml,line=48,col=121::48:121 [line-length] line too long (241 > 120 characters)
+::warning file=.mega-linter.yml,line=59,col=121::59:121 [line-length] line too long (272 > 120 characters)
+::endgroup::
+
+::group::.github/workflows/pr-lint.yaml
+::warning file=.github/workflows/pr-lint.yaml,line=54,col=121::54:121 [line-length] line too long (136 > 120 characters)
+::warning file=.github/workflows/pr-lint.yaml,line=60,col=121::60:121 [line-length] line too long (128 > 120 characters)
+::warning file=.github/workflows/pr-lint.yaml,line=119,col=121::119:121 [line-length] line too long (140 > 120 characters)
+::endgroup::
+
+::group::.github/ISSUE_TEMPLATE/01-bug-report.yml
+::warning file=.github/ISSUE_TEMPLATE/01-bug-report.yml,line=54,col=121::54:121 [line-length] line too long (139 > 120 characters)
+::warning file=.github/ISSUE_TEMPLATE/01-bug-report.yml,line=67,col=121::67:121 [line-length] line too long (158 > 120 characters)
+::endgroup::
+
+::group::.github/workflows/add-comment-to-issue.yml
+::warning file=.github/workflows/add-comment-to-issue.yml,line=68,col=121::68:121 [line-length] line too long (130 > 120 characters)
+::endgroup::
+
+::group::.github/workflows/stale.yml
+::warning file=.github/workflows/stale.yml,line=66,col=121::66:121 [line-length] line too long (122 > 120 characters)
+::warning file=.github/workflows/stale.yml,line=219,col=121::219:121 [line-length] line too long (159 > 120 characters)
+::endgroup::
+
+::group::.github/workflows/tests.yml
+::warning file=.github/workflows/tests.yml,line=7,col=1::7:1 [truthy] truthy value should be one of [false, true]
+::warning file=.github/workflows/tests.yml,line=277,col=121::277:121 [line-length] line too long (139 > 120 characters)
+::endgroup::
+
+::group::.github/workflows/labeler.yml
+::warning file=.github/workflows/labeler.yml,line=47,col=121::47:121 [line-length] line too long (125 > 120 characters)
+::endgroup::
+
+::group::.github/DISCUSSION_TEMPLATE/q-a.yml
+::warning file=.github/DISCUSSION_TEMPLATE/q-a.yml,line=16,col=121::16:121 [line-length] line too long (128 > 120 characters)
+::warning file=.github/DISCUSSION_TEMPLATE/q-a.yml,line=20,col=121::20:121 [line-length] line too long (167 > 120 characters)
+::warning file=.github/DISCUSSION_TEMPLATE/q-a.yml,line=54,col=121::54:121 [line-length] line too long (161 > 120 characters)
+::warning file=.github/DISCUSSION_TEMPLATE/q-a.yml,line=64,col=121::64:121 [line-length] line too long (150 > 120 characters)
+::warning file=.github/DISCUSSION_TEMPLATE/q-a.yml,line=66,col=121::66:121 [line-length] line too long (129 > 120 characters)
+::warning file=.github/DISCUSSION_TEMPLATE/q-a.yml,line=70,col=121::70:121 [line-length] line too long (193 > 120 characters)
+::warning file=.github/DISCUSSION_TEMPLATE/q-a.yml,line=71,col=121::71:121 [line-length] line too long (150 > 120 characters)
+::warning file=.github/DISCUSSION_TEMPLATE/q-a.yml,line=72,col=121::72:121 [line-length] line too long (136 > 120 characters)
+::warning file=.github/DISCUSSION_TEMPLATE/q-a.yml,line=73,col=121::73:121 [line-length] line too long (138 > 120 characters)
+::warning file=.github/DISCUSSION_TEMPLATE/q-a.yml,line=88,col=121::88:121 [line-length] line too long (124 > 120 characters)
+::endgroup::
+
+::group::.github/ISSUE_TEMPLATE/02-feature-request.yml
+::warning file=.github/ISSUE_TEMPLATE/02-feature-request.yml,line=22,col=121::22:121 [line-length] line too long (173 > 120 characters)
+::endgroup::
+
+::group::.github/workflows/scorecard.yml
+::warning file=.github/workflows/scorecard.yml,line=195,col=121::195:121 [line-length] line too long (159 > 120 characters)
+::endgroup::
+
+::group::.github/workflows/reuse-check.yml
+::warning file=.github/workflows/reuse-check.yml,line=7,col=1::7:1 [truthy] truthy value should be one of [false, true]
+::warning file=.github/workflows/reuse-check.yml,line=207,col=121::207:121 [line-length] line too long (159 > 120 characters)
+::endgroup::
+
+codespell................................................................Passed
+Lint GitHub Actions workflow files.......................................Failed
+- hook id: actionlint
+- exit code: 1
+
+.github/workflows/reuse-check.yml:103:9: shellcheck reported issue in this script: SC2181:style:6:6: Check exit code directly with e.g. 'if ! mycmd;', not indirectly with $? [shellcheck]
+    |
+103 |         run: |
+    |         ^~~~
+.github/workflows/reuse-check.yml:103:9: shellcheck reported issue in this script: SC2319:warning:7:57: This $? refers to a condition, not a command. Assign to a variable to avoid it being overwritten [shellcheck]
+    |
+103 |         run: |
+    |         ^~~~
+.github/workflows/reuse-check.yml:103:9: shellcheck reported issue in this script: SC2129:style:21:3: Consider using { cmd1; cmd2; } >> file instead of individual redirects [shellcheck]
+    |
+103 |         run: |
+    |         ^~~~
+.github/workflows/scorecard.yml:206:27: property "high_risks" is not defined in object type {high-risks: string; score: string} [expression]
+    |
+206 |           HIGH_RISKS: ${{ needs.analyze.outputs.high_risks }}
+    |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+reuse lint...............................................................Failed
+- hook id: reuse
+- exit code: 1
+
+# MISSING COPYRIGHT AND LICENSING INFORMATION
+
+The following files have no copyright and licensing information:
+* .checkov.yml
+* .devcontainer/Dockerfile
+* .gitleaks.toml
+* .gitlint
+* .grype.yaml
+* .hound.yml
+* .htmlhintrc
+* .pre-commit-output.txt
+* .python-version
+* .readthedocs.yml
+* .sqlfluff
+* .v8rrc.yml
+* .vale.ini
+* CHANGELOG.md
+* CONTRIBUTING.md
+* CONTRIBUTORS
+* SECURITY.md
+* assets/data/script.sql
+* assets/icons/Vimix-Paper/16x16/document-new.svg
+* assets/icons/Vimix-Paper/16x16/document-open-folder.svg
+* assets/icons/Vimix-Paper/16x16/document-open.svg
+* assets/icons/Vimix-Paper/16x16/document-print-preview.svg
+* assets/icons/Vimix-Paper/16x16/document-print.svg
+* assets/icons/tango/16x16/accessories-text-editor.png
+* assets/icons/tango/16x16/document-new.png
+* assets/icons/tango/16x16/document-open.png
+* assets/icons/tango/16x16/document-print-preview.png
+* assets/icons/tango/16x16/document-print.png
+* assets/icons/tango/16x16/help-browser.png
+* assets/icons/tango/16x16/list-add.png
+* assets/icons/tango/16x16/list-remove.png
+* assets/icons/tango/22x22/accessories-text-editor.png
+* assets/icons/tango/22x22/document-new.png
+* assets/icons/tango/22x22/document-open.png
+* assets/icons/tango/22x22/document-print-preview.png
+* assets/icons/tango/22x22/document-print.png
+* assets/icons/tango/22x22/help-browser.png
+* assets/icons/tango/22x22/list-add.png
+* assets/icons/tango/22x22/list-remove.png
+* assets/icons/tango/32x32/accessories-text-editor.png
+* assets/icons/tango/32x32/document-new.png
+* assets/icons/tango/32x32/document-open.png
+* assets/icons/tango/32x32/document-print-preview.png
+* assets/icons/tango/32x32/document-print.png
+* assets/icons/tango/32x32/help-browser.png
+* assets/icons/tango/32x32/list-add.png
+* assets/icons/tango/32x32/list-remove.png
+* assets/icons/tango/white/ActionClear.png
+* assets/icons/tango/white/ActionSearch.png
+* assets/icons/tango/white/ApplicationAbout.png
+* assets/icons/tango/white/ApplicationExit.png
+* assets/icons/tango/white/ApplicationExit_dark.png
+* assets/icons/tango/white/ApplicationPreferences.png
+* assets/icons/tango/white/FileNew.png
+* assets/icons/tango/white/FileOpen.png
+* assets/icons/tango/white/FileRevert.png
+* assets/icons/tango/white/FileSave.png
+* assets/icons/tango/white/FilterAll.png
+* assets/icons/tango/white/FilterComplete.png
+* assets/icons/tango/white/FilterContexts.png
+* assets/icons/tango/white/FilterDue.png
+* assets/icons/tango/white/FilterDueMonth.png
+* assets/icons/tango/white/FilterDueOverdue.png
+* assets/icons/tango/white/FilterDueToday.png
+* assets/icons/tango/white/FilterDueTomorrow.png
+* assets/icons/tango/white/FilterDueWeek.png
+* assets/icons/tango/white/FilterDue_dark.png
+* assets/icons/tango/white/FilterPending.png
+* assets/icons/tango/white/FilterProjects.png
+* assets/icons/tango/white/FilterUncategorized.png
+* assets/icons/tango/white/TaskComplete.png
+* assets/icons/tango/white/TaskCopy.png
+* assets/icons/tango/white/TaskCreate.png
+* assets/icons/tango/white/TaskDelete.png
+* assets/icons/tango/white/TaskEdit.png
+* assets/icons/tango/white/TaskNewFrom.png
+* assets/icons/tango/white/TaskPriorityDecrease.png
+* assets/icons/tango/white/TaskPriorityIncrease.png
+* assets/icons/tango/white/archive.png
+* assets/icons/tango/white/future.png
+* assets/icons/tango/white/link.png
+* assets/icons/tango/white/qtodotxt.png
+* assets/icons/tango/white/show_completed.png
+* assets/icons/tango/white/sidepane.png
+* assets/images/app.icns
+* assets/images/app.ico
+* assets/images/demo.svg
+* assets/images/logo.svg
+* assets/resources_generator.sh
+* building/README.md
+* commitlint.config.js
+* config/github-actions.txt
+* config/italian-words.txt
+* config/project-words.txt
+* config/python-words.txt
+* config/ruby-words.txt
+* docs/.overrides/partials/copyright.html
+* docs/.snippets/abbrs.txt
+* docs/.snippets/links.txt
+* docs/about/authors.md
+* docs/api-docs.md
+* docs/codeofconduct.md
+* docs/community/code_of_conduct.md
+* docs/community/contributing.md
+* docs/community/faq.md
+* docs/community/third_party_packages.md
+* docs/contributing.md
+* docs/css/custom.css
+* docs/developer/build.md
+* docs/developer/changelog.md
+* docs/developer/cli.md
+* docs/developer/configuration.md
+* docs/developer/core.md
+* docs/developer/environment_variables.md
+* docs/developer/overview.md
+* docs/developer/release-notes.md
+* docs/guides/commandline.md
+* docs/guides/install.md
+* docs/guides/logging.md
+* docs/guides/troubleshooting.md
+* docs/includes/abbreviations.md
+* docs/index.md
+* docs/license.md
+* docs/project-structure-hints.md
+* docs/quickstart.md
+* docs/reference.md
+* docs/usage.md
+* jmbde.pyproject.user
+* pnpm-lock.yaml
+* pre-commit-output.txt
+* scripts/build.ps1
+* scripts/check_signals.py
+* scripts/make.sh
+* scripts/makeppa.sh
+* tests/__init__.py
+* tests/e2e/test_full_workflow.py
+* tests/pyside6/test_button_click.py
+* tests/pyside6/test_dialog.py
+* tests/pyside6/test_gui_interaction.py
+* tests/pyside6/test_signal_emission.py
+* tests/pyside6/unsafeconnection.py
+* tests/unit/test_database.py
+* tests/unit/test_employee_model.py
+
+The following files have no copyright information:
+* .dockerignore
+* .gitlab-ci.yml
+* .yamllint.yml
+* scripts/setup_tmate.sh
+
+The following files have no licensing information:
+* AUTHORS.md
+* docs/about/EUPL-1.2.md
+* scripts/build_ui.py
+* tests/integration/test_database.py
+
+# SUMMARY
+
+* Bad licenses: 0
+* Deprecated licenses: 0
+* Licenses without file extension: 0
+* Missing licenses: 0
+* Unused licenses: 0
+* Used licenses: CC-BY-SA-4.0, GPL-2.0-or-later, Apache-2.0, BSD-3-Clause, MIT, EUPL-1.2, GPL-3.0-or-later
+* Read errors: 0
+* Files with copyright information: 188 / 335
+* Files with license information: 188 / 335
+
+Unfortunately, your project is not compliant with version 3.3 of the REUSE Specification :-(
+
+
+# RECOMMENDATIONS
+
+* Fix missing copyright/licensing information: For one or more files, the tool
+  cannot find copyright and/or licensing information. You typically do this by
+  adding 'SPDX-FileCopyrightText' and 'SPDX-License-Identifier' tags to each
+  file. The tutorial explains additional ways to do this:
+  <https://reuse.software/tutorial/>
+
