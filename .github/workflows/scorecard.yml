@@ -170,7 +170,7 @@ jobs:
 
   notify:
     needs: analyze
-    if: needs.analyze.outputs.high_risks > 0
+    if: needs.analyze.outputs.high-risks > 0
     runs-on: ubuntu-latest
 
     permissions:
