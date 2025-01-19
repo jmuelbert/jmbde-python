@@ -1,0 +1,14 @@
+min_length: 100
+required_sections:
+  - Installation
+  - Usage
+  - Configuration
+  - API Reference
+  - Contributing
+supported_languages:
+  - en
+  - de
+  - it
+  - es
+code_example_required: true
+image_required: true

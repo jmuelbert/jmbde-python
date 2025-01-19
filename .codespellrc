@@ -1,4 +1,0 @@
-[codespell]
-skip = *.ts,./build-*,.git
-interactive = 3
-ignore-words-list = ba,statics,resetable,processinf,nnumber,trun

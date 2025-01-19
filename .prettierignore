@@ -6,33 +6,11 @@
 #
 # For more information, visit https://prettier.io/docs/en/ignore.html.
 
-# Benchmark artifacts
-benchmark/projects/
-benchmark/results/
-
-# Deep Directories
-**/dist
-**/build
-**/smoke
-**/node_modules
-**/fixtures
-**/vendor
-**/.vercel
-
-# Short-term need to format
-!packages/db/test/fixtures
-
-# Directories
-.vscode/
-.venv
-.github
-.changeset
-.env
-.envrc
-megalinter-reports
-LICENSES/
-assets/translations
-
-# Files
-pnpm-lock.yaml
 LICENSE
+LICENSES/**
+assets/translations/
+benchmark/
+dist/
+build/
+**/*.pyc|
+**/.*egg-info

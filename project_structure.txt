@@ -1,0 +1,691 @@
+.
+├── .DS_Store
+├── .coverage
+├── .devcontainer
+│   ├── .dockerignore
+│   ├── Dockerfile
+│   ├── devcontainer.json
+│   └── docker-compose.yml
+├── .dockerignore
+├── .editorconfig
+├── .envrc
+├── .gitattributes
+├── .github
+│   ├── CODEOWNERS
+│   ├── CODE_OF_CONDUCT.md
+│   ├── CONTRIBUTING.md
+│   ├── DISCUSSION_TEMPLATE
+│   │   ├── ideas.yml
+│   │   └── q-a.yml
+│   ├── ISSUE_TEMPLATE
+│   │   ├── 01-bug-report.yml
+│   │   └── 02-feature-request.yml
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── branch-name-patterns.yml
+│   ├── codeql
+│   │   └── codeql-config.yml
+│   ├── config
+│   │   ├── german-words.txt
+│   │   ├── italian-words.txt
+│   │   ├── project-words.txt
+│   │   ├── python-words.txt
+│   │   └── spanish-words.txt
+│   ├── dependabot.yml
+│   ├── dependency-review-config.yml
+│   ├── gitleaks.toml
+│   ├── invite-contributors.yml
+│   ├── labeler.yml
+│   ├── labels.yml
+│   ├── linters
+│   │   └── valestyles
+│   │       ├── Microsoft
+│   │       │   ├── AMPM.yml
+│   │       │   ├── Accessibility.yml
+│   │       │   ├── Acronyms.yml
+│   │       │   ├── Adverbs.yml
+│   │       │   ├── Auto.yml
+│   │       │   ├── Avoid.yml
+│   │       │   ├── Contractions.yml
+│   │       │   ├── Dashes.yml
+│   │       │   ├── DateFormat.yml
+│   │       │   ├── DateNumbers.yml
+│   │       │   ├── DateOrder.yml
+│   │       │   ├── Ellipses.yml
+│   │       │   ├── FirstPerson.yml
+│   │       │   ├── Foreign.yml
+│   │       │   ├── Gender.yml
+│   │       │   ├── GenderBias.yml
+│   │       │   ├── GeneralURL.yml
+│   │       │   ├── HeadingAcronyms.yml
+│   │       │   ├── HeadingColons.yml
+│   │       │   ├── HeadingPunctuation.yml
+│   │       │   ├── Headings.yml
+│   │       │   ├── Hyphens.yml
+│   │       │   ├── Negative.yml
+│   │       │   ├── Ordinal.yml
+│   │       │   ├── OxfordComma.yml
+│   │       │   ├── Passive.yml
+│   │       │   ├── Percentages.yml
+│   │       │   ├── Plurals.yml
+│   │       │   ├── Quotes.yml
+│   │       │   ├── RangeTime.yml
+│   │       │   ├── Semicolon.yml
+│   │       │   ├── SentenceLength.yml
+│   │       │   ├── Spacing.yml
+│   │       │   ├── Suspended.yml
+│   │       │   ├── Terms.yml
+│   │       │   ├── URLFormat.yml
+│   │       │   ├── Units.yml
+│   │       │   ├── Vocab.yml
+│   │       │   ├── We.yml
+│   │       │   ├── Wordiness.yml
+│   │       │   └── meta.json
+│   │       └── proselint
+│   │           ├── Airlinese.yml
+│   │           ├── AnimalLabels.yml
+│   │           ├── Annotations.yml
+│   │           ├── Apologizing.yml
+│   │           ├── Archaisms.yml
+│   │           ├── But.yml
+│   │           ├── Cliches.yml
+│   │           ├── CorporateSpeak.yml
+│   │           ├── Currency.yml
+│   │           ├── Cursing.yml
+│   │           ├── DateCase.yml
+│   │           ├── DateMidnight.yml
+│   │           ├── DateRedundancy.yml
+│   │           ├── DateSpacing.yml
+│   │           ├── DenizenLabels.yml
+│   │           ├── Diacritical.yml
+│   │           ├── GenderBias.yml
+│   │           ├── GroupTerms.yml
+│   │           ├── Hedging.yml
+│   │           ├── Hyperbole.yml
+│   │           ├── Jargon.yml
+│   │           ├── LGBTOffensive.yml
+│   │           ├── LGBTTerms.yml
+│   │           ├── Malapropisms.yml
+│   │           ├── Needless.yml
+│   │           ├── Nonwords.yml
+│   │           ├── Oxymorons.yml
+│   │           ├── P-Value.yml
+│   │           ├── RASSyndrome.yml
+│   │           ├── README.md
+│   │           ├── Skunked.yml
+│   │           ├── Spelling.yml
+│   │           ├── Typography.yml
+│   │           ├── Uncomparables.yml
+│   │           ├── Very.yml
+│   │           └── meta.json
+│   ├── project-config.yml
+│   ├── release-drafter.yml
+│   ├── scorecard-policy.yml
+│   └── workflows
+│       ├── ci.yml
+│       ├── codeql.yml
+│       ├── dependabot-merge.yml
+│       ├── docs-deploy.yml
+│       ├── i18n.yml
+│       ├── issue-managment.yml
+│       ├── labeler.yml
+│       ├── labels-sync.yml
+│       ├── maintenance.yml
+│       ├── pr-checks.yml
+│       ├── requirements.txt
+│       ├── reuse-check.yml
+│       ├── scorecard.yml
+│       └── ui-tests.yml
+├── .gitignore
+├── .gitlab-ci.yml
+├── .markdown-link-check.json
+├── .markdownlint.json
+├── .pre-commit-config.yaml
+├── .prettierignore
+├── .prettierrc.yaml
+├── .python-version
+├── .readthedocs.yml
+├── .ropeproject
+├── .secrets
+├── .vscode
+│   ├── extensions.json
+│   ├── launch.json
+│   ├── settings.json
+│   └── tasks.json
+├── AUTHORS.md
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── CONTRIBUTORS
+├── LICENSE
+├── LICENSES
+│   ├── Apache-2.0.txt
+│   ├── BSD-3-Clause.txt
+│   ├── CC-BY-SA-4.0.txt
+│   ├── EUPL-1.2.txt
+│   ├── GPL-2.0-or-later.txt
+│   ├── GPL-3.0-or-later.txt
+│   └── MIT.txt
+├── NEWS.md
+├── README.md
+├── REUSE.toml
+├── SECURITY.md
+├── assets
+│   ├── data
+│   │   └── script.sql
+│   ├── forms
+│   │   └── employeeinputarea.ui
+│   ├── icons
+│   │   ├── Vimix-Paper
+│   │   │   └── 16x16
+│   │   │       ├── document-new.svg
+│   │   │       ├── document-open-folder.svg
+│   │   │       ├── document-open.svg
+│   │   │       ├── document-print-preview.svg
+│   │   │       └── document-print.svg
+│   │   └── tango
+│   │       ├── 16x16
+│   │       │   ├── accessories-text-editor.png
+│   │       │   ├── document-new.png
+│   │       │   ├── document-open.png
+│   │       │   ├── document-print-preview.png
+│   │       │   ├── document-print.png
+│   │       │   ├── help-browser.png
+│   │       │   ├── list-add.png
+│   │       │   └── list-remove.png
+│   │       ├── 22x22
+│   │       │   ├── accessories-text-editor.png
+│   │       │   ├── document-new.png
+│   │       │   ├── document-open.png
+│   │       │   ├── document-print-preview.png
+│   │       │   ├── document-print.png
+│   │       │   ├── help-browser.png
+│   │       │   ├── list-add.png
+│   │       │   └── list-remove.png
+│   │       ├── 32x32
+│   │       │   ├── accessories-text-editor.png
+│   │       │   ├── document-new.png
+│   │       │   ├── document-open.png
+│   │       │   ├── document-print-preview.png
+│   │       │   ├── document-print.png
+│   │       │   ├── help-browser.png
+│   │       │   ├── list-add.png
+│   │       │   └── list-remove.png
+│   │       └── white
+│   │           ├── ActionClear.png
+│   │           ├── ActionSearch.png
+│   │           ├── ApplicationAbout.png
+│   │           ├── ApplicationExit.png
+│   │           ├── ApplicationExit_dark.png
+│   │           ├── ApplicationPreferences.png
+│   │           ├── FileNew.png
+│   │           ├── FileOpen.png
+│   │           ├── FileRevert.png
+│   │           ├── FileSave.png
+│   │           ├── FilterAll.png
+│   │           ├── FilterComplete.png
+│   │           ├── FilterContexts.png
+│   │           ├── FilterDue.png
+│   │           ├── FilterDueMonth.png
+│   │           ├── FilterDueOverdue.png
+│   │           ├── FilterDueToday.png
+│   │           ├── FilterDueTomorrow.png
+│   │           ├── FilterDueWeek.png
+│   │           ├── FilterDue_dark.png
+│   │           ├── FilterPending.png
+│   │           ├── FilterProjects.png
+│   │           ├── FilterUncategorized.png
+│   │           ├── TaskComplete.png
+│   │           ├── TaskCopy.png
+│   │           ├── TaskCreate.png
+│   │           ├── TaskDelete.png
+│   │           ├── TaskEdit.png
+│   │           ├── TaskNewFrom.png
+│   │           ├── TaskPriorityDecrease.png
+│   │           ├── TaskPriorityIncrease.png
+│   │           ├── archive.png
+│   │           ├── future.png
+│   │           ├── link.png
+│   │           ├── qtodotxt.png
+│   │           ├── show_completed.png
+│   │           └── sidepane.png
+│   ├── images
+│   │   ├── app.icns
+│   │   ├── app.ico
+│   │   ├── demo.svg
+│   │   └── logo.svg
+│   ├── resources_generator.sh
+│   ├── styles
+│   │   ├── dark.qss
+│   │   └── light.qss
+│   └── translations
+│       ├── jmbde_ui_ar_DZ.ts
+│       ├── jmbde_ui_bg.ts
+│       ├── jmbde_ui_ca_ES.ts
+│       ├── jmbde_ui_cs.ts
+│       ├── jmbde_ui_de.ts
+│       ├── jmbde_ui_en.ts
+│       ├── jmbde_ui_en_US.ts
+│       ├── jmbde_ui_es.ts
+│       ├── jmbde_ui_fr.ts
+│       ├── jmbde_ui_he.ts
+│       ├── jmbde_ui_hu.ts
+│       ├── jmbde_ui_it.ts
+│       ├── jmbde_ui_ja.ts
+│       ├── jmbde_ui_js.ts
+│       ├── jmbde_ui_nb.ts
+│       ├── jmbde_ui_nl.ts
+│       ├── jmbde_ui_pl.ts
+│       ├── jmbde_ui_pt.ts
+│       ├── jmbde_ui_pt_PT.ts
+│       ├── jmbde_ui_ru.ts
+│       ├── jmbde_ui_tr.ts
+│       ├── jmbde_ui_uk.ts
+│       ├── jmbde_ui_zh_CN.ts
+│       └── jmbde_ui_zh_TW.ts
+├── building
+│   └── README.md
+├── codecov.yml
+├── config
+│   ├── german-words.txt
+│   ├── github-actions.txt
+│   ├── italian-words.txt
+│   ├── project-words.txt
+│   ├── python-words.txt
+│   ├── ruby-words.txt
+│   └── spanish-words.txt
+├── coverage.xml
+├── dist
+│   ├── jmbde-0.0.1-py3-none-any.whl
+│   └── jmbde-0.0.1.tar.gz
+├── docs
+│   ├── .overrides
+│   │   └── partials
+│   │       └── copyright.html
+│   ├── .snippets
+│   │   ├── abbrs.txt
+│   │   └── links.txt
+│   ├── about
+│   │   ├── EUPL-1.2.md
+│   │   └── authors.md
+│   ├── api
+│   │   ├── core.md
+│   │   ├── gui.md
+│   │   └── models.md
+│   ├── assets
+│   │   ├── images
+│   │   └── stylesheets
+│   ├── community
+│   │   ├── code_of_conduct.md
+│   │   ├── contributing.md
+│   │   ├── faq.md
+│   │   └── third_party_packages.md
+│   ├── config
+│   │   └── doc_quality.yml
+│   ├── css
+│   │   └── custom.css
+│   ├── developer
+│   │   ├── build.md
+│   │   ├── changelog.md
+│   │   ├── cli.md
+│   │   ├── configuration.md
+│   │   ├── core.md
+│   │   ├── environment_variables.md
+│   │   ├── overview.md
+│   │   └── release-notes.md
+│   ├── en
+│   │   ├── api-docs.md
+│   │   ├── changelog.md
+│   │   ├── codeofconduct.md
+│   │   ├── contributing.md
+│   │   ├── index.md
+│   │   ├── instalation.md
+│   │   ├── license.md
+│   │   ├── philosophy.md
+│   │   ├── project-structure-hints.md
+│   │   ├── quickstart.md
+│   │   ├── reference.md
+│   │   └── usage.md
+│   ├── guides
+│   │   ├── commandline.md
+│   │   ├── configuration.md
+│   │   ├── install.md
+│   │   ├── logging.md
+│   │   └── troubleshooting.md
+│   ├── i18n
+│   │   ├── de
+│   │   │   ├── index.md
+│   │   │   └── installation.md
+│   │   ├── es
+│   │   └── it
+│   ├── includes
+│   │   └── abbreviations.md
+│   └── scripts
+│       └── doc_quality.py
+├── jmbde.pyproject.user
+├── mkdocs.yml
+├── package.json
+├── pnpm-lock.yaml
+├── project_structure.txt
+├── pyproject.toml
+├── scripts
+│   ├── build.ps1
+│   ├── build_ui.py
+│   ├── check_signals.py
+│   ├── check_translations.py
+│   ├── make.sh
+│   ├── makeppa.sh
+│   ├── process_translations.py
+│   ├── setup_tmate.sh
+│   ├── translate_docs.py
+│   └── translation_coverage.py
+├── site
+│   ├── 404.html
+│   ├── about
+│   │   ├── EUPL-1.2
+│   │   │   └── index.html
+│   │   └── authors
+│   │       └── index.html
+│   ├── api-docs
+│   │   └── index.html
+│   ├── assets
+│   │   ├── _mkdocstrings.css
+│   │   ├── images
+│   │   │   └── favicon.png
+│   │   ├── javascripts
+│   │   │   ├── bundle.88dd0f4e.min.js
+│   │   │   ├── bundle.88dd0f4e.min.js.map
+│   │   │   ├── glightbox.min.js
+│   │   │   ├── lunr
+│   │   │   │   ├── min
+│   │   │   │   │   ├── lunr.ar.min.js
+│   │   │   │   │   ├── lunr.da.min.js
+│   │   │   │   │   ├── lunr.de.min.js
+│   │   │   │   │   ├── lunr.du.min.js
+│   │   │   │   │   ├── lunr.el.min.js
+│   │   │   │   │   ├── lunr.es.min.js
+│   │   │   │   │   ├── lunr.fi.min.js
+│   │   │   │   │   ├── lunr.fr.min.js
+│   │   │   │   │   ├── lunr.he.min.js
+│   │   │   │   │   ├── lunr.hi.min.js
+│   │   │   │   │   ├── lunr.hu.min.js
+│   │   │   │   │   ├── lunr.hy.min.js
+│   │   │   │   │   ├── lunr.it.min.js
+│   │   │   │   │   ├── lunr.ja.min.js
+│   │   │   │   │   ├── lunr.jp.min.js
+│   │   │   │   │   ├── lunr.kn.min.js
+│   │   │   │   │   ├── lunr.ko.min.js
+│   │   │   │   │   ├── lunr.multi.min.js
+│   │   │   │   │   ├── lunr.nl.min.js
+│   │   │   │   │   ├── lunr.no.min.js
+│   │   │   │   │   ├── lunr.pt.min.js
+│   │   │   │   │   ├── lunr.ro.min.js
+│   │   │   │   │   ├── lunr.ru.min.js
+│   │   │   │   │   ├── lunr.sa.min.js
+│   │   │   │   │   ├── lunr.stemmer.support.min.js
+│   │   │   │   │   ├── lunr.sv.min.js
+│   │   │   │   │   ├── lunr.ta.min.js
+│   │   │   │   │   ├── lunr.te.min.js
+│   │   │   │   │   ├── lunr.th.min.js
+│   │   │   │   │   ├── lunr.tr.min.js
+│   │   │   │   │   ├── lunr.vi.min.js
+│   │   │   │   │   └── lunr.zh.min.js
+│   │   │   │   ├── tinyseg.js
+│   │   │   │   └── wordcut.js
+│   │   │   └── workers
+│   │   │       ├── search.6ce7567c.min.js
+│   │   │       └── search.6ce7567c.min.js.map
+│   │   └── stylesheets
+│   │       ├── glightbox.min.css
+│   │       ├── main.6f8fc17f.min.css
+│   │       ├── main.6f8fc17f.min.css.map
+│   │       ├── palette.06af60db.min.css
+│   │       └── palette.06af60db.min.css.map
+│   ├── codeofconduct
+│   │   └── index.html
+│   ├── community
+│   │   ├── code_of_conduct
+│   │   │   └── index.html
+│   │   ├── contributing
+│   │   │   └── index.html
+│   │   ├── faq
+│   │   │   └── index.html
+│   │   └── third_party_packages
+│   │       └── index.html
+│   ├── contributing
+│   │   └── index.html
+│   ├── css
+│   │   └── custom.css
+│   ├── de
+│   │   ├── about
+│   │   │   ├── EUPL-1.2
+│   │   │   │   └── index.html
+│   │   │   └── authors
+│   │   │       └── index.html
+│   │   ├── api-docs
+│   │   │   └── index.html
+│   │   ├── codeofconduct
+│   │   │   └── index.html
+│   │   ├── community
+│   │   │   ├── code_of_conduct
+│   │   │   │   └── index.html
+│   │   │   ├── contributing
+│   │   │   │   └── index.html
+│   │   │   ├── faq
+│   │   │   │   └── index.html
+│   │   │   └── third_party_packages
+│   │   │       └── index.html
+│   │   ├── contributing
+│   │   │   └── index.html
+│   │   ├── developer
+│   │   │   ├── build
+│   │   │   │   └── index.html
+│   │   │   ├── changelog
+│   │   │   │   └── index.html
+│   │   │   ├── cli
+│   │   │   │   └── index.html
+│   │   │   ├── configuration
+│   │   │   │   └── index.html
+│   │   │   ├── core
+│   │   │   │   └── index.html
+│   │   │   ├── environment_variables
+│   │   │   │   └── index.html
+│   │   │   ├── overview
+│   │   │   │   └── index.html
+│   │   │   └── release-notes
+│   │   │       └── index.html
+│   │   ├── guides
+│   │   │   ├── commandline
+│   │   │   │   └── index.html
+│   │   │   ├── configuration
+│   │   │   │   └── index.html
+│   │   │   ├── install
+│   │   │   │   └── index.html
+│   │   │   ├── logging
+│   │   │   │   └── index.html
+│   │   │   └── troubleshooting
+│   │   │       └── index.html
+│   │   ├── includes
+│   │   │   └── abbreviations
+│   │   │       └── index.html
+│   │   ├── index.html
+│   │   ├── license
+│   │   │   └── index.html
+│   │   ├── philosophy
+│   │   │   └── index.html
+│   │   ├── project-structure-hints
+│   │   │   └── index.html
+│   │   ├── quickstart
+│   │   │   └── index.html
+│   │   ├── reference
+│   │   │   └── index.html
+│   │   └── usage
+│   │       └── index.html
+│   ├── developer
+│   │   ├── build
+│   │   │   └── index.html
+│   │   ├── changelog
+│   │   │   └── index.html
+│   │   ├── cli
+│   │   │   └── index.html
+│   │   ├── configuration
+│   │   │   └── index.html
+│   │   ├── core
+│   │   │   └── index.html
+│   │   ├── environment_variables
+│   │   │   └── index.html
+│   │   ├── overview
+│   │   │   └── index.html
+│   │   └── release-notes
+│   │       └── index.html
+│   ├── guides
+│   │   ├── commandline
+│   │   │   └── index.html
+│   │   ├── configuration
+│   │   │   └── index.html
+│   │   ├── install
+│   │   │   └── index.html
+│   │   ├── logging
+│   │   │   └── index.html
+│   │   └── troubleshooting
+│   │       └── index.html
+│   ├── includes
+│   │   └── abbreviations
+│   │       └── index.html
+│   ├── index.html
+│   ├── license
+│   │   └── index.html
+│   ├── philosophy
+│   │   └── index.html
+│   ├── project-structure-hints
+│   │   └── index.html
+│   ├── quickstart
+│   │   └── index.html
+│   ├── reference
+│   │   └── index.html
+│   ├── search
+│   │   └── search_index.json
+│   ├── sitemap.xml
+│   ├── sitemap.xml.gz
+│   └── usage
+│       └── index.html
+├── src
+│   ├── __pycache__
+│   │   ├── main.cpython-310.pyc
+│   │   ├── main.cpython-312.pyc
+│   │   └── main.cpython-313.pyc
+│   ├── jmbde
+│   │   ├── .ropeproject
+│   │   │   └── autoimport.db
+│   │   ├── __about__.py
+│   │   ├── __init__.py
+│   │   ├── __main.py
+│   │   ├── __main__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-310.pyc
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   └── __init__.cpython-313.pyc
+│   │   ├── core
+│   │   │   ├── __init__.py
+│   │   │   ├── config.py
+│   │   │   ├── database.py
+│   │   │   ├── security.py
+│   │   │   └── settings.py
+│   │   ├── gui
+│   │   │   ├── __init__.py
+│   │   │   ├── employee_model.py
+│   │   │   └── main_app.py
+│   │   ├── main.py
+│   │   ├── py.typed
+│   │   ├── qml
+│   │   │   ├── components
+│   │   │   │   ├── EmployeeCrud.qml
+│   │   │   │   ├── Snackbar.qml
+│   │   │   │   ├── StatusBar.qml
+│   │   │   │   └── qmldir
+│   │   │   └── main.qml
+│   │   ├── resources
+│   │   │   └── images
+│   │   │       ├── 16x16
+│   │   │       │   └── jmbde.png
+│   │   │       └── scalable
+│   │   │           └── jmbde.svg
+│   │   ├── services
+│   │   │   ├── __init__.py
+│   │   │   ├── auth_service.py
+│   │   │   └── employee_service.py
+│   │   ├── ui
+│   │   └── utils
+│   │       ├── __init__.py
+│   │       ├── exceptions.py
+│   │       ├── helpers.py
+│   │       ├── logger.py
+│   │       └── validators.py
+│   └── main.py
+└── tests
+    ├── __init__.py
+    ├── __pycache__
+    │   ├── __init__.cpython-310.pyc
+    │   ├── __init__.cpython-312.pyc
+    │   ├── __init__.cpython-313.pyc
+    │   ├── conftest.cpython-310-pytest-8.3.4.pyc
+    │   ├── conftest.cpython-312-pytest-8.3.4.pyc
+    │   ├── conftest.cpython-313-pytest-8.3.4.pyc
+    │   ├── test_main.cpython-310-pytest-8.3.4.pyc
+    │   ├── test_main.cpython-312-pytest-8.3.4.pyc
+    │   └── test_main.cpython-313-pytest-8.3.4.pyc
+    ├── conftest.py
+    ├── e2e
+    │   ├── __pycache__
+    │   │   ├── test_full_workflow.cpython-313-pytest-8.3.4.pyc
+    │   │   ├── test_workflows.cpython-310-pytest-8.3.4.pyc
+    │   │   ├── test_workflows.cpython-312-pytest-8.3.4.pyc
+    │   │   └── test_workflows.cpython-313-pytest-8.3.4.pyc
+    │   ├── test_full_workflow.py
+    │   └── test_workflows.py
+    ├── integration
+    │   ├── __pycache__
+    │   │   ├── test_api.cpython-310-pytest-8.3.4.pyc
+    │   │   ├── test_api.cpython-312-pytest-8.3.4.pyc
+    │   │   ├── test_api.cpython-313-pytest-8.3.4.pyc
+    │   │   ├── test_database.cpython-310-pytest-8.3.4.pyc
+    │   │   ├── test_database.cpython-312-pytest-8.3.4.pyc
+    │   │   └── test_database.cpython-313-pytest-8.3.4.pyc
+    │   ├── test_api.py
+    │   └── test_database.py
+    ├── pyside6
+    │   ├── __init__.py
+    │   ├── __pycache__
+    │   │   ├── __init__.cpython-313.pyc
+    │   │   ├── test_button_click.cpython-313-pytest-8.3.4.pyc
+    │   │   ├── test_dialog.cpython-313-pytest-8.3.4.pyc
+    │   │   ├── test_full_workflow.cpython-313-pytest-8.3.4.pyc
+    │   │   ├── test_gui_interaction.cpython-313-pytest-8.3.4.pyc
+    │   │   └── test_signal_emission.cpython-313-pytest-8.3.4.pyc
+    │   ├── capture_screenshots.py
+    │   ├── compare_screenshots.py
+    │   ├── test_button_click.py
+    │   ├── test_dialog.py
+    │   ├── test_gui_interaction.py
+    │   ├── test_signal_emission.py
+    │   ├── test_visual_regression.py
+    │   └── unsafeconnection.py
+    ├── test_main.py
+    └── unit
+        ├── __pycache__
+        │   ├── test_database.cpython-310-pytest-8.3.4.pyc
+        │   ├── test_database.cpython-312-pytest-8.3.4.pyc
+        │   ├── test_database.cpython-313-pytest-8.3.4.pyc
+        │   ├── test_employee_model.cpython-310-pytest-8.3.4.pyc
+        │   ├── test_employee_model.cpython-312-pytest-8.3.4.pyc
+        │   ├── test_employee_model.cpython-313-pytest-8.3.4.pyc
+        │   ├── test_models.cpython-310-pytest-8.3.4.pyc
+        │   ├── test_models.cpython-312-pytest-8.3.4.pyc
+        │   ├── test_models.cpython-313-pytest-8.3.4.pyc
+        │   ├── test_services.cpython-310-pytest-8.3.4.pyc
+        │   ├── test_services.cpython-312-pytest-8.3.4.pyc
+        │   └── test_services.cpython-313-pytest-8.3.4.pyc
+        ├── test_database.py
+        ├── test_employee_model.py
+        ├── test_models.py
+        └── test_services.py
+
+159 directories, 530 files

@@ -1,0 +1,36 @@
+project:
+  name: jmbde-python
+  columns:
+    - name: Triage
+      automated: true
+      workflows:
+        - new_issues
+        - reopened_issues
+    - name: High Priority
+      automated: true
+      workflows:
+        - high_priority_issues
+    - name: In Progress
+      automated: false
+    - name: In Review
+      automated: false
+    - name: Done
+      automated: true
+      workflows:
+        - closed_issues
+
+automation:
+  high_priority:
+    labels:
+      - high-priority
+      - security
+    notify:
+      teams:
+        - core-team
+      channels:
+        - security
+  stale:
+    days: 30
+    exempt_labels:
+      - security
+      - pinned

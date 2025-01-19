@@ -63,7 +63,16 @@ repos:
     rev: v4.0.0-alpha.8
     hooks:
       - id: prettier
-        args: [--write]
+        exclude: |
+          (?x)^(
+            LICENSES/.*|
+            assets/translations/.*|
+            benchmark/.*|
+            dist/.*|
+            build/.*|
+            .*\.pyc|
+            .*\.egg-info/.*
+            )$
 
   - repo: https://github.com/charliermarsh/ruff-pre-commit
     rev: v0.9.1
@@ -108,11 +117,6 @@ repos:
     hooks:
       - id: hadolint
 
-  - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.43.0
-    hooks:
-      - id: markdownlint
-
   - repo: https://github.com/python-jsonschema/check-jsonschema
     rev: 0.31.0
     hooks:
@@ -128,17 +132,117 @@ repos:
     rev: v8.22.1
     hooks:
       - id: gitleaks
+      hooks:
+        - id: gitleaks
+          args:
+            - protect
+            - --source
+            - .
+            - --verbose
+            - --redact
+            - --staged
+          verbose: true
+          stages: [commit, push, manual]
+          additional_dependencies: []
+          # Add custom configuration inline
+          entry: >
+            gitleaks protect
+            --config
+            {
+              "allowlist": {
+                "paths": [
+                  "assets/translations/**",
+                  "LICENSES/**",
+                  "**/test/**",
+                  "**/*_test.go"
+                ],
+                "regexes": [
+                  "AAAAB3NzaC1yc2E", # Example SSH public key prefix
+                  "gitleaks:allow"
+                ],
+                "description": "Allowlisted items"
+              },
+              "extend": ["/.github/gitleaks.toml"],
+              "rules": {
+                "generic-api-key": {
+                  "description": "Generic API Key",
+                  "regex": "(?i)(api[_-]?key|apikey|secret)[a-z0-9_ -]*[=:][a-z0-9/\\-+=_]{32,}",
+                  "tags": ["key", "API", "generic"]
+                },
+                "python-password": {
+                  "description": "Python password in code",
+                  "regex": "(?i)(password|passwd|pwd)[a-z0-9_ -]*[=:][^,}{)(\n]{8,}",
+                  "tags": ["key", "Python", "password"]
+                },
+                "pyside-secret": {
+                  "description": "PySide/Qt secrets in code",
+                  "regex": "(?i)(qt_|pyside_)(secret|key|password)[a-z0-9_ -]*[=:][^,}{)(\n]{8,}",
+                  "tags": ["key", "PySide", "Qt"]
+                }
+              }
+            }
 
   - repo: https://github.com/adrienverge/yamllint.git
     rev: v1.35.1
     hooks:
       - id: yamllint
+        args: [--strict, --format, parsable]
+        types: [yaml]
+        exclude: |
+          (?x)^(
+            .github/workflows/.*|  # GitHub Actions have their own format
+            LICENSES/.*|
+            assets/translations/.*
+          )$
+
+  # Markdown specific
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.39.0
+    hooks:
+      - id: markdownlint
+        args: ["--config", ".markdownlint.json"]
+
+  # Links checker
+  - repo: https://github.com/tcort/markdown-link-check
+    rev: v3.11.2
+    hooks:
+      - id: markdown-link-check
+        args: ["--config", ".markdown-link-check.json"]
 
   - repo: https://github.com/codespell-project/codespell
     rev: v2.3.0
     hooks:
       - id: codespell
         additional_dependencies: [tomli>=2.0.1]
+        args: [--toml, pyproject.toml]
+        files: |
+          (?x)^(
+            .*\.py|
+            .*\.rst|
+            .*\.md|
+            .*\.txt
+          )$
+        exclude: |
+          (?x)^(
+            LICENSES/.*|
+            \.git/.*|
+            .*\.ui|
+            .*\.qrc|
+            .*\.ts
+          )$
+
+  - repo: https://github.com/PyCQA/proselint
+    rev: v0.13.0
+    hooks:
+      - id: proselint
+        args: ["--config", "pyproject.toml"]
+
+  # Typos and common mistakes
+  - repo: https://github.com/crate-ci/typos
+    rev: v1.17.2
+    hooks:
+      - id: typos
+        args: ["--config", "pyproject.toml"]
 
   - repo: https://github.com/rhysd/actionlint
     rev: v1.7.6

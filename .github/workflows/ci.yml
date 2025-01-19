@@ -6,13 +6,15 @@ name: Release Pipeline
 
 on: # yamllint disable-line rule:truthy
   push:
-    branches: [main, develop, 'release/**']
+    branches:
+      - main
+      - release/**
     tags: [v*]
   workflow_dispatch:
 
 permissions:
   contents: read
-  
+
 env:
   PACKAGE_NAME: jmbde-python
   PYTHON_VERSION_FILE: .python-version
@@ -36,10 +38,10 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
-          
+
       - name: 🔎 Dependency Review
         uses: actions/dependency-review-action@3b139cfc5fae8b618d3eae3675e383bb1769c019 # v4.5.0
-        
+
   test-and-build:
     name: Test & Build
     needs: validate
@@ -65,12 +67,33 @@ jobs:
         with:
           python-version-file: ${{ env.PYTHON_VERSION_FILE }}
           cache: pip
-          cache-dependency-path: '**/pyproject.toml'
+          cache-dependency-path: |
+            requirements.txt
+            pyproject.toml
 
       - name: 🔧 Install Build Tools
         run: |
+          python -m pip install --upgrade pip==24.3.1 wheel==0.45.1
           pip install -r .github/workflows/requirements.txt
-          hatch --version
+
+      - name: 🎨 Setup Qt Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libxcb-xinerama0 \
+            libxcb-icccm4 \
+            libxcb-image0 \
+            libxcb-keysyms1 \
+            libxcb-randr0 \
+            libxcb-render-util0 \
+            libxcb-shape0 \
+            libxcb-xkb1 \
+            libxkbcommon-x11-0
+
+      - name: ⚙️ Setup Pre-commit
+        run: |
+          pre-commit install
+          pre-commit run --all-files
 
       - name: 📝 Get Version
         id: version
@@ -79,22 +102,75 @@ jobs:
           echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
           echo "Version: ${VERSION}"
 
+      - name: 🧪 Run Matrix Tests
+        run: |
+          hatch run test:test
+
+      - name: 📊 Generate Coverage Reports
+        run: hatch run test:cov
+
+      - name: 🔍 Run Type Checks
+        run: hatch run test:typeguard
+
+      - name: 📚 Run Doctests
+        run: |
+          hatch run test:doctest
+          hatch run test:doctestx
+
+      - name: 🛡️ Run Security Scans
+        run: |
+          hatch run security:scan
+          hatch run security:audit
+
       - name: 🏗️ Build Package
         run: |
           hatch build
           echo "Built artifacts:"
           ls -la dist/
 
-      - name: 🧪 Verify Package
+      - name: 🔍 Verify Distribution
         run: |
-          hatch test
-          hatch run security:check
-
-      - name: 🔍 Check Distribution
-        run: |
-          # TODO: separate requirements pip install twine check-wheel-contents
           twine check dist/*
           check-wheel-contents dist/*.whl
+
+      - name: 📦 Store Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: |
+            dist/
+            coverage.xml
+            htmlcov/
+          retention-days: 5
+          if-no-files-found: error
+
+      - name: 📊 Upload Coverage
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage.xml
+          fail_ci_if_error: true
+
+  release:
+    name: Create Release
+    needs: test-and-build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    environment: production  # Add this line
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+      - name: 🔒 Harden Runner
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        with:
+          egress-policy: audit
+
+      - name: 📥 Download Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+          path: dist/
 
       - name: 📝 Create GitHub Release
         id: release
@@ -102,46 +178,66 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          draft: false
+          with:
           files: |
             dist/*
             LICENSE
             README.md
-          generate_release_notes: true
-          prerelease: false
+            generate_release_notes: true
           discussion_category_name: Releases
           body: |
-            ## Release ${{ steps.version.outputs.version }}
+            ## Release ${{ needs.test-and-build.outputs.version }}
 
             ### 📦 Assets
-            - Python Package (PyPI): https://pypi.org/project/jmbde-python/${{ steps.version.outputs.version }}
+            - Package: https://pypi.org/project/${{ env.PACKAGE_NAME }}/${{ needs.test-and-build.outputs.version }}
 
-            ### 📝 Release Notes
-            See the automated release notes below for changes in this version.
+            ### 📊 Quality Checks
+            - ✅ Matrix Tests (Python 3.9-3.12)
+            - ✅ Type Checking
+            - ✅ Documentation Tests
+            - ✅ Security Scans
+            - ✅ Pre-commit Hooks
 
             ### 🔍 Verification
-            SHA256 Hashes for release assets are listed in the asset details.
+            SHA256 hashes are available in the asset details.
 
             ### 📚 Documentation
-            - Full documentation: https://jmbde-python.readthedocs.io/
-            - Change log: https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md
+            - Documentation: https://${{ env.PACKAGE_NAME }}.readthedocs.io/
+            - Changelog: https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md
 
-      - name: 📋 Update Release Draft
-        if: ${{ !steps.release.outputs.release_created }}
-        uses: release-drafter/release-drafter@3f0f87098bd6b5c5b9a36d49c41d998ea58f9348 # v6.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: 📢 Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@67339c736fd9354cd4f8cb0b744f2b82a74b5c70 # 1.12.3
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          verbose: true
 
-      - name: 📢 Notify Success
-        if: ${{ steps.release.outputs.release_created }}
+  notify:
+    name: Notifications
+    needs: [release, test-and-build]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📧 Process Status
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
-            const version = '${{ steps.version.outputs.version }}';
+            const { release, test_and_build } = context.needs;
+            const version = test_and_build.outputs.version;
 
-            await github.rest.issues.createComment({
-              ...context.repo,
-              issue_number: context.issue.number,
-              body: `✅ Successfully published version ${version} to PyPI.`
-            });
+            if (release.result === 'success') {
+              await github.rest.issues.createComment({
+                ...context.repo,
+                issue_number: context.issue.number,
+                body: `✅ Version ${version} published successfully!\n\n` +
+                      `📦 PyPI: https://pypi.org/project/${{ env.PACKAGE_NAME }}/${version}\n` +
+                      `📚 Docs: https://${{ env.PACKAGE_NAME }}.readthedocs.io/\n` +
+                      `📊 Coverage reports available in build artifacts`
+              });
+            } else if (release.result === 'failure') {
+              await github.rest.issues.createComment({
+                ...context.repo,
+                issue_number: context.issue.number,
+                body: `❌ Release failed for version ${version}.\n` +
+                      `Please check: ${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`
+              });
+            }
