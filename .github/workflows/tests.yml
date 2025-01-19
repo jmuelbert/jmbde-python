@@ -89,8 +89,7 @@ jobs:
 
       - name: 🛠️ Install Dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install hatch
+          pip install -r .github/workflows/requirements.txt
           hatch env create
 
       - name: 🛠️ Install Linux Dependencies (Ubuntu)
@@ -164,8 +163,7 @@ jobs:
 
       - name: 🛠️ Install Dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install hatch
+          pip install -r .github/workflows/requirements.txt
 
       - name: 🔍 Run Linter
         run: |
@@ -201,8 +199,7 @@ jobs:
 
       - name: 🛠️ Install Dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install hatch
+          pip install -r .github/workflows/requirements.txt
 
       - name: 🔍 Run Security Checks
         run: |
@@ -238,7 +235,7 @@ jobs:
 
       - name: 🛠️ Build Documentation
         run: |
-          pip install hatch
+          pip install -r .github/workflows/requirements.txt
           hatch run docs:build
 
       - name: 📤 Upload Documentation
