@@ -6,37 +6,47 @@ name: Release Pipeline
 
 on: # yamllint disable-line rule:truthy
   push:
-    branches:
-      - main
-      - develop
-      - release/**
+    branches: [main, develop, 'release/**']
     tags: [v*]
   workflow_dispatch:
 
 permissions:
   contents: read
+  
+env:
+  PACKAGE_NAME: jmbde-python
+  PYTHON_VERSION_FILE: .python-version
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-defaults:
-  run:
-    shell: bash
-
 jobs:
-  release:
-    name: Build & Release
+  validate:
+    name: Validate Dependencies
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: 🔒 Harden Runner
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        with:
+          egress-policy: audit
+
+      - name: 🧰 Checkout Repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+          
+      - name: 🔎 Dependency Review
+        uses: actions/dependency-review-action@3b139cfc5fae8b618d3eae3675e383bb1769c019 # v4.5.0
+        
+  test-and-build:
+    name: Test & Build
+    needs: validate
     runs-on: ubuntu-latest
     timeout-minutes: 30
-
-    permissions:
-      contents: write
-      id-token: write
-
     outputs:
       version: ${{ steps.version.outputs.version }}
-      release_created: ${{ steps.release.outputs.release_created }}
 
     steps:
       - name: 🔒 Harden Runner
@@ -53,8 +63,7 @@ jobs:
       - name: ⚙️ Setup Python
         uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
         with:
-          python-version-file: .python-version # Read python version from a file .python-version
-          check-latest: true
+          python-version-file: ${{ env.PYTHON_VERSION_FILE }}
           cache: pip
           cache-dependency-path: '**/pyproject.toml'
 
