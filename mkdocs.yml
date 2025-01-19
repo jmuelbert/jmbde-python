@@ -10,9 +10,11 @@ site_name: JM BDE
 site_url: https://jmuelbert.github.io/jmbde-python/
 site_description: JM BDE - Management of inventory and computer equipment
 site_author: Jürgen Mülbert
+
 repo_name: jmuelbert/jmbde-python
 repo_url: https://github.com/jmuelbert/jmbde-python
 edit_uri: edit/main/docs/
+
 copyright: Copyright &copy; 2023-2024 Jürgen Mülbert
 
 docs_dir: docs
@@ -88,6 +90,11 @@ plugins:
             show_bases: false
             docstring_style: google
             docstring_section_style: table
+  - git-revision-date-localized:
+      type: datetime
+      timezone: Europe/Berlin
+      enable_creation_date: true
+      fallback_to_build_date: true
   - i18n:
       docs_structure: suffix
       fallback_to_default: true
@@ -109,3 +116,35 @@ plugins:
       timezone: Europe/Berlin
       enable_creation_date: true
       fallback_to_build_date: true
+      
+extra:
+  alternate:
+    - name: English
+      link: /en/
+      lang: en
+    - name: Deutsch
+      link: /de/
+      lang: de
+    - name: Italiano
+      link: /it/
+      lang: it
+    - name: Español
+      link: /es/
+      lang: es
+
+nav:
+  - English:
+    - en/index.md
+    - en/installation.md
+    # ... other English pages
+  - Deutsch:
+    - de/index.md
+    - de/installation.md
+    # ... other German pages
+  - Italiano:
+    - it/index.md
+    - it/installation.md
+    # ... other Italian pages
+  - Español:
+    - es/index.md
+    - es/installation.md

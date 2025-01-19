@@ -1,0 +1,174 @@
+name: "CodeQL Security Analysis"
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - '**.py'
+      - '**.pyi'
+      - '**.qml'
+      - 'requirements.txt'
+      - 'pyproject.toml'
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - '**.py'
+      - '**.pyi'
+      - '**.qml'
+  schedule:
+    - cron: '0 0 * * 0'  # Run weekly on Sunday
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+  security-events: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  analyze:
+    name: CodeQL Analysis
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ['python']
+
+    steps:
+      - name: 🔒 Harden Runner
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: .python-version
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            pyproject.toml
+
+      - name: 🔧 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: 🔍 Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          config: |
+            paths:
+              - src
+              - tests
+            paths-ignore:
+              - '**/*.ui'
+              - '**/*.qrc'
+              - '**/*.ts'
+              - 'assets/'
+            queries:
+              - security-extended
+              - security-and-quality
+
+      - name: 🏗️ Build
+        run: |
+          pip install .
+          # Add any additional build steps if needed
+
+      - name: 🔎 Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{ matrix.language }}"
+
+      - name: 📊 Process Results
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            
+            try {
+              const sarif = JSON.parse(fs.readFileSync('results/python.sarif', 'utf8'));
+              const results = sarif.runs[0].results || [];
+              
+              let summary = `## 🛡️ CodeQL Security Analysis Results\n\n`;
+              
+              if (results.length === 0) {
+                summary += `✅ No security issues found!\n`;
+              } else {
+                const severity = {
+                  error: 0,
+                  warning: 0,
+                  note: 0
+                };
+                
+                results.forEach(result => {
+                  severity[result.level || 'warning']++;
+                });
+                
+                summary += `### Found Issues\n`;
+                summary += `- 🔴 Errors: ${severity.error}\n`;
+                summary += `- 🟡 Warnings: ${severity.warning}\n`;
+                summary += `- 🔵 Notes: ${severity.note}\n\n`;
+                
+                if (severity.error > 0 || severity.warning > 0) {
+                  summary += `### Recommendations\n`;
+                  summary += `1. Review the detailed analysis in the Security tab\n`;
+                  summary += `2. Follow the suggested fixes for each issue\n`;
+                  summary += `3. Run CodeQL locally using the GitHub CLI\n`;
+                }
+              }
+              
+              // Add to PR if this is a pull request
+              if (context.payload.pull_request) {
+                await github.rest.issues.createComment({
+                  ...context.repo,
+                  issue_number: context.payload.pull_request.number,
+                  body: summary
+                });
+              }
+              
+              // Update PR labels
+              if (context.payload.pull_request) {
+                const labels = results.length === 0 
+                  ? ['security-validated']
+                  : ['security-review-needed'];
+                
+                await github.rest.issues.addLabels({
+                  ...context.repo,
+                  issue_number: context.payload.pull_request.number,
+                  labels: labels
+                });
+              }
+              
+            } catch (error) {
+              console.error('Error processing CodeQL results:', error);
+            }
+
+      - name: 📤 Upload SARIF
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: results/python.sarif
+
+      - name: 🚨 Check Critical Issues
+        if: always()
+        run: |
+          if [ -f results/python.sarif ]; then
+            CRITICAL_ISSUES=$(jq '.runs[].results[] | select(.level == "error")' results/python.sarif | wc -l)
+            if [ "$CRITICAL_ISSUES" -gt 0 ]; then
+              echo "Found $CRITICAL_ISSUES critical security issues!"
+              exit 1
+            fi
+          fi
