@@ -1,0 +1,6 @@
+---
+patterns:
+  - feature/*
+  - bugfix/*
+  - hotfix/*
+  - release/*

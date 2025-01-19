@@ -1,44 +1,11 @@
-version: 1
-policies:
-  - name: Supply Chain Security Requirements
-    version: 1
-    minimum_score: 7
-    checks:
-      - name: Binary-Artifacts
-        severity: high
-
-      - name: Branch-Protection
-        severity: high
-
-      - name: Code-Review
-        severity: high
-
-      - name: Dangerous-Workflow
-        severity: critical
-
-      - name: Dependencies
-        severity: high
-
-      - name: License
-        severity: medium
-
-      - name: Pinned-Dependencies
-        severity: high
-
-      - name: SAST
-        severity: high
-
-      - name: Security-Policy
-        severity: medium
-
-      - name: Token-Permissions
-        severity: critical
-
-      - name: Vulnerabilities
-        severity: critical
-
-    actions:
-      - name: file-issue
-        on:
-          - high
-          - critical
+---
+# SPDX-License-Identifier: EUPL-1.2
+# SPDX-FileCopyrightText: 2024 Jürgen Mülbert <juergen.muelbert@outlook.de>
+#
+version: 1.0
+checks:
+  - id: "CICD"
+    enabled: true
+  - id: "VULNERABILITIES"
+    enabled: true
+  # Add other checks as needed

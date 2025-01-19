@@ -4,13 +4,9 @@
 
 ## Installers
 
-=== "macOS"
-=== "GUI Installer"
-=== "Command line installer"
+=== "macOS" === "GUI Installer" === "Command line installer"
 
-=== "Windows"
-=== "GUI Installer"
-=== "Command line installer"
+=== "Windows" === "GUI Installer" === "Command line installer"
 
 ## pip
 
@@ -22,8 +18,7 @@ pip install checkconnect
 ```
 ````
 
-!!! warning
-This method modifies the Python environment in which you choose to install. Consider instead using [pipx](#pipx) to avoid dependency conflicts.
+!!! warning This method modifies the Python environment in which you choose to install. Consider instead using [pipx](#pipx) to avoid dependency conflicts.
 
 ## [pipx](pipx)
 

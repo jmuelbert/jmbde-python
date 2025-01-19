@@ -1,2 +1,23 @@
 ---
-team: Contributors
+# invite-contributors.yml
+# This file is used to invite contributors to the project.
+
+# Define the contributors to invite
+contributors:
+# - username: octocat
+#  email: "octocat@example.com"
+#  role: "Contributor"
+#  message: "Thank you for your contributions!"
+
+# - username: "another-contributor"
+#  email: "another@example.com"
+#  role: "Maintainer"
+#  message: "We appreciate your help in maintaining this project!"
+
+# Optional: Define a message to be sent with the invitation
+invitation_message: We would like to invite you to contribute to our project. Your expertise would be invaluable!
+
+# Optional: Define a list of labels to apply to the invitations
+labels:
+  - invited
+  - contributor

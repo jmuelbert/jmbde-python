@@ -20,13 +20,13 @@ matters a lot, jmbde-QT is getting better and better because of people like you.
 
 ## Your First Contribution
 
-**Working on your first Pull Request?** You can learn how from this _free_ series
+__Working on your first Pull Request?__ You can learn how from this _free_ series
 [How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github).
 Basically, you have to fork this repository, write codes on your fork, open a pull
 request when you are finished, wait for reviews and apply suggestions from the
 maintainers.
 
-**First time to developing?** There's a big difference between developing and
+__First time to developing?__ There's a big difference between developing and
 competitive programming, but it's not hard. The first thing you should know is
 Object-Oriented Programming. Basically, you need to know how classes work in C++, and
 you should know it's a rule to put the class definitions in the `.h`/`.hpp` files, and
@@ -36,7 +36,7 @@ Copy and modify the source codes if you want to implement something similar to a
 existing feature. If you are looking for an IDE for developing,
 [VS Code](https://code.visualstudio.com/) is probably a good choice.
 
-**First time to Qt?** Don't be afraid, Qt is not hard to get started. You have to
+__First time to Qt?__ Don't be afraid, Qt is not hard to get started. You have to
 install Qt>=5.15 and CMake>=3.5 first. Linux users may install them using the package
 manager on your system. Windows users may download Qt [here](https://www.qt.io/download)
 and it's recommended to use [Visual Studio](https://visualstudio.microsoft.com/) and
@@ -48,7 +48,7 @@ design the UI and how to use the
 need anything from the std namespace, for example, use `QString` instead of
 `std::string`.
 
-**Don't know where to start?** You can start by looking through the
+__Don't know where to start?__ You can start by looking through the
 [issues](https://github.com/jmuelbert/jmbde-QT/issues) and find one you are interested
 in. The
 [good first issues](https://github.com/jmuelbert/jmbde-QT/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)

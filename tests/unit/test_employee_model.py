@@ -1,7 +1,6 @@
 from unittest.mock import Mock
 
 import pytest
-from PySide6.QtCore import QModelIndex
 
 from main import EmployeeModel
 

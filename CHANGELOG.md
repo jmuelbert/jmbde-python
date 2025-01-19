@@ -12,6 +12,7 @@
 - Dependabot can't resolve your Python dependency files [\#195](https://github.com/jmuelbert/jmbde-python/issues/195)
 
 **Merged pull requests:**
+
 - Fix typos by misspell-fixer for refs/heads/master [\#418](https://github.com/jmuelbert/jmbde-python/pull/418)
 - Bump codacy/codacy-analysis-cli-action from 1.1.0 to 4.0.0 [\#417](https://github.com/jmuelbert/jmbde-python/pull/417)
 - Fix typos by misspell-fixer for refs/heads/master [\#416](https://github.com/jmuelbert/jmbde-python/pull/416)

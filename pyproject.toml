@@ -1,12 +1,15 @@
-# SPDX-FileCopyRightText: 2023 Jürgen Mülbert <juergen.muelbert@web.de>
-#
 # SPDX-License-Identifier: EUPL-1.2
+# SPDX-FileCopyrightText: 2023-present Jürgen Mülbert <juergen.muelbert@outlook.de>
+#
 #
 # Python configuration file for building, dependencies, and tooling.
 #
 # For more information, visit
 # https://snarky.ca/what-the-heck-is-pyproject-toml/.
 
+# --- build-system -----------------------------------------------------------
+# ref: https://packaging.python.org/en/latest/tutorials/packaging-projects/
+# these should match the "setup-requires" packages in `setup.cfg`
 [build-system]
 requires = ["hatchling>=1.18.0"]
 build-backend = "hatchling.build"
@@ -17,42 +20,43 @@ dynamic = ["version"]
 description = "JM BDE - Management of the inventory the computer equipment"
 readme = "README.md"
 requires-python = ">=3.9"
-license = "GPL-3.0-or-later"
+license = "EUPL-1.2"
 maintainers = [
-    { name = "Jürgen Mülbert" },
-    { email = "juergen.muelbert@outlook.de" },
+  { name = "Jürgen Mülbert" },
+  { email = "juergen.muelbert@outlook.de" },
 ]
 authors = [{ name = "Jürgen Mülbert", email = "juergen.muelbert@outlook.de" }]
 # Pypi classifiers: https://pypi.org/classifiers/
 classifiers = [
-    "Development Status :: 4 - Beta",
-    "Environment :: X11 Applications :: Qt",
-    "Intended Audience :: End Users/Desktop",
-    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
-    "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: Implementation :: CPython",
-    "Programming Language :: Python :: Implementation :: PyPy",
-    "Topic :: Office/Business",
+  "Development Status :: 4 - Beta",
+  "Environment :: X11 Applications :: Qt",
+  "Intended Audience :: End Users/Desktop",
+  "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+  "Topic :: Office/Business",
 ]
 
 # Keywords description: https://python-poetry.org/docs/pyproject/#keywords
 keywords = [
-    "jmbde",
-    "business-data-extraction",
-    "BDE",
-    "database",
-    "python-tool",
+  "jmbde",
+  "business-data-extraction",
+  "BDE",
+  "database",
+  "python-tool",
 ]
 
 dependencies = [
-    "click>=8.0",
-    "pyside6>=6.0",
-    "pydantic>=2.10.3",
-    "sqlalchemy>=2.0.0",
-    "pydantic>=2.0.0",
+  "click>=8.0",
+  "pyside6>=6.5.0",
+  "pydantic>=2.10.3",
+  "sqlalchemy>=2.0.0",
 ]
 
 [project.urls]
@@ -63,41 +67,16 @@ Issues = "https://github.com/jmuelbert/jmbde-python/issues"
 Changelog = "https://github.com/jmuelbert/jmbde-python/blob/main/CHANGELOG.md"
 Source = "https://github.com/jmuelbert/jmbde-python"
 
-[tool.poetry.group.dev.dependencies]
-Pygments = ">=2.10.0"
-black = ">=21.10b0"
-coverage = {extras = ["toml"], version = ">=6.2"}
-darglint = ">=1.8.1"
-flake8 = ">=4.0.1"
-flake8-bandit = ">=2.1.2"
-flake8-bugbear = ">=21.9.2"
-flake8-docstrings = ">=1.6.0"
-flake8-rst-docstrings = ">=0.2.5"
-furo = "^2024.8.6"
-isort = "^5.13.2"
-mypy = "^1.11"
-pep8-naming = "^0.14.1"
-pre-commit = "^4.0.1"
-pre-commit-hooks = "^5.0.0"
-pytest = "^8.3.2"
-pyupgrade = "^3.17.0"
-safety = "^3.2.11"
-sphinx = "^7.4"
-sphinx-autobuild = "^2024.10.3"
-typeguard = "^4.1.5"
-xdoctest = {extras = ["colors"], version = ">=0.15.10"}
-myst-parser = "^3.0.1"
-
 [project.optional-dependencies]
 dev = [
-    "black>=23.7.0",
-    "isort>=5.12.0",
-    "mypy>=1.6.1",
-    "pylint>=3.0.1",
-    "pytest>=7.4.0",
-    "pytest-cov>=4.1.0",
-    "ruff>=0.1.3",
-    "pre-commit>=5.0.0",
+  "black>=23.7.0",
+  "isort>=5.12.0",
+  "mypy>=1.6.1",
+  "pylint>=3.0.1",
+  "pytest>=7.4.0",
+  "pytest-cov>=4.1.0",
+  "ruff>=0.1.3",
+  "pre-commit>=5.0.0",
 ]
 
 [tool.hatch.version]
@@ -112,6 +91,7 @@ include = ["/src", "/tests", "/CHANGELOG.md", "/README.md", "/LICENSE"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/jmbde"]
+macos-max-compat = true
 
 [tool.hatch.envs.default]
 installer = "uv"
@@ -119,88 +99,129 @@ dependencies = ["pytest", "pytest-cov"]
 scripts = { run = "python -m jmbde.main" }
 
 [tool.hatch.envs.lint]
-dependencies = ["black>=23.7.0", "mypy>=1.6.1", "isort>=5.12.0", "ruff>=0.1.3"]
+dependencies = [
+  "pre-commit>=3.6.0",
+  "ruff>=0.3.0",
+  "black>=24.2.0",
+  "mypy>=1.8.0",
+  "pylint>=3.0.0",
+  "bandit>=1.7.8",
+  "isort>=5.13.2",
+  "yamllint>=1.35.1",
+  "codespell>=2.3.0",
+  "commitlint-pre-commit>=9.20.0",
+  "pip-audit>=2.7.3",
+  "pyupgrade>=3.19.1",
+  "markdownlint-cli>=0.43.0",
+  "actionlint>=1.7.6",
+  "reuse>=5.0.2",
+  "gitleaks>=8.22.1",
+  "radon>=6.0.1",
+  "docstr-coverage>=2.3.0",
+]
 
 [tool.hatch.envs.lint.scripts]
-style = ["ruff check .", "ruff format .", "black --check .", "isort ."]
+all = ["pre-commit run --all-files"]
+style = [
+  "ruff check .",
+  "ruff format .",
+  "black --check .",
+  "isort --check-only .",
+  "pyside6-qmllint src/jmbde/qml/**",
+]
 typing = "mypy src tests"
+security = ["bandit -c pyproject.toml -r src", "pip-audit"]
+format = ["black .", "isort .", "ruff --fix ."]
+docstring = "docstr-coverage src --skip-file-doc --skip-init --fail-under=80"
+complexity = ["radon cc ./src -a -nb", "radon mi ./src -mb"]
+all = ["style", "typing", "security", "docstring", "complexity"]
+
+[[tool.hatch.envs.test.matrix]]
+python = ["3.9", "3.10", "3.11", "3.12"]
 
 [tool.hatch.envs.test]
 dependencies = [
-    "pytest>=7.4.0",
-    "pytest-cov>=4.1.0",
-    "pytest-sugar>=0.9.7",
-    "pytest-xdist>=3.3.1",
-    "pytest-randomly>=3.15.0",
-    "typeguard>=4.1.5",
+  "coverage>=6.2",
+  "pre-commit>=4.0.1",
+  "pre-commit-hooks>=5.0.0",
+  "pygments>=2.11.2",
+  "pytest>=7.4.0",
+  "pytest-qt>=4.0.0",
+  "pytest-cov>=4.1.0",
+  "pytest-sugar>=0.9.7",
+  "pytest-xdist>=3.3.1",
+  "pytest-randomly>=3.15.0",
+  "typeguard>=4.1.5",
+  "xdoctest>=0.15.10",
 ]
 
 [tool.hatch.envs.test.scripts]
 test = "pytest tests/"
 cov = [
-    "pytest --cov-report=xml --cov-report=html --cov-report=term-missing --cov=src tests/",
-    "coverage report",
+  "pytest --cov-report=xml --cov-report=html --cov-report=term-missing --cov=src tests/",
+  "coverage report",
 ]
 typeguard = "pytest --typeguard-packages=src"
+doctest = "pytest --doctest-modules"
+doctestx = "python -m xdoctest src/jmbde"
 
-[tool.hatch.envs.security]
-dependencies = ["bandit>=1.7.5", "safety>=2.3.5", "pip-audit>=2.6.1"]
-
-[tool.hatch.envs.security.scripts]
-scan = ["bandit -r src/", "safety scan"]
-audit = "pip-audit"
+[tool.xdoctest]
+style = "google"
 
 [tool.hatch.envs.docs]
 dependencies = [
-    "mkdocs>=1.5.3",
-    "mkdocs-material>=9.5.1",
-    "mkdocs-static-i18n>=1.2.2",
-    "mkdocstrings-python>=1.7.5",
-    # Extensions
-    # Validation
-    # https://github.com/linkchecker/linkchecker/pull/669#issuecomment-1267236287
-    "linkchecker @ git+https://github.com/linkchecker/linkchecker.git@d9265bb71c2054bf57b8c5734a4825d62505c779",
-
+  "mkdocs>=1.5.3",
+  "mkdocs-material>=9.5.1",
+  "mkdocs-static-i18n>=1.2.2",
+  "mkdocs-click>=0.8.1",
+  "mkdocs-minify-plugin>=0.8.0",
+  "mkdocs-mermaid2-plugin>=1.2.0",                    # Mermaid support
+  "mkdocs-git-revision-date-localized-plugin>=1.2.0", # Gitdatum support
+  "mkdocs-glightbox>=0.4.0",
+  "mike>=2.1.3",
+  "mkdocstrings-python>=1.7.5",
+  "pymdown-extensions>=10.13",
+  "mkdocs-minify-plugin>=0.7.1",
 ]
 
 [tool.hatch.envs.docs.scripts]
-build = "mkdocs build"
-serve = "mkdocs serve"
-validate-links = "linkchecker --config .linkcheckerrc site"
-# https://github.com/linkchecker/linkchecker/issues/678
-build-check = ["build --no-directory-urls", "validate"]
+build = "mkdocs build --clean --strict"
+serve = "mkdocs serve --dev-addr localhost:8000"
+deploy = "mkdocs gh-deploy --force"
+validate-links = "mkdocs build --strict"
 
 [tool.coverage.paths]
-jmbde = ["src/jmbde", "*/src/jmbde"]
-tests = ["tests", "*/test/tests"]
 source = ["src", "*/site-packages"]
 tests = ["tests", "*/tests"]
 
 [tool.coverage.run]
-source_pkgs = ["jmbde", "tests"]
 branch = true
-
 parallel = true
+source_pkgs = ["jmbde", "tests"]
 omit = ["src/jmbde/__about__.py"]
-
 
 [tool.coverage.report]
 show_missing = true
 fail_under = 80                                                               # Updated to a more ambitious threshold.
 exclude_lines = ["no cov", "if __name__ == .__main__.:", "if TYPE_CHECKING:"]
 
-[tool.black]
-include = "\\.pyi?$"
+[tool.bandit]
+exclude_dirs = ["tests"]
+targets = ["src"]
 
+[tool.black]
+target-version = ['py311']
 line-length = 88
-target-version = ['py39']
-[tool.isort]
+include = '\.pyi?$|\.ipynb$'
+extend-exclude = '''
+# # A regex preceded with ^/ will apply only to files and directories
+# # in the root of the project.
+# ^/foo.py  # exclude a file named foo.py in the root of the project (in addition to the defaults)
+\.ipynb_checkpoints$|^/\.env|^/\.git|^/\.nox|^/\.pytest_cache|^/\.tox
+'''
+
+[tool.lint.isort]
 profile = "black"
-multi_line_output = 3
-include_trailing_comma = true
-force_grid_wrap = 0
-use_parentheses = true
-ensure_newline_before_comments = true
 line_length = 88
 
 [tool.ruff]
@@ -212,24 +233,47 @@ docstring-code-line-length = 100
 [tool.ruff.lint]
 select = ["ALL"]
 ignore = [
-    "B027",   # Allow non-abstract empty methods in abstract base classes.
-    "S101",   # Allow `assert` usage for testing.
-    "SIM105", # Suppress complex contextlib suggestions.
-    "RET503", # Missing explicit return at the end of functions.
-    "RET504", # Unnecessary assignments after return.
-    "RET505", # Unnecessary else after return.
-    "RET506", # Unnecessary elif after raise.
-    "S105",
-    "S106",   # Ignore password warnings.
-    "RUF012", # Ignore mutable class attribute annotations.
-    "UP007",  # Suppress type annotation updates for older versions.
+  "B027",   # Allow non-abstract empty methods in abstract base classes.
+  "S101",   # Allow `assert` usage for testing.
+  "SIM105", # Suppress complex contextlib suggestions.
+  "RET503", # Missing explicit return at the end of functions.
+  "RET504", # Unnecessary assignments after return.
+  "RET505", # Unnecessary else after return.
+  "RET506", # Unnecessary elif after raise.
+  "S105",
+  "S106",   # Ignore password warnings.
+  "RUF012", # Ignore mutable class attribute annotations.
+  "UP007",  # Suppress type annotation updates for older versions.
 ]
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 "tests/**/*.py" = ["S101", "FBT", "INP001", "D", "S603", "PLR2004"]
+"*.py" = ["Q000"]                                                   # Example: Ignore specific PyQt warnings
+
+# --- ruff plugins --------------------
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = ["chr", "typer.Argument", "typer.Option"]
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+# extra-standard-library = ["path"]
+forced-separate = ["scipy", "sklearn", "statsmodels", "ds_utils", "src"]
+force-sort-within-sections = true
+force-wrap-aliases = true
+known-first-party = ["ds_utils", "src"]
+# known-local-folder = ["src"] # for relative imports
+
+[tool.ruff.lint.mccabe]
+max-complexity = 18
+
+[tool.ruff.lint.pep8-naming]
+ignore-names = []
+
+[tool.ruff.pydocstyle]
+convention = "numpy"
 
 [tool.mypy]
-python_version = "3.9"
+python_version = "3.11"
 disallow_untyped_defs = true
 disallow_incomplete_defs = true
 follow_imports = "normal"
@@ -255,33 +299,220 @@ warn_no_return = true
 testpaths = ["tests"]
 python_files = ["test_*.py"]
 minversion = "6.0"
-addopts = ["-ra", "--strict-markers", "--strict-config", "--color=yes"]
+addopts = [
+  "-ra",
+  "--strict-markers",
+  "--strict-config",
+  "--color=yes",
+  "--doctest-modules", # Aktiviert automatische Doctests für alle Module     # Führt xdoctests für alle Python-Dateien aus
+]
 xfail_strict = true
 junit_family = "xunit2"
 filterwarnings = ["error"]
 log_cli_level = "info"
 markers = [
-    "save_engine: marks tests using an external package for saving charts (e.g., PNG). Run selectively in CI.",
+  "save_engine: marks tests using an external package for saving charts (e.g., PNG). Run selectively in CI.",
 ]
 
-[tool.bandit]
-exclude_dirs = ["tests"]
-targets = ["src"]
 
 [tool.pylint]
 max-args = 12
 max-branches = 20 # Reduced to encourage simpler methods.
 max-returns = 6 # Lowered to improve code clarity.
-max-statements = 50
+max-statements = 50 # Maximum number of nested blocks for function / method body
+max-nested-blocks = 5
 disable = [
-    "C0111", # missing-docstring
-    "C0103", # invalid-name
-    "C0330", # wrong-hanging-indentation
+  "C0111", # missing-docstring
+  "C0103", # invalid-name
+  "C0330", # wrong-hanging-indentation
 ]
 
+[tool.cspell]
+files = [
+  "**/*.py",
+  "**/*.md",
+  "**/*.yaml",
+  "**/*.toml",
+  "**/*.ini",
+  "**/*.json",
+]
+dictionaries = ["en_US"]
+
 [tool.codespell]
-builtin = "clear,rare,informal,usage,code,names"
-write-changes = true
+builtin = clear,rare,code,informal
+skip = """
+    .git,
+    .venv,
+    *.png,
+    *.gif,
+    *.jpg,
+    *.svg,
+    *.ui,
+    *.qrc,
+    *.ts,
+    LICENSE,
+    LICENSES/*,
+    dist/*,
+    build/*,
+    __pycache__/*,
+    *.pyc
+"""
+ignore-words-list = ["jmbde", "pyside", "pytest", "pyqt", "qtodotxt"]
+# Other codespell configurations
+check-filenames = true
+check-hidden = false
 count = true
-skip = "*.svg,pyproject.toml,LICENSE,LICENSES/*,.github/actions/*"
-ignore-words-list = "master"
+write-changes = false
+quiet-level = 3
+
+# Word lists and dictionaries
+dictionary = [
+  ".github/config/german-words.txt",
+  ".github/config/italian-words.txt",
+  ".github/config/spanish-words.txt",
+  ".github/config/project-words.txt",
+  ".github/config/python-words.txt",
+]
+
+ignore-words-list = [
+  # Project specific
+  "jmbde",
+  "pyside",
+  "pytest",
+  "pyqt",
+  "qtodotxt",
+  # Technical terms
+  "args",
+  "kwargs",
+  "repr",
+  "str",
+  "int",
+  "bool",
+  "dict",
+  "lst",
+  "idx",
+  # Database terms
+  "varchar",
+  "uuid",
+  "datetime",
+  # Qt specific
+  "qml",
+  "qmake",
+  "qrc",
+  "uic",
+  "rcc",
+  # Common abbreviations
+  "conf",
+  "config",
+  "dev",
+  "docs",
+  "env",
+  "lib",
+  "pkg",
+  "src",
+  "tmp",
+  "utils",
+  # Qt-specific
+  "qabstractitemmodel",
+  "qaction",
+  "qapplication",
+  "qcombobox",
+  "qdialog",
+  "qicon",
+  "qlabel",
+  "qlayout",
+  "qlineedit",
+  "qmainwindow",
+  "qmenu",
+  "qmenubar",
+  "qmessagebox",
+  "qobject",
+  "qpushbutton",
+  "qspinbox",
+  "qstandarditem",
+  "qstandarditemmodel",
+  "qstatusbar",
+  "qtableview",
+  "qtoolbar",
+  "qwidget",
+  # PySide6 specific
+  "pyside",
+  "shiboken",
+]
+
+builtin = clear,rare,code,informal
+
+# Behavior
+count = true
+quiet-level = 3
+# URI handling
+uri = true
+uri-ignore-length = 20
+
+# Encoding
+encoding = "utf-8"
+
+# Interactive mode settings
+interactive = false
+suggestions = true
+
+[tool.proselint]
+max-line-length = 100
+checks = [
+  "typography.diacritical_marks",
+  "typography.exclamation",
+  "typography.quotes",
+  "misc.annotations",
+  "misc.link_review",
+  "security.password",
+  "spelling.able_atable",
+  "spelling.able_ible",
+  "spelling.athletes",
+  "spelling.em_im_en_in",
+  "spelling.er_or",
+  "spelling.in_un",
+  "spelling.misc",
+  "consistency.spacing",
+  "consistency.spelling",
+]
+
+[tool.typos]
+type = "commonmistakes"
+default.extend-identifiers = [
+  "Pyside", # Correct: PySide
+  "Pyqt",   # Correct: PyQt
+]
+default.extend-words = [
+  "cant",  # Correct: can't
+  "dont",  # Correct: don't
+  "isnt",  # Correct: isn't
+  "wasnt", # Correct: wasn't
+]
+files.extend-exclude = ["LICENSES/*", "*.ui", "*.qrc", "*.ts"]
+
+[tool.yamllint]
+extends = "default"
+strict = true
+
+rules = {
+    document-start = {
+        # Only override non-default settings
+    },
+line-length = {
+        max = 100,  # Stricter than defaultallow-non-breakable-words = true,
+    },
+quoted-strings = {
+        quote-type = "double",  # Enforce double quotesrequired = false,
+    },
+truthy = {
+        allowed-values = ["true", "false"],  # Strict boolean values    }
+}
+
+present = true                                                               # Enforce document start marker
+allow-non-breakable-inline-mappings = true
+extra-required = ["^[ ]*password:.*$", "^[ ]*.*secret.*$", "^[ ]*token:.*$"]
+check-keys = true
+ignore = ["LICENSES/", ".github/workflows/", "assets/translations/"]
+
+[tool.sqlfluff]
+dialect = ansi

@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: EUPL-1.2
+# SPDX-FileCopyrightText: 2023-present Jürgen Mülbert <juergen.muelbert@outlook.de>
+#
 # Top-most EditorConfig file
 root = true
 
@@ -8,108 +11,74 @@ end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 indent_style = space
-indent_size = 4
-max_line_length = 88  # Matches Black's default
+indent_size = 2
+max_line_length = 80 # Default Prettier printWidth
 
 # Python files
 [*.{py,pyi}]
 indent_size = 4
-max_line_length = 88
-indent_style = space
+max_line_length = 88 # Matches Black's default for Python
 
-# Qt specific files
-[*.{ui,qrc,qss}]
+# C and C++ files
+[*.{c,cpp,h,hpp}]
+indent_size = 4
+max_line_length = 100
+
+# Swift files
+[*.swift]
+indent_size = 4
+max_line_length = 100
+
+# JavaScript, TypeScript, and JSON files
+[*.{js,jsx,ts,tsx,json}]
 indent_size = 2
-indent_style = space
+max_line_length = 80
 
-# Qt Translation files
-[*.ts]
-indent_size = 2
-indent_style = space
-
-# Web related files
-[*.{js,jsx,ts,tsx,css,scss,html,json}]
+# Qt6 files (UI, QSS, QRC, TS)
+[*.{ui,qss,qrc,ts}]
 indent_size = 2
 indent_style = space
 max_line_length = 100
 
-# Documentation files
-[*.{md,rst,adoc}]
-indent_size = unset
-trim_trailing_whitespace = false
-max_line_length = off
-
-# YAML files
-[*.{yml,yaml}]
+# Markdown files (Prettier proseWrap settings)
+[*.{md,mdx,adoc}]
 indent_size = 2
-indent_style = space
-max_line_length = off
+trim_trailing_whitespace = false
+max_line_length = 80 # Matches Prettier's proseWrap default
 
-# Configuration files
-[{*.toml,pyproject.toml,poetry.lock}]
-indent_size = 4
+# YAML and TOML files
+[*.{yml,yaml,toml}]
+indent_size = 2
+max_line_length = 120
+
+[*.xml]
 indent_style = space
+indent_size = 4
+
+# HTML files
+[*.html]
+indent_size = 2
+max_line_length = 80
+
+# CSS and SCSS files
+[*.{css,scss}]
+indent_size = 2
+max_line_length = 80
 
 # Shell scripts
 [*.{sh,bash,zsh}]
 indent_size = 2
-indent_style = space
-max_line_length = 100
 
-# C++ related files
-[*.{cpp,hpp,h,c}]
-indent_size = 4
+# Windows Shell
+[*.{bat,cmd,ps1,psm1}]
+end_of_line = crlf
 indent_style = space
-max_line_length = 100
-
-# Build system files
-[{CMakeLists.txt,*.cmake}]
 indent_size = 2
-indent_style = space
-
-# Database files
-[*.sql]
-indent_size = 2
-indent_style = space
-
-# Resource files
-[*.rc]
-indent_size = 4
-indent_style = space
-end_of_line = crlf  # Windows specific
-
-# Make files
-[Makefile]
-indent_style = tab
-
-# Git files
-[.git*]
-indent_style = tab
-indent_size = 4
-
-# Environment files
-[*.env]
-indent_size = 2
-max_line_length = off
 
 # Docker files
 [{Dockerfile,*.dockerfile}]
-indent_size = 4
+indent_size = 2
 
 # Special files
 [{package.json,package-lock.json}]
-indent_size = 2
-
-# Scripts
-[{justfile,.justfile,*.just}]
-indent_size = 4
-
-# Configuration override files
-[.{pylintrc,flake8}]
-indent_size = 2
-
-# Batch files (Windows)
-[*.{cmd,bat}]
-end_of_line = crlf
-indent_style = space
 indent_size = 2

@@ -1,0 +1,110 @@
+---
+name: Sync Labels
+
+on:
+  push:
+    paths:
+      - '.github/labels.yml'
+      - '.github/workflows/labels-sync.yml'
+  schedule:
+    - cron: '0 0 * * 0'  # Weekly on Sunday
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sync-labels:
+    name: Sync Labels
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: 🔒 Harden Runner
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🏷️ Sync Labels
+        uses: EndBug/label-sync@v2
+        with:
+          config-file: .github/labels.yml
+          delete-other-labels: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📝 Generate Report
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const yaml = require('yaml');
+
+            const labelConfig = yaml.parse(
+              fs.readFileSync('.github/labels.yml', 'utf8')
+            );
+
+            let summary = `## 🏷️ Label Sync Report\n\n`;
+            summary += `### Labels Configured\n`;
+
+            // Group labels by category
+            const categories = {};
+            labelConfig.forEach(label => {
+              const category = label.color === '0E8A16' ? 'Success' :
+                             label.color === 'FFA500' ? 'Warning' :
+                             label.color === 'D93F0B' ? 'Error' :
+                             'Other';
+
+              if (!categories[category]) categories[category] = [];
+              categories[category].push(label);
+            });
+
+            // Add labels to summary by category
+            Object.entries(categories).forEach(([category, labels]) => {
+              summary += `\n#### ${category}\n`;
+              labels.forEach(label => {
+                summary += `- \`${label.name}\`: ${label.description}\n`;
+              });
+            });
+
+            // Create issue if sync failed
+            if ('${{ job.status }}' !== 'success') {
+              await github.rest.issues.create({
+                ...context.repo,
+                title: '🏷️ Label Sync Failed',
+                body: `Label synchronization failed. Please check the [workflow run](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}) for details.`,
+                labels: ['bug', 'automation']
+              });
+            }
+
+            // Add comment to any open issues about label sync
+            const issues = await github.rest.issues.listForRepo({
+              ...context.repo,
+              state: 'open',
+              labels: 'label-sync'
+            });
+
+            for (const issue of issues.data) {
+              await github.rest.issues.createComment({
+                ...context.repo,
+                issue_number: issue.number,
+                body: summary
+              });
+
+              if ('${{ job.status }}' === 'success') {
+                await github.rest.issues.update({
+                  ...context.repo,
+                  issue_number: issue.number,
+                  state: 'closed',
+                  state_reason: 'completed'
+                });
+              }
+            }

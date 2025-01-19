@@ -1,37 +1,42 @@
+---
+# SPDX-License-Identifier: EUPL-1.2
+# SPDX-FileCopyrightText: 2024 Jürgen Mülbert <juergen.muelbert@outlook.de>
+#
+# Dependency review configuration
 rules:
   - name: Block high severity vulnerabilities
-    on:
+    on: # yamllint disable-line rule:truthy
       severity: [high, critical]
     action: fail
 
   - name: Warn on moderate severity
-    on:
+    on: # yamllint disable-line rule:truthy
       severity: [moderate]
     action: warn
 
   - name: Block restricted licenses
-    on:
+    on: # yamllint disable-line rule:truthy
       license: [AGPL-1]
     action: fail
 
   - name: Require SPDX license
-    on:
+    on: # yamllint disable-line rule:truthy
       missing-license: true
     action: warn
 
 alerts:
   success:
-    title: '✅ Dependency review passed'
-    summary: 'No security vulnerabilities or license violations found'
+    title: ✅ Dependency review passed
+    summary: No security vulnerabilities or license violations found
 
   failure:
-    title: '❌ Dependency review failed'
-    summary: 'Found security vulnerabilities or license violations'
+    title: ❌ Dependency review failed
+    summary: Found security vulnerabilities or license violations
 
 reporting:
   sarif: true
   summary-comment: true
   fail-on-severity: moderate
   ignored-paths:
-    - 'tests/**'
-    - 'examples/**'
+    - tests/**
+    - examples/**

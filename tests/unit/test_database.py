@@ -1,8 +1,5 @@
-import sqlite3
-from unittest.mock import Mock, patch
-
-import pytest
 from database import Database
+import pytest
 
 
 @pytest.fixture

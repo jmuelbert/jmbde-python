@@ -1,44 +1,16 @@
-# SPDX-FileCopyRightText: 2023 Jürgen Mülbert <juergen.muelbert@web.de>
-#
+---
 # SPDX-License-Identifier: EUPL-1.2
+# SPDX-FileCopyrightText: 2023-present Jürgen Mülbert <juergen.muelbert@outlook.de>
 #
 # Prettier configuration file for ignoring paths.
 #
 # For more information, visit https://prettier.io/docs/en/ignore.html.
 
-# Benchmark artifacts
-benchmark/projects/
-benchmark/results/
-
-# Deep Directories
-**/dist
-**/build
-**/smoke
-**/node_modules
-**/fixtures
-**/vendor
-**/.vercel
-
-# Short-term need to format
-!packages/db/test/fixtures
-
-# Directories
-.venv
-.github
-.changeset
-megalinter-reports
-
-# Files
-pnpm-lock.yaml
-
-# Formatted by Biome
-**/*.json
-**/*.js
-**/*.ts
-**/*.tsx
-**/*.jsx
-**/*.mjs
-**/*.cjs
-
-# vale configs
-.github/styles/vale/**
+LICENSE
+LICENSES/**
+assets/translations/
+benchmark/
+dist/
+build/
+**/*.pyc|
+**/.*egg-info
