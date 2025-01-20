@@ -59,7 +59,7 @@ jobs:
       - name: 🔧 Install Dependencies
         run: |
           pip install -r .github/workflows/requirements.txt
-          pip install polib deep-translator coverage pyside6
+          pip install polib deep-translator coverage pyside6 frontmatter
 
       - name: 🔍 Extract Translations
         run: |
