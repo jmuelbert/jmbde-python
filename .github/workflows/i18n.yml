@@ -8,6 +8,7 @@ on:
       - 'docs/i18n/**'
       - 'src/jmbde/i18n/**'
       - '.github/workflows/i18n.yml'
+      - scripts/translate_docs.py
   pull_request:
     paths:
       - 'assets/translations/**'
