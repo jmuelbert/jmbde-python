@@ -19,7 +19,7 @@ env:
   PYTHON_VERSION_FILE: .python-version
   TRANSLATIONS_DIR: assets/translations
   DOCS_I18N_DIR: docs/i18n
-  SUPPORTED_LANGUAGES: "de es it fr zh_CN ja"
+  SUPPORTED_LANGUAGES: "de es it fr zh_CN tr ja"
   QT_VERSION: "6.6.1"  # Update to match your PySide6 version
 
 jobs:
