@@ -2,9 +2,8 @@
 """Translate documentation files."""
 import argparse
 from pathlib import Path
-from typing import List, Dict
+from typing import List
 import frontmatter
-import yaml
 
 def process_markdown(content: str, lang: str) -> str:
     """Process markdown content for translation."""
@@ -21,17 +20,18 @@ def process_markdown(content: str, lang: str) -> str:
 def main():
     """Main function."""
     parser = argparse.ArgumentParser(description="Translate documents.")
-    parser.add_argument("--source-dir", required=True, help="Source directory containing documents.")
-    parser.add_argument("--output-dir", required=True, help="Output directory for translated documents.")
+    parser.add_argument("--source-dir", required=True, type=Path, help="Source directory containing documents.")
+    parser.add_argument("--output-dir", required=True, type=Path, help="Output directory for translated documents.")
     parser.add_argument("--languages", required=True, nargs='+', help="List of languages to translate to.")
     args = parser.parse_args()
 
-    languages = args.languages.split()
-    
-    # Process each markdown file
+    # `args.languages` is already a list, no need for `.split()`
+    languages = args.languages
+
+    # Process each markdown file in the source directory
     for source_file in args.source_dir.glob('*.md'):
         content = source_file.read_text()
-        
+
         for lang in languages:
             # Create language directory
             lang_dir = args.output_dir / lang
