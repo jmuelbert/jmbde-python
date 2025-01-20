@@ -19,7 +19,7 @@ def process_markdown(content: str, lang: str) -> str:
     return frontmatter.dumps(post)
 
 def main():
-    """Main function.""
+    """Main function."""
     parser = argparse.ArgumentParser(description="Translate documents.")
     parser.add_argument("--source-dir", required=True, help="Source directory containing documents.")
     parser.add_argument("--output-dir", required=True, help="Output directory for translated documents.")
