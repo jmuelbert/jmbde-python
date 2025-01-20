@@ -42,11 +42,101 @@ jobs:
       - name: 🔎 Dependency Review
         uses: actions/dependency-review-action@3b139cfc5fae8b618d3eae3675e383bb1769c019 # v4.5.0
 
+  ui-tests:
+    name: UI Tests
+    needs: validate
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    environment: staging
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+        exclude:
+          - os: macos-latest
+            python-version: '3.9'
+          - os: windows-latest
+            python-version: '3.9'
+
+    steps:
+      - name: 🔒 Harden Runner
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: |
+            .github/workflows/requirements.txt
+            pyproject.toml
+
+      - name: 🎨 Setup Linux Display
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libegl1 \
+            libxkbcommon-x11-0 \
+            libxcb-icccm4 \
+            libxcb-image0 \
+            libxcb-keysyms1 \
+            libxcb-randr0 \
+            libxcb-render-util0 \
+            libxcb-xinerama0 \
+            xvfb
+          sudo Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+
+      - name: 🪟 Setup Windows Dependencies
+        if: runner.os == 'Windows'
+        run: |
+          python -m pip install wheel
+
+      - name: 🍎 Setup macOS Dependencies
+        if: runner.os == 'macOS'
+        run: |
+          brew install create-dmg
+
+      - name: 🔧 Install Build Tools
+        run: |
+          pip install -r .github/workflows/requirements.txt
+          hatch env create test
+          
+      - name: 🧪 Run UI Tests
+        env:
+          QT_QPA_PLATFORM: offscreen
+          DISPLAY: :99
+          PYTEST_QT_API: pyside6
+        run: |
+          hatch run test:pytest tests/pyside6 \
+            --verbose \
+            --capture=no \
+            --timeout=300 \
+            --junitxml=test-results/junit.xml
+
+      - name: 📦 Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-test-results-${{ matrix.os }}-py${{ matrix.python-version }}
+          path: |
+            test-results/
+            test-artifacts/
+            coverage.xml
+          retention-days: 7
+    
   test-and-build:
     name: Test & Build
-    needs: validate
+    needs: [validate, ui-tests]
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    environment: staging
     outputs:
       version: ${{ steps.version.outputs.version }}
 
@@ -65,16 +155,16 @@ jobs:
       - name: ⚙️ Setup Python
         uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
         with:
-          python-version-file: ${{ env.PYTHON_VERSION_FILE }}
+          python-version: ${{ matrix.python-version }}
           cache: pip
           cache-dependency-path: |
-            requirements.txt
             pyproject.toml
+            .github/workflows/requirements.txt
 
       - name: 🔧 Install Build Tools
         run: |
-          python -m pip install --upgrade pip==24.3.1 wheel==0.45.1
           pip install -r .github/workflows/requirements.txt
+          hatch env create test
 
       - name: 🎨 Setup Qt Dependencies
         run: |
@@ -152,10 +242,10 @@ jobs:
 
   release:
     name: Create Release
-    needs: test-and-build
+    needs: [test-and-build, ui-tests]
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
-    environment: production  # Add this line
+    environment: production
     permissions:
       contents: write
       id-token: write
@@ -178,12 +268,12 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          with:
+        with:
           files: |
             dist/*
             LICENSE
             README.md
-            generate_release_notes: true
+          generate_release_notes: true
           discussion_category_name: Releases
           body: |
             ## Release ${{ needs.test-and-build.outputs.version }}
@@ -197,6 +287,8 @@ jobs:
             - ✅ Documentation Tests
             - ✅ Security Scans
             - ✅ Pre-commit Hooks
+            - ✅ UI Tests
+            - ✅ Visual Regression Tests
 
             ### 🔍 Verification
             SHA256 hashes are available in the asset details.
@@ -209,7 +301,7 @@ jobs:
         uses: pypa/gh-action-pypi-publish@67339c736fd9354cd4f8cb0b744f2b82a74b5c70 # 1.12.3
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
-          verbose: true
+          verbose: true  
 
   notify:
     name: Notifications

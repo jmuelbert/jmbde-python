@@ -7,7 +7,6 @@ on:
       - 'src/jmbde/qml/**'
       - 'assets/forms/**'
       - 'tests/pyside6/**'
-      - 'pyproject.toml'
   pull_request:
     paths:
       - 'src/jmbde/gui/**'
@@ -27,6 +26,7 @@ jobs:
     name: UI Tests
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
+    environment: staging
 
     strategy:
       fail-fast: false
@@ -51,11 +51,11 @@ jobs:
       - name: 🐍 Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
-          cache: pip
-          cache-dependency-path: |
-            requirements.txt
-            pyproject.toml
+           python-version: ${{ matrix.python-version }}
+           cache: pip
+           cache-dependency-path: |
+             pyproject.toml
+             .github/workflows/requirements.txt
 
       - name: 🎨 Setup Linux Display
         if: runner.os == 'Linux'
@@ -85,14 +85,16 @@ jobs:
 
       - name: 🔧 Install Dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install pytest-qt pytest-xvfb pytest-timeout
+          pip install -r .github/workflows/requirements.txt
+          hatch env create test
 
       - name: 🧪 Run UI Tests
-        id: uitests
+        env:
+          QT_QPA_PLATFORM: offscreen
+          DISPLAY: :99
+          PYTEST_QT_API: pyside6
         run: |
-          python -m pytest tests/pyside6 \
+          hatch run test:pytest tests/pyside6 \
             --verbose \
             --capture=no \
             --timeout=300 \

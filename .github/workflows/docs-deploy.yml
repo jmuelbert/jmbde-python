@@ -40,13 +40,15 @@ jobs:
       - name: 🐍 Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version-file: .python-version
+          python-version: ${{ matrix.python-version }}
           cache: pip
-          cache-dependency-path: '**/pyproject.toml'
+          cache-dependency-path: |
+            pyproject.toml
+            .github/workflows/requirements.txt
 
       - name: 🔧 Install Dependencies
         run: |
-          pip install -r requirements.txt
+          pip install -r .github/workflows/requirements.txt
           sudo apt-get update
           sudo apt-get install -y graphviz
 
