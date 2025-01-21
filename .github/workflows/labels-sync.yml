@@ -40,6 +40,14 @@ jobs:
           delete-other-labels: true
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # Use a Node.js version compatible with the `yaml` package
+
+      - name: Install dependencies
+        run: npm install yaml          
+
       - name: 📝 Generate Report
         if: always()
         uses: actions/github-script@v7
