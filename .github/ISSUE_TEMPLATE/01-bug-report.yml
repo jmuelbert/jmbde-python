@@ -8,7 +8,7 @@
 # The name of the issue template
 name: Bug Report
 description: Report an issue or possible bug
-title: "[Bug]:  "
+title: '[Bug]:  '
 labels: [bug, triage]
 assignees:
   - jmuelbert

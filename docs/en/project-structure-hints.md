@@ -95,6 +95,7 @@ Ensure .editorconfig and .prettierrc.yaml reflect the same style guides.
 Here's how to optimize and reduce the complexity of your project structure:
 
 1. **Remove Generated/Cache Files**:
+
 ```plaintext
 - Remove all __pycache__ directories
 - Remove .DS_Store
@@ -105,6 +106,7 @@ Here's how to optimize and reduce the complexity of your project structure:
 ```
 
 2. **Consolidate Config Files**:
+
 ```plaintext
 .github/
   config/           # Move all config files here
@@ -114,6 +116,7 @@ Here's how to optimize and reduce the complexity of your project structure:
 ```
 
 3. **Optimize Documentation Structure**:
+
 ```plaintext
 docs/
   _assets/         # All doc assets
@@ -128,6 +131,7 @@ docs/
 ```
 
 4. **Organize Assets**:
+
 ```plaintext
 assets/
   icons/          # Combine all icons under size directories
@@ -142,7 +146,8 @@ assets/
 ```
 
 5. **Simplify Root Directory**:
-Keep only essential files:
+   Keep only essential files:
+
 ```plaintext
 ├── .devcontainer/          # Dev container config
 ├── .github/                # GitHub specific files
@@ -151,7 +156,7 @@ Keep only essential files:
 ├── docs/                  # Documentation
 ├── src/                   # Source code
 ├── tests/                 # Test files
-├── LICENSE               
+├── LICENSE
 ├── CHANGELOG.md
 ├── README.md
 ├── pyproject.toml         # Project configuration
@@ -161,6 +166,7 @@ Keep only essential files:
 ```
 
 6. **Merge Configuration Files**:
+
 ```toml
 # pyproject.toml - Centralize configuration
 [tool.black]
@@ -173,6 +179,7 @@ Keep only essential files:
 ```
 
 Files to remove:
+
 ```plaintext
 - .gitlab-ci.yml (if not using GitLab)
 - .prettierignore (use .gitignore)
@@ -183,6 +190,7 @@ Files to remove:
 ```
 
 Updated structure:
+
 ```plaintext
 jmbde-python/
 ├── .devcontainer/          # Development container config
@@ -206,6 +214,7 @@ jmbde-python/
 ```
 
 Would you like me to:
+
 1. Show how to migrate specific configurations?
 2. Create a migration script?
 3. Provide more detailed organization for specific directories?

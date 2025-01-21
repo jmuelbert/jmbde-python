@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-"""JMBDE - Business Data Management Application
+"""
+JMBDE - Business Data Management Application
 
 This is the main entry point for the JMBDE application, a comprehensive tool
 for managing business data and employee information.
@@ -14,8 +15,8 @@ the Free Software Foundation, either version 3 of the License, or
 """
 
 import logging
-from pathlib import Path
 import sys
+from pathlib import Path
 from typing import Optional
 
 import click
@@ -138,7 +139,8 @@ class JMBDEApplication:
 @click.option("--debug", is_flag=True, help="Enable debug mode")
 @click.option("--config", type=click.Path(), help="Path to configuration file")
 def main(debug: bool, config: Optional[str]) -> None:
-    """JMBDE - Business Data Management Application.
+    """
+    JMBDE - Business Data Management Application.
 
     A comprehensive tool for managing business data and employee information.
     """

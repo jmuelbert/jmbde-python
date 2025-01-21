@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-"""Employee Model Module for JMBDE
+"""
+Employee Model Module for JMBDE
 
 This module provides a Qt model for exposing employee data to QML interfaces,
 implementing the necessary methods for data access and modification.
@@ -30,7 +31,8 @@ logger = logging.getLogger(__name__)
 
 
 class EmployeeModel(QAbstractListModel):
-    """Qt Model for Employee data management.
+    """
+    Qt Model for Employee data management.
 
     Provides a list model implementation for exposing employee data
     to QML interfaces with support for filtering, sorting, and CRUD operations.
@@ -54,7 +56,8 @@ class EmployeeModel(QAbstractListModel):
     errorOccurred = Signal(str)
 
     def __init__(self, database: Database, parent: Optional[Any] = None) -> None:
-        """Initialize the Employee Model.
+        """
+        Initialize the Employee Model.
 
         Args:
         ----
@@ -73,13 +76,14 @@ class EmployeeModel(QAbstractListModel):
         logger.info("EmployeeModel initialized")
 
     def rowCount(self, parent: QModelIndex = QModelIndex()) -> int:
-        """Get the number of rows in the model.
+        """
+        Get the number of rows in the model.
 
         Args:
         ----
             parent: Parent model index (unused in list models)
 
-        Returns
+        Returns:
         -------
             Number of employees in the filtered dataset
 
@@ -87,14 +91,15 @@ class EmployeeModel(QAbstractListModel):
         return len(self._data)
 
     def data(self, index: QModelIndex, role: int = Qt.DisplayRole) -> Any:
-        """Get data for the specified index and role.
+        """
+        Get data for the specified index and role.
 
         Args:
         ----
             index: Model index to get data for
             role: Data role to retrieve
 
-        Returns
+        Returns:
         -------
             Requested data or None if invalid
 
@@ -112,7 +117,8 @@ class EmployeeModel(QAbstractListModel):
             return None
 
     def roleNames(self) -> dict[int, QByteArray]:
-        """Get the role names for QML binding.
+        """
+        Get the role names for QML binding.
 
         Returns
         -------
@@ -135,7 +141,8 @@ class EmployeeModel(QAbstractListModel):
             self.errorOccurred.emit(str(e))
 
     def _load_filtered_data(self) -> list[dict[str, Any]]:
-        """Load employee data applying current filters.
+        """
+        Load employee data applying current filters.
 
         Returns
         -------
@@ -212,7 +219,8 @@ class EmployeeModel(QAbstractListModel):
         email: str,
         phone: str,
     ) -> bool:
-        """Update employee data at specified index.
+        """
+        Update employee data at specified index.
 
         Args:
         ----
@@ -222,7 +230,7 @@ class EmployeeModel(QAbstractListModel):
             email: New email
             phone: New phone number
 
-        Returns
+        Returns:
         -------
             bool: True if update was successful
 
@@ -258,7 +266,8 @@ class EmployeeModel(QAbstractListModel):
         phone: str,
         department: str,
     ) -> bool:
-        """Add a new employee.
+        """
+        Add a new employee.
 
         Args:
         ----
@@ -268,7 +277,7 @@ class EmployeeModel(QAbstractListModel):
             phone: Phone number
             department: Department name
 
-        Returns
+        Returns:
         -------
             bool: True if addition was successful
 
@@ -299,13 +308,14 @@ class EmployeeModel(QAbstractListModel):
 
     @Slot(int)
     def removeEmployee(self, index: int) -> bool:
-        """Remove employee at specified index.
+        """
+        Remove employee at specified index.
 
         Args:
         ----
             index: Row index to remove
 
-        Returns
+        Returns:
         -------
             bool: True if removal was successful
 
@@ -326,7 +336,8 @@ class EmployeeModel(QAbstractListModel):
 
     @Slot(result=list)
     def getDepartments(self) -> list[str]:
-        """Get list of unique departments.
+        """
+        Get list of unique departments.
 
         Returns
         -------

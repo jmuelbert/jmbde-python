@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-"""Database Management Module for JMBDE
+"""
+Database Management Module for JMBDE
 
 This module provides database operations for the JMBDE application,
 handling employee and device data using SQLite.
@@ -9,11 +10,11 @@ Copyright (C) 2018-2024 Jürgen Mülbert
 License: GPL-3.0
 """
 
+import logging
+import sqlite3
 from contextlib import contextmanager
 from datetime import datetime
-import logging
 from pathlib import Path
-import sqlite3
 from typing import Any, Optional, Union
 
 from pydantic import BaseModel
@@ -52,20 +53,22 @@ class DeviceModel(BaseModel):
 
 
 class Database:
-    """Database management class for JMBDE application.
+    """
+    Database management class for JMBDE application.
 
     Handles all database operations including CRUD operations
     for employees and devices using SQLite.
     """
 
     def __init__(self, db_path: Union[str, Path] = Config.DATABASE_PATH):
-        """Initialize database connection and setup.
+        """
+        Initialize database connection and setup.
 
         Args:
         ----
             db_path: Path to SQLite database file
 
-        Raises
+        Raises:
         ------
             DatabaseError: If database initialization fails
 
@@ -86,7 +89,8 @@ class Database:
 
     @contextmanager
     def transaction(self):
-        """Context manager for database transactions.
+        """
+        Context manager for database transactions.
 
         Ensures proper commit/rollback handling.
         """
@@ -99,7 +103,8 @@ class Database:
             raise DatabaseError(f"Transaction failed: {e}") from e
 
     def _create_tables(self) -> None:
-        """Create database tables if they don't exist.
+        """
+        Create database tables if they don't exist.
 
         Creates tables for employees and devices with proper schema.
         """
@@ -157,17 +162,18 @@ class Database:
             raise DatabaseError(f"Table creation failed: {e}") from e
 
     def add_employee(self, employee: EmployeeModel) -> int:
-        """Add a new employee to the database.
+        """
+        Add a new employee to the database.
 
         Args:
         ----
             employee: EmployeeModel instance containing employee data
 
-        Returns
+        Returns:
         -------
             int: ID of the newly created employee record
 
-        Raises
+        Raises:
         ------
             DatabaseError: If employee creation fails
 
@@ -199,13 +205,14 @@ class Database:
             raise DatabaseError(f"Failed to add employee: {e}") from e
 
     def get_employee(self, employee_id: int) -> Optional[dict[str, Any]]:
-        """Retrieve employee data by ID.
+        """
+        Retrieve employee data by ID.
 
         Args:
         ----
             employee_id: ID of the employee to retrieve
 
-        Returns
+        Returns:
         -------
             Optional[Dict]: Employee data or None if not found
 
@@ -229,14 +236,15 @@ class Database:
         active_only: bool = True,
         department: Optional[str] = None,
     ) -> list[dict[str, Any]]:
-        """Retrieve all employees matching the specified criteria.
+        """
+        Retrieve all employees matching the specified criteria.
 
         Args:
         ----
             active_only: If True, return only active employees
             department: Filter by department name
 
-        Returns
+        Returns:
         -------
             List[Dict]: List of employee records
 
@@ -263,18 +271,19 @@ class Database:
             raise DatabaseError(f"Employee retrieval failed: {e}") from e
 
     def update_employee(self, employee_id: int, data: dict[str, Any]) -> bool:
-        """Update employee information.
+        """
+        Update employee information.
 
         Args:
         ----
             employee_id: ID of the employee to update
             data: Dictionary containing fields to update
 
-        Returns
+        Returns:
         -------
             bool: True if update was successful
 
-        Raises
+        Raises:
         ------
             DatabaseError: If update fails
 
@@ -314,17 +323,18 @@ class Database:
             raise DatabaseError(f"Employee update failed: {e}") from e
 
     def delete_employee(self, employee_id: int) -> bool:
-        """Delete an employee record.
+        """
+        Delete an employee record.
 
         Args:
         ----
             employee_id: ID of the employee to delete
 
-        Returns
+        Returns:
         -------
             bool: True if deletion was successful
 
-        Raises
+        Raises:
         ------
             DatabaseError: If deletion fails
 
@@ -341,7 +351,8 @@ class Database:
             raise DatabaseError(f"Employee deletion failed: {e}") from e
 
     def cleanup(self) -> None:
-        """Perform database cleanup operations.
+        """
+        Perform database cleanup operations.
 
         Closes connections and performs any necessary cleanup.
         """

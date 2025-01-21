@@ -110,7 +110,6 @@ jobs:
               core.setFailed(error.message);
             }
 
-
       - name: ✅ Auto-approve PR
         id: approve
         if: |

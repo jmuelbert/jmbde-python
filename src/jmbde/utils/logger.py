@@ -5,7 +5,8 @@ from typing import Union
 
 
 def setup_logging(log_file: Union[str, Path], level: int = logging.INFO) -> None:
-    """Configure application logging.
+    """
+    Configure application logging.
 
     Args:
     ----

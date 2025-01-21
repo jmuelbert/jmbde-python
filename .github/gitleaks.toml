@@ -4,12 +4,12 @@ rules:
     description: "Qt database connection string"
     regex: '(?i)(?P<key>qt[._-]?db[._-]?(?:connection|string))\s*[=:]\s*[''"](?P<value>[^''"]+)[''"]'
     tags: ["database", "Qt"]
-    
+
   pyside-api-key:
     description: "PySide API key"
     regex: '(?i)(?P<key>(?:pyside|qt)[._-]?api[._-]?key)\s*[=:]\s*[''"](?P<value>[^''"]+)[''"]'
     tags: ["key", "PySide"]
-    
+
   python-secret:
     description: "Python secret"
     regex: '(?i)(?P<key>secret[._-]?key)\s*[=:]\s*[''"](?P<value>[^''"]+)[''"]'

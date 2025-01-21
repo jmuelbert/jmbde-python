@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-"""Settings Management Module for JMBDE
+"""
+Settings Management Module for JMBDE
 
 This module handles application settings and configuration management
 for the JMBDE application.
@@ -57,7 +58,8 @@ class ApplicationSettings(BaseModel):
 
 
 class Settings(QObject):
-    """Settings management class for JMBDE application.
+    """
+    Settings management class for JMBDE application.
 
     Handles loading, saving, and accessing application settings
     with Qt property bindings for QML integration.
@@ -69,7 +71,8 @@ class Settings(QObject):
     languageChanged = Signal(str)
 
     def __init__(self, config_path: Optional[Path] = None) -> None:
-        """Initialize Settings manager.
+        """
+        Initialize Settings manager.
 
         Args:
         ----
@@ -88,7 +91,8 @@ class Settings(QObject):
         logger.info(f"Settings initialized with config path: {self._config_path}")
 
     def load(self) -> None:
-        """Load settings from configuration file.
+        """
+        Load settings from configuration file.
 
         Raises
         ------
@@ -119,7 +123,8 @@ class Settings(QObject):
             raise ConfigurationError(f"Failed to load settings: {e}") from e
 
     def save(self) -> None:
-        """Save current settings to configuration file.
+        """
+        Save current settings to configuration file.
 
         Raises
         ------
@@ -177,13 +182,14 @@ class Settings(QObject):
     # Slot methods for QML interaction
     @Slot(str, result=Any)
     def getValue(self, key: str) -> Any:
-        """Get setting value by key path.
+        """
+        Get setting value by key path.
 
         Args:
         ----
             key: Dot-notation path to setting (e.g., 'ui.font_size')
 
-        Returns
+        Returns:
         -------
             Setting value or None if not found
 
@@ -203,7 +209,8 @@ class Settings(QObject):
 
     @Slot(str, Any)
     def setValue(self, key: str, value: Any) -> None:
-        """Set setting value by key path.
+        """
+        Set setting value by key path.
 
         Args:
         ----

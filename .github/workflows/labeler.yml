@@ -22,7 +22,7 @@ concurrency:
 jobs:
   analyze_and_label:
     name: Analyze and Label Pull Request
-    if: github.actor != 'dependabot[bot]'  # Skip for Dependabot PRs
+    if: github.actor != 'dependabot[bot]' # Skip for Dependabot PRs
     runs-on: ubuntu-latest
     timeout-minutes: 15
 

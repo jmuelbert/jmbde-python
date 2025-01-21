@@ -1,14 +1,19 @@
 ### Description
+
 <!-- Describe your changes in detail -->
 
 ### Related Issue
+
 <!-- Link to the issue this PR addresses -->
+
 Fixes #
 
 ### Testing
+
 <!-- Describe how you tested your changes -->
 
 ### Checklist
+
 - [ ] My code follows the project's style guidelines
 - [ ] I have updated the documentation accordingly
 - [ ] I have added tests to cover my changes
@@ -16,6 +21,7 @@ Fixes #
 - [ ] My PR title follows [Conventional Commits](https://www.conventionalcommits.org/)
 
 ### Additional Notes
+
 <!-- Any additional information that would be helpful -->
 <!--- If your PR fixes/resolves one or more issues, or is related to
     another PR, link to them here. -->

@@ -20,8 +20,8 @@ env:
   PYTHON_VERSION_FILE: .python-version
   TRANSLATIONS_DIR: assets/translations
   DOCS_I18N_DIR: docs/i18n
-  SUPPORTED_LANGUAGES: "de es it fr zh_CN tr ja"
-  QT_VERSION: "6.6.1"  # Update to match your PySide6 version
+  SUPPORTED_LANGUAGES: 'de es it fr zh_CN tr ja'
+  QT_VERSION: '6.6.1' # Update to match your PySide6 version
 
 jobs:
   translations:
@@ -38,8 +38,8 @@ jobs:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
 
-      - name: 🐍 Setup Python
-        uses: actions/setup-python@v5
+      - name: ⚙️ Setup Python
+        uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
         with:
           python-version-file: ${{ env.PYTHON_VERSION_FILE }}
           cache: pip
@@ -67,7 +67,7 @@ jobs:
           # Create paths list
           echo "src/jmbde" > paths.txt
           echo "assets/forms" >> paths.txt
-          
+
           # Extract strings using pyside6-lupdate
           pyside6-lupdate @paths.txt \
             -ts $(for lang in ${{ env.SUPPORTED_LANGUAGES }}; do echo "${{ env.TRANSLATIONS_DIR }}/jmbde_ui_${lang}.ts"; done)
@@ -110,15 +110,15 @@ jobs:
           script: |
             const fs = require('fs');
             const report = JSON.parse(fs.readFileSync('translation-report.json', 'utf8'));
-            
+
             let comment = `## 🌍 Translation Update Report\n\n`;
-            
+
             // Overall statistics
             comment += `### Statistics\n`;
             comment += `- Total Strings: ${report.totalStrings}\n`;
             comment += `- Updated: ${report.updated}\n`;
             comment += `- Missing: ${report.missing}\n\n`;
-            
+
             // Per-language status
             comment += `### Language Status\n`;
             const emojis = {
@@ -129,7 +129,7 @@ jobs:
               'zh_CN': '🇨🇳',
               'ja': '🇯🇵'
             };
-            
+
             for (const [lang, stats] of Object.entries(report.languages)) {
               const emoji = emojis[lang] || '🌐';
               const coverage = ((stats.translated / stats.total) * 100).toFixed(1);
@@ -139,7 +139,7 @@ jobs:
               }
               comment += '\n';
             }
-            
+
             // Add warnings if any
             if (report.warnings?.length > 0) {
               comment += '\n### ⚠️ Warnings\n';
@@ -147,7 +147,7 @@ jobs:
                 comment += `- ${warning}\n`;
               });
             }
-            
+
             await github.rest.issues.createComment({
               ...context.repo,
               issue_number: context.payload.pull_request.number,

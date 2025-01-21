@@ -61,15 +61,15 @@ jobs:
 
     steps:
       - name: 🔒 Harden Runner
-        uses: step-security/harden-runner@v2
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
         with:
           egress-policy: audit
 
       - name: 📥 Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: 🐍 Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
@@ -96,7 +96,7 @@ jobs:
       - name: 🪟 Setup Windows Dependencies
         if: runner.os == 'Windows'
         run: |
-          python -m pip install wheel
+          # python -m pip install wheel
 
       - name: 🍎 Setup macOS Dependencies
         if: runner.os == 'macOS'
@@ -107,7 +107,7 @@ jobs:
         run: |
           pip install -r .github/workflows/requirements.txt
           hatch env create test
-          
+
       - name: 🧪 Run UI Tests
         env:
           QT_QPA_PLATFORM: offscreen
@@ -130,7 +130,7 @@ jobs:
             test-artifacts/
             coverage.xml
           retention-days: 7
-    
+
   test-and-build:
     name: Test & Build
     needs: [validate, ui-tests]
@@ -155,7 +155,7 @@ jobs:
       - name: ⚙️ Setup Python
         uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version-file: ${{ env.PYTHON_VERSION_FILE }}
           cache: pip
           cache-dependency-path: |
             pyproject.toml
@@ -182,8 +182,7 @@ jobs:
 
       - name: ⚙️ Setup Pre-commit
         run: |
-          pre-commit install
-          pre-commit run --all-files
+          hatch run lint:prcommit
 
       - name: 📝 Get Version
         id: version
@@ -205,12 +204,10 @@ jobs:
       - name: 📚 Run Doctests
         run: |
           hatch run test:doctest
-          hatch run test:doctestx
 
       - name: 🛡️ Run Security Scans
         run: |
-          hatch run security:scan
-          hatch run security:audit
+          hatch run lint:security
 
       - name: 🏗️ Build Package
         run: |
@@ -301,7 +298,7 @@ jobs:
         uses: pypa/gh-action-pypi-publish@67339c736fd9354cd4f8cb0b744f2b82a74b5c70 # 1.12.3
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
-          verbose: true  
+          verbose: true
 
   notify:
     name: Notifications

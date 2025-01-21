@@ -15,9 +15,9 @@
 #
 """The qt ui builder."""
 
-from glob import glob
 import os
 import shutil
+from glob import glob
 from subprocess import Popen
 
 package = "jmbde"

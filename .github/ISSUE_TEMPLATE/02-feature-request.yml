@@ -9,7 +9,7 @@
 # The name of the issue template
 name: Feature Request
 description: Request for a missing or a new Feature.
-title: "[Request]: "
+title: '[Request]: '
 labels: [request]
 assignees:
   - jmuelbert

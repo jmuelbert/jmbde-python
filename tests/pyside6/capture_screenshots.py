@@ -1,9 +1,12 @@
 """Capture screenshots of UI components on test failure."""
+
 import sys
 from pathlib import Path
-from PySide6.QtWidgets import QApplication
+
 from PySide6.QtCore import QTimer
 from PySide6.QtGui import QScreen
+from PySide6.QtWidgets import QApplication
+
 
 def capture_widget_screenshot(widget, name):
     """Capture a screenshot of a widget."""
@@ -14,6 +17,7 @@ def capture_widget_screenshot(widget, name):
     path = Path("test-artifacts/screenshots")
     path.mkdir(parents=True, exist_ok=True)
     screenshot.save(str(path / f"{name}.png"))
+
 
 def main():
     """Main function to capture screenshots."""
@@ -30,6 +34,7 @@ def main():
 
     QTimer.singleShot(0, app.quit)
     sys.exit(app.exec())
+
 
 if __name__ == "__main__":
     main()

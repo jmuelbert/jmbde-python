@@ -116,7 +116,7 @@ plugins:
       timezone: Europe/Berlin
       enable_creation_date: true
       fallback_to_build_date: true
-      
+
 extra:
   alternate:
     - name: English
@@ -134,17 +134,17 @@ extra:
 
 nav:
   - English:
-    - en/index.md
-    - en/installation.md
+      - en/index.md
+      - en/installation.md
     # ... other English pages
   - Deutsch:
-    - de/index.md
-    - de/installation.md
+      - de/index.md
+      - de/installation.md
     # ... other German pages
   - Italiano:
-    - it/index.md
-    - it/installation.md
+      - it/index.md
+      - it/installation.md
     # ... other Italian pages
   - Español:
-    - es/index.md
-    - es/installation.md
+      - es/index.md
+      - es/installation.md

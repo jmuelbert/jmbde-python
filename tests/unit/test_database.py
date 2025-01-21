@@ -1,5 +1,5 @@
-from database import Database
 import pytest
+from database import Database
 
 
 @pytest.fixture

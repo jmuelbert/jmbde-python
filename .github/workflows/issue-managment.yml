@@ -166,7 +166,7 @@ jobs:
         uses: actions/stale@v9
         with:
           stale-issue-message: "This issue hasn't had recent activity."
-          close-issue-message: "Closing due to inactivity."
+          close-issue-message: 'Closing due to inactivity.'
           days-before-stale: 30
           days-before-close: 7
           exempt-issue-labels: 'priority-high,security,pinned'

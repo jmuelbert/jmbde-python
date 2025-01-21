@@ -68,19 +68,18 @@ path = "src/jmbde/__about__.py"
 packages = ["src/jmbde"]
 macos-max-compat = true
 
-[tool.hatch.envs.default]
-dependencies = ["pytest", "pytest-cov"]
 
 [[tool.hatch.envs.test.matrix]]
 python = ["3.9", "3.10", "3.11", "3.12"]
 
 [tool.hatch.envs.test]
 dependencies = [
-  "coverage>=6.2",,
+  "coverage>=6.2",
   "pytest>=7.4.0",
   "pytest-qt>=4.0.0",
   "pytest-xvfb>=3.0.0",
   "pytest-cov>=4.1.0",
+  "pytest-screenshot-on-failure>=1.0.0",
   "pytest-timeout>=2.3.1",
   "pytest-randomly>=3.15.0",
   "typeguard>=4.1.5",
@@ -99,19 +98,17 @@ dependencies = [
     "ruff>=0.3.0",
     "black>=24.2.0",
     "mypy>=1.8.0",
+    "bandit>=1.7.8",
     "pylint>=3.0.0",
     "pylint-pytest>=1.1.2",
-    "bandit>=1.7.8",
-    "isort>=5.13.2",
-    "yamllint>=1.35.1",
+    "safety>=2.3.0",
+    "cyclonedx-bom>=3.11.0",
+    "pyside6=>6.5.0",
     "codespell>=2.3.0",
-    "commitlint-pre-commit>=9.20.0",
     "pip-audit>=2.7.3",
-    "pyupgrade>=3.19.1",
-    "markdownlint-cli>=0.39.0",
-    "actionlint>=1.7.6",
     "reuse>=5.0.2",
-    "gitleaks>=8.22.1",
+    "codespell>=2.3.0",
+    "markdownlint-cli>=0.39.0",
 ]
 
 [tool.hatch.envs.lint.scripts]
@@ -119,15 +116,20 @@ style = [
     "ruff check .",
     "ruff format .",
     "black --check .",
-    "isort --check-only .",
     "pyside6-qmllint src/jmbde/qml/**"
 ]
-typing = "mypy src tests"
-security = ["bandit -c pyproject.toml -r src", "pip-audit"]
+typing = "mypy src tests --strict --warn-unused-configs"
+security = [
+    "bandit -r src -ll",
+    "safety check",
+    "pip-audit",
+    "cyclonedx-bom -r .github/workflow/requirements.txt -o bom.xml"
+]
 lint = "pylint src tests"
 spelling = "codespell"
 markdown = "markdownlint **/*.md"
 license = "reuse lint"
+prcommit = "pre-commit run --all-files"
 all = ["style", "typing", "security", "lint", "spelling", "markdown", "license"]
 
 [tool.hatch.envs.docs]
@@ -158,12 +160,22 @@ source_pkgs = ["jmbde", "tests"]
 omit = ["src/jmbde/__about__.py"]
 
 [tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "pass",
+    "raise ImportError",
+]
+fail_under = 90
 show_missing = true
-fail_under = 80                                                               # Updated to a more ambitious threshold.
-exclude_lines = ["no cov", "if __name__ == .__main__.:", "if TYPE_CHECKING:"]
 
 [tool.ruff]
 fix = true
+line-length = 88
+unfixable = ["F401", "F841"]  # Don't auto-remove unused imports
 
 [tool.ruff.format]
 docstring-code-line-length = 100
@@ -172,6 +184,8 @@ docstring-code-line-length = 100
 select = ["ALL"]
 ignore = [
   "B027",   # Allow non-abstract empty methods in abstract base classes.
+  "D203",
+  "D212",
   "S101",   # Allow `assert` usage for testing.
   "SIM105", # Suppress complex contextlib suggestions.
   "RET503", # Missing explicit return at the end of functions.
@@ -188,10 +202,16 @@ ignore = [
 "tests/**/*.py" = ["S101", "FBT", "INP001", "D", "S603", "PLR2004"]
 "*.py" = ["Q000"]                                                   # Example: Ignore specific PyQt warnings
 
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+
 [tool.bandit]
 exclude_dirs = ["tests", "scripts"]
 targets = ["src"]
 skips = ["B101"]
+
+[tool.bandit.assert_used]
+skips = ["*_test.py", "*/test_*.py"]
 
 [tool.gitleaks]
 enable-rules = [
@@ -208,6 +228,12 @@ allow-paths = [
 [tool.black]
 target-version = ['py311']
 line-length = 88
+include = '\.pyi?$'
+extend-exclude = '''
+# A regex preceded with ^/ will apply only to files and directories
+# in the root of the project.
+^/tests/data/
+'''
 
 [tool.markdownlint]
 MD013 = false  # Line length
@@ -217,8 +243,17 @@ MD041 = false  # First line in file should be a top level
 [tool.mypy]
 python_version = "3.11"
 strict = true
-ignore_missing_imports = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
 warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
 
 [tool.pytest.ini_options]
 minversion = "6.0"
@@ -241,20 +276,23 @@ line-length = { max = 100, allow-non-breakable-inline-mappings = true }
 quoted-strings = { quote-type = "double", required = false }
 truthy = { allowed-values = ["true", "false"] }
 
-[tool.xdoctest]
-style = "google"
-
 [tool.pylint]
-max-args = 12
-max-branches = 20 # Reduced to encourage simpler methods.
-max-returns = 6 # Lowered to improve code clarity.
-max-statements = 50 # Maximum number of nested blocks for function / method body
-max-nested-blocks = 5
+max-line-length = 88
 disable = [
-  "C0111", # missing-docstring
-  "C0103", # invalid-name
-  "C0330", # wrong-hanging-indentation
+    "C0111",  # missing-docstring
+    "R0903",  # too-few-public-methods
 ]
+good-names = ["i", "j", "k", "ex", "Run", "_"]
+max-args = 5
+max-attributes = 7
+max-bool-expr = 5
+max-branches = 12
+max-locals = 15
+max-parents = 7
+max-public-methods = 20
+max-returns = 6
+max-statements = 50
+min-public-methods = 2
 
 [tool.codespell]
 skip = """
@@ -294,7 +332,7 @@ ignore-words-list = """
 """
 check-filenames = true
 check-hidden = false
-builtin = clear,rare,code,informal
+builtin = "clear, rare, code, informal"
 quiet-level = 3
 count = true
 uri = true
@@ -321,43 +359,8 @@ checks = [
   "consistency.spelling",
 ]
 
-[tool.typos]
-type = "commonmistakes"
-default.extend-identifiers = [
-  "Pyside", # Correct: PySide
-  "Pyqt",   # Correct: PyQt
-]
-default.extend-words = [
-  "cant",  # Correct: can't
-  "dont",  # Correct: don't
-  "isnt",  # Correct: isn't
-  "wasnt", # Correct: wasn't
-]
-files.extend-exclude = ["LICENSES/*", "*.ui", "*.qrc", "*.ts"]
-
-[tool.yamllint]
-extends = "default"
-strict = true
-
-rules = {
-    document-start = {
-        # Only override non-default settings
-    },
-line-length = {
-        max = 100,  # Stricter than defaultallow-non-breakable-words = true,
-    },
-quoted-strings = {
-        quote-type = "double",  # Enforce double quotesrequired = false,
-    },
-truthy = {
-        allowed-values = ["true", "false"],  # Strict boolean values    }
-}
-
-present = true                                                               # Enforce document start marker
-allow-non-breakable-inline-mappings = true
-extra-required = ["^[ ]*password:.*$", "^[ ]*.*secret.*$", "^[ ]*token:.*$"]
-check-keys = true
-ignore = ["LICENSES/", ".github/workflows/", "assets/translations/"]
+[tool.xdoctest]
+style = "google"
 
 [tool.sqlfluff]
-dialect = ansi
+dialect = "ansi"

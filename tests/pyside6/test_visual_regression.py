@@ -1,7 +1,9 @@
 """Visual regression tests for UI components."""
+
 import pytest
 from PySide6.QtCore import Qt
 from PySide6.QtTest import QTest
+
 
 def test_main_window_appearance(qtbot, screenshot):
     """Test the appearance of the main window."""
@@ -17,6 +19,7 @@ def test_main_window_appearance(qtbot, screenshot):
     # Take screenshot and compare
     screenshot.assert_screenshot(window, "main_window")
 
+
 def test_employee_dialog(qtbot, screenshot):
     """Test the employee dialog appearance."""
     from src.jmbde.gui.employee_dialog import EmployeeDialog
@@ -31,6 +34,7 @@ def test_employee_dialog(qtbot, screenshot):
 
     # Take screenshot
     screenshot.assert_screenshot(dialog, "employee_dialog_filled")
+
 
 @pytest.mark.parametrize("theme", ["light", "dark"])
 def test_theme_switching(qtbot, screenshot, theme):

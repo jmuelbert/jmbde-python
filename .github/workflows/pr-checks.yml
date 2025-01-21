@@ -12,12 +12,6 @@ on: # yamlint disable-line rule:truthy
       - develop
       - feature/**
       - bugfix/**
-    paths-ignore:
-      - '**.md'
-      - docs/**
-      - .github/*.md
-      - LICENSE
-      - LICENSES/**
 
 permissions:
   contents: read
@@ -354,12 +348,11 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: pip
           cache-dependency-path: |
-            requirements.txt
+            .github/workflows/requirements.txt
             pyproject.toml
 
       - name: 🛠️ Install Dependencies
         run: |
-          python -m pip install --upgrade pip==24.3.1 wheel==0.45.1
           pip install -r .github/workflows/requirements.txt
 
       - name: 🎨 Setup Qt Dependencies
@@ -380,8 +373,7 @@ jobs:
 
       - name: ⚙️ Setup Pre-commit
         run: |
-          pre-commit install
-          pre-commit run --all-files
+          hatch run lint:prcommit
 
       - name: 🧪 Run Tests
         run: hatch run test:test
@@ -439,12 +431,11 @@ jobs:
           python-version-file: ${{ env.PYTHON_VERSION_FILE }}
           cache: pip
           cache-dependency-path: |
-            requirements.txt
+            .github/workflows/requirements.txt
             pyproject.toml
 
       - name: 🛠️ Install Dependencies
         run: |
-          python -m pip install --upgrade pip
           pip install -r .github/workflows/requirements.txt
 
       - name: 📦 Cache Pre-commit
@@ -471,7 +462,7 @@ jobs:
           hatch run lint:security || echo "security=failed" >> "$GITHUB_OUTPUT"
 
           echo "Running pre-commit checks..."
-          hatch run lint:all || echo "precommit=failed" >> "$GITHUB_OUTPUT"
+          hatch run lint:prcommit || echo "precommit=failed" >> "$GITHUB_OUTPUT"
 
       - name: 📊 Generate Report
         if: always()
@@ -576,8 +567,7 @@ jobs:
 
       - name: 🔧 Install Dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r .github/workflows/requirements.txt
 
       - name: 🔍 Security Analysis
         run: |
@@ -752,44 +742,44 @@ jobs:
       - name: 📊 Generate Report
         if: always()
         run: |
-              {
-                echo "## 📝 Spell Check Report"
-                echo ""
-                echo "### CodeSpell Results:"
-                if [ -s codespell.txt ]; then
-                  cat codespell.txt
-                else
-                  echo "No issues found"
-                fi
+          {
+            echo "## 📝 Spell Check Report"
+            echo ""
+            echo "### CodeSpell Results:"
+            if [ -s codespell.txt ]; then
+              cat codespell.txt
+            else
+              echo "No issues found"
+            fi
 
-                echo -e "\n### CSpell Results:"
-                if [ -s cspell.txt ]; then
-                  cat cspell.txt
-                else
-                  echo "No issues found"
-                fi
+            echo -e "\n### CSpell Results:"
+            if [ -s cspell.txt ]; then
+              cat cspell.txt
+            else
+              echo "No issues found"
+            fi
 
-                if [ -f "changed_files.txt" ]; then
-                  echo -e "\n### Files with Automatic Fixes:"
-                  while IFS= read -r file; do
-                    echo "- \`$file\`"
-                  done < changed_files.txt
-                fi
-              } > spell_check_report.md
+            if [ -f "changed_files.txt" ]; then
+              echo -e "\n### Files with Automatic Fixes:"
+              while IFS= read -r file; do
+                echo "- \`$file\`"
+              done < changed_files.txt
+            fi
+          } > spell_check_report.md
 
       - name: 💬 Add PR Comment
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v7
         with:
           script: |
-                    const fs = require('fs');
-                    const report = fs.readFileSync('spell_check_report.md', 'utf8');
+            const fs = require('fs');
+            const report = fs.readFileSync('spell_check_report.md', 'utf8');
 
-                    await github.rest.issues.createComment({
-                      ...context.repo,
-                       issue_number: context.payload.pull_request.number,
-                       body: report
-                    });
+            await github.rest.issues.createComment({
+              ...context.repo,
+               issue_number: context.payload.pull_request.number,
+               body: report
+            });
 
       - name: 🔄 Create Fix PR
         if: steps.spell-check.outputs.changes == 'true'
@@ -876,7 +866,7 @@ jobs:
       - name: 🔍 Quality Check
         run: |
           python docs/scripts/doc_quality.py
-        continue-on-error: true  # Optional: Don't fail the build for quality issues
+        continue-on-error: true # Optional: Don't fail the build for quality issues
 
       - name: 📊 Translation Status
         id: translations
@@ -956,27 +946,27 @@ jobs:
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
-             const summary = `## 🔍 PR Check Results
+            const summary = `## 🔍 PR Check Results
 
-             ### Test Coverage: ${{ needs.test.outputs.coverage }}%
-             - Validate: ${needs.validate.result}
-             - Status: ${needs.test.result}
-             - Linting: ${needs.lint.result}
-             - Security: ${needs.security.result}
-             - Docs: ${needs.docs.result}
+            ### Test Coverage: ${{ needs.test.outputs.coverage }}%
+            - Validate: ${needs.validate.result}
+            - Status: ${needs.test.result}
+            - Linting: ${needs.lint.result}
+            - Security: ${needs.security.result}
+            - Docs: ${needs.docs.result}
 
-             ### Details
-             - [Coverage Report](https://codecov.io/gh/${{ github.repository }})
-             - [Test Results](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
-             `;
+            ### Details
+            - [Coverage Report](https://codecov.io/gh/${{ github.repository }})
+            - [Test Results](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            `;
 
-             if (context.payload.pull_request) {
-               await github.rest.issues.createComment({
-                 ...context.repo,
-                 issue_number: context.payload.pull_request.number,
-                 body: summary
-               });
-             }
+            if (context.payload.pull_request) {
+              await github.rest.issues.createComment({
+                ...context.repo,
+                issue_number: context.payload.pull_request.number,
+                body: summary
+              });
+            }
 
       - name: 🚨 Check Status
         if: needs.test.result != 'success' || needs.lint.result != 'success' || needs.security.result != 'success'

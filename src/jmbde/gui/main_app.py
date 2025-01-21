@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-"""Main Application Logic Module for JMBDE
+"""
+Main Application Logic Module for JMBDE
 
 This module provides the main application logic and business operations
 for the JMBDE application, serving as a bridge between the UI and data layers.
@@ -9,8 +10,8 @@ Copyright (C) 2018-2024 Jürgen Mülbert
 License: GPL-3.0
 """
 
-from datetime import datetime
 import logging
+from datetime import datetime
 from typing import Any, Optional
 
 from PySide6.QtCore import QObject, Signal, Slot
@@ -26,7 +27,8 @@ logger = logging.getLogger(__name__)
 
 
 class MainApp(QObject):
-    """Main application logic handler for JMBDE.
+    """
+    Main application logic handler for JMBDE.
 
     Provides business logic and operations coordination between
     the UI layer and data management components.
@@ -46,7 +48,8 @@ class MainApp(QObject):
         settings: Optional[Settings] = None,
         parent: Optional[QObject] = None,
     ) -> None:
-        """Initialize the main application handler.
+        """
+        Initialize the main application handler.
 
         Args:
         ----
@@ -73,7 +76,8 @@ class MainApp(QObject):
         phone: str,
         department: str,
     ) -> bool:
-        """Add a new employee to the system.
+        """
+        Add a new employee to the system.
 
         Args:
         ----
@@ -83,7 +87,7 @@ class MainApp(QObject):
             phone: Phone number
             department: Department name
 
-        Returns
+        Returns:
         -------
             bool: True if operation was successful
 
@@ -149,7 +153,8 @@ class MainApp(QObject):
         department: str,
         active: bool = True,
     ) -> bool:
-        """Update existing employee information.
+        """
+        Update existing employee information.
 
         Args:
         ----
@@ -161,7 +166,7 @@ class MainApp(QObject):
             department: Updated department
             active: Employee status
 
-        Returns
+        Returns:
         -------
             bool: True if operation was successful
 
@@ -215,13 +220,14 @@ class MainApp(QObject):
 
     @Slot(int, result=bool)
     def delete_employee(self, emp_id: int) -> bool:
-        """Delete an employee from the system.
+        """
+        Delete an employee from the system.
 
         Args:
         ----
             emp_id: Employee ID to delete
 
-        Returns
+        Returns:
         -------
             bool: True if operation was successful
 
@@ -263,7 +269,8 @@ class MainApp(QObject):
 
     @Slot(result=list)
     def get_departments(self) -> list[str]:
-        """Get list of all departments.
+        """
+        Get list of all departments.
 
         Returns
         -------
@@ -279,7 +286,8 @@ class MainApp(QObject):
 
     @Slot(result=dict)
     def get_statistics(self) -> dict[str, Any]:
-        """Get application statistics.
+        """
+        Get application statistics.
 
         Returns
         -------

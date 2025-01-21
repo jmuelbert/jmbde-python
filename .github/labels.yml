@@ -1,162 +1,162 @@
 ---
 # Quality Check Labels
 - name: quality-checks-passed
-  color: "0E8A16"
-  description: "All quality checks passed"
+  color: '0E8A16'
+  description: 'All quality checks passed'
 - name: needs-formatting
-  color: "FFA500"
-  description: "Code needs formatting improvements"
+  color: 'FFA500'
+  description: 'Code needs formatting improvements'
 - name: needs-types
-  color: "D93F0B"
-  description: "Type annotations need attention"
+  color: 'D93F0B'
+  description: 'Type annotations need attention'
 - name: security-review
-  color: "B60205"
-  description: "Security issues need review"
+  color: 'B60205'
+  description: 'Security issues need review'
 
 # Status Labels
 - name: bug
-  color: "d73a4a"
+  color: 'd73a4a'
   description: "Something isn't working"
 - name: documentation
-  color: "0075ca"
-  description: "Documentation improvements needed"
+  color: '0075ca'
+  description: 'Documentation improvements needed'
 - name: enhancement
-  color: "a2eeef"
-  description: "New feature or request"
+  color: 'a2eeef'
+  description: 'New feature or request'
 - name: good first issue
-  color: "7057ff"
-  description: "Good for newcomers"
+  color: '7057ff'
+  description: 'Good for newcomers'
 - name: help wanted
-  color: "008672"
-  description: "Extra attention is needed"
+  color: '008672'
+  description: 'Extra attention is needed'
 
 # Priority Labels
 - name: priority-critical
-  color: "b60205"
-  description: "Needs immediate attention"
+  color: 'b60205'
+  description: 'Needs immediate attention'
 - name: priority-high
-  color: "d93f0b"
-  description: "Needs attention soon"
+  color: 'd93f0b'
+  description: 'Needs attention soon'
 - name: priority-medium
-  color: "fbca04"
-  description: "Needs attention when possible"
+  color: 'fbca04'
+  description: 'Needs attention when possible'
 - name: priority-low
-  color: "0e8a16"
-  description: "Nice to have"
+  color: '0e8a16'
+  description: 'Nice to have'
 
 # Process Labels
 - name: duplicate
-  color: "cfd3d7"
-  description: "This issue or PR already exists"
+  color: 'cfd3d7'
+  description: 'This issue or PR already exists'
 - name: invalid
-  color: "e4e669"
+  color: 'e4e669'
   description: "This doesn't seem right"
 - name: wontfix
-  color: "ffffff"
-  description: "This will not be worked on"
+  color: 'ffffff'
+  description: 'This will not be worked on'
 - name: stale
-  color: "fbca04"
-  description: "No recent activity"
+  color: 'fbca04'
+  description: 'No recent activity'
 
 # Automation Labels
 - name: automation
-  color: "0075ca"
-  description: "Related to GitHub Actions or automation"
+  color: '0075ca'
+  description: 'Related to GitHub Actions or automation'
 - name: dependencies
-  color: "0366d6"
-  description: "Pull requests that update a dependency file"
+  color: '0366d6'
+  description: 'Pull requests that update a dependency file'
 - name: github_actions
-  color: "000000"
-  description: "Pull requests that update GitHub Actions code"
+  color: '000000'
+  description: 'Pull requests that update GitHub Actions code'
 
 # Review Labels
 - name: needs-review
-  color: "fbca04"
-  description: "Needs code review"
+  color: 'fbca04'
+  description: 'Needs code review'
 - name: approved
-  color: "0e8a16"
-  description: "Approved by reviewers"
+  color: '0e8a16'
+  description: 'Approved by reviewers'
 - name: changes-requested
-  color: "d93f0b"
-  description: "Changes requested in review"
+  color: 'd93f0b'
+  description: 'Changes requested in review'
 
 # Testing Labels
 - name: needs-tests
-  color: "d93f0b"
-  description: "More tests needed"
+  color: 'd93f0b'
+  description: 'More tests needed'
 - name: tests-failing
-  color: "b60205"
-  description: "Test suite is failing"
+  color: 'b60205'
+  description: 'Test suite is failing'
 - name: tests-passing
-  color: "0e8a16"
-  description: "All tests passing"
+  color: '0e8a16'
+  description: 'All tests passing'
 
 # Documentation Labels
 - name: needs-docs
-  color: "0075ca"
-  description: "Documentation updates needed"
+  color: '0075ca'
+  description: 'Documentation updates needed'
 - name: docs-approved
-  color: "0e8a16"
-  description: "Documentation has been approved"
+  color: '0e8a16'
+  description: 'Documentation has been approved'
 
 # Size Labels
 - name: size/XS
-  color: "009900"
-  description: "Extra small change"
+  color: '009900'
+  description: 'Extra small change'
 - name: size/S
-  color: "77bb00"
-  description: "Small change"
+  color: '77bb00'
+  description: 'Small change'
 - name: size/M
-  color: "eebb00"
-  description: "Medium change"
+  color: 'eebb00'
+  description: 'Medium change'
 - name: size/L
-  color: "ee9900"
-  description: "Large change"
+  color: 'ee9900'
+  description: 'Large change'
 - name: size/XL
-  color: "ee5500"
-  description: "Extra large change"
+  color: 'ee5500'
+  description: 'Extra large change'
 
 # Type Labels
 - name: type/bug
-  color: "d73a4a"
-  description: "Bug fix"
+  color: 'd73a4a'
+  description: 'Bug fix'
 - name: type/feature
-  color: "0075ca"
-  description: "New feature"
+  color: '0075ca'
+  description: 'New feature'
 - name: type/maintenance
-  color: "fef2c0"
-  description: "Repository maintenance"
+  color: 'fef2c0'
+  description: 'Repository maintenance'
 - name: type/security
-  color: "b60205"
-  description: "Security fix"
+  color: 'b60205'
+  description: 'Security fix'
 - name: type/testing
-  color: "0e8a16"
-  description: "Testing improvements"
+  color: '0e8a16'
+  description: 'Testing improvements'
 - name: type/ci
-  color: "0075ca"
-  description: "CI/CD improvements"
+  color: '0075ca'
+  description: 'CI/CD improvements'
 
 # Language Labels
 - name: lang/python
-  color: "3572A5"
-  description: "Python related changes"
+  color: '3572A5'
+  description: 'Python related changes'
 - name: lang/markdown
-  color: "083fa1"
-  description: "Markdown related changes"
+  color: '083fa1'
+  description: 'Markdown related changes'
 - name: lang/yaml
-  color: "cb171e"
-  description: "YAML related changes"
+  color: 'cb171e'
+  description: 'YAML related changes'
 
 # Area Labels
 - name: area/ci
-  color: "0075ca"
-  description: "Changes to CI configuration"
+  color: '0075ca'
+  description: 'Changes to CI configuration'
 - name: area/testing
-  color: "0e8a16"
-  description: "Changes to tests"
+  color: '0e8a16'
+  description: 'Changes to tests'
 - name: area/docs
-  color: "0075ca"
-  description: "Changes to documentation"
+  color: '0075ca'
+  description: 'Changes to documentation'
 - name: area/dependencies
-  color: "0366d6"
-  description: "Changes to dependencies"
+  color: '0366d6'
+  description: 'Changes to dependencies'

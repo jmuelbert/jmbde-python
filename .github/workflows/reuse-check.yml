@@ -63,10 +63,11 @@ jobs:
       - name: ⚙️ Setup Python
         uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
         with:
-          python-version-file: .python-version # Read python version from a file .python-version
-          check-latest: true
+          python-version-file: ${{ env.PYTHON_VERSION_FILE }}
           cache: pip
-          cache-dependency-path: '**/pyproject.toml'
+          cache-dependency-path: |
+            pyproject.toml
+            .github/workflows/requirements.txt
 
       - name: 🛠️ Install REUSE Tool
         run: |

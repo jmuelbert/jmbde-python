@@ -2,7 +2,7 @@ name: Repository Maintenance
 
 on:
   schedule:
-    - cron: '0 0 * * 0'  # Run at midnight every Sunday
+    - cron: '0 0 * * 0' # Run at midnight every Sunday
   workflow_dispatch:
 
 permissions:
@@ -84,8 +84,8 @@ jobs:
         id: lock
         uses: dessant/lock-threads@v5
         with:
-          issue-inactive-days: 182  # 6 months
-          pr-inactive-days: 90      # 3 months
+          issue-inactive-days: 182 # 6 months
+          pr-inactive-days: 90 # 3 months
           issue-comment: |
             This issue has been locked due to 6 months of inactivity.
             Please open a new issue if you have a similar problem.

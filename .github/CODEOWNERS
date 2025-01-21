@@ -24,7 +24,7 @@
 *                             @jmuelbert
 # Source Files
 /src/jmbde                    @jmuelbert
-# Config    
+# Config
 *.yml                         @jmuelbert
 *.yaml                        @jmuelbert
 *.toml                        @jmuelbert

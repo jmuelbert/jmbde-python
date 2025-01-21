@@ -22,52 +22,52 @@ documentation:
   # Add 'documentation' label to any changes in documentation files
   - label: documentation
     paths:
-      - docs/**/*              # Matches all files in the 'docs' directory
-      - '**/*.md'              # Matches all markdown files
-      - .github/**/*.md        # Matches markdown files in the '.github' directory
+      - docs/**/* # Matches all files in the 'docs' directory
+      - '**/*.md' # Matches all markdown files
+      - .github/**/*.md # Matches markdown files in the '.github' directory
 
 dependencies:
   # Add 'dependencies' label to any changes in dependency files
   - label: dependencies
     paths:
-      - requirements*.txt      # Matches requirement files
-      - pyproject.toml         # Matches Python project configuration file
-      - poetry.lock            # Matches Poetry lock file
+      - requirements*.txt # Matches requirement files
+      - pyproject.toml # Matches Python project configuration file
+      - poetry.lock # Matches Poetry lock file
 
 testing:
   # Add 'testing' label to any changes in test files
   - label: testing
     paths:
-      - tests/**/*             # Matches all files in the 'tests' directory
-      - pytest.ini             # Matches pytest configuration file
-      - conftest.py            # Matches pytest's conftest file
+      - tests/**/* # Matches all files in the 'tests' directory
+      - pytest.ini # Matches pytest configuration file
+      - conftest.py # Matches pytest's conftest file
 
 ci:
   # Add 'ci' label to any changes in CI configuration files
   - label: ci
     paths:
-      - .github/workflows/*    # Matches all workflow files in the '.github/workflows' directory
-      - .github/actions/*      # Matches custom GitHub actions in the '.github/actions' directory
+      - .github/workflows/* # Matches all workflow files in the '.github/workflows' directory
+      - .github/actions/* # Matches custom GitHub actions in the '.github/actions' directory
 
 security:
   # Add 'security' label to any changes in security-related files
   - label: security
     paths:
-      - security/**/*          # Matches all files in the 'security' directory
-      - '**/*security*.md'     # Matches markdown files with 'security' in the name
+      - security/**/* # Matches all files in the 'security' directory
+      - '**/*security*.md' # Matches markdown files with 'security' in the name
 
 source:
   # Add 'source' label to any changes to source files within the 'src' directory, excluding the 'docs' sub-folder
   - label: source
     paths:
-      - src/**/*               # Matches all files in the 'src' directory
-      - '!src/docs/**/*'       # Excludes the 'src/docs' directory
+      - src/**/* # Matches all files in the 'src' directory
+      - '!src/docs/**/*' # Excludes the 'src/docs' directory
 
 feature:
   # Add 'feature' label to any PR where the head branch name starts with 'feature'
   - label: feature
     branches:
-      - feature/*              # Matches branches starting with 'feature/'
+      - feature/* # Matches branches starting with 'feature/'
 
 release:
   # Add 'release' label to any PR that is opened against the 'main' branch

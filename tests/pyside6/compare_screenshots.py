@@ -1,8 +1,11 @@
 """Compare screenshots for visual regression testing."""
+
 from pathlib import Path
+
 import cv2
 import numpy as np
 from PIL import Image
+
 
 def compare_screenshots(baseline_path: Path, current_path: Path, diff_path: Path):
     """Compare two screenshots and generate a diff image."""
@@ -25,6 +28,7 @@ def compare_screenshots(baseline_path: Path, current_path: Path, diff_path: Path
 
     return True, "Images match"
 
+
 def main():
     """Main function to compare screenshots."""
     baseline_dir = Path("tests/pyside6/baseline_screenshots")
@@ -39,7 +43,7 @@ def main():
             match, message = compare_screenshots(
                 baseline,
                 current,
-                diff_dir / f"diff_{baseline.name}"
+                diff_dir / f"diff_{baseline.name}",
             )
             results.append((baseline.name, match, message))
 
@@ -49,6 +53,7 @@ def main():
         for name, match, message in results:
             status = "✅" if match else "❌"
             f.write(f"- {status} {name}: {message}\n")
+
 
 if __name__ == "__main__":
     main()

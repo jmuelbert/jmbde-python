@@ -51,11 +51,11 @@ jobs:
       - name: 🐍 Setup Python
         uses: actions/setup-python@v5
         with:
-           python-version: ${{ matrix.python-version }}
-           cache: pip
-           cache-dependency-path: |
-             pyproject.toml
-             .github/workflows/requirements.txt
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: |
+            pyproject.toml
+            .github/workflows/requirements.txt
 
       - name: 🎨 Setup Linux Display
         if: runner.os == 'Linux'
@@ -124,9 +124,9 @@ jobs:
           script: |
             const fs = require('fs');
             const testResults = require('./test-results/junit.xml');
-            
+
             let summary = `## 🖼️ UI Test Results - ${process.env.RUNNER_OS}\n\n`;
-            
+
             const stats = {
               total: testResults.testsuites.$.tests,
               failures: testResults.testsuites.$.failures,
@@ -134,7 +134,7 @@ jobs:
               skipped: testResults.testsuites.$.skipped,
               time: testResults.testsuites.$.time
             };
-            
+
             summary += `### Statistics\n`;
             summary += `- Total Tests: ${stats.total}\n`;
             summary += `- Passed: ${stats.total - stats.failures - stats.errors - stats.skipped}\n`;
@@ -142,7 +142,7 @@ jobs:
             summary += `- Errors: ${stats.errors}\n`;
             summary += `- Skipped: ${stats.skipped}\n`;
             summary += `- Duration: ${stats.time}s\n\n`;
-            
+
             if (stats.failures > 0 || stats.errors > 0) {
               summary += `### Failures and Errors\n`;
               testResults.testsuites.testsuite.forEach(suite => {
@@ -154,7 +154,7 @@ jobs:
                 });
               });
             }
-            
+
             // Add to PR if this is a pull request
             if (context.payload.pull_request) {
               await github.rest.issues.createComment({
@@ -168,7 +168,7 @@ jobs:
     name: Visual Regression Tests
     needs: ui-tests
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: 📥 Checkout
         uses: actions/checkout@v4
@@ -180,17 +180,18 @@ jobs:
 
       - name: 🔧 Install Dependencies
         run: |
-          pip install -r requirements.txt
-          pip install pytest-qt pytest-screenshot
+          pip install -r .github/workflows/requirements.txt
+          hatch create env test
 
       - name: 📸 Run Visual Tests
         run: |
-          pytest tests/pyside6/test_visual_regression.py \
+          hatch run python -m pytest \
+            tests/pyside6/test_visual_regression.py \
             --screenshot-on-failure
 
       - name: 📊 Compare Screenshots
         run: |
-          python tests/pyside6/compare_screenshots.py
+          hatch run python tests/pyside6/compare_screenshots.py
 
       - name: 📦 Upload Visual Test Results
         if: always()
