@@ -1,55 +1,55 @@
----
-# Add 'root' label to any root file changes
-# Quotation marks are required for the leading asterisk
-'project':
-  - changed-files:
-      - any-glob-to-any-file: '*'
-      - all-globs-to-all-files: '!*.md'
-      # Add 'core' label to any change within the 'core' package
-core:
-  - src/core/**/*
+# SPDX-License-Identifier: MIT
 
-# Add 'ui' label to any change within the 'ui' package
-ui:
-  - src/ui/**/*
+# Labeler configuration
+# Applies labels to pull requests based on the files they modify or other rules
 
-# Add 'documentation' label to any change in documentation files
-documentation:
-  - docs/**/*
-  - '**/*.md'
-  - '.github/*.md'
+labels:
+  # Core types based on file changes
+  "type: fix":
+    - "src/**/*.py"
+    - "lib/**/*.py"
+    - "**/bugfix/**"
 
-# Add 'dependencies' label to any change in dependency files
-dependencies:
-  - requirements.txt
-  - requirements/*.txt
-  - pyproject.toml
-  - poetry.lock
+  "type: feature":
+    - "src/**/*.py"
+    - "lib/**/*.py"
+    - "**/feature/**"
 
-# Add 'testing' label to any change in test files
-testing:
-  - tests/**/*
-  - pytest.ini
-  - conftest.py
+  "type: docs":
+    - "docs/**/*.md"
+    - "**/README.md"
+    - "**/CONTRIBUTING.md"
+    - "**/*.rst"
 
-# Add 'ci' label to any change in CI configuration
-ci:
-  - .github/workflows/*
-  - .github/actions/*
+  "type: test":
+    - "tests/**/*.py"
+    - "**/test/**"
+    - "**/test_*.py"
 
-# Add 'security' label to any change in security-related files
-security:
-  - security/**/*
-  - '**/*security*.md'
- 
-# Add 'source' label to any change to src files within the source dir EXCEPT for the docs sub-folder
-'source':
-  - changed-files:
-      - any-glob-to-any-file: src/**/*
-      - all-globs-to-all-files: '!src/docs/**'
-# Add 'feature' label to any PR where the head branch name starts with `feature` or has a `feature` section in the name
-'feature':
-  - head-branch: [^feature, feature]
-# Add 'release' label to any PR that is opened against the `main` branch
-release:
-  - base-branch: release
+  # Status labels
+  "status: work-in-progress":
+    - "**/WIP/**"
+
+  "status: ready-for-review":
+    - "**/RFR/**"
+
+  # Security and other sensitive changes
+  "security":
+    - "src/security/**/*.py"
+    - "**/auth/**"
+    - "**/oauth/**"
+
+  "breaking":
+    - "**/*.py"
+    - "docs/release-notes/**/*.md"
+
+  "deprecation":
+    - "**/*.py"
+    - "docs/deprecations/**/*.md"
+
+  # PR size labels based on the workflow step
+  "size/xs": []
+  "size/s": []
+  "size/m": []
+  "size/l": []
+  "size/xl": []
