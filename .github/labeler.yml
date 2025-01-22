@@ -1,55 +1,50 @@
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: EUPL-1.2
 
 # Labeler configuration
-# Applies labels to pull requests based on the files they modify or other rules
+# Each label must have an array of file patterns it applies to
 
-labels:
-  # Core types based on file changes
-  "type: fix":
-    - "src/**/*.py"
-    - "lib/**/*.py"
-    - "**/bugfix/**"
+"type: fix":
+  - "src/**/*.py"
+  - "lib/**/*.py"
+  - "**/bugfix/**"
 
-  "type: feature":
-    - "src/**/*.py"
-    - "lib/**/*.py"
-    - "**/feature/**"
+"type: feature":
+  - "src/**/*.py"
+  - "lib/**/*.py"
+  - "**/feature/**"
 
-  "type: docs":
-    - "docs/**/*.md"
-    - "**/README.md"
-    - "**/CONTRIBUTING.md"
-    - "**/*.rst"
+"type: docs":
+  - "docs/**/*.md"
+  - "**/README.md"
+  - "**/CONTRIBUTING.md"
+  - "**/*.rst"
 
-  "type: test":
-    - "tests/**/*.py"
-    - "**/test/**"
-    - "**/test_*.py"
+"type: test":
+  - "tests/**/*.py"
+  - "**/test/**"
+  - "**/test_*.py"
 
-  # Status labels
-  "status: work-in-progress":
-    - "**/WIP/**"
+"status: work-in-progress":
+  - "**/WIP/**"
 
-  "status: ready-for-review":
-    - "**/RFR/**"
+"status: ready-for-review":
+  - "**/RFR/**"
 
-  # Security and other sensitive changes
-  "security":
-    - "src/security/**/*.py"
-    - "**/auth/**"
-    - "**/oauth/**"
+"security":
+  - "src/security/**/*.py"
+  - "**/auth/**"
+  - "**/oauth/**"
 
-  "breaking":
-    - "**/*.py"
-    - "docs/release-notes/**/*.md"
+"breaking":
+  - "**/*.py"
+  - "docs/release-notes/**/*.md"
 
-  "deprecation":
-    - "**/*.py"
-    - "docs/deprecations/**/*.md"
+"deprecation":
+  - "**/*.py"
+  - "docs/deprecations/**/*.md"
 
-  # PR size labels based on the workflow step
-  "size/xs": []
-  "size/s": []
-  "size/m": []
-  "size/l": []
-  "size/xl": []
+"size/xs": []
+"size/s": []
+"size/m": []
+"size/l": []
+"size/xl": []
