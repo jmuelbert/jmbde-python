@@ -24,6 +24,33 @@
   - "**/test/**"
   - "**/test_*.py"
 
+"type: chore":
+  - "**/build/**"
+  - "**/ci/**"
+  - "**/config/**"
+  - "**/scripts/**"
+
+"type: refactor":
+  - "src/**/*.py"
+  - "lib/**/*.py"
+  - "**/refactor/**"
+
+"type: style":
+  - "**/*.css"
+  - "**/*.scss"
+  - "**/*.sass"
+  - "**/*.less"
+
+"type: performance":
+  - "src/**/*.py"
+  - "lib/**/*.py"
+  - "**/perf/**"
+
+"type: build":
+  - "Dockerfile"
+  - "docker-compose.yml"
+  - "**/build/**"
+
 "status: work-in-progress":
   - "**/WIP/**"
 
@@ -42,6 +69,27 @@
 "deprecation":
   - "**/*.py"
   - "docs/deprecations/**/*.md"
+
+"ci":
+  - ".github/workflows/**/*.yml"
+
+"dependencies":
+  - "package.json"
+  - "package-lock.json"
+  - "poetry.lock"
+  - "requirements.txt"
+  - "**/dependencies/**"
+
+"infrastructure":
+  - "terraform/**/*.tf"
+  - "ansible/**/*.yml"
+  - "k8s/**/*.yaml"
+
+"documentation":
+  - "docs/**/*.md"
+  - "**/README.md"
+  - "**/CONTRIBUTING.md"
+  - "**/*.rst"
 
 "size/xs": []
 "size/s": []
