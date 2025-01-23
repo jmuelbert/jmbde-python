@@ -3,10 +3,11 @@
 # Labeler configuration
 # Each label must have an array of file patterns it applies to
 
-"type: fix":
-  - "src/**/*.py"
-  - "lib/**/*.py"
-  - "**/bugfix/**"
+"type":
+  - fix":
+    - "src/**/*.py"
+    - "lib/**/*.py"
+    - "**/bugfix/**"
 
 "type: feature":
   - "src/**/*.py"
