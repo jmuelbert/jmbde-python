@@ -43,8 +43,9 @@ jobs:
         id: settings
         run: |
           yq --version
-          SETTINGS=$(yq eval-all -o=json '.github/config/workflow-settings.yml')
-          echo "settings=$SETTINGS" >> $GITHUB_OUTPUT
+          SETTINGS=$(yq eval -o=json '.github.config.workflow-settings' .github/config/workflow-settings.yml)
+          echo "DEBUG: SETTINGS=$SETTINGS"
+          echo "settings=$SETTINGS" >> "$GITHUB_OUTPUT"
 
       - name: 🏷️ Sync Labels
         uses: EndBug/label-sync@v2
