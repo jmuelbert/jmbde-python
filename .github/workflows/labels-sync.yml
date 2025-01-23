@@ -43,7 +43,7 @@ jobs:
         id: settings
         run: |
           yq --version
-          SETTINGS=$(yq eval -o=json '.github.config.workflow-settings' .github/config/workflow-settings.yml)
+          SETTINGS=$(yq eval -o=json .github/config/workflow-settings.yml)
           echo "DEBUG: SETTINGS=$SETTINGS"
           echo "settings=$SETTINGS" >> "$GITHUB_OUTPUT"
 
