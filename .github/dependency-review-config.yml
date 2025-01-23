@@ -15,8 +15,6 @@ rules:
     action: warn
 
   - name: Block restricted licenses
-    on:
-      license: [AGPL-1]
     on: # yamllint disable-line rule:truthy
       license: [AGPL-1]
     action: fail
