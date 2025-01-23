@@ -38,6 +38,12 @@ jobs:
 
       - name: 📥 Checkout
         uses: actions/checkout@v4
+        
+      - name: 📚 Load Workflow Settings
+        id: settings
+        run: |
+          SETTINGS=$(yq eval-all -o=json '.github/config/workflow-settings.yml')
+          echo "settings=$SETTINGS" >> $GITHUB_OUTPUT
 
       - name: 🏷️ Sync Labels
         uses: EndBug/label-sync@v2
