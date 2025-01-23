@@ -1,4 +1,6 @@
 ---
+# SPDX-License-Identifier: EUPL-1.2
+#
 # Quality Check Labels
 - name: quality-checks-passed
   color: '0E8A16'
@@ -229,4 +231,3 @@
 - name: area/dependencies
   color: '0366d6'
   description: 'Changes to dependencies'
-  
