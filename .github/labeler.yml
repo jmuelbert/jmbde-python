@@ -142,6 +142,150 @@ ci:
     - ".circleci/**"
 
 # Dependencies
+# SPDX-License-Identifier: EUPL-1.2
+
+# Type Labels
+type-fix:
+  - any:
+    - "src/**/*.py"
+    - "lib/**/*.py"
+    - "**/bugfix/**"
+    - "**/hotfix/**"
+    - "**/patch/**"
+
+type-feature:
+  - any:
+    - "src/**/*.py"
+    - "lib/**/*.py"
+    - "**/feature/**"
+    - "**/feat/**"
+    - "**/enhancement/**"
+type-docs:
+  - any:
+    - "docs/**/*"
+    - "**/*.md"
+    - "**/*.rst"
+    - "**/*.txt"
+    - "mkdocs.yml"
+    - "**/*.ipynb"
+
+type-test:
+  - any:
+    - "tests/**/*.py"
+    - "**/test/**"
+    - "**/tests/**"
+    - "**/*_test.py"
+    - "**/test_*.py"
+    - "**/testing/**"
+    - "**/*.spec.py"
+
+type-chore:
+  - any:
+    - "**/build/**"
+    - "**/ci/**"
+    - "**/config/**"
+    - "**/scripts/**"
+    - ".github/**/*"
+    - ".gitignore"
+    - ".editorconfig"
+    - "LICENSE*"
+    - "NOTICE*"
+
+type-refactor:
+  - any:
+    - "src/**/*.py"
+    - "lib/**/*.py"
+    - "**/refactor/**"
+    - "**/cleanup/**"
+
+type-style:
+  - any:
+    - "**/*.css"
+    - "**/*.scss"
+    - "**/*.sass"
+    - "**/*.less"
+    - "**/*.html"
+    - "**/*.jinja"
+    - "**/*.j2"
+    - ".style.yapf"
+    - ".pylintrc"
+    -  "pyproject.toml"
+    - "setup.cfg"
+
+type-performance:
+  - any:
+    - "src/**/*.py"
+    - "lib/**/*.py"
+    - "**/perf/**"
+    - "**/benchmark/**"
+    - "**/optimizations/**"
+
+# Status Labels
+status/work-in-progress:
+  - any:
+    - "**/WIP/**"
+    - "**/draft/**"
+
+status/ready-for-review:
+  - any:  
+    - "**/RFR/**"
+    - "**/ready/**"
+
+status/blocked:
+  - any: 
+    - "**/blocked/**"
+    - "**/hold/**"
+
+status/needs-discussion:
+  - any:  
+    - "**/discuss/**"
+    - "**/proposal/**"
+    - "RFC.md"
+
+# Security Labels
+security:
+  - any:  
+    - "src/security/**/*.py"
+    - "**/auth/**"
+    - "**/oauth/**"
+    - "**/crypto/**"
+    - "**/password/**"
+    - "**/permission/**"
+    - "**/secret/**"
+    - "**/*security*/**"
+
+# Breaking Changes
+breaking:
+  - any:  
+    - "**/*.py"
+    - "**/*.pyi"
+    - "**/*.pyx"
+    - "**/*.pxd"
+    - "docs/breaking-changes/**"
+    - "docs/migrations/**"
+    - "docs/upgrades/**"
+
+# Deprecation
+deprecation:
+  - any:  
+    - "**/*.py"
+    - "**/*.pyi"
+    - "**/*.pyx"
+    - "**/*.pxd"
+    - "docs/deprecations/**"
+
+# CI/CD
+ci:
+  - any:  
+    - ".github/workflows/**"
+    - ".github/actions/**"
+    - ".gitlab-ci.yml"
+    - "azure-pipelines.yml"
+    - "Jenkinsfile"
+    - ".travis.yml"
+    - ".circleci/**"
+
+# Dependencies
 dependencies:
   - any:  
     - "requirements*.txt"
@@ -184,83 +328,28 @@ documentation:
 
 # Testing
 testing:
-  - any:  
-    - "tests/**"
-    - "**/test/**"
-    - "**/tests/**"
-    - "**/*_test.py"
-    - "**/test_*.py"
-    - "pytest.ini"
-    - "conftest.py"
-    - ".coveragerc"
+  - tests/**/*
+  - pytest.ini
+  - conftest.py
 
-# Database
-database:
-  - any:
-    - "**/migrations/**"
-    - "**/alembic/**"
-    - "**/*model*.py"
-    - "**/*schema*.py"
-    - "**/db/**"
+# Add 'ci' label to any change in CI configuration
+ci:
+  - .github/workflows/*
+  - .github/actions/*
 
-# API
-api:
-  - any:  
-    - "**/api/**"
-    - "**/rest/**"
-    - "**/graphql/**"
-    - "**/endpoints/**"
-    - "**/*controller*.py"
-    - "**/*view*.py"
-
-# UI/Frontend
-frontend:
-  - any:
-    - "**/templates/**"
-    - "**/static/**"
-    - "**/assets/**"
-    - "**/*.html"
-    - "**/*.css"
-    - "**/*.scss"
-    - "**/*.js"
-
-# Size Labels (handled by size-labeler action)
-size/xs:
-  - any: ['**/*']
-size/s:
-  - any: ['**/*']
-size/m:
-  - any: ['**/*']
-size/l:
-  - any: ['**/*']
-size/xl:
-  - any: ['**/*']
-
-# Priority
-priority/critical:
-  - any:  
-    - "**/hotfix/**"
-    - "**/emergency/**"
-    - "**/critical/**"
-
-priority/high:
-  - any:  
-    - "**/high-priority/**"
-    - "**/important/**"
-
-# Component Labels
-component/core:
-  - any:  
-    - "src/core/**"
-    - "lib/core/**"
-
-component/utils:
-  - any:  
-    - "src/utils/**"
-    - "lib/utils/**"
-
-component/cli:
-  - any:  
-    - "src/cli/**"
-    - "bin/**"
-    - "scripts/**"
+# Add 'security' label to any change in security-related files
+security:
+  - security/**/*
+  - '**/*security*.md'
+ 
+# Add 'source' label to any change to src files within the source dir EXCEPT for the docs sub-folder
+'source':
+  - changed-files:
+      - any-glob-to-any-file: src/**/*
+      - all-globs-to-all-files: '!src/docs/**'
+# Add 'feature' label to any PR where the head branch name starts with `feature` or has a `feature` section in the name
+'feature':
+  - head-branch: [^feature, feature]
+# Add 'release' label to any PR that is opened against the `main` branch
+release:
+  - base-branch: release
