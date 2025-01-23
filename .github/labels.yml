@@ -1,65 +1,232 @@
-# Labels names are important as they are used by Release Drafter to decide
-# regarding where to record them in changelog or if to skip them.
+---
+# SPDX-License-Identifier: EUPL-1.2
 #
-# The repository labels will be automatically configured using this file and
-# the GitHub Action https://github.com/marketplace/actions/github-labeler.
-- name: breaking
-  description: Breaking Changes
-  color: bfd4f2
+# Quality Check Labels
+- name: quality-checks-passed
+  color: '0E8A16'
+  description: 'All quality checks passed'
+- name: needs-formatting
+  color: 'FFA500'
+  description: 'Code needs formatting improvements'
+- name: needs-types
+  color: 'D93F0B'
+  description: 'Type annotations need attention'
+- name: security-review
+  color: 'B60205'
+  description: 'Security issues need review'
+
+# Status Labels
 - name: bug
-  description: Something isn't working
-  color: d73a4a
-- name: build
-  description: Build System and Dependencies
-  color: bfdadc
-- name: ci
-  description: Continuous Integration
-  color: 4a97d6
-- name: dependencies
-  description: Pull requests that update a dependency file
-  color: 0366d6
+  color: 'd73a4a'
 - name: documentation
-  description: Improvements or additions to documentation
-  color: 0075ca
-- name: duplicate
-  description: This issue or pull request already exists
-  color: cfd3d7
+  color: '0075ca'
+  description: 'Documentation improvements needed'
 - name: enhancement
-  description: New feature or request
-  color: a2eeef
-- name: github_actions
-  description: Pull requests that update GitHub_actions code
-  color: "000000"
+  color: 'a2eeef'
+  description: 'New feature or request'
 - name: good first issue
-  description: Good for newcomers
-  color: 7057ff
+  color: '7057ff'
+  description: 'Good for newcomers'
 - name: help wanted
-  description: Extra attention is needed
-  color: 008672
-- name: invalid
-  description: This doesn't seem right
-  color: e4e669
-- name: performance
-  description: Performance
-  color: "016175"
-- name: python
-  description: Pull requests that update Python code
-  color: 2b67c6
-- name: question
-  description: Further information is requested
-  color: d876e3
-- name: refactoring
-  description: Refactoring
-  color: ef67c4
-- name: removal
-  description: Removals and Deprecations
-  color: 9ae7ea
-- name: style
-  description: Style
-  color: c120e5
+  color: '008672'
+  description: 'Extra attention is needed'
+
+# Type Labels
+- name: type-fix
+  color: 'd73a4a'
+  description: 'Bug fixes and patches'
+- name: type-feature
+  color: '0075ca'
+  description: 'New feature implementation'
+- name: type-docs
+  color: '0075ca'
+  description: 'Documentation changes'
+- name: type-test
+  color: '0e8a16'
+  description: 'Test-related changes'
+- name: type-chore
+  color: 'fef2c0'
+  description: 'Maintenance and housekeeping'
+- name: type-refactor
+  color: '1d76db'
+  description: 'Code refactoring'
+- name: type-style
+  color: '2486e6'
+  description: 'Code style and formatting'
+- name: type-performance
+  color: '3366cc'
+  description: 'Performance improvements'
+- name: type-build
+  color: '4477dd'
+  description: 'Build system changes'
+- name: type-security
+  color: 'b60205'
+  description: 'Security-related changes'
+- name: type-ci
+  color: '0075ca'
+  description: 'CI/CD improvements'
+- name: type-maintenance
+  color: 'fef2c0'
+  description: 'Repository maintenance'
 - name: testing
-  description: Testing
-  color: b1fc6f
+  color: '0e8a16'
+  description: 'Testing improvements'
+
+# Status Labels
+- name: status/work-in-progress
+  color: 'fbca04'
+  description: 'Work in progress'
+- name: status/ready-for-review
+  color: '0e8a16'
+  description: 'Ready for review'
+- name: status/blocked
+  color: 'd93f0b'
+  description: 'Blocked by other work'
+- name: status/needs-discussion
+  color: 'cc317c'
+  description: 'Needs discussion'
+- name: status/has-conflicts
+  color: 'd93f0b'
+  description: 'Has merge conflicts'
+
+# Priority Labels
+- name: priority/critical
+  color: 'b60205'
+  description: 'Needs immediate attention'
+- name: priority/high
+  color: 'd93f0b'
+  description: 'Needs attention soon'
+- name: priority/medium
+  color: 'fbca04'
+  description: 'Needs attention when possible'
+- name: priority/low
+  color: '0e8a16'
+  description: 'Nice to have'
+
+# Size Labels
+- name: size/xs
+  color: '009900'
+  description: 'Extra small change (0-10 lines)'
+- name: size/s
+  color: '77bb00'
+  description: 'Small change (11-100 lines)'
+- name: size/m
+  color: 'eebb00'
+  description: 'Medium change (101-500 lines)'
+- name: size/l
+  color: 'ee9900'
+  description: 'Large change (501-1000 lines)'
+- name: size/xl
+  color: 'ee5500'
+  description: 'Extra large change (1000+ lines)'
+
+# Component Labels
+- name: component/core
+  color: '0366d6'
+  description: 'Core functionality changes'
+- name: component/utils
+  color: '1d76db'
+  description: 'Utility function changes'
+- name: component/cli
+  color: '2486e6'
+  description: 'Command line interface changes'
+
+# Technology Labels
+- name: security
+  color: 'b60205'
+  description: 'Security-related changes'
+- name: ci
+  color: '0075ca'
+  description: 'Continuous Integration changes'
+- name: dependencies
+  color: '0366d6'
+  description: 'Dependencies updates'
+- name: infrastructure
+  color: '006b75'
+  description: 'Infrastructure related changes'
+- name: database
+  color: '5319e7'
+  description: 'Database related changes'
+- name: api
+  color: '1d76db'
+  description: 'API related changes'
+- name: frontend
+  color: 'cc317c'
+  description: 'Frontend related changes'
+
+# Change Impact Labels
+- name: breaking
+  color: 'b60205'
+  description: 'Introduces breaking changes'
+- name: deprecation
+  color: 'f9d0c4'
+  description: 'Deprecation notices'
+
+# Automation Labels
+- name: automated
+  color: '0075ca'
+  description: 'Automated changes'
+- name: github_actions
+  color: '000000'
+  description: 'GitHub Actions related changes'
+
+# Process Labels
+- name: duplicate
+  color: 'cfd3d7'
+  description: 'This issue or PR already exists'
+- name: invalid
+  color: 'e4e669'
+  description: "This doesn't seem right"
 - name: wontfix
-  description: This will not be worked on
-  color: ffffff
+  color: 'ffffff'
+  description: 'This will not be worked on'
+- name: stale
+  color: 'fbca04'
+  description: 'No recent activity'
+
+# Review Labels
+- name: needs-review
+  color: 'fbca04'
+  description: 'Needs code review'
+- name: approved
+  color: '0e8a16'
+  description: 'Approved by reviewers'
+- name: changes-requested
+  color: 'd93f0b'
+  description: 'Changes requested in review'
+
+# Testing Labels
+- name: needs-tests
+  color: 'd93f0b'
+  description: 'More tests needed'
+- name: tests-failing
+  color: 'b60205'
+  description: 'Test suite is failing'
+- name: tests-passing
+  color: '0e8a16'
+  description: 'All tests passing'
+
+# Language Specific
+- name: lang/python
+  color: '3572A5'
+  description: 'Python related changes'
+- name: lang/markdown
+  color: '083fa1'
+  description: 'Markdown related changes'
+- name: lang/yaml
+  color: 'cb171e'
+  description: 'YAML related changes'
+
+# Area Labels
+- name: area/ci
+  color: '0075ca'
+  description: 'Changes to CI configuration'
+- name: area/testing
+  color: '0e8a16'
+  description: 'Changes to tests'
+- name: area/docs
+  color: '0075ca'
+  description: 'Changes to documentation'
+- name: area/dependencies
+  color: '0366d6'
+  description: 'Changes to dependencies'

@@ -1,0 +1,93 @@
+{
+  "name": "jmbde-python",
+  "version": "0.0.0",
+  "description": "JM BDE - Management of the inventory of computer equipment",
+  "main": "main.py",
+  "scripts": {
+    "lint": "eslint .",
+    "spellcheck": "cspell **",
+    "precommit": "lint-staged",
+    "sync-labels": "node .github/scripts/sync-labels.js"
+  },
+  "keywords": [
+    "python",
+    "linting",
+    "spellcheck"
+  ],
+  "author": "Jürgen Mülbert",
+  "license": "MIT",
+  "devDependencies": {
+    "@cspell/dict-de-de": "^4.0.3",
+    "@cspell/dict-python": "^4.2.14",
+    "chalk": "4",
+    "cspell": "^5.21.2",
+    "lint-staged": "^12.5.0",
+    "yaml": "^2.7.0"
+  },
+  "files": [
+    "main.py",
+    "src/"
+  ],
+  "private": true,
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-angular"
+    ],
+    "rules": {
+      "type-enum": [
+        2,
+        "always",
+        [
+          "build",
+          "chore",
+          "ci",
+          "docs",
+          "feat",
+          "fix",
+          "perf",
+          "refactor",
+          "revert",
+          "style",
+          "test",
+          "translation"
+        ]
+      ],
+      "scope-case": [
+        2,
+        "always",
+        "lower-case"
+      ],
+      "subject-case": [
+        2,
+        "always",
+        "lower-case"
+      ],
+      "subject-empty": [
+        2,
+        "never"
+      ],
+      "subject-full-stop": [
+        2,
+        "never",
+        "."
+      ],
+      "type-case": [
+        2,
+        "always",
+        "lower-case"
+      ],
+      "type-empty": [
+        2,
+        "never"
+      ],
+      "body-leading-blank": [
+        2,
+        "always"
+      ],
+      "footer-leading-blank": [
+        2,
+        "always"
+      ]
+    }
+  }
+}

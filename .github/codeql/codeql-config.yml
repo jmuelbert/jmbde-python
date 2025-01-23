@@ -1,0 +1,30 @@
+name: 'CodeQL Config'
+
+queries:
+  - uses: security-extended
+  - uses: security-and-quality
+
+paths:
+  - src
+  - tests
+paths-ignore:
+  - '**/*.ui'
+  - '**/*.qrc'
+  - '**/*.ts'
+  - 'assets/'
+  - 'docs/'
+  - '**/tests/**'
+
+query-filters:
+  - exclude:
+      problem.severity:
+        - warning
+        - recommendation
+      tags contain: test
+
+database:
+  size-limit: 1GB
+
+analysis:
+  autobuild: false
+  skip-unchanged-files: true

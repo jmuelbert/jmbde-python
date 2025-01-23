@@ -1,37 +1,54 @@
----
-# SPDX-FileCopyrightText: GitHub, Inc. and contributors
-# SPDX-License-Identifier: MIT
+# SPDX-License-Identifier: EUPL-1.2
+# SPDX-FileCopyrightText: 2023-present Jürgen Mülbert <juergen.muelbert@outlook.de>
 
 name: Pull Request Labeler
 
-on:
+on: # yamllint disable-line rule:truthy
   pull_request:
     types: [opened, edited, synchronize, reopened, ready_for_review]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '.gitignore'
   pull_request_target:
     types: [opened, edited, synchronize, reopened, ready_for_review]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '.gitignore'
 
-permissions: read-all
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+  actions: none
+  checks: none
+  deployments: none
+  packages: none
+  security-events: none
+  statuses: none
+
+env:
+  MIN_COVERAGE: 80
+  PYTHON_VERSION: '3.x'
+  NODE_VERSION: '16'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
   cancel-in-progress: true
 
 jobs:
-  triage:
-    name: PR Analysis & Labeling
-    if: github.actor != 'dependabot[bot]'
+  analyze_and_label:
+    name: Analyze and Label Pull Request
+    if: github.actor != 'dependabot[bot]' # Skip for Dependabot PRs
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-    
+    timeout-minutes: 15
+
     permissions:
       contents: read
       pull-requests: write
       issues: write
 
-    outputs:
-      size: ${{ steps.size.outputs.size }}
-      conflicts: ${{ steps.conflicts.outputs.has_conflicts }}
-      
     steps:
       - name: 🔒 Harden Runner
         uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
@@ -41,44 +58,45 @@ jobs:
       - name: 🔄 Check Merge Conflicts
         id: conflicts
         uses: eps1lon/actions-label-merge-conflict@6d74047dcef155976a15e4a124dde2c7fe0c5522 # v3.0.1
+        timeout-minutes: 5
+        continue-on-error: true
         with:
           dirtyLabel: 'status: has-conflicts'
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           commentOnDirty: |
-            ⚠️ This pull request has conflicts with the target branch. Please resolve these conflicts before proceeding:
-            1. Fetch the latest changes
-            2. Merge the target branch into your branch
-            3. Resolve any conflicts
-            4. Push your changes
-            
-            Need help? Check our [Contributing Guide](../../CONTRIBUTING.md) or ask for assistance.
-          commentOnClean: |
-            ✅ All conflicts have been resolved! A maintainer will review your PR shortly.
-            
-            Thank you for your contribution! 🎉
+            ⚠️ This pull request has conflicts with the target branch. Please resolve the conflicts by following these steps:
+            1. Fetch the latest changes.
+            2. Merge the target branch into your branch.
+            3. Resolve the conflicts.
+            4. Push the changes back.
 
-      - name: 📏 Analyze PR Size
+            Need help? Check the [Contributing Guide](../../CONTRIBUTING.md) or ask for assistance.
+          commentOnClean: |
+            ✅ All conflicts have been resolved. A maintainer will review your PR shortly.
+
+      - name: 📏 Analyze Pull Request Size
         id: size
         uses: codelytv/pr-size-labeler@56f6f0fc35c7cc0f72963b8467729e1120cb4bed # v1.10.0
+        timeout-minutes: 5
+        continue-on-error: true
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          xs_label: 'size/xs'
+          xs_label: size/xs
           xs_max_size: '10'
-          s_label: 'size/s'
+          s_label: size/s
           s_max_size: '100'
-          m_label: 'size/m'
+          m_label: size/m
           m_max_size: '500'
-          l_label: 'size/l'
+          l_label: size/l
           l_max_size: '1000'
-          xl_label: 'size/xl'
+          xl_label: size/xl
           fail_if_xl: false
           message_if_xl: |
-            ⚠️ This PR is quite large (exceeds 1000 lines). Please consider:
+            ⚠️ This PR is quite large (over 1000 lines). Please consider:
             - Breaking it into smaller, focused PRs
-            - Ensuring all changes are related
-            - Adding detailed documentation
-            - Including comprehensive tests
-            
+            - Ensuring all changes are related and well-documented
+            - Adding detailed documentation for reviewers
+
             Large PRs may require additional review time and scrutiny.
           files_to_ignore: |
             **/test/**
@@ -90,7 +108,10 @@ jobs:
             poetry.lock
 
       - name: 🏷️ Apply Scope Labels
+        id: labeler
         uses: actions/labeler@8558fd74291d67161a8a78ce36a881fa63b766a9 # v5.0.0
+        timeout-minutes: 5
+        continue-on-error: true
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           configuration-path: .github/labeler.yml
@@ -98,30 +119,44 @@ jobs:
 
       - name: 📝 Process PR Content
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        timeout-minutes: 5
         with:
           script: |
             const pr = context.payload.pull_request;
             const labels = new Set();
-            
-            // Check title conventions
-            if (pr.title.startsWith('fix:')) labels.add('type: fix');
-            if (pr.title.startsWith('feat:')) labels.add('type: feature');
-            if (pr.title.startsWith('docs:')) labels.add('type: docs');
-            if (pr.title.startsWith('test:')) labels.add('type: test');
-            
-            // Check content indicators
+
+            // Enhanced title parsing with regex
+            const titlePattern = /^(fix|feat|docs|test|chore|refactor|style|perf)(?:\(.*\))?:/;
+            const match = pr.title.match(titlePattern);
+            if (match) {
+              labels.add(`type-${match[1]}`);
+            }
+
+            // Check PR body for specific keywords and contexts
             const body = pr.body?.toLowerCase() || '';
-            if (body.includes('breaking change')) labels.add('breaking');
-            if (body.includes('deprecate')) labels.add('deprecation');
-            if (body.includes('security')) labels.add('security');
-            
-            // Add status labels
+
+            const checks = {
+              'security-label': ['security', 'vulnerability', 'cve', 'auth', 'authentication'],
+              'performance-label': ['performance', 'optimize', 'speed', 'perf'],
+              'documentation-label': ['documentation', 'docs', 'readme'],
+              'dependencies-label': ['dependency', 'dependencies', 'deps'],
+              'breaking-label': ['breaking change', 'breaking-change'],
+              'deprecation-label': ['deprecate', 'deprecated']
+            };
+
+            Object.entries(checks).forEach(([label, keywords]) => {
+              if (keywords.some(keyword => body.includes(keyword))) {
+                labels.add(label);
+              }
+            });
+
+            // Add draft or ready-for-review labels
             if (pr.draft) {
               labels.add('status: work-in-progress');
             } else {
               labels.add('status: ready-for-review');
             }
-            
+
             // Apply labels
             if (labels.size > 0) {
               await github.rest.issues.addLabels({
@@ -131,33 +166,51 @@ jobs:
                 labels: Array.from(labels)
               });
             }
-            
-            // Add review checklist comment
+
+            // Add a review checklist as a comment for new PRs
             if (context.payload.action === 'opened') {
               const checklist = `
                 ## PR Review Checklist
-                
-                Thank you for your contribution! Please ensure:
-                
+
+                ### 🎯 Prerequisites
+                - [ ] PR title follows [Conventional Commits](https://www.conventionalcommits.org/)
+                - [ ] Branch is up to date with target branch
+                - [ ] All automated checks are passing
+
                 ### 📝 Documentation
-                - [ ] Updated relevant documentation
-                - [ ] Added inline comments for complex code
-                
+                - [ ] Documentation updated
+                - [ ] API changes documented
+                - [ ] Change log updated
+                - [ ] Inline comments added for complex code
+
                 ### 🧪 Testing
-                - [ ] Added/updated unit tests
-                - [ ] All tests pass locally
-                
-                ### 🔍 Quality
-                - [ ] Code follows project style guide
-                - [ ] No debug/commented-out code
-                - [ ] Handled error cases
-                
+                - [ ] Unit tests added/updated
+                - [ ] Integration tests if needed
+                - [ ] All tests passing
+                - [ ] Coverage meets minimum threshold (${process.env.MIN_COVERAGE}%)
+                - [ ] Edge cases tested
+
+                ### 💻 Code Quality
+                - [ ] Code follows style guide
+                - [ ] No debug/commented code
+                - [ ] Error handling implemented
+                - [ ] Performance considerations addressed
+                - [ ] Code is modular and maintainable
+
                 ### 🔒 Security
+                - [ ] Security best practices followed
+                - [ ] Dependencies are up to date
                 - [ ] No sensitive data exposed
-                - [ ] Input validation added
+                - [ ] Input validation implemented
                 - [ ] Security implications considered
+
+                ### 🚀 Deployment
+                - [ ] Migration scripts if needed
+                - [ ] Environment variables documented
+                - [ ] Deployment documentation updated
+                - [ ] Rollback plan considered
               `;
-              
+
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
@@ -166,13 +219,31 @@ jobs:
               });
             }
 
+      - name: Upload Analysis Results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: pr-analysis-${{ github.event.pull_request.number }}
+          path: |
+            ./**/analysis-results.json
+            ./**/coverage-report.xml
+          retention-days: 14
+
   verify:
-    needs: triage
+    needs: analyze_and_label
     if: always()
     runs-on: ubuntu-latest
-    
+    timeout-minutes: 5
+
     steps:
-      - name: ✅ Verify Process
+      - name: Check Labeler Status
+        if: always()
+        run: |
+          if [ "${{ needs.analyze_and_label.result }}" == "failure" ]; then
+            echo "::warning::Labeler job failed but continuing workflow"
+          fi
+
+      - name: ✅ Verify Workflow Completion
         uses: re-actors/alls-green@223e4bb7a751b91f43eda76992bcfbf23b8b0302 # v1.2.2
         with:
           jobs: ${{ toJSON(needs) }}

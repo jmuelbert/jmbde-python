@@ -1,0 +1,88 @@
+---
+# SPDX-License-Identifier: EUPL-1.2
+# SPDX-FileCopyrightText: 2023 - 2024 Jürgen Mülbert <juergen.muelbert@outlook.de>
+#
+# Docker Compose configuration for Codespaces.
+# This configuration allows you to run the app and database in separate containers.
+# The app container is based on the Dockerfile in the parent directory.
+# The database container uses the latest PostgreSQL image.
+# The app container is connected to the database container's network.
+# The database container's data is persisted in a volume.
+# The database container's environment variables are set to create a database named "postgres".
+# The database container's port 5432 is not exposed to the host by default.
+# The app container's port can be forwarded to the host using the "forwardPorts" property in devcontainer.json.
+# The database container's port can be forwarded to the host using the "forwardPorts" property in devcontainer.json.
+# The app container's command is set to "sleep infinity" to keep the container running.
+# The database container's command is the default command for the PostgreSQL image.
+# The database container's restart policy is set to "unless-stopped".
+# The database container's data is persisted in a volume named "postgres-data".
+# The database container's environment variables are set to create a database named "postgres".
+# Use `docker-compose up -d` to start the app and database containers.
+# Use `docker-compose down` to stop the app and database containers.
+# Use `docker-compose exec app bash` to run commands in the app container.
+# Use `docker-compose exec db bash` to run commands in the database container.
+# Use `docker-compose exec db psql -U postgres` to connect to the database.
+# Use `docker-compose exec db pg_dump -U postgres -d postgres > dump.sql` to dump the database.
+# Use `docker-compose exec db psql -U postgres -d postgres < dump.sql` to restore the database.
+
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+
+    volumes:
+      - ../..:/workspaces:cached
+
+    # Overrides default command so the container remains running.
+    command: sleep infinity
+
+    # Use the same network as the database container.
+    network_mode: service:db
+
+    # Set CPU limits
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5' # Limit to 50% of one CPU core
+        reservations:
+          cpus: '0.25' # Reserve 25% of one CPU core
+
+  db:
+    image: postgres:14 # Use a specific version for stability
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres} # Use environment variable with a default
+      POSTGRES_DB: ${POSTGRES_DB:-postgres} # Use environment variable with a default
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-securepassword} # Use environment variable with a default
+
+      # Ensure the password is set via environment variable for security.
+      # Add "forwardPorts": ["5432"] to **devcontainer.json** to forward PostgreSQL locally.
+
+    # Set CPU limits
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0' # Limit to 100% of one CPU core
+        reservations:
+          cpus: '0.5' # Reserve 50% of one CPU core
+
+    # Health check configuration
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U ${POSTGRES_USER:-postgres}']
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+volumes:
+  postgres-data:
+    driver: local
+    # Optimize volume for performance
+    driver_opts:
+      type: none
+      device: /path/to/your/data/directory # Change this to your desired path
+      o: bind

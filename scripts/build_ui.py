@@ -14,6 +14,7 @@
 #   GNU General Public License for more details.
 #
 """The qt ui builder."""
+
 import os
 import shutil
 from glob import glob
@@ -66,8 +67,7 @@ for f in glob(f"{resources_dir}/forms/*.ui"):
 print("Updating translations...")
 Popen(["lupdate", "jmbde.pro"])
 lang_files = " ".join(
-    f"{resources_dir}/translations/{package}_{lang}.ts"
-    for lang in languages
+    f"{resources_dir}/translations/{package}_{lang}.ts" for lang in languages
 )
 Popen(["pyside2-lupdate", f"{source_dir}{package}/*.py -ts {lang_files}"])
 Popen(["lrelease", f"{resources_dir}/translations/*.ts"])

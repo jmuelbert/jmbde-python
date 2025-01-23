@@ -1,0 +1,155 @@
+# .github/workflows/i18n.yml
+name: Internationalization
+
+on:
+  push:
+    paths:
+      - 'assets/translations/**'
+      - 'docs/i18n/**'
+      - 'src/jmbde/i18n/**'
+      - '.github/workflows/i18n.yml'
+      - scripts/translate_docs.py
+  pull_request:
+    paths:
+      - 'assets/translations/**'
+      - 'docs/i18n/**'
+      - 'src/jmbde/i18n/**'
+  workflow_dispatch:
+
+env:
+  PYTHON_VERSION_FILE: .python-version
+  TRANSLATIONS_DIR: assets/translations
+  DOCS_I18N_DIR: docs/i18n
+  SUPPORTED_LANGUAGES: 'de es it fr zh_CN tr ja'
+  QT_VERSION: '6.6.1' # Update to match your PySide6 version
+
+jobs:
+  translations:
+    name: Process Translations
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: 🔒 Harden Runner
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Python
+        uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
+        with:
+          python-version-file: ${{ env.PYTHON_VERSION_FILE }}
+          cache: pip
+          cache-dependency-path: |
+            pyproject.toml
+            .github/workflows/requirements.txt
+
+      - name: 🎨 Install Qt6 Tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            qt6-tools-dev \
+            qt6-tools-dev-tools \
+            qt6-l10n-tools \
+            gettext \
+            translate-toolkit
+
+      - name: 🔧 Install Dependencies
+        run: |
+          pip install -r .github/workflows/requirements.txt
+          pip install polib deep-translator coverage pyside6 python-frontmatter
+
+      - name: 🔍 Extract Translations
+        run: |
+          # Create paths list
+          echo "src/jmbde" > paths.txt
+          echo "assets/forms" >> paths.txt
+
+          # Extract strings using pyside6-lupdate
+          pyside6-lupdate @paths.txt \
+            -ts $(for lang in ${{ env.SUPPORTED_LANGUAGES }}; do echo "${{ env.TRANSLATIONS_DIR }}/jmbde_ui_${lang}.ts"; done)
+
+      - name: 🔄 Process Translations
+        id: process
+        run: |
+          python scripts/process_translations.py \
+            --ts-dir ${{ env.TRANSLATIONS_DIR }} \
+            --report-file translation-report.json
+
+      - name: 📦 Compile Translations
+        run: |
+          # Compile .ts to .qm using pyside6-lrelease
+          for ts_file in ${{ env.TRANSLATIONS_DIR }}/*.ts; do
+            pyside6-lrelease $ts_file
+          done
+
+      - name: 📚 Process Documentation
+        run: |
+          python scripts/translate_docs.py \
+            --source-dir docs/en \
+            --output-dir ${{ env.DOCS_I18N_DIR }} \
+            --languages ${{ env.SUPPORTED_LANGUAGES }}
+
+      - name: 💾 Store Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: translations
+          path: |
+            ${{ env.TRANSLATIONS_DIR }}/*.qm
+            ${{ env.TRANSLATIONS_DIR }}/*.ts
+            translation-report.json
+          retention-days: 7
+
+      - name: 📝 Update PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = JSON.parse(fs.readFileSync('translation-report.json', 'utf8'));
+
+            let comment = `## 🌍 Translation Update Report\n\n`;
+
+            // Overall statistics
+            comment += `### Statistics\n`;
+            comment += `- Total Strings: ${report.totalStrings}\n`;
+            comment += `- Updated: ${report.updated}\n`;
+            comment += `- Missing: ${report.missing}\n\n`;
+
+            // Per-language status
+            comment += `### Language Status\n`;
+            const emojis = {
+              'de': '🇩🇪',
+              'es': '🇪🇸',
+              'it': '🇮🇹',
+              'fr': '🇫🇷',
+              'zh_CN': '🇨🇳',
+              'ja': '🇯🇵'
+            };
+
+            for (const [lang, stats] of Object.entries(report.languages)) {
+              const emoji = emojis[lang] || '🌐';
+              const coverage = ((stats.translated / stats.total) * 100).toFixed(1);
+              comment += `${emoji} ${lang}: ${coverage}% complete`;
+              if (stats.missing > 0) {
+                comment += ` (${stats.missing} strings missing)`;
+              }
+              comment += '\n';
+            }
+
+            // Add warnings if any
+            if (report.warnings?.length > 0) {
+              comment += '\n### ⚠️ Warnings\n';
+              report.warnings.forEach(warning => {
+                comment += `- ${warning}\n`;
+              });
+            }
+
+            await github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: context.payload.pull_request.number,
+              body: comment
+            });

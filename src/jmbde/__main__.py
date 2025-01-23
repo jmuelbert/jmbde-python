@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: EUPL-1.2
 #
 """Command-line interface."""
+
 import click
 
 

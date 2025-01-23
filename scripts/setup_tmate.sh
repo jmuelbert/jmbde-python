@@ -49,7 +49,7 @@ EOF
 # Assert that command can be found in system path.
 # Will exit script with an error code if command is not in system path.
 # Arguments:
-#   Command to check availabilty.
+#   Command to check availability.
 # Outputs:
 #   Writes error message to stderr if command is not in system path.
 #######################################

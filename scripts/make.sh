@@ -12,16 +12,16 @@ rm -f jmbde.spec
 pyside2-rcc src/jmbde/resources/resources.qrc -o src/jmbde/rcs.py
 
 pyinstaller -w src/jmbde/__main__.py \
-    --hidden-import "socks" \
-    --hidden-import "PIL" \
-    --add-data "LICENSE:." \
-    --add-data "conf/jmbde.conf:conf" \
-    --add-data "conf/qtquickcontrols2.conf:conf" \
-    --add-data "src/jmbde/resources/icons/app.ico:images" \
-    --add-data "src/jmbde/translations/*.qm:translations" \
-    --name "jmbde" \
-    --icon "src/jmbde/resources/icons/app.icns" \
-    --noupx
+  --hidden-import "socks" \
+  --hidden-import "PIL" \
+  --add-data "LICENSE:." \
+  --add-data "conf/jmbde.conf:conf" \
+  --add-data "conf/qtquickcontrols2.conf:conf" \
+  --add-data "src/jmbde/resources/icons/app.ico:images" \
+  --add-data "src/jmbde/translations/*.qm:translations" \
+  --name "jmbde" \
+  --icon "src/jmbde/resources/icons/app.icns" \
+  --noupx
 
 cp building/macOS/Info.plist dist/jmbde.app/Contents
 

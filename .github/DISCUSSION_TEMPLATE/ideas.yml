@@ -1,3 +1,9 @@
+---
+# SPDX-License-Identifier: CC-BY-SA-4.0
+# SPDX-FileCopyrightText: 2023 - 2024 Jürgen Mülbert <juergen.muelbert@outlook.de>
+# yaml-language-server: $schema= https://json.schemastore.org/github-discussion-0.1.0.json
+#
+# The name of the discussion template
 labels: [idea]
 body:
   - type: checkboxes
@@ -19,7 +25,8 @@ body:
     attributes:
       label: Feature request
       description: |
-        A clear and concise description of the feature proposal. Please provide links to any relevant GitHub repos, papers, or other resources if relevant.
+        A clear and concise description of the feature proposal. Please provide
+        links to any relevant GitHub repos, papers, or other resources if relevant.
   - type: textarea
     id: motivation
     validations:
@@ -27,7 +34,9 @@ body:
     attributes:
       label: Motivation
       description: |
-        Please outline the motivation for the proposal. Is your feature request related to a problem? e.g., I'm always frustrated when [...]. If this is related to another GitHub issue, please link here too.
+        Please outline the motivation for the proposal. Is your feature request
+        related to a problem? e.g., I'm always frustrated when [...]. If this is
+        related to another GitHub issue, please link here too.
   - type: textarea
     id: proposal
     validations:

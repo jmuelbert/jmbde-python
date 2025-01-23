@@ -1,10 +1,23 @@
-# SPDX-FileCopyRightText: 2023 Jürgen Mülbert <juergen.muelbert@web.de>
+# SPDX-FileCopyRightText: 2023-2024 Jürgen Mülbert <juergen.muelbert@web.de>
 #
 # SPDX-License-Identifier: EUPL-1.2
+#
 # Docker configuration file for ignoring paths while collecting context.
 #
 # For more information, visit
 # https://codefresh.io/docker-tutorial/not-ignore-dockerignore-2/.
+#
+# General
+.coverage
+.cache
+.env
+.yarn-integrity
+*.tgz
+pids
+*.pid
+*.pip.lock
+*.log
+*.seed
 
 # Git
 .git
@@ -18,6 +31,10 @@
 .idea
 .vscode
 
+# Node
+.npm
+node_modules/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 **/__pycache__/
@@ -29,9 +46,6 @@ __pycache__/
 *$py.class
 .pytest_cache/
 ..mypy_cache/
-
-# poetry
-.venv
 
 # C extensions
 *.so

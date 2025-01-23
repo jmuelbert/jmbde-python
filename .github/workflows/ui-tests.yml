@@ -1,0 +1,204 @@
+name: UI Tests
+
+on:
+  push:
+    paths:
+      - 'src/jmbde/gui/**'
+      - 'src/jmbde/qml/**'
+      - 'assets/forms/**'
+      - 'tests/pyside6/**'
+  pull_request:
+    paths:
+      - 'src/jmbde/gui/**'
+      - 'src/jmbde/qml/**'
+      - 'assets/forms/**'
+      - 'tests/pyside6/**'
+  workflow_dispatch:
+
+env:
+  PYTHON_VERSION_FILE: .python-version
+  QT_QPA_PLATFORM: offscreen
+  DISPLAY: :99
+  PYTEST_QT_API: pyside6
+
+jobs:
+  ui-tests:
+    name: UI Tests
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    environment: staging
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+        exclude:
+          - os: macos-latest
+            python-version: '3.9'
+          - os: windows-latest
+            python-version: '3.9'
+
+    steps:
+      - name: 🔒 Harden Runner
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: |
+            pyproject.toml
+            .github/workflows/requirements.txt
+
+      - name: 🎨 Setup Linux Display
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libegl1 \
+            libxkbcommon-x11-0 \
+            libxcb-icccm4 \
+            libxcb-image0 \
+            libxcb-keysyms1 \
+            libxcb-randr0 \
+            libxcb-render-util0 \
+            libxcb-xinerama0 \
+            xvfb
+          sudo Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+
+      - name: 🪟 Setup Windows Dependencies
+        if: runner.os == 'Windows'
+        run: |
+          python -m pip install wheel
+
+      - name: 🍎 Setup macOS Dependencies
+        if: runner.os == 'macOS'
+        run: |
+          brew install create-dmg
+
+      - name: 🔧 Install Dependencies
+        run: |
+          pip install -r .github/workflows/requirements.txt
+          hatch env create test
+
+      - name: 🧪 Run UI Tests
+        env:
+          QT_QPA_PLATFORM: offscreen
+          DISPLAY: :99
+          PYTEST_QT_API: pyside6
+        run: |
+          hatch run test:pytest tests/pyside6 \
+            --verbose \
+            --capture=no \
+            --timeout=300 \
+            --junitxml=test-results/junit.xml
+
+      - name: 📸 Capture Screenshots on Failure
+        if: failure()
+        run: |
+          mkdir -p test-artifacts/screenshots
+          python tests/pyside6/capture_screenshots.py
+
+      - name: 📦 Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.os }}-py${{ matrix.python-version }}
+          path: |
+            test-results/
+            test-artifacts/
+            coverage.xml
+          retention-days: 7
+
+      - name: 📊 Generate UI Test Report
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const testResults = require('./test-results/junit.xml');
+
+            let summary = `## 🖼️ UI Test Results - ${process.env.RUNNER_OS}\n\n`;
+
+            const stats = {
+              total: testResults.testsuites.$.tests,
+              failures: testResults.testsuites.$.failures,
+              errors: testResults.testsuites.$.errors,
+              skipped: testResults.testsuites.$.skipped,
+              time: testResults.testsuites.$.time
+            };
+
+            summary += `### Statistics\n`;
+            summary += `- Total Tests: ${stats.total}\n`;
+            summary += `- Passed: ${stats.total - stats.failures - stats.errors - stats.skipped}\n`;
+            summary += `- Failed: ${stats.failures}\n`;
+            summary += `- Errors: ${stats.errors}\n`;
+            summary += `- Skipped: ${stats.skipped}\n`;
+            summary += `- Duration: ${stats.time}s\n\n`;
+
+            if (stats.failures > 0 || stats.errors > 0) {
+              summary += `### Failures and Errors\n`;
+              testResults.testsuites.testsuite.forEach(suite => {
+                suite.testcase.forEach(test => {
+                  if (test.failure || test.error) {
+                    summary += `- ❌ ${test.$.name}\n`;
+                    summary += `  ${test.failure?.[0] || test.error?.[0]}\n\n`;
+                  }
+                });
+              });
+            }
+
+            // Add to PR if this is a pull request
+            if (context.payload.pull_request) {
+              await github.rest.issues.createComment({
+                ...context.repo,
+                issue_number: context.payload.pull_request.number,
+                body: summary
+              });
+            }
+
+  visual-regression:
+    name: Visual Regression Tests
+    needs: ui-tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: ${{ env.PYTHON_VERSION_FILE }}
+
+      - name: 🔧 Install Dependencies
+        run: |
+          pip install -r .github/workflows/requirements.txt
+          hatch create env test
+
+      - name: 📸 Run Visual Tests
+        run: |
+          hatch run python -m pytest \
+            tests/pyside6/test_visual_regression.py \
+            --screenshot-on-failure
+
+      - name: 📊 Compare Screenshots
+        run: |
+          hatch run python tests/pyside6/compare_screenshots.py
+
+      - name: 📦 Upload Visual Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-test-results
+          path: |
+            screenshots/
+            screenshot-diffs/
+          retention-days: 7

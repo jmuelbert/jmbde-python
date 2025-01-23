@@ -1,55 +1,266 @@
----
-# Add 'root' label to any root file changes
-# Quotation marks are required for the leading asterisk
-'project':
-  - changed-files:
-      - any-glob-to-any-file: '*'
-      - all-globs-to-all-files: '!*.md'
-      # Add 'core' label to any change within the 'core' package
-core:
-  - src/core/**/*
+# SPDX-License-Identifier: EUPL-1.2
 
-# Add 'ui' label to any change within the 'ui' package
-ui:
-  - src/ui/**/*
+# Type Labels
+type-fix:
+  - any:
+    - "src/**/*.py"
+    - "lib/**/*.py"
+    - "**/bugfix/**"
+    - "**/hotfix/**"
+    - "**/patch/**"
 
-# Add 'documentation' label to any change in documentation files
-documentation:
-  - docs/**/*
-  - '**/*.md'
-  - '.github/*.md'
+type-feature:
+  - any:
+    - "src/**/*.py"
+    - "lib/**/*.py"
+    - "**/feature/**"
+    - "**/feat/**"
+    - "**/enhancement/**"
+type-docs:
+  - any:
+    - "docs/**/*"
+    - "**/*.md"
+    - "**/*.rst"
+    - "**/*.txt"
+    - "mkdocs.yml"
+    - "**/*.ipynb"
 
-# Add 'dependencies' label to any change in dependency files
-dependencies:
-  - requirements.txt
-  - requirements/*.txt
-  - pyproject.toml
-  - poetry.lock
+type-test:
+  - any:
+    - "tests/**/*.py"
+    - "**/test/**"
+    - "**/tests/**"
+    - "**/*_test.py"
+    - "**/test_*.py"
+    - "**/testing/**"
+    - "**/*.spec.py"
 
-# Add 'testing' label to any change in test files
-testing:
-  - tests/**/*
-  - pytest.ini
-  - conftest.py
+type-chore:
+  - any:
+    - "**/build/**"
+    - "**/ci/**"
+    - "**/config/**"
+    - "**/scripts/**"
+    - ".github/**/*"
+    - ".gitignore"
+    - ".editorconfig"
+    - "LICENSE*"
+    - "NOTICE*"
 
-# Add 'ci' label to any change in CI configuration
-ci:
-  - .github/workflows/*
-  - .github/actions/*
+type-refactor:
+  - any:
+    - "src/**/*.py"
+    - "lib/**/*.py"
+    - "**/refactor/**"
+    - "**/cleanup/**"
 
-# Add 'security' label to any change in security-related files
+type-style:
+  - any:
+    - "**/*.css"
+    - "**/*.scss"
+    - "**/*.sass"
+    - "**/*.less"
+    - "**/*.html"
+    - "**/*.jinja"
+    - "**/*.j2"
+    - ".style.yapf"
+    - ".pylintrc"
+    -  "pyproject.toml"
+    - "setup.cfg"
+
+type-performance:
+  - any:
+    - "src/**/*.py"
+    - "lib/**/*.py"
+    - "**/perf/**"
+    - "**/benchmark/**"
+    - "**/optimizations/**"
+
+# Status Labels
+status/work-in-progress:
+  - any:
+    - "**/WIP/**"
+    - "**/draft/**"
+
+status/ready-for-review:
+  - any:  
+    - "**/RFR/**"
+    - "**/ready/**"
+
+status/blocked:
+  - any: 
+    - "**/blocked/**"
+    - "**/hold/**"
+
+status/needs-discussion:
+  - any:  
+    - "**/discuss/**"
+    - "**/proposal/**"
+    - "RFC.md"
+
+# Security Labels
 security:
-  - security/**/*
-  - '**/*security*.md'
- 
-# Add 'source' label to any change to src files within the source dir EXCEPT for the docs sub-folder
-'source':
-  - changed-files:
-      - any-glob-to-any-file: src/**/*
-      - all-globs-to-all-files: '!src/docs/**'
-# Add 'feature' label to any PR where the head branch name starts with `feature` or has a `feature` section in the name
-'feature':
-  - head-branch: [^feature, feature]
-# Add 'release' label to any PR that is opened against the `main` branch
-release:
-  - base-branch: release
+  - any:  
+    - "src/security/**/*.py"
+    - "**/auth/**"
+    - "**/oauth/**"
+    - "**/crypto/**"
+    - "**/password/**"
+    - "**/permission/**"
+    - "**/secret/**"
+    - "**/*security*/**"
+
+# Breaking Changes
+breaking:
+  - any:  
+    - "**/*.py"
+    - "**/*.pyi"
+    - "**/*.pyx"
+    - "**/*.pxd"
+    - "docs/breaking-changes/**"
+    - "docs/migrations/**"
+    - "docs/upgrades/**"
+
+# Deprecation
+deprecation:
+  - any:  
+    - "**/*.py"
+    - "**/*.pyi"
+    - "**/*.pyx"
+    - "**/*.pxd"
+    - "docs/deprecations/**"
+
+# CI/CD
+ci:
+  - any:  
+    - ".github/workflows/**"
+    - ".github/actions/**"
+    - ".gitlab-ci.yml"
+    - "azure-pipelines.yml"
+    - "Jenkinsfile"
+    - ".travis.yml"
+    - ".circleci/**"
+
+# Dependencies
+dependencies:
+  - any:  
+    - "requirements*.txt"
+    - "requirements/**"
+    - "poetry.lock"
+    - "pyproject.toml"
+    - "setup.py"
+    - "setup.cfg"
+    - "Pipfile*"
+    - "conda-env.yml"
+    - ".pre-commit-config.yaml"
+
+# Infrastructure
+infrastructure:
+  - any:  
+    - "terraform/**"
+    - "ansible/**"
+    - "kubernetes/**"
+    - "k8s/**"
+    - "docker/**"
+    - "Dockerfile*"
+    - "docker-compose*.yml"
+    - "helm/**"
+    - "deployment/**"
+    - "scripts/**"
+
+# Documentation
+documentation:
+  - any:  
+    - "docs/**/*"
+    - "**/*.md"
+    # '**/*.adoc'
+    - "**/*.rst"
+    - "**/*.txt"
+    - "mkdocs.yml"
+    - "**/*.ipynb"
+    - "examples/**"
+    - "samples/**"
+    - "tutorials/**"
+
+# Testing
+testing:
+  - any:  
+    - "tests/**"
+    - "**/test/**"
+    - "**/tests/**"
+    - "**/*_test.py"
+    - "**/test_*.py"
+    - "pytest.ini"
+    - "conftest.py"
+    - ".coveragerc"
+
+# Database
+database:
+  - any:
+    - "**/migrations/**"
+    - "**/alembic/**"
+    - "**/*model*.py"
+    - "**/*schema*.py"
+    - "**/db/**"
+
+# API
+api:
+  - any:  
+    - "**/api/**"
+    - "**/rest/**"
+    - "**/graphql/**"
+    - "**/endpoints/**"
+    - "**/*controller*.py"
+    - "**/*view*.py"
+
+# UI/Frontend
+frontend:
+  - any:
+    - "**/templates/**"
+    - "**/static/**"
+    - "**/assets/**"
+    - "**/*.html"
+    - "**/*.css"
+    - "**/*.scss"
+    - "**/*.js"
+
+# Size Labels (handled by size-labeler action)
+size/xs:
+  - any: ['**/*']
+size/s:
+  - any: ['**/*']
+size/m:
+  - any: ['**/*']
+size/l:
+  - any: ['**/*']
+size/xl:
+  - any: ['**/*']
+
+# Priority
+priority/critical:
+  - any:  
+    - "**/hotfix/**"
+    - "**/emergency/**"
+    - "**/critical/**"
+
+priority/high:
+  - any:  
+    - "**/high-priority/**"
+    - "**/important/**"
+
+# Component Labels
+component/core:
+  - any:  
+    - "src/core/**"
+    - "lib/core/**"
+
+component/utils:
+  - any:  
+    - "src/utils/**"
+    - "lib/utils/**"
+
+component/cli:
+  - any:  
+    - "src/cli/**"
+    - "bin/**"
+    - "scripts/**"

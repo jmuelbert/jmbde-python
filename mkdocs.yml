@@ -1,10 +1,21 @@
-site_name: jmbde-python
-site_url: https://io.github.org/jmuelbert/jmbde-python/
-site_description: 'JM BDE - Management of the inventory the computer equipment'
+---
+# SPDX-FileCopyRightText: 2023-2024 Jürgen Mülbert <juergen.muelbert@outlook.de>
+#
+# SPDX-License-Identifier: EUPL-1.2
+# yaml-lint: ignore line-length
+# yaml-language-server: schema=https://json.schemastore.org/mkdocs-1.6.json
+# $schema=https://json.schemastore.org/mkdocs-1.6.json
+
+site_name: JM BDE
+site_url: https://jmuelbert.github.io/jmbde-python/
+site_description: JM BDE - Management of inventory and computer equipment
+site_author: Jürgen Mülbert
+
 repo_name: jmuelbert/jmbde-python
-repo_url: https://github.com/jmuelbert/jmbde-python/
-edit_uri: 'blob/main/docs/'
-copyright: Copyright &copy; 2023 - 2024 Jürgen Mülbert
+repo_url: https://github.com/jmuelbert/jmbde-python
+edit_uri: edit/main/docs/
+
+copyright: Copyright &copy; 2023-2024 Jürgen Mülbert
 
 docs_dir: docs
 site_dir: site
@@ -13,61 +24,59 @@ theme:
   name: material
   custom_dir: docs/.overrides
   language: en
-  features:
-    - content.code.copy
-    - navigation.tabs
-    - navigation.top
-    - navigation.tracking
-    - search.highlight
-    - search.suggest
-    - toc.follow
+  favicon: assets/images/logo.svg
+  font:
+    text: Source Sans Pro
+    code: Fira Code
+  icon:
+    repo: fontawesome/brands/github
+    logo: material/check-network-outline
   palette:
-    - media: '(prefers-color-scheme: light)'
-      scheme: default
-      toggle:
-        icon: material/brightness-7
-        name: Switch to dark mode
-    - media: '(prefers-color-scheme: dark)'
+    - media: "(prefers-color-scheme: dark)"
       scheme: slate
+      primary: indigo
+      accent: indigo
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
-  font:
-    text: Roboto
-    code: Roboto Mono
-  icon:
-    repo: fontawesome/brands/github-alt
-    logo: material/check-network-outline
-
-nav:
-  - Introduction: index.md
-  - Getting Started:
-      - QuickStart: quickstart.md
-      - Installation: guides/install.md
-      - Configuration: guides/configuration.md
-  - User Guide:
-      - Command Line: guides/commandline.md
-      - Logging: guides/logging.md
-      - Troubleshooting: guides/troubleshooting.md
-  - Development:
-      - API Overview: developer/overview.md
-      - Configuration: developer/configuration.md
-      - Changelog: developer/changelog.md
-  - Community:
-      - Contributing: community/contributing.md
-      - Code of Conduct: community/code_of_conduct.md
-  - About:
-      - License: about/EUPL-1.2.md
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+  features:
+    - announce.dismiss
+    - content.action.edit
+    - content.code.annotate
+    - content.code.copy
+    - content.tabs.link
+    - content.tooltips
+    - navigation.expand
+    - navigation.footer
+    - navigation.instant
+    - navigation.sections
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
 
 plugins:
-  - search
-  - i18n:
-      languages:
-        - locale: en
-          default: true
-          name: English
-        - locale: de
-          name: Deutsch
+  - search:
+      separator: '[\\s\\-,:!=\\[\\]()"/]+|(?!=[^=])'
+  - glightbox
+  - minify:
+      minify_html: true
+      minify_js: true
+      minify_css: true
+  - mike:
+      alias_type: copy
+      canonical_version: latest
   - mkdocstrings:
       default_handler: python
       handlers:
@@ -75,27 +84,40 @@ plugins:
           paths: [src]
           options:
             show_root_heading: true
-            show_signature: false
-
-markdown_extensions:
-  - admonition
-  - attr_list
-  - footnotes
-  - toc:
-      permalink: true
-  - pymdownx.highlight:
-      use_pygments: true
-  - pymdownx.superfences
-  - pymdownx.tabbed:
-      alternate_style: true
-  - pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+            show_root_full_path: false
+            show_if_no_docstring: true
+            show_signature_annotations: true
+            show_bases: false
+            docstring_style: google
+            docstring_section_style: table
+  - git-revision-date-localized:
+      type: datetime
+      timezone: Europe/Berlin
+      enable_creation_date: true
+      fallback_to_build_date: true
+  - i18n:
+      docs_structure: suffix
+      fallback_to_default: true
+      reconfigure_material: true
+      reconfigure_search: true
+      languages:
+        - locale: en
+          default: true
+          name: English
+          build: true
+          site_name: JM BDE Documentation
+        - locale: de
+          name: Deutsch
+          build: true
+          site_name: JM BDE Dokumentation
+  - mermaid2
+  - git-revision-date-localized:
+      type: datetime
+      timezone: Europe/Berlin
+      enable_creation_date: true
+      fallback_to_build_date: true
 
 extra:
-  social:
-    - icon: fontawesome/brands/github
-      link: https://github.com/jmuelbert
   alternate:
     - name: English
       link: /en/
@@ -103,8 +125,26 @@ extra:
     - name: Deutsch
       link: /de/
       lang: de
+    - name: Italiano
+      link: /it/
+      lang: it
+    - name: Español
+      link: /es/
+      lang: es
 
-watch:
-  - mkdocs.yml
-  - src/
-  - docs/
+nav:
+  - English:
+      - en/index.md
+      - en/installation.md
+    # ... other English pages
+  - Deutsch:
+      - de/index.md
+      - de/installation.md
+    # ... other German pages
+  - Italiano:
+      - it/index.md
+      - it/installation.md
+    # ... other Italian pages
+  - Español:
+      - es/index.md
+      - es/installation.md

@@ -1,0 +1,142 @@
+---
+# SPDX-License-Identifier: EUPL-1.2
+# SPDX-FileCopyrightText: 2025-present Jürgen Mülbert <juergen.muelbert@outlook.de>
+#
+name: Sync Labels
+
+on:
+  push:
+    paths:
+      - '.github/labels.yml'
+      - '.github/labeler.yml'
+      - '.github/workflows/labels-sync.yml'
+      - '.github/config/workflow-settings.yml'
+  schedule:
+    - cron: '0 0 * * 0' # Weekly on Sunday
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sync-labels:
+    name: Sync Labels
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: 🔒 Harden Runner
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 📚 Load Workflow Settings
+        id: settings
+        run: |
+          yq --version
+          SETTINGS=$(yq eval -o=json .github/config/workflow-settings.yml)
+          echo "DEBUG: SETTINGS=$SETTINGS"
+          echo "settings=$(echo "$SETTINGS" | jq -c .)" >> "$GITHUB_OUTPUT"
+
+      - name: 🏷️ Sync Labels
+        uses: EndBug/label-sync@v2
+        with:
+          config-file: .github/labels.yml
+          delete-other-labels: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🔧 Setup PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ fromJson(steps.settings.outputs.settings).versions.pnpm }}
+
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ fromJson(steps.settings.outputs.settings).versions.node }}
+          cache: 'pnpm'
+
+      - name: 📦 Install dependencies
+        run: |
+          pnpm install
+          # Install additional packages from config if not in package.json
+          for package in $(echo '${{ fromJson(steps.settings.outputs.settings).dependencies.packages }}' | jq -r '.[]'); do
+            if ! grep -q "\"$package\"" package.json; then
+              pnpm add -D $package
+            fi
+          done
+
+      - name: 📝 Generate Report
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const yaml = require('yaml');
+            const chalk = require('chalk');
+
+            // Load configurations
+            const labelConfig = yaml.parse(
+              fs.readFileSync('.github/labels.yml', 'utf8')
+            );
+            const labelerConfig = yaml.parse(
+              fs.readFileSync('.github/labeler.yml', 'utf8')
+            );
+
+            let summary = `## 🏷️ Label Sync Report\n\n`;
+
+            // Analyze configurations
+            const labelNames = new Set(labelConfig.map(l => l.name));
+            const labelerRules = new Set(Object.keys(labelerConfig));
+
+            // Find mismatches
+            const missingLabels = [...labelerRules].filter(r => !labelNames.has(r));
+            const unusedLabels = [...labelNames].filter(l => !labelerRules.has(l));
+
+            // Generate statistics
+            summary += `### Statistics\n`;
+            summary += `- Total Labels: ${labelNames.size}\n`;
+            summary += `- Total Labeler Rules: ${labelerRules.size}\n`;
+            summary += `- Missing Labels: ${missingLabels.length}\n`;
+            summary += `- Unused Labels: ${unusedLabels.length}\n\n`;
+
+            if (missingLabels.length > 0) {
+              summary += `### ⚠️ Missing Labels\n`;
+              missingLabels.forEach(label => {
+                summary += `- \`${label}\`: Used in labeler but not defined\n`;
+              });
+              summary += `\n`;
+            }
+
+            if (unusedLabels.length > 0) {
+              summary += `### ℹ️ Unused Labels\n`;
+              unusedLabels.forEach(label => {
+                summary += `- \`${label}\`: Defined but not used in labeler\n`;
+              });
+              summary += `\n`;
+            }
+
+            // Create issue if there are problems
+            if (missingLabels.length > 0) {
+              await github.rest.issues.create({
+                ...context.repo,
+                title: '🏷️ Label Configuration Needs Attention',
+                body: summary,
+                labels: ['automation', 'documentation']
+              });
+            }
+
+            // Add report to workflow summary
+            await core.summary
+              .addHeading('Label Sync Results')
+              .addRaw(summary)
+              .write();

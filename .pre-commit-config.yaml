@@ -1,7 +1,7 @@
 ---
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
-exclude: ^3rd-party|COPYING|.gitmodules|conan|.*\.ui$|.*\.qrc$|.*\.ts$
+exclude: ^(3rd-party|COPYING|LICENSE|\.gitmodules|.*\.(ui|qrc|ts)$|LICENSES/|dist/|pnpm-lock.yaml)
 ci:
   autofix_commit_msg: 🎨 [pre-commit.ci] Auto format from pre-commit.com hooks
   autoupdate_commit_msg: ⬆ [pre-commit.ci] pre-commit autoupdate
@@ -12,144 +12,145 @@ repos:
     rev: v5.0.0
     hooks:
       - id: trailing-whitespace
-        args: ['--markdown-linebreak-ext=md']
-        exclude: LICENSES/
+        args: [--markdown-linebreak-ext=md]
       - id: end-of-file-fixer
       - id: check-yaml
-        args: [--unsafe, --allow-multiple-documents]
+        args: [--allow-multiple-documents]
+        exclude: mkdocs.yml
       - id: check-added-large-files
-        args: ['--maxkb=1024']
-      - id: check-ast
+        args: [--maxkb=500]
       - id: check-json
         exclude: (\.devcontainer/devcontainer.json|\.vscode/)
       - id: check-merge-conflict
       - id: check-case-conflict
-      - id: check-xml
-      - id: debug-statements
       - id: detect-private-key
-      - id: mixed-line-ending
-        args: ['--fix=lf']
-      - id: check-added-large-files
-        args: ['--maxkb=710']
+      - id: check-ast
+      - id: debug-statements
       - id: check-builtin-literals
 
+  # Check and update pre-commit
   - repo: meta
     hooks:
       - id: check-hooks-apply
       - id: check-useless-excludes
 
   - repo: https://github.com/mxr/sync-pre-commit-deps
-    rev: v0.0.1
+    rev: v0.0.3
     hooks:
       - id: sync-pre-commit-deps
 
-  - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
-    rev: v9.19.0
-    hooks:
-      - id: commitlint
-        stages: [commit-msg]
-        additional_dependencies: ['@commitlint/config-angular']
-
+  # Code Style & Formatting
   - repo: https://github.com/psf/black
     rev: 24.10.0
     hooks:
       - id: black
-        language_version: python3
-        args: [--line-length=88]
+        args: [--safe]
 
-  - repo: https://github.com/pycqa/isort
-    rev: 5.13.2
-    hooks:
-      - id: isort
-        args: ['--profile', 'black', '--filter-files']
-
-  - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v4.0.0-alpha.8
-    hooks:
-      - id: prettier
-        args: ['--write']
-        types_or:
-          - yaml
-          - markdown
-          - html
-          - css
-          - scss
-          - javascript
-          - json
-          - jsx
-          - toml
-          - ts
-          - tsx
-
+  # Comprehensive Linting
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.8.3
+    rev: v0.9.2
     hooks:
       - id: ruff
-        types_or: [python, jupyter]
-        args: ['--fix', '--show-fixes']
-        exclude: ^(build|examples|tests)/.*$
+        args: [--fix, --exit-non-zero-on-fix]
       - id: ruff-format
-        types_or: [python, jupyter]
-
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.13.0
-    hooks:
-      - id: mypy
-        # exclude: ^(docs/conf.py)$
-        args: []
-        additional_dependencies: &mypy_deps
-          - types-PyYAML
-          - tomli >= 0.2.6, < 2.0.0
-          - click >= 8.1.0, != 8.1.4, != 8.1.5
-          - packaging >= 22.0
-          - platformdirs >= 2.1.0
-          - pytest
-          - hypothesis
-          - aiohttp >= 3.7.4
-          - types-commonmark
-          - types-requests>=2.31
-          - urllib3>=2.2.1
-          - hypothesmith
-      - id: mypy
-        name: mypy (Python 3.10)
-        files: src/
-        args: ['--python-version=3.10']
-        additional_dependencies: *mypy_deps
-
-  - repo: https://github.com/PyCQA/bandit
-    rev: 1.8.0
-    hooks:
-      - id: bandit
-        args: ['-c', 'pyproject.toml']
-        additional_dependencies: ['bandit[toml]']
 
   - repo: https://github.com/PyCQA/pylint
-    rev: v3.3.2
+    rev: v3.3.3
     hooks:
       - id: pylint
-        args: ['--rcfile=pyproject.toml', '--output-format=colorized']
+        args: [--rcfile=pyproject.toml, --output-format=colorized]
         additional_dependencies: [pylint-pytest]
 
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.19.0
+  # Type Checking
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.14.1
     hooks:
-      - id: pyupgrade
-        args: [--py39-plus]
+      - id: mypy
+        args: [--config-file=pyproject.toml]
 
-  - repo: https://github.com/hadolint/hadolint
-    rev: v2.13.1-beta
+  # Security Checks
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.8.2
     hooks:
-      - id: hadolint
-        args: ['--ignore', 'DL3008', '--ignore', 'DL3013']
+      - id: bandit
+        args: ["-c", "pyproject.toml", "-r", "src", "-ll"]
+        additional_dependencies: ["bandit[toml]"]
 
-  - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.43.0
+  # Dependency Security
+  - repo: https://github.com/pypa/pip-audit
+    rev: v2.7.3
     hooks:
-      - id: markdownlint
-        args: ['--config', '.markdownlint.json']
+      - id: pip-audit
+        args: ["-r", "requirements.txt", "--ignore-vuln", "GHSA-XXXX-XXXX-XXXX"]
 
+  # License Compliance
+  - repo: https://github.com/fsfe/reuse-tool
+    rev: v5.0.2
+    hooks:
+      - id: reuse
+        args: ["lint"]
+
+  # Secrets Detection
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.23.1
+    hooks:
+      - id: gitleaks
+        args:
+          - protect
+          - --source
+          - .
+          - --verbose
+          - --redact
+          - --staged
+        verbose: true
+        stages: [pre-commit, pre-push, manual]
+        additional_dependencies: []
+        # Add custom configuration inline
+        entry: >
+          gitleaks protect
+            --config
+              {
+                "allowlist": {
+                  "paths": [
+                    "assets/translations/**",
+                    "LICENSES/**",
+                    "**/test/**",
+                    "**/*_test.go"
+                  ],
+                "regexes": [
+                    "AAAAB3NzaC1yc2E", # Example SSH public key prefix
+                    "gitleaks:allow"
+                  ],
+                "description": "Allowlisted items"
+              },
+              "extend": ["/.github/gitleaks.toml"],
+                "rules": {
+                  "generic-api-key": {
+                    "description": "Generic API Key",
+                    "regex": "(?i)(api[_-]?key|apikey|secret)[a-z0-9_ -]*[=:][a-z0-9/\\-+=_]{32,}",
+                    "tags": ["key", "API", "generic"]
+                  },
+                "python-password": {
+                  "description": "Python password in code",
+                  "regex": "(?i)(password|passwd|pwd)[a-z0-9_ -]*[=:][^,}{)(\n]{8,}",
+                  "tags": ["key", "Python", "password"]
+                },
+                "pyside-secret": {
+                  "description": "PySide/Qt secrets in code",
+                  "regex": "(?i)(qt_|pyside_)(secret|key|password)[a-z0-9_ -]*[=:][^,}{)(\n]{8,}",
+                  "tags": ["key", "PySide", "Qt"]
+                }
+              }
+            }
+
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: v1.35.1
+    hooks:
+      - id: yamllint
+
+  # GitHub json checks
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.30.0
+    rev: 0.31.0
     hooks:
       - id: check-dependabot
       # - id: check-github-actions
@@ -157,40 +158,44 @@ repos:
       # - id: check-gitlab-ci
       - id: check-readthedocs
         # - id: check-taskfile
-        args: ['--verbose']
+        args: [--verbose]
 
-  - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.21.2
-    hooks:
-      - id: gitleaks
-
-  - repo: https://github.com/adrienverge/yamllint.git
-    rev: v1.35.1
-    hooks:
-      - id: yamllint
-        args:
-          - -d
-          - '{extends: relaxed, rules: {line-length: {max: 90}}}'
-
-  - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.30.0
-    hooks:
-      - id: check-github-workflows
-        args: ['--verbose']
-
-  - repo: https://github.com/codespell-project/codespell
-    rev: v2.3.0
-    hooks:
-      - id: codespell
-        additional_dependencies: ['tomli>=2.0.1']
-        exclude: (.*\.svg|pyproject.toml|LICENSE|LICENSES/|\.github/actions)
-
+  # GitHub Workflows check
   - repo: https://github.com/rhysd/actionlint
-    rev: v1.7.4
+    rev: v1.7.7
     hooks:
       - id: actionlint
 
-  - repo: https://github.com/fsfe/reuse-tool
-    rev: v5.0.2
+  # Prettier
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v4.0.0-alpha.8
     hooks:
-      - id: reuse
+      - id: prettier
+
+  # Markdown specific
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.43.0
+    hooks:
+      - id: markdownlint
+        args: ["--config", ".markdownlint.json"]
+
+  # Links checker
+  - repo: https://github.com/tcort/markdown-link-check
+    rev: v3.13.6
+    hooks:
+      - id: markdown-link-check
+        args: ["--config", ".markdown-link-check.json"]
+
+  # Spell checker
+  - repo: https://github.com/amperser/proselint
+    rev: 0.14.0 # Use the latest stable version
+    hooks:
+      - id: proselint
+        args: ["--config", "pyproject.toml"]
+
+  # Typos and common mistakes
+  - repo: https://github.com/crate-ci/typos
+    rev: dictgen-v0.3.1
+    hooks:
+      - id: typos
+        args: ["--config", "pyproject.toml"]

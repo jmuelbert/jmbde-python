@@ -4,6 +4,12 @@ SPDX-PackageSupplier = "<juergen.muelbert@outlook.de>"
 SPDX-PackageDownloadLocation = "https://www.github.com/jmuelbert/jmbde-QT"
 
 [[annotations]]
+path = ["src/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Jürgen Mülbert <juergen.muelbert@outlook.de>"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+[[annotations]]
 path = ["**.ui", "**.qrc", "**.json", "CMakePresets.json", "app/data/io.github.jmuelbert.jmbde.appdata.xml", "app/data/io.github.jmuelbert.jmbde.desktop", "app/data/MacOSXBundleInfo.plist.in", "docs/collection/about.txt", "**.frag", "**.geom", "**.vert", "**.ts", "**.qm", "**.map", "cmake/jmbde.rc.cmake"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "Jürgen Mülbert <juergen.muelbert@outlook.de>"

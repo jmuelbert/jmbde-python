@@ -1,10 +1,8 @@
 # jmbde
 
 [![Gitpod](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/jmuelbert/jmbde-python)
-[![Tests](https://github.com/jmuelbert/jmbde-python/workflows/Tests/badge.svg)](https://github.com/jmuelbert/jmbde-python/actions?workflow=Tests)
-[![PyPI](https://img.shields.io/pypi/v/jmbde-python.svg)](https://pypi.org/project/jmbde-python/)
-[![Python Version](https://img.shields.io/pypi/pyversions/jmbde-python)](https://pypi.org/project/jmbde-python)
-[![Read the Docs](https://readthedocs.org/projects/jmbde-python/badge/)](https://jmbde-python.readthedocs.io/)
+[![Tests](https://github.com/jmuelbert/jmbde-python/workflows/Tests/badge.svg)](https://github.com/jmuelbert/jmbde-python/actions?workflow=Tests) [![PyPI](https://img.shields.io/pypi/v/jmbde-python.svg)](https://pypi.org/project/jmbde-python/)
+[![Python Version](https://img.shields.io/pypi/pyversions/jmbde-python)](https://pypi.org/project/jmbde-python) [![Read the Docs](https://readthedocs.org/projects/jmbde-python/badge/)](https://jmbde-python.readthedocs.io/)
 [![License](https://img.shields.io/pypi/l/jmbde-python)](https://opensource.org/licenses/GPL-3.0)
 
 ## Features
@@ -20,7 +18,7 @@ jmbde uses the cross-platform frameworks [Python](https://www.python.org) and [Q
 You can install _jmbde-python_ via [pip](https://pip.pypa.io/) from [PyPI](https://pypi.org/):
 
 ```bash
-$ pip install jmbde-python
+pip install jmbde-python
 ```
 
 The main branch represents the latest pre-release code.

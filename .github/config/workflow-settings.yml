@@ -1,0 +1,12 @@
+---
+# SPDX-License-Identifier: EUPL-1.2
+# Workflow Settings Configuration
+
+versions:
+  node: '16.x'
+  pnpm: '8.x'
+
+dependencies:
+  packages:
+    - yaml
+    - chalk

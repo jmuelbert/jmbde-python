@@ -1,0 +1,292 @@
+---
+name: Issue Management
+
+on:
+  issues:
+    types: [opened, edited, labeled, unlabeled, assigned, reopened]
+  issue_comment:
+    types: [created]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.issue.number }}
+  cancel-in-progress: true
+
+jobs:
+  process-issue:
+    name: Process Issue
+    if: github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      issues: write
+      pull-requests: read
+      project: write
+
+    outputs:
+      labeled: ${{ steps.triage.outputs.labeled }}
+      priority: ${{ steps.triage.outputs.priority }}
+
+    steps:
+      - name: 🔒 Harden Runner
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
+      - name: 🏷️ Process Issue
+        id: triage
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const CONFIG = {
+              labels: {
+                types: {
+                  '[BUG]': ['type-bug', 'needs-triage'],
+                  '[FEATURE]': ['type-feature', 'needs-triage'],
+                  '[DOCS]': ['documentation', 'needs-triage'],
+                  '[QUESTION]': ['question', 'needs-triage']
+                },
+                triggers: {
+                  'Traceback (most recent call last)': ['type-crash', 'high-priority'],
+                  'SecurityError': ['security', 'high-priority'],
+                  'regression': ['regression', 'needs-investigation']
+                },
+                sizes: {
+                  small: 500,
+                  medium: 2000
+                }
+              },
+              templates: {
+                welcome: `👋 Thanks for opening this issue!\n\n Please make sure you have:
+                  - [ ] Checked existing issues
+                  - [ ] Provided necessary information
+                  - [ ] Added relevant labels\n\n Read our [Contributing Guidelines](../../CONTRIBUTING.md)`,
+                needsInfo: '❓ Please provide more information to help us investigate.',
+                highPriority: '⚠️ This issue has been marked as high priority.',
+                help: '🤝 This issue is available for anyone to work on!',
+                goodFirst: '🌟 This is a great issue for first-time contributors!'
+              }
+            };
+
+            async function processIssue() {
+              const issue = context.payload.issue;
+              if (!issue) return;
+
+              const labels = new Set();
+              const title = issue.title.toLowerCase();
+              const body = issue.body?.toLowerCase() || '';
+
+              // Process type labels
+              Object.entries(CONFIG.labels.types).forEach(([prefix, typeLabels]) => {
+                if (title.startsWith(prefix.toLowerCase())) {
+                  typeLabels.forEach(label => labels.add(label));
+                }
+              });
+
+              // Process trigger labels
+              Object.entries(CONFIG.labels.triggers).forEach(([trigger, triggerLabels]) => {
+                if (body.includes(trigger.toLowerCase())) {
+                  triggerLabels.forEach(label => labels.add(label));
+                }
+              });
+
+              // Add size label
+              const length = body.length;
+              if (length > CONFIG.labels.sizes.medium) {
+                labels.add('size/large');
+              } else if (length > CONFIG.labels.sizes.small) {
+                labels.add('size/medium');
+              } else {
+                labels.add('size/small');
+              }
+
+              // Add labels
+              if (labels.size > 0) {
+                await github.rest.issues.addLabels({
+                  ...context.repo,
+                  issue_number: issue.number,
+                  labels: Array.from(labels)
+                });
+              }
+
+              // Add comments based on context
+              if (context.payload.action === 'opened') {
+                await github.rest.issues.createComment({
+                  ...context.repo,
+                  issue_number: issue.number,
+                  body: CONFIG.templates.welcome
+                });
+              }
+
+              if (labels.has('high-priority')) {
+                await github.rest.issues.createComment({
+                  ...context.repo,
+                  issue_number: issue.number,
+                  body: CONFIG.templates.highPriority
+                });
+              }
+
+              // Handle label-specific comments
+              if (context.payload.action === 'labeled') {
+                const label = context.payload.label.name;
+                let comment = null;
+
+                switch (label) {
+                  case 'help wanted':
+                    comment = CONFIG.templates.help;
+                    break;
+                  case 'good first issue':
+                    comment = CONFIG.templates.goodFirst;
+                    break;
+                }
+
+                if (comment) {
+                  await github.rest.issues.createComment({
+                    ...context.repo,
+                    issue_number: issue.number,
+                    body: comment
+                  });
+                }
+              }
+
+              return {
+                labeled: labels.size > 0,
+                priority: labels.has('high-priority')
+              };
+            }
+
+            const result = await processIssue();
+            core.setOutput('labeled', result?.labeled);
+            core.setOutput('priority', result?.priority);
+
+      - name: 📊 Process Stale Issues
+        uses: actions/stale@v9
+        with:
+          stale-issue-message: "This issue hasn't had recent activity."
+          close-issue-message: 'Closing due to inactivity.'
+          days-before-stale: 30
+          days-before-close: 7
+          exempt-issue-labels: 'priority-high,security,pinned'
+
+      - name: 📝 Generate Report
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const duration = Date.now() - new Date(context.payload.issue.created_at).getTime();
+            console.log(`Processing completed in ${duration}ms`);
+
+      - name: 🏗️ Manage Project
+        id: project
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const PROJECT_CONFIG = {
+              name: 'jmbde-python',
+              columns: {
+                triage: 'Triage',
+                inProgress: 'In Progress',
+                highPriority: 'High Priority'
+              }
+            };
+
+            async function manageProject() {
+              try {
+                // Get project details
+                const { data: projects } = await github.rest.projects.listForRepo({
+                  ...context.repo,
+                  state: 'open'
+                });
+
+                const project = projects.find(p => p.name === PROJECT_CONFIG.name);
+                if (!project) {
+                  console.log('Project not found');
+                  return;
+                }
+
+                // Get columns
+                const { data: columns } = await github.rest.projects.listColumns({
+                  project_id: project.id
+                });
+
+                // Determine target column
+                let targetColumn = columns.find(c => c.name === PROJECT_CONFIG.columns.triage);
+                if (context.payload.issue.labels.some(l => l.name === 'high-priority')) {
+                  targetColumn = columns.find(c => c.name === PROJECT_CONFIG.columns.highPriority);
+                }
+
+                if (!targetColumn) {
+                  console.log('Target column not found');
+                  return;
+                }
+
+                // Create project card
+                await github.rest.projects.createCard({
+                  column_id: targetColumn.id,
+                  content_id: context.payload.issue.id,
+                  content_type: 'Issue'
+                });
+
+                return {
+                  projectId: project.id,
+                  columnId: targetColumn.id
+                };
+              } catch (error) {
+                console.error('Error managing project:', error);
+                return null;
+              }
+            }
+
+            const result = await manageProject();
+            if (result) {
+              core.setOutput('project-id', result.projectId);
+              core.setOutput('column-id', result.columnId);
+            }
+
+      - name: 📢 Notify Team
+        if: steps.triage.outputs.priority == 'high'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const message = `🚨 High Priority Issue
+
+            Issue #${context.payload.issue.number} requires immediate attention.
+
+            **Title:** ${context.payload.issue.title}
+            **Link:** ${context.payload.issue.html_url}
+
+            Please review and assign team members accordingly.`;
+
+            // Create team discussion
+            await github.rest.teams.createDiscussion({
+              team_id: 'YOUR_TEAM_ID', // Replace with your team ID
+              org: context.repo.owner,
+              title: `High Priority: ${context.payload.issue.title}`,
+              body: message
+            });
+
+            // Optional: Add comment to issue
+            await github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: context.payload.issue.number,
+              body: '👥 Team has been notified of this high-priority issue.'
+            });
+
+  update-project:
+    needs: process-issue
+    if: needs.process-issue.outputs.priority == 'high'
+    runs-on: ubuntu-latest
+    permissions:
+      project: write
+
+    steps:
+      - name: 🔄 Update Project Views
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Add custom project view updates here
+            console.log('Project ID:', '${{ needs.process-issue.outputs.project-id }}');
+            console.log('Column ID:', '${{ needs.process-issue.outputs.column-id }}');
