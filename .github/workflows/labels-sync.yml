@@ -10,6 +10,7 @@ on:
       - '.github/labels.yml'
       - '.github/labeler.yml'
       - '.github/workflows/labels-sync.yml'
+      - '.github/config/workflow-settings.yml'
   schedule:
     - cron: '0 0 * * 0' # Weekly on Sunday
   workflow_dispatch:
@@ -45,16 +46,26 @@ jobs:
           delete-other-labels: true
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set up Node.js
+      - name: 🔧 Setup PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ fromJson(steps.settings.outputs.settings).versions.pnpm }}
+
+      - name: 🔧 Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20' # Use a Node.js version compatible with the `yaml` package
-          cache: 'npm'
-          
-      - name: Install dependencies
+          node-version: ${{ fromJson(steps.settings.outputs.settings).versions.node }}
+          cache: 'pnpm'
+
+      - name: 📦 Install dependencies
         run: |
-          npm install yaml
-          npm install chalk
+          pnpm install
+          # Install additional packages from config if not in package.json
+          for package in $(echo '${{ fromJson(steps.settings.outputs.settings).dependencies.packages }}' | jq -r '.[]'); do
+            if ! grep -q "\"$package\"" package.json; then
+              pnpm add -D $package
+            fi
+          done
 
       - name: 📝 Generate Report
         if: always()
@@ -74,11 +85,11 @@ jobs:
             );
 
             let summary = `## 🏷️ Label Sync Report\n\n`;
-            
+
             // Analyze configurations
             const labelNames = new Set(labelConfig.map(l => l.name));
             const labelerRules = new Set(Object.keys(labelerConfig));
-            
+
             // Find mismatches
             const missingLabels = [...labelerRules].filter(r => !labelNames.has(r));
             const unusedLabels = [...labelNames].filter(l => !labelerRules.has(l));
@@ -121,4 +132,3 @@ jobs:
               .addHeading('Label Sync Results')
               .addRaw(summary)
               .write();
-

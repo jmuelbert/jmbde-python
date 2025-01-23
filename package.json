@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "eslint .",
     "spellcheck": "cspell **",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "sync-labels": "node .github/scripts/sync-labels.js"
   },
   "keywords": [
     "python",
@@ -18,8 +19,10 @@
   "devDependencies": {
     "@cspell/dict-de-de": "^4.0.3",
     "@cspell/dict-python": "^4.2.14",
+    "chalk": "^5.4.1",
     "cspell": "^5.21.2",
-    "lint-staged": "^12.5.0"
+    "lint-staged": "^12.5.0",
+    "yaml": "^2.7.0"
   },
   "files": [
     "main.py",
