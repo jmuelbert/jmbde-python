@@ -26,25 +26,23 @@ shared:
     - "*.config.*"
 
 # Type Labels
-"type":
-  - fix":
+"type-fix":
     - "src/**/*.py"
     - "lib/**/*.py"
     - "**/bugfix/**"
     - "**/hotfix/**"
     - "**/patch/**"
 
-  - feature:
+"type-feature":
     - "src/**/*.py"
     - "lib/**/*.py"
     - "**/feature/**"
     - "**/feat/**"
     - "**/enhancement/**"
-
-  - docs:
+"type-docs":
     - *doc_files
 
-  - test:
+"type-test":
     - "tests/**/*.py"
     - "**/test/**"
     - "**/tests/**"
@@ -53,7 +51,7 @@ shared:
     - "**/testing/**"
     - "**/*.spec.py"
 
-  - chore:
+"type-chore":
     - "**/build/**"
     - "**/ci/**"
     - "**/config/**"
@@ -64,13 +62,13 @@ shared:
     - "LICENSE*"
     - "NOTICE*"
 
-  - refactor:
+"type-refactor":
     - "src/**/*.py"
     - "lib/**/*.py"
     - "**/refactor/**"
     - "**/cleanup/**"
 
-  - style:
+"type-style":
     - "**/*.css"
     - "**/*.scss"
     - "**/*.sass"
@@ -83,7 +81,7 @@ shared:
     -  "pyproject.toml"
     - "setup.cfg"
 
-  - performance:
+"type-performance":
     - "src/**/*.py"
     - "lib/**/*.py"
     - "**/perf/**"

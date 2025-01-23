@@ -129,19 +129,19 @@ jobs:
             const titlePattern = /^(fix|feat|docs|test|chore|refactor|style|perf)(?:\(.*\))?:/;
             const match = pr.title.match(titlePattern);
             if (match) {
-              labels.add(`type: ${match[1]}`);
+              labels.add(`type-${match[1]}`);
             }
 
             // Check PR body for specific keywords and contexts
             const body = pr.body?.toLowerCase() || '';
 
             const checks = {
-              'security': ['security', 'vulnerability', 'cve', 'auth', 'authentication'],
-              'performance': ['performance', 'optimize', 'speed', 'perf'],
-              'documentation': ['documentation', 'docs', 'readme'],
-              'dependencies': ['dependency', 'dependencies', 'deps'],
-              'breaking': ['breaking change', 'breaking-change'],
-              'deprecation': ['deprecate', 'deprecated']
+              'security-label': ['security', 'vulnerability', 'cve', 'auth', 'authentication'],
+              'performance-label': ['performance', 'optimize', 'speed', 'perf'],
+              'documentation-label': ['documentation', 'docs', 'readme'],
+              'dependencies-label': ['dependency', 'dependencies', 'deps'],
+              'breaking-label': ['breaking change', 'breaking-change'],
+              'deprecation-label': ['deprecate', 'deprecated']
             };
 
             Object.entries(checks).forEach(([label, keywords]) => {
