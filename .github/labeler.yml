@@ -1,20 +1,20 @@
 # SPDX-License-Identifier: EUPL-1.2
 
 # Type Labels
-"type-fix":
+type-fix:
     - "src/**/*.py"
     - "lib/**/*.py"
     - "**/bugfix/**"
     - "**/hotfix/**"
     - "**/patch/**"
 
-"type-feature":
+type-feature:
     - "src/**/*.py"
     - "lib/**/*.py"
     - "**/feature/**"
     - "**/feat/**"
     - "**/enhancement/**"
-"type-docs":
+type-docs:
     - "docs/**/*"
     - "**/*.md"
     - "**/*.rst"
@@ -22,7 +22,7 @@
     - "mkdocs.yml"
     - "**/*.ipynb"
 
-"type-test":
+type-test:
     - "tests/**/*.py"
     - "**/test/**"
     - "**/tests/**"
@@ -31,7 +31,7 @@
     - "**/testing/**"
     - "**/*.spec.py"
 
-"type-chore":
+type-chore:
     - "**/build/**"
     - "**/ci/**"
     - "**/config/**"
@@ -42,13 +42,13 @@
     - "LICENSE*"
     - "NOTICE*"
 
-"type-refactor":
+type-refactor:
     - "src/**/*.py"
     - "lib/**/*.py"
     - "**/refactor/**"
     - "**/cleanup/**"
 
-"type-style":
+type-style:
     - "**/*.css"
     - "**/*.scss"
     - "**/*.sass"
@@ -61,7 +61,7 @@
     -  "pyproject.toml"
     - "setup.cfg"
 
-"type-performance":
+type-performance:
     - "src/**/*.py"
     - "lib/**/*.py"
     - "**/perf/**"
@@ -69,25 +69,25 @@
     - "**/optimizations/**"
 
 # Status Labels
-"status/work-in-progress":
+status/work-in-progress:
   - "**/WIP/**"
   - "**/draft/**"
 
-"status/ready-for-review":
+status/ready-for-review:
   - "**/RFR/**"
   - "**/ready/**"
 
-"status/blocked":
+status/blocked:
   - "**/blocked/**"
   - "**/hold/**"
 
-"status/needs-discussion":
+status/needs-discussion:
   - "**/discuss/**"
   - "**/proposal/**"
   - "RFC.md"
 
 # Security Labels
-"security":
+security:
   - "src/security/**/*.py"
   - "**/auth/**"
   - "**/oauth/**"
@@ -98,7 +98,7 @@
   - "**/*security*/**"
 
 # Breaking Changes
-"breaking":
+breaking:
     - "**/*.py"
     - "**/*.pyi"
     - "**/*.pyx"
@@ -108,7 +108,7 @@
     - "docs/upgrades/**"
 
 # Deprecation
-"deprecation":
+deprecation:
     - "**/*.py"
     - "**/*.pyi"
     - "**/*.pyx"
@@ -116,7 +116,7 @@
     - "docs/deprecations/**"
 
 # CI/CD
-"ci":
+ci:
   - ".github/workflows/**"
   - ".github/actions/**"
   - ".gitlab-ci.yml"
@@ -126,7 +126,7 @@
   - ".circleci/**"
 
 # Dependencies
-"dependencies":
+dependencies:
   - "requirements*.txt"
   - "requirements/**"
   - "poetry.lock"
@@ -138,7 +138,7 @@
   - ".pre-commit-config.yaml"
 
 # Infrastructure
-"infrastructure":
+infrastructure:
   - "terraform/**"
   - "ansible/**"
   - "kubernetes/**"
@@ -151,7 +151,7 @@
   - "scripts/**"
 
 # Documentation
-"documentation":
+documentation:
   - "docs/**/*"
   - "**/*.md"
   - "**/*.rst"
@@ -163,7 +163,7 @@
   - "tutorials/**"
 
 # Testing
-"testing":
+testing:
   - "tests/**"
   - "**/test/**"
   - "**/tests/**"
@@ -174,7 +174,7 @@
   - ".coveragerc"
 
 # Database
-"database":
+database:
   - "**/migrations/**"
   - "**/alembic/**"
   - "**/*model*.py"
@@ -182,7 +182,7 @@
   - "**/db/**"
 
 # API
-"api":
+api:
   - "**/api/**"
   - "**/rest/**"
   - "**/graphql/**"
@@ -191,7 +191,7 @@
   - "**/*view*.py"
 
 # UI/Frontend
-"frontend":
+frontend:
   - "**/templates/**"
   - "**/static/**"
   - "**/assets/**"
@@ -201,41 +201,41 @@
   - "**/*.js"
 
 # Size Labels (handled by size-labeler action)
-"size/xs":
+size/xs:
   - any: ['**/*']
-"size/s":
+size/s:
   - any: ['**/*']
-"size/m":
+size/m:
   - any: ['**/*']
-"size/l":
+size/l:
   - any: ['**/*']
-"size/xl":
+size/xl:
   - any: ['**/*']
 
 # Automated
-"automated":
+automated:
   - author: ["dependabot[bot]", "renovate[bot]"]
 
 # Priority
-"priority/critical":
+priority/critical:
   - "**/hotfix/**"
   - "**/emergency/**"
   - "**/critical/**"
 
-"priority/high":
+priority/high:
   - "**/high-priority/**"
   - "**/important/**"
 
 # Component Labels
-"component/core":
+component/core:
   - "src/core/**"
   - "lib/core/**"
 
-"component/utils":
+component/utils:
   - "src/utils/**"
   - "lib/utils/**"
 
-"component/cli":
+component/cli:
   - "src/cli/**"
   - "bin/**"
   - "scripts/**"
