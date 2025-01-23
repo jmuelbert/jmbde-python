@@ -2,6 +2,7 @@
 
 # Type Labels
 type-fix:
+  - any:
     - "src/**/*.py"
     - "lib/**/*.py"
     - "**/bugfix/**"
@@ -9,12 +10,14 @@ type-fix:
     - "**/patch/**"
 
 type-feature:
+  - any:
     - "src/**/*.py"
     - "lib/**/*.py"
     - "**/feature/**"
     - "**/feat/**"
     - "**/enhancement/**"
 type-docs:
+  - any:
     - "docs/**/*"
     - "**/*.md"
     - "**/*.rst"
@@ -23,6 +26,7 @@ type-docs:
     - "**/*.ipynb"
 
 type-test:
+  - any:
     - "tests/**/*.py"
     - "**/test/**"
     - "**/tests/**"
@@ -32,6 +36,7 @@ type-test:
     - "**/*.spec.py"
 
 type-chore:
+  - any:
     - "**/build/**"
     - "**/ci/**"
     - "**/config/**"
@@ -43,12 +48,14 @@ type-chore:
     - "NOTICE*"
 
 type-refactor:
+  - any:
     - "src/**/*.py"
     - "lib/**/*.py"
     - "**/refactor/**"
     - "**/cleanup/**"
 
 type-style:
+  - any:
     - "**/*.css"
     - "**/*.scss"
     - "**/*.sass"
@@ -62,6 +69,7 @@ type-style:
     - "setup.cfg"
 
 type-performance:
+  - any:
     - "src/**/*.py"
     - "lib/**/*.py"
     - "**/perf/**"
@@ -70,35 +78,41 @@ type-performance:
 
 # Status Labels
 status/work-in-progress:
-  - "**/WIP/**"
-  - "**/draft/**"
+  - any:
+    - "**/WIP/**"
+    - "**/draft/**"
 
 status/ready-for-review:
-  - "**/RFR/**"
-  - "**/ready/**"
+  - any:  
+    - "**/RFR/**"
+    - "**/ready/**"
 
 status/blocked:
-  - "**/blocked/**"
-  - "**/hold/**"
+  - any: 
+    - "**/blocked/**"
+    - "**/hold/**"
 
 status/needs-discussion:
-  - "**/discuss/**"
-  - "**/proposal/**"
-  - "RFC.md"
+  - any:  
+    - "**/discuss/**"
+    - "**/proposal/**"
+    - "RFC.md"
 
 # Security Labels
 security:
-  - "src/security/**/*.py"
-  - "**/auth/**"
-  - "**/oauth/**"
-  - "**/crypto/**"
-  - "**/password/**"
-  - "**/permission/**"
-  - "**/secret/**"
-  - "**/*security*/**"
+  - any:  
+    - "src/security/**/*.py"
+    - "**/auth/**"
+    - "**/oauth/**"
+    - "**/crypto/**"
+    - "**/password/**"
+    - "**/permission/**"
+    - "**/secret/**"
+    - "**/*security*/**"
 
 # Breaking Changes
 breaking:
+  - any:  
     - "**/*.py"
     - "**/*.pyi"
     - "**/*.pyx"
@@ -109,6 +123,7 @@ breaking:
 
 # Deprecation
 deprecation:
+  - any:  
     - "**/*.py"
     - "**/*.pyi"
     - "**/*.pyx"
@@ -117,88 +132,97 @@ deprecation:
 
 # CI/CD
 ci:
-  - ".github/workflows/**"
-  - ".github/actions/**"
-  - ".gitlab-ci.yml"
-  - "azure-pipelines.yml"
-  - "Jenkinsfile"
-  - ".travis.yml"
-  - ".circleci/**"
+  - any:  
+    - ".github/workflows/**"
+    - ".github/actions/**"
+    - ".gitlab-ci.yml"
+    - "azure-pipelines.yml"
+    - "Jenkinsfile"
+    - ".travis.yml"
+    - ".circleci/**"
 
 # Dependencies
 dependencies:
-  - "requirements*.txt"
-  - "requirements/**"
-  - "poetry.lock"
-  - "pyproject.toml"
-  - "setup.py"
-  - "setup.cfg"
-  - "Pipfile*"
-  - "conda-env.yml"
-  - ".pre-commit-config.yaml"
+  - any:  
+    - "requirements*.txt"
+    - "requirements/**"
+    - "poetry.lock"
+    - "pyproject.toml"
+    - "setup.py"
+    - "setup.cfg"
+    - "Pipfile*"
+    - "conda-env.yml"
+    - ".pre-commit-config.yaml"
 
 # Infrastructure
 infrastructure:
-  - "terraform/**"
-  - "ansible/**"
-  - "kubernetes/**"
-  - "k8s/**"
-  - "docker/**"
-  - "Dockerfile*"
-  - "docker-compose*.yml"
-  - "helm/**"
-  - "deployment/**"
-  - "scripts/**"
+  - any:  
+    - "terraform/**"
+    - "ansible/**"
+    - "kubernetes/**"
+    - "k8s/**"
+    - "docker/**"
+    - "Dockerfile*"
+    - "docker-compose*.yml"
+    - "helm/**"
+    - "deployment/**"
+    - "scripts/**"
 
 # Documentation
 documentation:
-  - "docs/**/*"
-  - "**/*.md"
-  - "**/*.rst"
-  - "**/*.txt"
-  - "mkdocs.yml"
-  - "**/*.ipynb"
-  - "examples/**"
-  - "samples/**"
-  - "tutorials/**"
+  - any:  
+    - "docs/**/*"
+    - "**/*.md"
+    # '**/*.adoc'
+    - "**/*.rst"
+    - "**/*.txt"
+    - "mkdocs.yml"
+    - "**/*.ipynb"
+    - "examples/**"
+    - "samples/**"
+    - "tutorials/**"
 
 # Testing
 testing:
-  - "tests/**"
-  - "**/test/**"
-  - "**/tests/**"
-  - "**/*_test.py"
-  - "**/test_*.py"
-  - "pytest.ini"
-  - "conftest.py"
-  - ".coveragerc"
+  - any:  
+    - "tests/**"
+    - "**/test/**"
+    - "**/tests/**"
+    - "**/*_test.py"
+    - "**/test_*.py"
+    - "pytest.ini"
+    - "conftest.py"
+    - ".coveragerc"
 
 # Database
 database:
-  - "**/migrations/**"
-  - "**/alembic/**"
-  - "**/*model*.py"
-  - "**/*schema*.py"
-  - "**/db/**"
+  - any:
+    - "**/migrations/**"
+    - "**/alembic/**"
+    - "**/*model*.py"
+    - "**/*schema*.py"
+    - "**/db/**"
 
 # API
 api:
-  - "**/api/**"
-  - "**/rest/**"
-  - "**/graphql/**"
-  - "**/endpoints/**"
-  - "**/*controller*.py"
-  - "**/*view*.py"
+  - any:  
+    - "**/api/**"
+    - "**/rest/**"
+    - "**/graphql/**"
+    - "**/endpoints/**"
+    - "**/*controller*.py"
+    - "**/*view*.py"
 
 # UI/Frontend
 frontend:
-  - "**/templates/**"
-  - "**/static/**"
-  - "**/assets/**"
-  - "**/*.html"
-  - "**/*.css"
-  - "**/*.scss"
-  - "**/*.js"
+  - any:
+    - "**/templates/**"
+    - "**/static/**"
+    - "**/assets/**"
+    - "**/*.html"
+    - "**/*.css"
+    - "**/*.scss"
+    - "**/*.js"
 
 # Size Labels (handled by size-labeler action)
 size/xs:
@@ -218,24 +242,29 @@ automated:
 
 # Priority
 priority/critical:
-  - "**/hotfix/**"
-  - "**/emergency/**"
-  - "**/critical/**"
+  - any:  
+    - "**/hotfix/**"
+    - "**/emergency/**"
+    - "**/critical/**"
 
 priority/high:
-  - "**/high-priority/**"
-  - "**/important/**"
+  - any:  
+    - "**/high-priority/**"
+    - "**/important/**"
 
 # Component Labels
 component/core:
-  - "src/core/**"
-  - "lib/core/**"
+  - any:  
+    - "src/core/**"
+    - "lib/core/**"
 
 component/utils:
-  - "src/utils/**"
-  - "lib/utils/**"
+  - any:  
+    - "src/utils/**"
+    - "lib/utils/**"
 
 component/cli:
-  - "src/cli/**"
-  - "bin/**"
-  - "scripts/**"
+  - any:  
+    - "src/cli/**"
+    - "bin/**"
+    - "scripts/**"
