@@ -1,51 +1,250 @@
 # SPDX-License-Identifier: EUPL-1.2
 
-# Labeler configuration
-# Each label must have an array of file patterns it applies to
+# Shared patterns for reuse
+shared:
+  python_files: &python_files
+    - "**/*.py"
+    - "**/*.pyi"
+    - "**/*.pyx"
+    - "**/*.pxd"
+  
+  doc_files: &doc_files
+    - "docs/**/*"
+    - "**/*.md"
+    - "**/*.rst"
+    - "**/*.txt"
+    - "mkdocs.yml"
+    - "**/*.ipynb"
+  
+  config_files: &config_files
+    - "**/*.yml"
+    - "**/*.yaml"
+    - "**/*.json"
+    - "**/*.toml"
+    - "**/*.ini"
+    - ".env*"
+    - "*.config.*"
 
-"type":
-  - fix":
+# Type Labels
+"type-fix":
     - "src/**/*.py"
     - "lib/**/*.py"
     - "**/bugfix/**"
+    - "**/hotfix/**"
+    - "**/patch/**"
 
-"type: feature":
-  - "src/**/*.py"
-  - "lib/**/*.py"
-  - "**/feature/**"
+"type-feature":
+    - "src/**/*.py"
+    - "lib/**/*.py"
+    - "**/feature/**"
+    - "**/feat/**"
+    - "**/enhancement/**"
+"type-docs":
+    - *doc_files
 
-"type: docs":
-  - "docs/**/*.md"
-  - "**/README.md"
-  - "**/CONTRIBUTING.md"
-  - "**/*.rst"
+"type-test":
+    - "tests/**/*.py"
+    - "**/test/**"
+    - "**/tests/**"
+    - "**/*_test.py"
+    - "**/test_*.py"
+    - "**/testing/**"
+    - "**/*.spec.py"
 
-"type: test":
-  - "tests/**/*.py"
-  - "**/test/**"
-  - "**/test_*.py"
+"type-chore":
+    - "**/build/**"
+    - "**/ci/**"
+    - "**/config/**"
+    - "**/scripts/**"
+    - ".github/**/*"
+    - ".gitignore"
+    - ".editorconfig"
+    - "LICENSE*"
+    - "NOTICE*"
 
-"status: work-in-progress":
+"type-refactor":
+    - "src/**/*.py"
+    - "lib/**/*.py"
+    - "**/refactor/**"
+    - "**/cleanup/**"
+
+"type-style":
+    - "**/*.css"
+    - "**/*.scss"
+    - "**/*.sass"
+    - "**/*.less"
+    - "**/*.html"
+    - "**/*.jinja"
+    - "**/*.j2"
+    - ".style.yapf"
+    - ".pylintrc"
+    -  "pyproject.toml"
+    - "setup.cfg"
+
+"type-performance":
+    - "src/**/*.py"
+    - "lib/**/*.py"
+    - "**/perf/**"
+    - "**/benchmark/**"
+    - "**/optimizations/**"
+
+# Status Labels
+"status/work-in-progress":
   - "**/WIP/**"
+  - "**/draft/**"
 
-"status: ready-for-review":
+"status/ready-for-review":
   - "**/RFR/**"
+  - "**/ready/**"
 
+"status/blocked":
+  - "**/blocked/**"
+  - "**/hold/**"
+
+"status/needs-discussion":
+  - "**/discuss/**"
+  - "**/proposal/**"
+  - "RFC.md"
+
+# Security Labels
 "security":
   - "src/security/**/*.py"
   - "**/auth/**"
   - "**/oauth/**"
+  - "**/crypto/**"
+  - "**/password/**"
+  - "**/permission/**"
+  - "**/secret/**"
+  - "**/*security*/**"
 
+# Breaking Changes
 "breaking":
-  - "**/*.py"
-  - "docs/release-notes/**/*.md"
+  - *python_files
+  - "docs/breaking-changes/**"
+  - "docs/migrations/**"
+  - "docs/upgrades/**"
 
+# Deprecation
 "deprecation":
-  - "**/*.py"
-  - "docs/deprecations/**/*.md"
+  - *python_files
+  - "docs/deprecations/**"
 
-"size/xs": []
-"size/s": []
-"size/m": []
-"size/l": []
-"size/xl": []
+# CI/CD
+"ci":
+  - ".github/workflows/**"
+  - ".github/actions/**"
+  - ".gitlab-ci.yml"
+  - "azure-pipelines.yml"
+  - "Jenkinsfile"
+  - ".travis.yml"
+  - ".circleci/**"
+
+# Dependencies
+"dependencies":
+  - "requirements*.txt"
+  - "requirements/**"
+  - "poetry.lock"
+  - "pyproject.toml"
+  - "setup.py"
+  - "setup.cfg"
+  - "Pipfile*"
+  - "conda-env.yml"
+  - ".pre-commit-config.yaml"
+
+# Infrastructure
+"infrastructure":
+  - "terraform/**"
+  - "ansible/**"
+  - "kubernetes/**"
+  - "k8s/**"
+  - "docker/**"
+  - "Dockerfile*"
+  - "docker-compose*.yml"
+  - "helm/**"
+  - "deployment/**"
+  - "scripts/**"
+
+# Documentation
+"documentation":
+  - *doc_files
+  - "examples/**"
+  - "samples/**"
+  - "tutorials/**"
+
+# Testing
+"testing":
+  - "tests/**"
+  - "**/test/**"
+  - "**/tests/**"
+  - "**/*_test.py"
+  - "**/test_*.py"
+  - "pytest.ini"
+  - "conftest.py"
+  - ".coveragerc"
+
+# Database
+"database":
+  - "**/migrations/**"
+  - "**/alembic/**"
+  - "**/*model*.py"
+  - "**/*schema*.py"
+  - "**/db/**"
+
+# API
+"api":
+  - "**/api/**"
+  - "**/rest/**"
+  - "**/graphql/**"
+  - "**/endpoints/**"
+  - "**/*controller*.py"
+  - "**/*view*.py"
+
+# UI/Frontend
+"frontend":
+  - "**/templates/**"
+  - "**/static/**"
+  - "**/assets/**"
+  - "**/*.html"
+  - "**/*.css"
+  - "**/*.scss"
+  - "**/*.js"
+
+# Size Labels (handled by size-labeler action)
+"size/xs":
+  - any: ['**/*']
+"size/s":
+  - any: ['**/*']
+"size/m":
+  - any: ['**/*']
+"size/l":
+  - any: ['**/*']
+"size/xl":
+  - any: ['**/*']
+
+# Automated
+"automated":
+  - author: ["dependabot[bot]", "renovate[bot]"]
+
+# Priority
+"priority/critical":
+  - "**/hotfix/**"
+  - "**/emergency/**"
+  - "**/critical/**"
+
+"priority/high":
+  - "**/high-priority/**"
+  - "**/important/**"
+
+# Component Labels
+"component/core":
+  - "src/core/**"
+  - "lib/core/**"
+
+"component/utils":
+  - "src/utils/**"
+  - "lib/utils/**"
+
+"component/cli":
+  - "src/cli/**"
+  - "bin/**"
+  - "scripts/**"
