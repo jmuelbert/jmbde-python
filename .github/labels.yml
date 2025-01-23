@@ -30,19 +30,144 @@
   color: '008672'
   description: 'Extra attention is needed'
 
+# Type Labels
+- name: type/fix
+  color: 'd73a4a'
+  description: 'Bug fixes and patches'
+- name: type/feature
+  color: '0075ca'
+  description: 'New feature implementation'
+- name: type/docs
+  color: '0075ca'
+  description: 'Documentation changes'
+- name: type/test
+  color: '0e8a16'
+  description: 'Test-related changes'
+- name: type/chore
+  color: 'fef2c0'
+  description: 'Maintenance and housekeeping'
+- name: type/refactor
+  color: '1d76db'
+  description: 'Code refactoring'
+- name: type/style
+  color: '2486e6'
+  description: 'Code style and formatting'
+- name: type/performance
+  color: '3366cc'
+  description: 'Performance improvements'
+- name: type/build
+  color: '4477dd'
+  description: 'Build system changes'
+- name: type/security
+  color: 'b60205'
+  description: 'Security-related changes'
+- name: type/ci
+  color: '0075ca'
+  description: 'CI/CD improvements'
+- name: type/maintenance
+  color: 'fef2c0'
+  description: 'Repository maintenance'
+- name: type/testing
+  color: '0e8a16'
+  description: 'Testing improvements'
+
+# Status Labels
+- name: status/work-in-progress
+  color: 'fbca04'
+  description: 'Work in progress'
+- name: status/ready-for-review
+  color: '0e8a16'
+  description: 'Ready for review'
+- name: status/blocked
+  color: 'd93f0b'
+  description: 'Blocked by other work'
+- name: status/needs-discussion
+  color: 'cc317c'
+  description: 'Needs discussion'
+- name: status/has-conflicts
+  color: 'd93f0b'
+  description: 'Has merge conflicts'
+
 # Priority Labels
-- name: priority-critical
+- name: priority/critical
   color: 'b60205'
   description: 'Needs immediate attention'
-- name: priority-high
+- name: priority/high
   color: 'd93f0b'
   description: 'Needs attention soon'
-- name: priority-medium
+- name: priority/medium
   color: 'fbca04'
   description: 'Needs attention when possible'
-- name: priority-low
+- name: priority/low
   color: '0e8a16'
   description: 'Nice to have'
+
+# Size Labels
+- name: size/xs
+  color: '009900'
+  description: 'Extra small change (0-10 lines)'
+- name: size/s
+  color: '77bb00'
+  description: 'Small change (11-100 lines)'
+- name: size/m
+  color: 'eebb00'
+  description: 'Medium change (101-500 lines)'
+- name: size/l
+  color: 'ee9900'
+  description: 'Large change (501-1000 lines)'
+- name: size/xl
+  color: 'ee5500'
+  description: 'Extra large change (1000+ lines)'
+
+# Component Labels
+- name: component/core
+  color: '0366d6'
+  description: 'Core functionality changes'
+- name: component/utils
+  color: '1d76db'
+  description: 'Utility function changes'
+- name: component/cli
+  color: '2486e6'
+  description: 'Command line interface changes'
+
+# Technology Labels
+- name: security
+  color: 'b60205'
+  description: 'Security-related changes'
+- name: ci
+  color: '0075ca'
+  description: 'Continuous Integration changes'
+- name: dependencies
+  color: '0366d6'
+  description: 'Dependencies updates'
+- name: infrastructure
+  color: '006b75'
+  description: 'Infrastructure related changes'
+- name: database
+  color: '5319e7'
+  description: 'Database related changes'
+- name: api
+  color: '1d76db'
+  description: 'API related changes'
+- name: frontend
+  color: 'cc317c'
+  description: 'Frontend related changes'
+
+# Change Impact Labels
+- name: breaking
+  color: 'b60205'
+  description: 'Introduces breaking changes'
+- name: deprecation
+  color: 'f9d0c4'
+  description: 'Deprecation notices'
+
+# Automation Labels
+- name: automated
+  color: '0075ca'
+  description: 'Automated changes'
+- name: github_actions
+  color: '000000'
+  description: 'GitHub Actions related changes'
 
 # Process Labels
 - name: duplicate
@@ -57,17 +182,6 @@
 - name: stale
   color: 'fbca04'
   description: 'No recent activity'
-
-# Automation Labels
-- name: automation
-  color: '0075ca'
-  description: 'Related to GitHub Actions or automation'
-- name: dependencies
-  color: '0366d6'
-  description: 'Pull requests that update a dependency file'
-- name: github_actions
-  color: '000000'
-  description: 'Pull requests that update GitHub Actions code'
 
 # Review Labels
 - name: needs-review
@@ -91,52 +205,7 @@
   color: '0e8a16'
   description: 'All tests passing'
 
-# Documentation Labels
-- name: needs-docs
-  color: '0075ca'
-  description: 'Documentation updates needed'
-- name: docs-approved
-  color: '0e8a16'
-  description: 'Documentation has been approved'
-
-# Size Labels
-- name: size/XS
-  color: '009900'
-  description: 'Extra small change'
-- name: size/S
-  color: '77bb00'
-  description: 'Small change'
-- name: size/M
-  color: 'eebb00'
-  description: 'Medium change'
-- name: size/L
-  color: 'ee9900'
-  description: 'Large change'
-- name: size/XL
-  color: 'ee5500'
-  description: 'Extra large change'
-
-# Type Labels
-- name: type/bug
-  color: 'd73a4a'
-  description: 'Bug fix'
-- name: type/feature
-  color: '0075ca'
-  description: 'New feature'
-- name: type/maintenance
-  color: 'fef2c0'
-  description: 'Repository maintenance'
-- name: type/security
-  color: 'b60205'
-  description: 'Security fix'
-- name: type/testing
-  color: '0e8a16'
-  description: 'Testing improvements'
-- name: type/ci
-  color: '0075ca'
-  description: 'CI/CD improvements'
-
-# Language Labels
+# Language Specific
 - name: lang/python
   color: '3572A5'
   description: 'Python related changes'
@@ -160,3 +229,4 @@
 - name: area/dependencies
   color: '0366d6'
   description: 'Changes to dependencies'
+  

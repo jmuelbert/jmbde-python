@@ -1,19 +1,37 @@
----
-# SPDX-License-Identifier: MIT
-# Pull Request Labeler Workflow
+# SPDX-License-Identifier: EUPL-1.2
+# SPDX-FileCopyrightText: 2023-present Jürgen Mülbert <juergen.muelbert@outlook.de>
 
 name: Pull Request Labeler
 
 on: # yamllint disable-line rule:truthy
   pull_request:
     types: [opened, edited, synchronize, reopened, ready_for_review]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '.gitignore'
   pull_request_target:
     types: [opened, edited, synchronize, reopened, ready_for_review]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '.gitignore'
 
 permissions:
   contents: read
   pull-requests: write
   issues: write
+  actions: none
+  checks: none
+  deployments: none
+  packages: none
+  security-events: none
+  statuses: none
+
+env:
+  MIN_COVERAGE: 80
+  PYTHON_VERSION: '3.x'
+  NODE_VERSION: '16'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
@@ -40,6 +58,8 @@ jobs:
       - name: 🔄 Check Merge Conflicts
         id: conflicts
         uses: eps1lon/actions-label-merge-conflict@6d74047dcef155976a15e4a124dde2c7fe0c5522 # v3.0.1
+        timeout-minutes: 5
+        continue-on-error: true
         with:
           dirtyLabel: 'status: has-conflicts'
           repoToken: ${{ secrets.GITHUB_TOKEN }}
@@ -57,6 +77,8 @@ jobs:
       - name: 📏 Analyze Pull Request Size
         id: size
         uses: codelytv/pr-size-labeler@56f6f0fc35c7cc0f72963b8467729e1120cb4bed # v1.10.0
+        timeout-minutes: 5
+        continue-on-error: true
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           xs_label: size/xs
@@ -71,8 +93,9 @@ jobs:
           fail_if_xl: false
           message_if_xl: |
             ⚠️ This PR is quite large (over 1000 lines). Please consider:
-            - Breaking it into smaller, focused PRs.
-            - Ensuring all changes are related and well-documented.
+            - Breaking it into smaller, focused PRs
+            - Ensuring all changes are related and well-documented
+            - Adding detailed documentation for reviewers
 
             Large PRs may require additional review time and scrutiny.
           files_to_ignore: |
@@ -85,7 +108,10 @@ jobs:
             poetry.lock
 
       - name: 🏷️ Apply Scope Labels
+        id: labeler
         uses: actions/labeler@8558fd74291d67161a8a78ce36a881fa63b766a9 # v5.0.0
+        timeout-minutes: 5
+        continue-on-error: true
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           configuration-path: .github/labeler.yml
@@ -93,22 +119,36 @@ jobs:
 
       - name: 📝 Process PR Content
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        timeout-minutes: 5
         with:
           script: |
             const pr = context.payload.pull_request;
             const labels = new Set();
 
-            // Analyze PR title
-            if (pr.title.startsWith('fix:')) labels.add('type: fix');
-            if (pr.title.startsWith('feat:')) labels.add('type: feature');
-            if (pr.title.startsWith('docs:')) labels.add('type: docs');
-            if (pr.title.startsWith('test:')) labels.add('type: test');
+            // Enhanced title parsing with regex
+            const titlePattern = /^(fix|feat|docs|test|chore|refactor|style|perf)(?:\(.*\))?:/;
+            const match = pr.title.match(titlePattern);
+            if (match) {
+              labels.add(`type: ${match[1]}`);
+            }
 
-            // Check PR body for specific keywords
+            // Check PR body for specific keywords and contexts
             const body = pr.body?.toLowerCase() || '';
-            if (body.includes('breaking change')) labels.add('breaking');
-            if (body.includes('deprecate')) labels.add('deprecation');
-            if (body.includes('security')) labels.add('security');
+
+            const checks = {
+              'security': ['security', 'vulnerability', 'cve', 'auth', 'authentication'],
+              'performance': ['performance', 'optimize', 'speed', 'perf'],
+              'documentation': ['documentation', 'docs', 'readme'],
+              'dependencies': ['dependency', 'dependencies', 'deps'],
+              'breaking': ['breaking change', 'breaking-change'],
+              'deprecation': ['deprecate', 'deprecated']
+            };
+
+            Object.entries(checks).forEach(([label, keywords]) => {
+              if (keywords.some(keyword => body.includes(keyword))) {
+                labels.add(label);
+              }
+            });
 
             // Add draft or ready-for-review labels
             if (pr.draft) {
@@ -127,29 +167,50 @@ jobs:
               });
             }
 
-            // Add a review checklist as a comment
+            // Add a review checklist as a comment for new PRs
             if (context.payload.action === 'opened') {
               const checklist = `
                 ## PR Review Checklist
 
+                ### 🎯 Prerequisites
+                - [ ] PR title follows [Conventional Commits](https://www.conventionalcommits.org/)
+                - [ ] Branch is up to date with target branch
+                - [ ] All automated checks are passing
+
                 ### 📝 Documentation
-                - [ ] Relevant documentation is updated.
-                - [ ] Inline comments added for complex code.
+                - [ ] Documentation updated
+                - [ ] API changes documented
+                - [ ] Change log updated
+                - [ ] Inline comments added for complex code
 
                 ### 🧪 Testing
-                - [ ] Unit tests added/updated.
-                - [ ] All tests pass locally.
+                - [ ] Unit tests added/updated
+                - [ ] Integration tests if needed
+                - [ ] All tests passing
+                - [ ] Coverage meets minimum threshold (${process.env.MIN_COVERAGE}%)
+                - [ ] Edge cases tested
 
-                ### 🔍 Code Quality
-                - [ ] Code follows project style guide.
-                - [ ] No debug/commented-out code.
-                - [ ] Error cases handled appropriately.
+                ### 💻 Code Quality
+                - [ ] Code follows style guide
+                - [ ] No debug/commented code
+                - [ ] Error handling implemented
+                - [ ] Performance considerations addressed
+                - [ ] Code is modular and maintainable
 
                 ### 🔒 Security
-                - [ ] No sensitive data exposed.
-                - [ ] Input validation added.
-                - [ ] Security implications considered.
+                - [ ] Security best practices followed
+                - [ ] Dependencies are up to date
+                - [ ] No sensitive data exposed
+                - [ ] Input validation implemented
+                - [ ] Security implications considered
+
+                ### 🚀 Deployment
+                - [ ] Migration scripts if needed
+                - [ ] Environment variables documented
+                - [ ] Deployment documentation updated
+                - [ ] Rollback plan considered
               `;
+
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
@@ -158,12 +219,30 @@ jobs:
               });
             }
 
+      - name: Upload Analysis Results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: pr-analysis-${{ github.event.pull_request.number }}
+          path: |
+            ./**/analysis-results.json
+            ./**/coverage-report.xml
+          retention-days: 14
+
   verify:
     needs: analyze_and_label
     if: always()
     runs-on: ubuntu-latest
+    timeout-minutes: 5
 
     steps:
+      - name: Check Labeler Status
+        if: always()
+        run: |
+          if [ "${{ needs.analyze_and_label.result }}" == "failure" ]; then
+            echo "::warning::Labeler job failed but continuing workflow"
+          fi
+
       - name: ✅ Verify Workflow Completion
         uses: re-actors/alls-green@223e4bb7a751b91f43eda76992bcfbf23b8b0302 # v1.2.2
         with:

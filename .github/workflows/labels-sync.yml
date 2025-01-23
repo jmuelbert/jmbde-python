@@ -1,10 +1,14 @@
 ---
+# SPDX-License-Identifier: EUPL-1.2
+# SPDX-FileCopyrightText: 2025-present Jürgen Mülbert <juergen.muelbert@outlook.de>
+#
 name: Sync Labels
 
 on:
   push:
     paths:
       - '.github/labels.yml'
+      - '.github/labeler.yml'
       - '.github/workflows/labels-sync.yml'
   schedule:
     - cron: '0 0 * * 0' # Weekly on Sunday
@@ -13,6 +17,7 @@ on:
 permissions:
   contents: read
   issues: write
+  pull-requests: write
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -43,10 +48,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16' # Use a Node.js version compatible with the `yaml` package
-
+          node-version: '20' # Use a Node.js version compatible with the `yaml` package
+          cache: 'npm'
+          
       - name: Install dependencies
-        run: npm install yaml          
+        run: |
+          npm install yaml
+          npm install chalk
 
       - name: 📝 Generate Report
         if: always()
@@ -55,64 +63,62 @@ jobs:
           script: |
             const fs = require('fs');
             const yaml = require('yaml');
+            const chalk = require('chalk');
 
+            // Load configurations
             const labelConfig = yaml.parse(
               fs.readFileSync('.github/labels.yml', 'utf8')
             );
+            const labelerConfig = yaml.parse(
+              fs.readFileSync('.github/labeler.yml', 'utf8')
+            );
 
             let summary = `## 🏷️ Label Sync Report\n\n`;
-            summary += `### Labels Configured\n`;
+            
+            // Analyze configurations
+            const labelNames = new Set(labelConfig.map(l => l.name));
+            const labelerRules = new Set(Object.keys(labelerConfig));
+            
+            // Find mismatches
+            const missingLabels = [...labelerRules].filter(r => !labelNames.has(r));
+            const unusedLabels = [...labelNames].filter(l => !labelerRules.has(l));
 
-            // Group labels by category
-            const categories = {};
-            labelConfig.forEach(label => {
-              const category = label.color === '0E8A16' ? 'Success' :
-                             label.color === 'FFA500' ? 'Warning' :
-                             label.color === 'D93F0B' ? 'Error' :
-                             'Other';
+            // Generate statistics
+            summary += `### Statistics\n`;
+            summary += `- Total Labels: ${labelNames.size}\n`;
+            summary += `- Total Labeler Rules: ${labelerRules.size}\n`;
+            summary += `- Missing Labels: ${missingLabels.length}\n`;
+            summary += `- Unused Labels: ${unusedLabels.length}\n\n`;
 
-              if (!categories[category]) categories[category] = [];
-              categories[category].push(label);
-            });
-
-            // Add labels to summary by category
-            Object.entries(categories).forEach(([category, labels]) => {
-              summary += `\n#### ${category}\n`;
-              labels.forEach(label => {
-                summary += `- \`${label.name}\`: ${label.description}\n`;
+            if (missingLabels.length > 0) {
+              summary += `### ⚠️ Missing Labels\n`;
+              missingLabels.forEach(label => {
+                summary += `- \`${label}\`: Used in labeler but not defined\n`;
               });
-            });
+              summary += `\n`;
+            }
 
-            // Create issue if sync failed
-            if ('${{ job.status }}' !== 'success') {
+            if (unusedLabels.length > 0) {
+              summary += `### ℹ️ Unused Labels\n`;
+              unusedLabels.forEach(label => {
+                summary += `- \`${label}\`: Defined but not used in labeler\n`;
+              });
+              summary += `\n`;
+            }
+
+            // Create issue if there are problems
+            if (missingLabels.length > 0) {
               await github.rest.issues.create({
                 ...context.repo,
-                title: '🏷️ Label Sync Failed',
-                body: `Label synchronization failed. Please check the [workflow run](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}) for details.`,
-                labels: ['bug', 'automation']
+                title: '🏷️ Label Configuration Needs Attention',
+                body: summary,
+                labels: ['automation', 'documentation']
               });
             }
 
-            // Add comment to any open issues about label sync
-            const issues = await github.rest.issues.listForRepo({
-              ...context.repo,
-              state: 'open',
-              labels: 'label-sync'
-            });
+            // Add report to workflow summary
+            await core.summary
+              .addHeading('Label Sync Results')
+              .addRaw(summary)
+              .write();
 
-            for (const issue of issues.data) {
-              await github.rest.issues.createComment({
-                ...context.repo,
-                issue_number: issue.number,
-                body: summary
-              });
-
-              if ('${{ job.status }}' === 'success') {
-                await github.rest.issues.update({
-                  ...context.repo,
-                  issue_number: issue.number,
-                  state: 'closed',
-                  state_reason: 'completed'
-                });
-              }
-            }
