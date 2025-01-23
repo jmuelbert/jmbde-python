@@ -26,68 +26,69 @@ shared:
     - "*.config.*"
 
 # Type Labels
-"type/fix":
-  - "src/**/*.py"
-  - "lib/**/*.py"
-  - "**/bugfix/**"
-  - "**/hotfix/**"
-  - "**/patch/**"
+"type":
+  - fix":
+    - "src/**/*.py"
+    - "lib/**/*.py"
+    - "**/bugfix/**"
+    - "**/hotfix/**"
+    - "**/patch/**"
 
-"type/feature":
-  - "src/**/*.py"
-  - "lib/**/*.py"
-  - "**/feature/**"
-  - "**/feat/**"
-  - "**/enhancement/**"
+  - feature:
+    - "src/**/*.py"
+    - "lib/**/*.py"
+    - "**/feature/**"
+    - "**/feat/**"
+    - "**/enhancement/**"
 
-"type/docs":
-  - *doc_files
+  - docs:
+    - *doc_files
 
-"type/test":
-  - "tests/**/*.py"
-  - "**/test/**"
-  - "**/tests/**"
-  - "**/*_test.py"
-  - "**/test_*.py"
-  - "**/testing/**"
-  - "**/*.spec.py"
+  - test:
+    - "tests/**/*.py"
+    - "**/test/**"
+    - "**/tests/**"
+    - "**/*_test.py"
+    - "**/test_*.py"
+    - "**/testing/**"
+    - "**/*.spec.py"
 
-"type/chore":
-  - "**/build/**"
-  - "**/ci/**"
-  - "**/config/**"
-  - "**/scripts/**"
-  - ".github/**/*"
-  - ".gitignore"
-  - ".editorconfig"
-  - "LICENSE*"
-  - "NOTICE*"
+  - chore:
+    - "**/build/**"
+    - "**/ci/**"
+    - "**/config/**"
+    - "**/scripts/**"
+    - ".github/**/*"
+    - ".gitignore"
+    - ".editorconfig"
+    - "LICENSE*"
+    - "NOTICE*"
 
-"type/refactor":
-  - "src/**/*.py"
-  - "lib/**/*.py"
-  - "**/refactor/**"
-  - "**/cleanup/**"
+  - refactor:
+    - "src/**/*.py"
+    - "lib/**/*.py"
+    - "**/refactor/**"
+    - "**/cleanup/**"
 
-"type/style":
-  - "**/*.css"
-  - "**/*.scss"
-  - "**/*.sass"
-  - "**/*.less"
-  - "**/*.html"
-  - "**/*.jinja"
-  - "**/*.j2"
-  - ".style.yapf"
-  - ".pylintrc"
-  - "pyproject.toml"
-  - "setup.cfg"
+  - style:
+    - "**/*.css"
+    - "**/*.scss"
+    - "**/*.sass"
+    - "**/*.less"
+    - "**/*.html"
+    - "**/*.jinja"
+    - "**/*.j2"
+    - ".style.yapf"
+    - ".pylintrc"
+    -  "pyproject.toml"
+    - "setup.cfg"
 
-"type/performance":
-  - "src/**/*.py"
-  - "lib/**/*.py"
-  - "**/perf/**"
-  - "**/benchmark/**"
-  - "**/optimizations/**"
+  - performance:
+    - "src/**/*.py"
+    - "lib/**/*.py"
+    - "**/perf/**"
+    - "**/benchmark/**"
+    - "**/optimizations/**"
 
 # Status Labels
 "status/work-in-progress":
