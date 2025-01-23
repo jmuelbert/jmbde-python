@@ -236,10 +236,6 @@ size/l:
 size/xl:
   - any: ['**/*']
 
-# Automated
-automated:
-  - author: ["dependabot[bot]", "renovate[bot]"]
-
 # Priority
 priority/critical:
   - any:  

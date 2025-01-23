@@ -18,7 +18,6 @@
 # Status Labels
 - name: bug
   color: 'd73a4a'
-  description: "Something isn't working"
 - name: documentation
   color: '0075ca'
   description: 'Documentation improvements needed'
@@ -33,43 +32,43 @@
   description: 'Extra attention is needed'
 
 # Type Labels
-- name: type/fix
+- name: type-fix
   color: 'd73a4a'
   description: 'Bug fixes and patches'
-- name: type/feature
+- name: type-feature
   color: '0075ca'
   description: 'New feature implementation'
-- name: type/docs
+- name: type-docs
   color: '0075ca'
   description: 'Documentation changes'
-- name: type/test
+- name: type-test
   color: '0e8a16'
   description: 'Test-related changes'
-- name: type/chore
+- name: type-chore
   color: 'fef2c0'
   description: 'Maintenance and housekeeping'
-- name: type/refactor
+- name: type-refactor
   color: '1d76db'
   description: 'Code refactoring'
-- name: type/style
+- name: type-style
   color: '2486e6'
   description: 'Code style and formatting'
-- name: type/performance
+- name: type-performance
   color: '3366cc'
   description: 'Performance improvements'
-- name: type/build
+- name: type-build
   color: '4477dd'
   description: 'Build system changes'
-- name: type/security
+- name: type-security
   color: 'b60205'
   description: 'Security-related changes'
-- name: type/ci
+- name: type-ci
   color: '0075ca'
   description: 'CI/CD improvements'
-- name: type/maintenance
+- name: type-maintenance
   color: 'fef2c0'
   description: 'Repository maintenance'
-- name: type/testing
+- name: testing
   color: '0e8a16'
   description: 'Testing improvements'
 
