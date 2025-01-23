@@ -27,7 +27,7 @@ shared:
 
 # Type Labels
 "type":
-  - fix":
+  - fix:
     - "src/**/*.py"
     - "lib/**/*.py"
     - "**/bugfix/**"
