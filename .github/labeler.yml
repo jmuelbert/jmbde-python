@@ -1,30 +1,5 @@
 # SPDX-License-Identifier: EUPL-1.2
 
-# Shared patterns for reuse
-shared:
-  python_files: &python_files
-    - "**/*.py"
-    - "**/*.pyi"
-    - "**/*.pyx"
-    - "**/*.pxd"
-  
-  doc_files: &doc_files
-    - "docs/**/*"
-    - "**/*.md"
-    - "**/*.rst"
-    - "**/*.txt"
-    - "mkdocs.yml"
-    - "**/*.ipynb"
-  
-  config_files: &config_files
-    - "**/*.yml"
-    - "**/*.yaml"
-    - "**/*.json"
-    - "**/*.toml"
-    - "**/*.ini"
-    - ".env*"
-    - "*.config.*"
-
 # Type Labels
 "type-fix":
     - "src/**/*.py"
@@ -40,7 +15,12 @@ shared:
     - "**/feat/**"
     - "**/enhancement/**"
 "type-docs":
-    - *doc_files
+    - "docs/**/*"
+    - "**/*.md"
+    - "**/*.rst"
+    - "**/*.txt"
+    - "mkdocs.yml"
+    - "**/*.ipynb"
 
 "type-test":
     - "tests/**/*.py"
@@ -119,15 +99,21 @@ shared:
 
 # Breaking Changes
 "breaking":
-  - *python_files
-  - "docs/breaking-changes/**"
-  - "docs/migrations/**"
-  - "docs/upgrades/**"
+    - "**/*.py"
+    - "**/*.pyi"
+    - "**/*.pyx"
+    - "**/*.pxd"
+    - "docs/breaking-changes/**"
+    - "docs/migrations/**"
+    - "docs/upgrades/**"
 
 # Deprecation
 "deprecation":
-  - *python_files
-  - "docs/deprecations/**"
+    - "**/*.py"
+    - "**/*.pyi"
+    - "**/*.pyx"
+    - "**/*.pxd"
+    - "docs/deprecations/**"
 
 # CI/CD
 "ci":
@@ -166,7 +152,12 @@ shared:
 
 # Documentation
 "documentation":
-  - *doc_files
+  - "docs/**/*"
+  - "**/*.md"
+  - "**/*.rst"
+  - "**/*.txt"
+  - "mkdocs.yml"
+  - "**/*.ipynb"
   - "examples/**"
   - "samples/**"
   - "tutorials/**"
