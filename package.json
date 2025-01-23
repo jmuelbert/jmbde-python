@@ -19,7 +19,7 @@
   "devDependencies": {
     "@cspell/dict-de-de": "^4.0.3",
     "@cspell/dict-python": "^4.2.14",
-    "chalk": "^5.4.1",
+    "chalk": "4",
     "cspell": "^5.21.2",
     "lint-staged": "^12.5.0",
     "yaml": "^2.7.0"
