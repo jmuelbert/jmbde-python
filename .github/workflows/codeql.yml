@@ -166,13 +166,6 @@ jobs:
               console.error('Error processing CodeQL results:', error);
             }
   
-      - name: 📤 Upload SARIF
-        uses: github/codeql-action/upload-sarif@v3
-        if: always()
-        with:
-          # ISSUE: #1219 Provide the path to the SARIF file
-          sarif_file: results/python.sarif
-
       - name: 🚨 Check Critical Issues
         if: always()
         run: |
