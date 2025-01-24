@@ -93,7 +93,7 @@ jobs:
       - name: 🔎 Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
         with:
-          category: '/language:${{ matrix.language }}'
+          category: "${{ matrix.language }}-analyze"
           output: results/${{ matrix.language }}.sarif
   
       - name: 📊 Process Results
@@ -166,12 +166,12 @@ jobs:
               console.error('Error processing CodeQL results:', error);
             }
 
-      # Upload SARIF results step
+      # Upload SARIF results dynamically
       - name: Upload SARIF results
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: results/${{ matrix.language }}.sarif
-          category: "${{ matrix.language }}-upload"  # Unique category for Upload
+          category: "${{ matrix.language }}-upload"
 
       - name: 🚨 Check Critical Issues
         if: always()
