@@ -26,7 +26,7 @@ on:
       - '**.py'
       - '**.pyi'
       - '**.qml'
-      paths-ignore:
+    paths-ignore:
         - '**/*.ui'
         - '**/*.qrc'
         - '**/*.ts'
