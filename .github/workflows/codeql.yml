@@ -12,13 +12,26 @@ on:
       - '**.pyi'
       - '**.qml'
       - 'requirements.txt'
+      - '**/requirements.txt'
       - 'pyproject.toml'
+    paths-ignore:
+      - '**/*.ui'
+      - '**/*.qrc'
+      - '**/*.ts'
+      - 'assets/'
+      - 'docs/'
   pull_request:
     branches: [main, develop]
     paths:
       - '**.py'
       - '**.pyi'
       - '**.qml'
+      paths-ignore:
+        - '**/*.ui'
+        - '**/*.qrc'
+        - '**/*.ts'
+        - 'assets/'
+        - 'docs/'
   schedule:
     - cron: '0 0 * * 0' # Run weekly on Sunday
   workflow_dispatch:
@@ -81,7 +94,6 @@ jobs:
           languages: ${{ matrix.language }}
           # TODO: check varitions of configuration: https://docs.github.com/en/code-security/code-scanning/learn-about-code-scanning/configuring-code-scanning#configuring-codeql
           # #ISSUE: #1218  A fatal error occurred: Config file supplied is not valid
-          config-file: .github/codeql/codeql-config.yml
 
       - name: 🏗️ Build
         run: |
