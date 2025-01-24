@@ -22,6 +22,7 @@ classifiers = [
   "Development Status :: 4 - Beta",
   "Environment :: X11 Applications :: Qt",
   "Intended Audience :: End Users/Desktop",
+  # TODO: #1215 Check if the license is correct (Throws an error)
   "License :: OSI Approved :: EUPL-1.2",
   "Operating System :: OS Independent",
   "Programming Language :: Python :: 3",
