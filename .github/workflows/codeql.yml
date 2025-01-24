@@ -7,13 +7,6 @@ name: 'CodeQL Security Analysis'
 on:
   push:
     branches: [main, develop]
-    paths:
-      - '**.py'
-      - '**.pyi'
-      - '**.qml'
-      - 'requirements.txt'
-      - '**/requirements.txt'
-      - 'pyproject.toml'
     paths-ignore:
       - '**/*.ui'
       - '**/*.qrc'
@@ -22,10 +15,6 @@ on:
       - 'docs/'
   pull_request:
     branches: [main, develop]
-    paths:
-      - '**.py'
-      - '**.pyi'
-      - '**.qml'
     paths-ignore:
         - '**/*.ui'
         - '**/*.qrc'
