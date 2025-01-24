@@ -55,7 +55,10 @@ jobs:
         language: ['python']
   
     steps:
-      - name: 🔒 Harden Runner
+      - name: 🔧 Setup Workspace
+        run: mkdir -p results && echo "Workspace initialized"
+
+        - name: 🔒 Harden Runner
         uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
         with:
           egress-policy: audit
@@ -95,6 +98,12 @@ jobs:
         with:
           category: "${{ matrix.language }}-analyze"
           output: results/${{ matrix.language }}.sarif
+
+      - name: Debug SARIF Path
+        run: |
+          echo "Checking SARIF file..."
+          ls -l results/
+
   
       - name: 📊 Process Results
         if: always()
@@ -171,7 +180,7 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: results/${{ matrix.language }}.sarif
-          category: "${{ matrix.language }}-upload"
+          category: "${{ matrix.language }}-sarif-upload"
 
       - name: 🚨 Check Critical Issues
         if: always()
