@@ -1,4 +1,5 @@
 ---
+# TODO: #1214 Add SPDX license identifier
 name: Documentation Deployment
 
 on:
@@ -126,6 +127,7 @@ jobs:
         uses: actions/github-script@v7
         if: needs.deploy.result != 'success'
         with:
+          # TODO: script throws errors: Permissions, need enable write access to issues
           script: |
             const message = `❌ Documentation deployment failed!\n` +
                           `Please check: ${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`;
