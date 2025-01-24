@@ -55,9 +55,6 @@ jobs:
         language: ['python']
   
     steps:
-      - name: 🔧 Setup Workspace
-        run: mkdir -p results && echo "Workspace initialized"
-
       - name: 🔒 Harden Runner
         uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
         with:
@@ -68,6 +65,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: 🔧 Setup Workspace
+        run: mkdir -p results && echo "Workspace initialized"
+        
       - name: ⚙️ Setup Python
         uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
         with:
@@ -98,12 +98,6 @@ jobs:
         with:
           category: "${{ matrix.language }}-analyze"
           output: results/${{ matrix.language }}.sarif
-
-      - name: Debug SARIF Path
-        run: |
-          echo "Checking SARIF file..."
-          ls -l results/
-
   
       - name: 📊 Process Results
         if: always()
@@ -174,13 +168,6 @@ jobs:
             } catch (error) {
               console.error('Error processing CodeQL results:', error);
             }
-
-      - name: Upload SARIF results
-        if: always() && exists(results/${{ matrix.language }}.sarif)
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: results/${{ matrix.language }}.sarif
-          category: "${{ matrix.language }}-sarif-upload"
 
       - name: 🚨 Check Critical Issues
         if: always()
