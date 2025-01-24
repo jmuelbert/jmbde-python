@@ -101,6 +101,7 @@
                 if (!fs.existsSync('results/python.sarif')) {
                   console.log('No SARIF file found. Skipping results processing.');
                   return;
+
                 }
                 
                 const sarif = JSON.parse(fs.readFileSync('results/python.sarif', 'utf8'));
@@ -177,3 +178,17 @@
                 exit 1
               fi
             fi
+
+          # ISSUE: #1219 Provide the path to the SARIF file
+          sarif_file: results/python.sarif
+
+      - name: 🚨 Check Critical Issues
+        if: always()
+        run: |
+          if [ -f results/python.sarif ]; then
+            CRITICAL_ISSUES=$(jq '.runs[].results[] | select(.level == "error")' results/python.sarif | wc -l)
+            if [ "$CRITICAL_ISSUES" -gt 0 ]; then
+              echo "Found $CRITICAL_ISSUES critical security issues!"
+              exit 1
+            fi
+          fi
