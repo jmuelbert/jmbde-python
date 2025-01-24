@@ -166,8 +166,8 @@ jobs:
               console.error('Error processing CodeQL results:', error);
             }
 
-      # Upload SARIF results dynamically
       - name: Upload SARIF results
+        if: always() && exists(results/${{ matrix.language }}.sarif)
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: results/${{ matrix.language }}.sarif
