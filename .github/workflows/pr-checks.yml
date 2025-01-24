@@ -58,6 +58,7 @@ jobs:
         if: always()
         uses: actions/github-script@v7
         with:
+          # TODO: #1233 JSON issue: Error: Unhandled error: SyntaxError: Unexpected end of JSON input
           script: |
             const review = JSON.parse(`${{ steps.review.outputs.result }}`);
             let report = '## 📋 Dependency Review Summary\n\n';
@@ -90,6 +91,7 @@ jobs:
         if: always()
         uses: actions/github-script@v7
         with:
+         # TODO: #1234 JSON issue: Error: Unhandled error: SyntaxError: Unexpected end of JSON input          
           script: |
             const review = JSON.parse(`${{ steps.review.outputs.result }}`);
             const labels = [];
