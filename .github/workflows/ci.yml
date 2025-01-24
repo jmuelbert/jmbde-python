@@ -39,6 +39,8 @@ jobs:
         with:
           fetch-depth: 0
 
+      # ISSUE: Runs in an issue: 
+      # ERROR: Error: Both a base ref and head ref must be provided, either via the `base_ref`/`head_ref` config options, `base-ref`/`head-ref` workflow action options, or by running a `pull_request`/`pull_request_target`/`merge_group` workflow.
       - name: 🔎 Dependency Review
         uses: actions/dependency-review-action@3b139cfc5fae8b618d3eae3675e383bb1769c019 # v4.5.0
 
