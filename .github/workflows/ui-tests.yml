@@ -26,6 +26,7 @@ jobs:
     name: UI Tests
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
+    # TODO: #1217 Solve the issue: Branch "main" is not allowed to deploy to staging due to environment protection 
     environment: staging
 
     strategy:
