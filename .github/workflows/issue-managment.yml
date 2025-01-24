@@ -24,6 +24,7 @@ jobs:
     permissions:
       issues: write
       pull-requests: read
+      # ISSUE: #1220 The next line is not valid. Check possible values for permissions.
       project: write
 
     outputs:
