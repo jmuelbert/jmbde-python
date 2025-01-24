@@ -75,6 +75,8 @@ jobs:
         uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
+          # TODO: check varitions of configuration: https://docs.github.com/en/code-security/code-scanning/learn-about-code-scanning/configuring-code-scanning#configuring-codeql
+          # #ISSUE: #1218  A fatal error occurred: Config file supplied is not valid
           config: |
             paths:
               - src
@@ -167,6 +169,7 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         if: always()
         with:
+          # ISSUE: #1219 Provide the path to the SARIF file
           sarif_file: results/python.sarif
 
       - name: 🚨 Check Critical Issues
