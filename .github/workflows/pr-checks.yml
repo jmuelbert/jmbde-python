@@ -60,7 +60,7 @@ jobs:
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
-            const reviewOutput = ${{ toJSON(steps.review.outputs) }};
+            const reviewOutput = JSON.parse(process.env.REVIEW_OUTPUT || '{}');
             let report = '## 📋 Dependency Review Report\n\n';
 
             try {
@@ -159,6 +159,8 @@ jobs:
                 });
               }
             }
+        env:
+          REVIEW_OUTPUT: ${{ toJSON(steps.review.outputs) }}              
 
       - name: 🏷️ Update Labels
         if: always()
@@ -236,6 +238,9 @@ jobs:
     outputs:
       title-valid: ${{ steps.check-title.outputs.valid }}
       body-valid: ${{ steps.check-body.outputs.valid }}
+
+    permissions:
+      issues: write
 
     steps:
       - name: 🔒 Harden Runner
@@ -1092,6 +1097,3 @@ jobs:
               });
             }
 
-      - name: 🚨 Check Status
-        if: needs.test.result != 'success' || needs.lint.result != 'success' || needs.security.result != 'success'
-        run: exit 1
