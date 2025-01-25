@@ -33,6 +33,5 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
-    }
   }
 }
