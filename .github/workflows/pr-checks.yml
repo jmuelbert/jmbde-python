@@ -684,8 +684,7 @@ jobs:
 
       - name: 🔍 Security Analysis
         run: |
-          hatch run security:scan
-          hatch run security:audit
+          hatch run security:all
 
       - name: 📊 Complexity Check
         run: |
