@@ -46,122 +46,83 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 🔎 Dependency Review
-        id: review
-        uses: actions/dependency-review-action@3b139cfc5fae8b618d3eae3675e383bb1769c019
-        with:
-          comment-summary-in-pr: always
-          fail-on-severity: moderate
-          retry-on-snapshot-warnings: true
-          config-file: .github/dependency-review-config.yml
-
-      - name: 📊 Generate Report
-        if: always()
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
-        with:
-          script: |
-            const reviewOutput = JSON.parse(process.env.REVIEW_OUTPUT || '{}');
-            let report = '## 📋 Dependency Review Report\n\n';
-
-            try {
-              // Parse the review results
-              const results = JSON.parse(reviewOutput.result || '{}');
-
-              // Summary Section
-              report += '### 📑 Summary\n';
-              report += `- Status: ${steps.review.outcome === 'success' ? '✅ Passed' : '❌ Failed'}\n`;
-              report += `- Scanned Changes: ${results.changes_count || 0} dependencies\n\n`;
-
-              // Violations Section
-              if (results.violations && results.violations.length > 0) {
-                report += '### ⚠️ Security Violations\n\n';
-                results.violations.forEach(violation => {
-                  report += `#### ${violation.severity.toUpperCase()}: ${violation.advisory.title}\n`;
-                  report += `- Package: \`${violation.package.name}@${violation.package.version}\`\n`;
-                  report += `- Advisory: ${violation.advisory.url}\n`;
-                  report += `- Vulnerability: ${violation.advisory.description}\n`;
-                  report += `- Recommendation: ${violation.advisory.recommendation || 'Update to a secure version'}\n\n`;
-                });
-              } else {
-                report += '### ✅ No Security Violations Found\n\n';
-              }
-
-              // License Issues Section
-              if (results.licenses && results.licenses.denied && results.licenses.denied.length > 0) {
-                report += '### 🚫 License Violations\n\n';
-                results.licenses.denied.forEach(license => {
-                  report += `- Package: \`${license.package}\`\n`;
-                  report += `  - Current License: ${license.license}\n`;
-                  report += `  - Allowed Licenses: ${license.allowed.join(', ')}\n\n`;
-                });
-              }
-
-              // Dependencies Changed Section
-              if (results.dependencies_changed) {
-                report += '### 📦 Dependencies Changed\n\n';
-                report += '| Package | Change | From | To |\n';
-                report += '|---------|--------|------|----|\n';
-                results.dependencies_changed.forEach(dep => {
-                  report += `| ${dep.name} | ${dep.change_type} | ${dep.previous_version || 'N/A'} | ${dep.current_version || 'N/A'} |\n`;
-                });
-                report += '\n';
-              }
-
-              // Alerts Section
-              if (results.alerts && results.alerts.length > 0) {
-                report += '### ⚠️ Security Alerts\n\n';
-                results.alerts.forEach(alert => {
-                  report += `- **${alert.severity}**: ${alert.message}\n`;
-                  if (alert.url) report += `  - More info: ${alert.url}\n`;
-                });
-                report += '\n';
-              }
-
-              // Recommendations Section
-              report += '### 💡 Recommendations\n\n';
-              if (steps.review.outcome === 'success') {
-                report += '✅ No actions needed - all dependencies meet security and license requirements.\n';
-              } else {
-                report += '🔍 Please address the following:\n';
-                if (results.violations?.length > 0) {
-                  report += '- Update packages with security vulnerabilities\n';
+          - name: 🔎 Dependency Review
+          id: review
+          uses: actions/dependency-review-action@3b139cfc5fae8b618d3eae3675e383bb1769c019
+          with:
+            comment-summary-in-pr: always
+            fail-on-severity: moderate
+            retry-on-snapshot-warnings: true
+            config-file: .github/dependency-review-config.yml
+        
+          - name: 📊 Generate Report
+            if: always()
+            env:
+              DEPENDENCY_CHANGES: ${{ steps.review.outputs.dependency-changes }}
+              VULNERABLE_CHANGES: ${{ steps.review.outputs.vulnerable-changes }}
+              LICENSE_CHANGES: ${{ steps.review.outputs.invalid-license-changes }}
+              DENIED_CHANGES: ${{ steps.review.outputs.denied-changes }}
+            uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+            with:
+              script: |
+                const outputs = {
+                  dependencyChanges: JSON.parse(process.env.DEPENDENCY_CHANGES || '[]'),
+                  vulnerableChanges: JSON.parse(process.env.VULNERABLE_CHANGES || '[]'),
+                  licenseChanges: JSON.parse(process.env.LICENSE_CHANGES || '[]'),
+                  deniedChanges: JSON.parse(process.env.DENIED_CHANGES || '[]'),
+                };
+          
+                let report = '## 📋 Dependency Review Report\n\n';
+          
+                // Dependency Summary
+                report += `### 📑 Summary\n`;
+                report += `- Total Changes: ${outputs.dependencyChanges.length}\n`;
+                report += `- Vulnerable Changes: ${outputs.vulnerableChanges.length}\n`;
+                report += `- License Issues: ${outputs.licenseChanges.length}\n`;
+                report += `- Denied Changes: ${outputs.deniedChanges.length}\n\n`;
+          
+                // Vulnerabilities
+                if (outputs.vulnerableChanges.length > 0) {
+                  report += '### ⚠️ Vulnerable Changes\n\n';
+                  outputs.vulnerableChanges.forEach(change => {
+                    report += `- **${change.package.name}@${change.package.version}**: ${change.advisory.title}\n`;
+                    report += `  - Severity: ${change.advisory.severity}\n`;
+                    report += `  - Advisory: [${change.advisory.url}](${change.advisory.url})\n\n`;
+                  });
+                } else {
+                  report += '### ✅ No Vulnerable Changes Found\n\n';
                 }
-                if (results.licenses?.denied?.length > 0) {
-                  report += '- Review and update packages with license violations\n';
+          
+                // License Issues
+                if (outputs.licenseChanges.length > 0) {
+                  report += '### 🚫 License Issues\n\n';
+                  outputs.licenseChanges.forEach(change => {
+                    report += `- **${change.package.name}@${change.package.version}**: ${change.license}\n`;
+                    report += `  - Allowed Licenses: ${change.allowedLicenses.join(', ')}\n\n`;
+                  });
+                } else {
+                  report += '### ✅ No License Issues Found\n\n';
                 }
-              }
-
-              // Post the report as a PR comment
-              if (context.payload.pull_request) {
-                await github.rest.issues.createComment({
-                  ...context.repo,
-                  issue_number: context.payload.pull_request.number,
-                  body: report
-                });
-              }
-
-            } catch (error) {
-              core.warning(`Error generating dependency review report: ${error.message}`);
-
-              // Post a simplified error report
-              const errorReport = `## 📋 Dependency Review Report\n\n` +
-                `### ⚠️ Report Generation Error\n\n` +
-                `There was an error generating the detailed dependency review report.\n\n` +
-                `- Status: ${steps.review.outcome === 'success' ? '✅ Passed' : '❌ Failed'}\n` +
-                `- Error: ${error.message}\n\n` +
-                `Please check the workflow logs for more details.`;
-
-              if (context.payload.pull_request) {
-                await github.rest.issues.createComment({
-                  ...context.repo,
-                  issue_number: context.payload.pull_request.number,
-                  body: errorReport
-                });
-              }
-            }
-        env:
-          REVIEW_OUTPUT: ${{ toJSON(steps.review.outputs) }}              
-
+          
+                // Denied Changes
+                if (outputs.deniedChanges.length > 0) {
+                  report += '### ❌ Denied Changes\n\n';
+                  outputs.deniedChanges.forEach(change => {
+                    report += `- **${change.package.name}@${change.package.version}**: ${change.reason}\n`;
+                  });
+                } else {
+                  report += '### ✅ No Denied Changes Found\n\n';
+                }
+          
+                // Post Report
+                if (context.payload.pull_request) {
+                  await github.rest.issues.createComment({
+                    ...context.repo,
+                    issue_number: context.payload.pull_request.number,
+                    body: report
+                  });
+                }
+          
       - name: 🏷️ Update Labels
         if: always()
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
@@ -241,6 +202,7 @@ jobs:
 
     permissions:
       issues: write
+      pull-requests: write
 
     steps:
       - name: 🔒 Harden Runner
@@ -438,6 +400,7 @@ jobs:
     needs: validate
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
+    id: test
 
     strategy:
       fail-fast: false
@@ -1066,7 +1029,7 @@ jobs:
   report:
     name: Generate Report
     if: always()
-    needs: [validate, validate-pr, test, lint, security, spell-check, docs]
+    needs: [validate, validate-pr,test. lint, security, spell-check, docs]
     runs-on: ubuntu-latest
 
     steps:
@@ -1079,9 +1042,11 @@ jobs:
 
             ### Test Coverage: ${{ needs.test.outputs.coverage }}%
             - Validate: ${needs.validate.result}
+            - Validate-PR: ${needs.validate-pr.result}
             - Status: ${needs.test.result}
             - Linting: ${needs.lint.result}
             - Security: ${needs.security.result}
+            - Spell-Check: ${needs.spell-check.result}
             - Docs: ${needs.docs.result}
 
             ### Details
@@ -1097,3 +1062,6 @@ jobs:
               });
             }
 
+      - name: 🚨 Check Status
+        if: needs.test.result != 'success' || needs.lint.result != 'success' || needs.security.result != 'success'
+        run: exit 1
