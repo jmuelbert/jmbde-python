@@ -46,82 +46,82 @@ jobs:
         with:
           fetch-depth: 0
 
-          - name: 🔎 Dependency Review
-          id: review
-          uses: actions/dependency-review-action@3b139cfc5fae8b618d3eae3675e383bb1769c019
-          with:
-            comment-summary-in-pr: always
-            fail-on-severity: moderate
-            retry-on-snapshot-warnings: true
-            config-file: .github/dependency-review-config.yml
+      - name: 🔎 Dependency Review
+        id: review
+        uses: actions/dependency-review-action@3b139cfc5fae8b618d3eae3675e383bb1769c019
+        with:
+          comment-summary-in-pr: always
+          fail-on-severity: moderate
+          retry-on-snapshot-warnings: true
+          config-file: .github/dependency-review-config.yml
         
-          - name: 📊 Generate Report
-            if: always()
-            env:
-              DEPENDENCY_CHANGES: ${{ steps.review.outputs.dependency-changes }}
-              VULNERABLE_CHANGES: ${{ steps.review.outputs.vulnerable-changes }}
-              LICENSE_CHANGES: ${{ steps.review.outputs.invalid-license-changes }}
-              DENIED_CHANGES: ${{ steps.review.outputs.denied-changes }}
-            uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
-            with:
-              script: |
-                const outputs = {
-                  dependencyChanges: JSON.parse(process.env.DEPENDENCY_CHANGES || '[]'),
-                  vulnerableChanges: JSON.parse(process.env.VULNERABLE_CHANGES || '[]'),
-                  licenseChanges: JSON.parse(process.env.LICENSE_CHANGES || '[]'),
-                  deniedChanges: JSON.parse(process.env.DENIED_CHANGES || '[]'),
-                };
+      - name: 📊 Generate Report
+        if: always()
+        env:
+          DEPENDENCY_CHANGES: ${{ steps.review.outputs.dependency-changes }}
+          VULNERABLE_CHANGES: ${{ steps.review.outputs.vulnerable-changes }}
+          LICENSE_CHANGES: ${{ steps.review.outputs.invalid-license-changes }}
+          DENIED_CHANGES: ${{ steps.review.outputs.denied-changes }}
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            const outputs = {
+              dependencyChanges: JSON.parse(process.env.DEPENDENCY_CHANGES || '[]'),
+              vulnerableChanges: JSON.parse(process.env.VULNERABLE_CHANGES || '[]'),
+              licenseChanges: JSON.parse(process.env.LICENSE_CHANGES || '[]'),
+              deniedChanges: JSON.parse(process.env.DENIED_CHANGES || '[]'),
+            };
           
-                let report = '## 📋 Dependency Review Report\n\n';
+            let report = '## 📋 Dependency Review Report\n\n';
           
-                // Dependency Summary
-                report += `### 📑 Summary\n`;
-                report += `- Total Changes: ${outputs.dependencyChanges.length}\n`;
-                report += `- Vulnerable Changes: ${outputs.vulnerableChanges.length}\n`;
-                report += `- License Issues: ${outputs.licenseChanges.length}\n`;
-                report += `- Denied Changes: ${outputs.deniedChanges.length}\n\n`;
+            // Dependency Summary
+            report += `### 📑 Summary\n`;
+            report += `- Total Changes: ${outputs.dependencyChanges.length}\n`;
+            report += `- Vulnerable Changes: ${outputs.vulnerableChanges.length}\n`;
+            report += `- License Issues: ${outputs.licenseChanges.length}\n`;
+            report += `- Denied Changes: ${outputs.deniedChanges.length}\n\n`;
           
-                // Vulnerabilities
-                if (outputs.vulnerableChanges.length > 0) {
-                  report += '### ⚠️ Vulnerable Changes\n\n';
-                  outputs.vulnerableChanges.forEach(change => {
-                    report += `- **${change.package.name}@${change.package.version}**: ${change.advisory.title}\n`;
-                    report += `  - Severity: ${change.advisory.severity}\n`;
-                    report += `  - Advisory: [${change.advisory.url}](${change.advisory.url})\n\n`;
-                  });
-                } else {
-                  report += '### ✅ No Vulnerable Changes Found\n\n';
-                }
+            // Vulnerabilities
+            if (outputs.vulnerableChanges.length > 0) {
+              report += '### ⚠️ Vulnerable Changes\n\n';
+              outputs.vulnerableChanges.forEach(change => {
+              report += `- **${change.package.name}@${change.package.version}**: ${change.advisory.title}\n`;
+              report += `  - Severity: ${change.advisory.severity}\n`;
+              report += `  - Advisory: [${change.advisory.url}](${change.advisory.url})\n\n`;
+              });
+            } else {
+              report += '### ✅ No Vulnerable Changes Found\n\n';
+            }
           
-                // License Issues
-                if (outputs.licenseChanges.length > 0) {
-                  report += '### 🚫 License Issues\n\n';
-                  outputs.licenseChanges.forEach(change => {
-                    report += `- **${change.package.name}@${change.package.version}**: ${change.license}\n`;
-                    report += `  - Allowed Licenses: ${change.allowedLicenses.join(', ')}\n\n`;
-                  });
-                } else {
-                  report += '### ✅ No License Issues Found\n\n';
-                }
+            // License Issues
+            if (outputs.licenseChanges.length > 0) {
+              report += '### 🚫 License Issues\n\n';
+              outputs.licenseChanges.forEach(change => {
+              report += `- **${change.package.name}@${change.package.version}**: ${change.license}\n`;
+              report += `  - Allowed Licenses: ${change.allowedLicenses.join(', ')}\n\n`;
+              });
+            } else {
+              report += '### ✅ No License Issues Found\n\n';
+            }
           
-                // Denied Changes
-                if (outputs.deniedChanges.length > 0) {
-                  report += '### ❌ Denied Changes\n\n';
-                  outputs.deniedChanges.forEach(change => {
-                    report += `- **${change.package.name}@${change.package.version}**: ${change.reason}\n`;
-                  });
-                } else {
-                  report += '### ✅ No Denied Changes Found\n\n';
-                }
+            // Denied Changes
+            if (outputs.deniedChanges.length > 0) {
+              report += '### ❌ Denied Changes\n\n';
+              outputs.deniedChanges.forEach(change => {
+              report += `- **${change.package.name}@${change.package.version}**: ${change.reason}\n`;
+              });
+            } else {
+              report += '### ✅ No Denied Changes Found\n\n';
+            }
           
-                // Post Report
-                if (context.payload.pull_request) {
-                  await github.rest.issues.createComment({
-                    ...context.repo,
-                    issue_number: context.payload.pull_request.number,
-                    body: report
-                  });
-                }
+            // Post Report
+            if (context.payload.pull_request) {
+              await github.rest.issues.createComment({
+                ...context.repo,
+                issue_number: context.payload.pull_request.number,
+                body: report
+              });
+            }
           
       - name: 🏷️ Update Labels
         if: always()
