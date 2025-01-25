@@ -400,7 +400,6 @@ jobs:
     needs: validate
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
-    id: test
 
     strategy:
       fail-fast: false
