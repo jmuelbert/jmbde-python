@@ -1028,7 +1028,7 @@ jobs:
   report:
     name: Generate Report
     if: always()
-    needs: [validate, validate-pr,test. lint, security, spell-check, docs]
+    needs: [validate, validate-pr, test, lint, security, spell-check, docs]
     runs-on: ubuntu-latest
 
     steps:
