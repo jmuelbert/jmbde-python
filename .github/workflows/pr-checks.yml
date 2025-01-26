@@ -577,7 +577,7 @@ jobs:
   spell-check:
     name: Spell Check
     runs-on: ubuntu-latest
-    needs: lint
+    needs: quality-checks
     timeout-minutes: 15
 
     steps:
