@@ -140,7 +140,7 @@ all = ["style", "typing", "lint", "spelling", "license", "radon_quality"]
 
 [tool.hatch.envs.security]
 dependencies = [
-    "bandit>=1.7.8",
+    "bandit[toml]>=1.7.8",
     "safety>=2.3.0",
     "pip-audit"
 ]
