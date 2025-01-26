@@ -113,13 +113,30 @@ style = [
     "black --check .",
     "pyside6-qmllint src/jmbde/qml/**"
 ]
+
+# Type checking
 typing = "mypy src tests --strict --warn-unused-configs"
+
+# Linting
 lint = "pylint src tests"
+
+# Spelling check
 spelling = "codespell -w ."
+
+# License compliance
 license = "reuse lint"
-prcommit = "pre-commit run --all-files"
-radon_quality =  "radon cc ./src -a -nb;radon mi ./src -nb"
-all = ["style", "typing", "lint", "spelling", "markdown", "license"]
+
+# Pre-commit checks
+precommit = "pre-commit run --all-files"
+
+# Code quality metrics
+radon_quality = [
+    "radon cc ./src -a -nb",
+    "radon mi ./src -nb"
+]
+
+# Aggregate linting tasks
+all = ["style", "typing", "lint", "spelling", "license", "radon_quality"]
 
 [tool.hatch.envs.security]
 dependencies = [
@@ -129,11 +146,17 @@ dependencies = [
 ]
 
 [tool.hatch.envs.security.scripts]
-audit = [
-    "pip-audit"
-]
-safetee = "safety check"
-all = ["audit", "safetee", "bandit -r src -ll"]
+# Audit dependencies for vulnerabilities
+audit = "pip-audit"
+
+# Check dependencies with safety
+safety-check = "safety check"
+
+# Run Bandit for static security analysis
+bandit = "bandit -r src -ll"
+
+# Aggregate security tasks
+all = ["audit", "safety", "bandit"]
 
 [tool.hatch.envs.docs]
 dependencies = [

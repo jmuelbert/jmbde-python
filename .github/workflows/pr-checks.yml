@@ -54,7 +54,7 @@ jobs:
           fail-on-severity: moderate
           retry-on-snapshot-warnings: true
           config-file: .github/dependency-review-config.yml
-        
+
       - name: 📊 Generate Report
         if: always()
         env:
@@ -71,16 +71,16 @@ jobs:
               licenseChanges: JSON.parse(process.env.LICENSE_CHANGES || '[]'),
               deniedChanges: JSON.parse(process.env.DENIED_CHANGES || '[]'),
             };
-          
+
             let report = '## 📋 Dependency Review Report\n\n';
-          
+
             // Dependency Summary
             report += `### 📑 Summary\n`;
             report += `- Total Changes: ${outputs.dependencyChanges.length}\n`;
             report += `- Vulnerable Changes: ${outputs.vulnerableChanges.length}\n`;
             report += `- License Issues: ${outputs.licenseChanges.length}\n`;
             report += `- Denied Changes: ${outputs.deniedChanges.length}\n\n`;
-          
+
             // Vulnerabilities
             if (outputs.vulnerableChanges.length > 0) {
               report += '### ⚠️ Vulnerable Changes\n\n';
@@ -92,7 +92,7 @@ jobs:
             } else {
               report += '### ✅ No Vulnerable Changes Found\n\n';
             }
-          
+
             // License Issues
             if (outputs.licenseChanges.length > 0) {
               report += '### 🚫 License Issues\n\n';
@@ -103,7 +103,7 @@ jobs:
             } else {
               report += '### ✅ No License Issues Found\n\n';
             }
-          
+
             // Denied Changes
             if (outputs.deniedChanges.length > 0) {
               report += '### ❌ Denied Changes\n\n';
@@ -113,7 +113,7 @@ jobs:
             } else {
               report += '### ✅ No Denied Changes Found\n\n';
             }
-          
+
             // Post Report
             if (context.payload.pull_request) {
               await github.rest.issues.createComment({
@@ -122,11 +122,11 @@ jobs:
                 body: report
               });
             }
-          
+
       - name: 🏷️ Update Labels
         if: always()
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
-        with:       
+        with:
           script: |
             try {
               const reviewPassed = '${{ steps.review.outcome }}' === 'success';
@@ -334,7 +334,7 @@ jobs:
           fi
 
           exit $EXIT_CODE
-    
+
       - name: 💬 Add Commit Lint Comment
         if: always() && steps.commitlint.outcome != 'skipped'
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
@@ -1051,7 +1051,7 @@ jobs:
         with:
           script: |
             const summary = `## 🔍 PR Check Results
-  
+
             ### Test Coverage: ${process.env.TEST_COVERAGE}%
             - Validate: ${process.env.VALIDATE_RESULT}
             - Validate-PR: ${process.env.VALIDATE_PR_RESULT}
@@ -1060,12 +1060,12 @@ jobs:
             - Security: ${process.env.SECURITY_RESULT}
             - Spell-Check: ${process.env.SPELL_CHECK_RESULT}
             - Docs: ${process.env.DOCS_RESULT}
-  
+
             ### Details
             - [Coverage Report](https://codecov.io/gh/${process.env.REPOSITORY})
             - [Test Results](${process.env.GITHUB_SERVER_URL}/${process.env.REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID})
             `;
-  
+
             if (context.payload.pull_request) {
               await github.rest.issues.createComment({
                 ...context.repo,
@@ -1085,7 +1085,7 @@ jobs:
           REPOSITORY: ${{ github.repository }}
           GITHUB_SERVER_URL: ${{ github.server_url }}
           GITHUB_RUN_ID: ${{ github.run_id }}
-  
+
       - name: 🚨 Check Status
         if: needs.test.result != 'success' || needs.lint.result != 'success' || needs.security.result != 'success'
         run: exit 1
