@@ -304,28 +304,37 @@ jobs:
           npm install --global @commitlint/cli @commitlint/config-conventional
           echo "module.exports = {extends: ['@commitlint/config-conventional']};" > commitlint.config.js
 
-          git fetch origin ${{ github.event.pull_request.base.ref }} --depth=1
+          # Fetch base and head refs
+          git fetch --prune origin +refs/heads/${{ github.event.pull_request.base.ref }}:refs/remotes/origin/${{ github.event.pull_request.base.ref }}
+          git fetch --prune origin +refs/heads/${{ github.event.pull_request.head.ref }}:refs/remotes/origin/${{ github.event.pull_request.head.ref }}
 
+          # Get list of commits
           COMMITS=$(git rev-list ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }})
+          echo "COMMITS: $COMMITS"
 
+          # Initialize output variables
           EXIT_CODE=0
           INVALID_COMMITS=""
 
+          # Loop through commits
           for commit in $COMMITS; do
-            if ! git log -1 --format="%B" $commit | commitlint; then
+            echo "Checking commit: $commit"
+            if ! git log -1 --format="%B" $commit | npx commitlint; then
               EXIT_CODE=1
               INVALID_COMMITS="$INVALID_COMMITS\n$(git log -1 --format="%h: %s" $commit)"
             fi
           done
 
+          # If invalid commits found, output them
           if [ $EXIT_CODE -ne 0 ]; then
+            echo "Invalid commits detected!"
             echo "invalid_commits<<EOF" >> $GITHUB_OUTPUT
             echo -e "$INVALID_COMMITS" >> $GITHUB_OUTPUT
             echo "EOF" >> $GITHUB_OUTPUT
           fi
 
           exit $EXIT_CODE
-
+    
       - name: 💬 Add Commit Lint Comment
         if: always() && steps.commitlint.outcome != 'skipped'
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
@@ -461,10 +470,6 @@ jobs:
             libxkbcommon-x11-0 \
             libegl1
 
-      - name: ⚙️ Setup Pre-commit
-        run: |
-          hatch run lint:prcommit
-
       - name: 🧪 Run Tests
         run: hatch run test:test
 
@@ -536,7 +541,7 @@ jobs:
           restore-keys: |
             pre-commit-
 
-      - name: ⚙️ Install pre-commit
+      - name: ⚙️ Install lint env with hatch
         run: hatch env create lint
 
       - name: ✨ Run All Checks
@@ -1046,21 +1051,21 @@ jobs:
         with:
           script: |
             const summary = `## 🔍 PR Check Results
-
-            ### Test Coverage: ${{ needs.test.outputs.coverage }}%
-            - Validate: ${needs.validate.result}
-            - Validate-PR: ${needs.validate-pr.result}
-            - Status: ${needs.test.result}
-            - Linting: ${needs.lint.result}
-            - Security: ${needs.security.result}
-            - Spell-Check: ${needs.spell-check.result}
-            - Docs: ${needs.docs.result}
-
+  
+            ### Test Coverage: ${process.env.TEST_COVERAGE}%
+            - Validate: ${process.env.VALIDATE_RESULT}
+            - Validate-PR: ${process.env.VALIDATE_PR_RESULT}
+            - Status: ${process.env.TEST_RESULT}
+            - Linting: ${process.env.LINT_RESULT}
+            - Security: ${process.env.SECURITY_RESULT}
+            - Spell-Check: ${process.env.SPELL_CHECK_RESULT}
+            - Docs: ${process.env.DOCS_RESULT}
+  
             ### Details
-            - [Coverage Report](https://codecov.io/gh/${{ github.repository }})
-            - [Test Results](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            - [Coverage Report](https://codecov.io/gh/${process.env.REPOSITORY})
+            - [Test Results](${process.env.GITHUB_SERVER_URL}/${process.env.REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID})
             `;
-
+  
             if (context.payload.pull_request) {
               await github.rest.issues.createComment({
                 ...context.repo,
@@ -1068,7 +1073,19 @@ jobs:
                 body: summary
               });
             }
-
+        env:
+          TEST_COVERAGE: ${{ needs.test.outputs.coverage }}
+          VALIDATE_RESULT: ${{ needs.validate.result }}
+          VALIDATE_PR_RESULT: ${{ needs.validate-pr.result }}
+          TEST_RESULT: ${{ needs.test.result }}
+          LINT_RESULT: ${{ needs.lint.result }}
+          SECURITY_RESULT: ${{ needs.security.result }}
+          SPELL_CHECK_RESULT: ${{ needs.spell-check.result }}
+          DOCS_RESULT: ${{ needs.docs.result }}
+          REPOSITORY: ${{ github.repository }}
+          GITHUB_SERVER_URL: ${{ github.server_url }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+  
       - name: 🚨 Check Status
         if: needs.test.result != 'success' || needs.lint.result != 'success' || needs.security.result != 'success'
         run: exit 1
