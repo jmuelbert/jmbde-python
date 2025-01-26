@@ -147,16 +147,20 @@ dependencies = [
 
 [tool.hatch.envs.security.scripts]
 # Audit dependencies for vulnerabilities
-audit = "pip-audit"
+audit =  """
+hatch dep show requirements  > requirements.txt
+pip-audit -r requirements.txt
+rm requirements.txt
+"""
 
 # Check dependencies with safety
-safety-check = "safety check"
+safety-scan = "safety scan --full-report"
 
 # Run Bandit for static security analysis
-bandit = "bandit -r src -ll"
+bandit-scan = "bandit -r src -ll"
 
 # Aggregate security tasks
-all = ["audit", "safety", "bandit"]
+all = ["audit", "safety-scan", "bandit-scan"]
 
 [tool.hatch.envs.docs]
 dependencies = [
