@@ -813,8 +813,7 @@ jobs:
             - Validate: ${process.env.VALIDATE_RESULT}
             - Validate-PR: ${process.env.VALIDATE_PR_RESULT}
             - Status: ${process.env.TEST_RESULT}
-            - Linting: ${process.env.LINT_RESULT}
-            - Security: ${process.env.SECURITY_RESULT}
+            - Quality-Checks: ${process.env.QUALITY_CHECKS_RESULT}
             - Spell-Check: ${process.env.SPELL_CHECK_RESULT}
             - Docs: ${process.env.DOCS_RESULT}
 
@@ -835,8 +834,7 @@ jobs:
           VALIDATE_RESULT: ${{ needs.validate.result }}
           VALIDATE_PR_RESULT: ${{ needs.validate-pr.result }}
           TEST_RESULT: ${{ needs.test.result }}
-          LINT_RESULT: ${{ needs.lint.result }}
-          SECURITY_RESULT: ${{ needs.security.result }}
+          QUALITY_CHECKS_RESULT: ${{ needs.quality-checks.result }}
           SPELL_CHECK_RESULT: ${{ needs.spell-check.result }}
           DOCS_RESULT: ${{ needs.docs.result }}
           REPOSITORY: ${{ github.repository }}
@@ -844,5 +842,5 @@ jobs:
           GITHUB_RUN_ID: ${{ github.run_id }}
 
       - name: 🚨 Check Status
-        if: needs.test.result != 'success' || needs.lint.result != 'success' || needs.security.result != 'success'
+        if: needs.test.result != 'success' || needs.quality-checks.result != 'success' || needs.docs.result != 'success' || needs.spell-check.result != 'success'
         run: exit 1
