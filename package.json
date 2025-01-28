@@ -4,10 +4,12 @@
   "description": "JM BDE - Management of the inventory of computer equipment",
   "main": "main.py",
   "scripts": {
-    "lint": "eslint .",
     "spellcheck": "cspell **",
     "precommit": "lint-staged",
-    "sync-labels": "node .github/scripts/sync-labels.js"
+    "sync-labels": "node .github/scripts/sync-labels.js",
+    "trunk": "trunk",
+    "lint": "trunk check",
+    "fmt": "trunk fmt"
   },
   "keywords": [
     "python",
@@ -19,6 +21,7 @@
   "devDependencies": {
     "@cspell/dict-de-de": "^4.0.3",
     "@cspell/dict-python": "^4.2.14",
+    "@trunkio/launcher": "^1.3.4",
     "chalk": "4",
     "cspell": "^5.21.2",
     "lint-staged": "^12.5.0",
