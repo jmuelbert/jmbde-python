@@ -133,7 +133,7 @@ jobs:
                 ? highRisks.map(risk => `- ${risk.message.text}`).join('\n')
                 : '✅ No high-risk issues found\n');
 
-            fs.writeFileSync('results/security-report.md', report);
+            fs.writeFileSync('security-report.md', report);
 
             fs.writeFileSync('processed-results.json', JSON.stringify({
               overallScore: overallScore,
@@ -154,7 +154,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: security-report
-          path: results/security-report.md
+          path: security-report.md
           retention-days: 30
   notify:
     name: Notify Security Issues
