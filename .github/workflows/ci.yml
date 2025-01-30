@@ -27,6 +27,37 @@ jobs:
   validate:
     name: Validate Dependencies
     runs-on: ubuntu-latest
+
+    
+---
+# SPDX-FileCopyrightText: Jürgen Mülbert <juergen.muelbert@web.de>
+# SPDX-License-Identifier: EUPL-1.2
+
+name: Release Pipeline
+
+on: # yamllint disable-line rule:truthy
+  push:
+    branches:
+      - main
+      - release/**
+    tags: [v*]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PACKAGE_NAME: jmbde-python
+  PYTHON_VERSION_FILE: .python-version
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate Dependencies
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: 🔒 Harden Runner
@@ -34,15 +65,79 @@ jobs:
         with:
           egress-policy: audit
 
-      - name: 🧰 Checkout Repository
+      - name: 🧐 Checkout Repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
 
-      # ISSUE: Runs in an issue: 
-      # ERROR: Error: Both a base ref and head ref must be provided, either via the `base_ref`/`head_ref` config options, `base-ref`/`head-ref` workflow action options, or by running a `pull_request`/`pull_request_target`/`merge_group` workflow.
       - name: 🔎 Dependency Review
+        if: github.event_name == 'pull_request'
         uses: actions/dependency-review-action@3b139cfc5fae8b618d3eae3675e383bb1769c019 # v4.5.0
+
+  ui-tests:
+    name: UI Tests
+    needs: validate
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    environment: staging
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+        exclude:
+          - os: macos-latest
+            python-version: '3.9'
+          - os: windows-latest
+            python-version: '3.9'
+
+    steps:
+      - name: 🔒 Harden Runner
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        with:
+          egress-policy: audit
+
+      - name: 👅 Checkout Repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: |
+            .github/workflows/requirements.txt
+            pyproject.toml
+
+      - name: 🔧 Install Dependencies
+        run: |
+          pip install -r .github/workflows/requirements.txt
+          hatch env create test
+
+      - name: 🧑‍🔧 Run UI Tests
+        env:
+          QT_QPA_PLATFORM: offscreen
+          DISPLAY: :99
+          PYTEST_QT_API: pyside6
+        run: |
+          hatch run test:pytest tests/pyside6 \
+            --verbose \
+            --capture=no \
+            --timeout=300 \
+            --junitxml=test-results/junit.xml
+
+      - name: 👛 Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-test-results-${{ matrix.os }}-py${{ matrix.python-version }}
+          path: |
+            test-results/
+            test-artifacts/
+            coverage.xml
+          retention-days: 7
+
+
 
   ui-tests:
     name: UI Tests
