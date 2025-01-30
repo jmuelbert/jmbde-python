@@ -52,43 +52,7 @@ repos:
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
-      - id: ruff-format
 
-  - repo: https://github.com/PyCQA/pylint
-    rev: v3.3.3
-    hooks:
-      - id: pylint
-        args: [--rcfile=pyproject.toml, --output-format=colorized]
-        additional_dependencies: [pylint-pytest]
-
-  # Type Checking
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.14.1
-    hooks:
-      - id: mypy
-        args: [--config-file=pyproject.toml]
-
-  # Security Checks
-  - repo: https://github.com/PyCQA/bandit
-    rev: 1.8.2
-    hooks:
-      - id: bandit
-        args: ["-c", "pyproject.toml", "-r", "src", "-ll"]
-        additional_dependencies: ["bandit[toml]"]
-
-  # Dependency Security
-  - repo: https://github.com/pypa/pip-audit
-    rev: v2.7.3
-    hooks:
-      - id: pip-audit
-        args: ["-r", "requirements.txt", "--ignore-vuln", "GHSA-XXXX-XXXX-XXXX"]
-
-  # License Compliance
-  - repo: https://github.com/fsfe/reuse-tool
-    rev: v5.0.2
-    hooks:
-      - id: reuse
-        args: ["lint"]
 
   # Secrets Detection
   - repo: https://github.com/gitleaks/gitleaks
@@ -199,3 +163,40 @@ repos:
     hooks:
       - id: typos
         args: ["--config", "pyproject.toml"]
+
+# Local Hatch Tasks
+  - repo: local
+    hooks:
+      - id: hatch-style
+        name: Hatch - Style Checks
+        entry: hatch run lint:style
+        language: system
+        files: \.py$
+
+      - id: hatch-typing
+        name: Hatch - Type Checking
+        entry: hatch run lint:typing
+        language: system
+        files: \.py$
+
+      - id: hatch-lint
+        name: Hatch - Linting
+        entry: hatch run lint:lint
+        language: system
+        files: \.py$
+
+      - id: hatch-spelling
+        name: Hatch - Spelling Check
+        entry: hatch run lint:spelling
+        language: system
+        files: \.(md|txt|rst)$
+
+      - id: hatch-license
+        name: Hatch - License Compliance
+        entry: hatch run lint:license
+        language: system
+
+      - id: hatch-security
+        name: Hatch - Security Checks
+        entry: hatch run security:all
+        language: system

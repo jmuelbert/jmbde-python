@@ -168,3 +168,6 @@ $RECYCLE.BIN/
 !LICENSE
 !README.md
 !CHANGELOG.md
+.trunk/actions
+.trunk/notifications
+.trunk/tools

@@ -14,9 +14,13 @@ on: # yamllint disable-line rule:truthy
       - develop
       - release/**
     paths-ignore:
-      - '**.md'
+      - "**.md"
+      - "**.txt"
       - docs/**
       - .github/*.md
+      - LICENSES/**
+      - LICENSE
+      - ".gitignore"
 
   pull_request:
     types:
@@ -24,9 +28,13 @@ on: # yamllint disable-line rule:truthy
       - edited
       - synchronize
     paths-ignore:
-      - '**.md'
+      - "**.md"
+      - "**.txt"
       - docs/**
       - .github/*.md
+      - LICENSES/**
+      - LICENSE
+      - ".gitignore"
 
   workflow_dispatch:
 
@@ -42,62 +50,82 @@ jobs:
     name: Supply Chain Security Analysis
     if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 30
 
     permissions:
       security-events: write # Required for SARIF uploads
       id-token: write # Needed to publish results with Scorecard
-      issues: write # Allows opening issues if needed
-      pull-requests: write # For label management
-
-    outputs:
-      score: ${{ steps.scorecard.outputs.overall-score }}
-      high-risks: ${{ steps.process.outputs.high-risks }}
 
     steps:
-      - name: 🔧 Setup Workspace
-        run: mkdir -p results && echo "Workspace initialized"
-
       - name: 🔒 Harden Runner
-        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        uses: step-security/harden-runner@v2.7.0
         with:
           egress-policy: audit
 
       - name: 🧰 Checkout Repository
-        uses: actions/checkout@44c2b7a8a4ea60a981eaca3cf939b5f4305c123b # v4.1.5
+        uses: actions/checkout@v4.1.5
         with:
           persist-credentials: false
 
       - name: 🔍 Run Scorecard Analysis
         id: scorecard
-        uses: ossf/scorecard-action@dc50aa9510b46c811795eb24b2f1ba02a914e534 # v2.3.3
+        uses: ossf/scorecard-action@v2.3.3
         with:
-          results_file: results/scorecard.sarif
+          results_file: scorecard.sarif
           results_format: sarif
           publish_results: true
 
+      - name: 📤 Upload SARIF Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-analysis
+          path: scorecard.sarif
+          retention-days: 30
+
+  process-results:
+    name: Process Security Results
+    needs: analyze
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    outputs:
+      high-risks: ${{ steps.process.outputs.high-risks }}
+      overall-score: ${{ steps.process.outputs.overall-score }}
+
+    steps:
+      - name: 🔽 Download Analysis Results
+        uses: actions/download-artifact@v4
+        with:
+          name: security-analysis
+
       - name: 📊 Process Results
         id: process
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        uses: actions/github-script@v7.0.1
         with:
           script: |
             const fs = require('fs');
-            const resultsFile = 'results/scorecard.sarif';
+
+            const resultsFile = 'scorecard.sarif';
+
             if (!fs.existsSync(resultsFile)) {
               throw new Error('Results file not found');
             }
+
             const results = JSON.parse(fs.readFileSync(resultsFile, 'utf8'));
 
-            // Extract checks
-            const checks = results.runs[0]?.results || [];
+            if (!results.runs || results.runs.length === 0) {
+              throw new Error('Invalid SARIF format: No runs found');
+            }
+
+            const checks = results.runs[0].results || [];
             const highRisks = checks.filter(check => check.level === 'error');
 
-            // Extract checks
-            const checks = results.runs[0]?.results || [];
-            const highRisks = checks.filter(check => check.level === 'error');
+            // Extract overall score safely
+            const overallScore = results.runs[0].properties?.score || '0';
 
-            // Generate summary
-            const overallScore = process.env.SCORE || '0';
+            // Generate summary report
             const report = `## 🔒 Supply Chain Security Report\n\n` +
               `### 📊 Overall Score: ${overallScore}/10\n\n` +
               `### 🚨 High Risk Issues\n` +
@@ -105,94 +133,65 @@ jobs:
                 ? highRisks.map(risk => `- ${risk.message.text}`).join('\n')
                 : '✅ No high-risk issues found\n');
 
-            fs.writeFileSync('results/security-report.md', report);
+            fs.writeFileSync('security-report.md', report);
+
+            fs.writeFileSync('processed-results.json', JSON.stringify({
+              overallScore: overallScore,
+              highRisks: highRisks.length
+            }, null, 2));
 
             core.setOutput('high-risks', highRisks.length);
-        env:
-          SCORE: ${{ steps.scorecard.outputs.overall-score }}
+            core.setOutput('overall-score', overallScore);
 
-      - name: 📤 Upload SARIF Results
-        uses: github/codeql-action/upload-sarif@b7cec7526559c32f1616476ff32d17ba4c59b2d6 # v3.25.5
+      - name: 📤 Upload Processed Results
+        uses: actions/upload-artifact@v4
         with:
-          sarif_file: results/scorecard.sarif
-          category: supply-chain-security
-
-      - name: 📦 Upload Artifacts
-        if: always()
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
-        with:
-          name: security-analysis
-          path: |
-            results/
-            .github/scorecard-policy.yml
+          name: processed-results
+          path: processed-results.json
           retention-days: 30
 
-      - name: 🏷️ Manage Labels
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+      - name: 📤 Upload Security Report
+        uses: actions/upload-artifact@v4
         with:
-          script: |
-            const labels = ['security: good', 'security: needs-improvement', 'security: high-risk'];
-            const score = parseInt(process.env.SECURITY_SCORE || '0', 10);
-
-            // Add appropriate label
-            const issueLabels = score >= 8
-              ? ['security: good']
-              : score >= 6
-              ? ['security: needs-improvement']
-              : ['security: high-risk'];
-
-            const existingLabels = await github.rest.issues.listLabelForRepo({
-              owner: context.repo.owner,
-              repo: context.repo.repo
-            });
-
-            for (const label of labels) {
-              if (!existingLabels.data.some(existing => existing.name == label)) {
-                  await github.rest.issues.createLabel({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    name: label,
-                    color: 'ededed', // Replace with your desired color
-                  });
-              }
-
-            if (github.event_name == 'pull_request') {
-              const prNumber = context.payload.pull_request.number;
-              await: github.rest.issues.addLabels({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: prNumber,
-                labels: issueLabels,
-              });
-            }
-        env:
-          SCORE: ${{ steps.scorecard.outputs.overall-score }}
-
-      - name: 🧹 Cleanup
-        if: always()
-        run: |
-          rm -rf results/
-
+          name: security-report
+          path: security-report.md
+          retention-days: 30
   notify:
-    needs: analyze
-    if: needs.analyze.outputs.high-risks > 0
+    name: Notify Security Issues
+    needs: process-results
     runs-on: ubuntu-latest
 
     permissions:
       issues: write # To create notification issues
 
     steps:
+      - name: 🔽 Download Processed Results
+        uses: actions/download-artifact@v4
+        with:
+          name: processed-results
+
+      - name: 🔽 Download Security Report
+        uses: actions/download-artifact@v4
+        with:
+          name: security-report
+
       - name: 🚨 Security Alert
+        if: needs.process-results.outputs.high-risks > 0
         uses: actions/github-script@v7.0.1
         with:
           script: |
+            const fs = require('fs');
+            const results = JSON.parse(fs.readFileSync('processed-results.json', 'utf8'));
+            const highRisks = results.highRisks;
+            const overallScore = results.overallScore;
+
             const message = `## 🚨 Supply Chain Security Alert
 
             High risk security issues detected:
-            - Score: ${process.env.SCORE}/10
-            - High Risk Issues: ${process.env.HIGH_RISKS}
+            - Score: ${overallScore}/10
+            - High Risk Issues: ${highRisks}
 
-            Please review the [analysis results](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID})`;
+            Please review the [security report](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID})`;
 
             await github.rest.issues.create({
               owner: context.repo.owner,
@@ -201,6 +200,3 @@ jobs:
               body: message,
               labels: ['security', 'high-risk', 'needs-attention']
             });
-        env:
-          SCORE: ${{ needs.analyze.outputs.score }}
-          HIGH_RISKS: ${{ needs.analyze.outputs.high_risks }}
