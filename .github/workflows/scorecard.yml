@@ -73,9 +73,12 @@
           with:
             persist-credentials: false
   
-        - name: 🔧 Setup Workspace
-          run: mkdir -p results && echo "Workspace initialized"
-  
+        - name: 🔧 Create Results Directory
+          uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
+          with:
+            path: results/
+            key: results-dir
+    
         - name: 🔍 Run Scorecard Analysis
           id: scorecard
           uses: ossf/scorecard-action@dc50aa9510b46c811795eb24b2f1ba02a914e534 # v2.3.3
@@ -171,11 +174,6 @@
               }
           env:
             SCORE: ${{ steps.scorecard.outputs.overall-score }}
-  
-        - name: 🧹 Cleanup
-          if: always()
-          run: |
-            rm -rf results/
   
     notify:
       needs: analyze
