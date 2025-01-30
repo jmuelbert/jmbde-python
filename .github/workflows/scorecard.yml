@@ -82,7 +82,7 @@ jobs:
           path: scorecard.sarif
           retention-days: 30
 
-  process-results:
+process-results:
     name: Process Security Results
     needs: analyze
     runs-on: ubuntu-latest
@@ -106,9 +106,98 @@ jobs:
         with:
           script: |
             const fs = require('fs');
+            const core = require('@actions/core');
+
             const resultsFile = 'scorecard.sarif';
 
             if (!fs.existsSync(resultsFile)) {
               throw new Error('Results file not found');
             }
-            const results =
+
+            const results = JSON.parse(fs.readFileSync(resultsFile, 'utf8'));
+
+            if (!results.runs || results.runs.length === 0) {
+              throw new Error('Invalid SARIF format: No runs found');
+            }
+
+            const checks = results.runs[0].results || [];
+            const highRisks = checks.filter(check => check.level === 'error');
+
+            // Extract overall score safely
+            const overallScore = results.runs[0].properties?.score || '0';
+
+            // Generate summary report
+            const report = `## 🔒 Supply Chain Security Report\n\n` +
+              `### 📊 Overall Score: ${overallScore}/10\n\n` +
+              `### 🚨 High Risk Issues\n` +
+              (highRisks.length > 0
+                ? highRisks.map(risk => `- ${risk.message.text}`).join('\n')
+                : '✅ No high-risk issues found\n');
+
+            fs.writeFileSync('results/security-report.md', report);
+
+            fs.writeFileSync('processed-results.json', JSON.stringify({
+              overallScore: overallScore,
+              highRisks: highRisks.length
+            }, null, 2));
+
+            core.setOutput('high-risks', highRisks.length);
+            core.setOutput('overall-score', overallScore);
+
+      - name: 📤 Upload Processed Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: processed-results
+          path: processed-results.json
+          retention-days: 30
+
+      - name: 📤 Upload Security Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-report
+          path: results/security-report.md
+          retention-days: 30
+  notify:
+    name: Notify Security Issues
+    needs: process-results
+    runs-on: ubuntu-latest
+
+    permissions:
+      issues: write # To create notification issues
+
+    steps:
+      - name: 🔽 Download Processed Results
+        uses: actions/download-artifact@v4
+        with:
+          name: processed-results
+
+      - name: 🔽 Download Security Report
+        uses: actions/download-artifact@v4
+        with:
+          name: security-report
+
+      - name: 🚨 Security Alert
+        if: needs.process-results.outputs.high-risks > 0
+        uses: actions/github-script@v7.0.1
+        with:
+          script: |
+            const fs = require('fs');
+            const results = JSON.parse(fs.readFileSync('processed-results.json', 'utf8'));
+            const highRisks = results.highRisks;
+            const overallScore = results.overallScore;
+
+            const message = `## 🚨 Supply Chain Security Alert
+
+            High risk security issues detected:
+            - Score: ${overallScore}/10
+            - High Risk Issues: ${highRisks}
+
+            Please review the [security report](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID})`;
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🚨 Supply Chain Security Issues Detected',
+              body: message,
+              labels: ['security', 'high-risk', 'needs-attention']
+            });
