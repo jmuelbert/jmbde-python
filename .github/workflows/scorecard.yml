@@ -72,18 +72,12 @@
           uses: actions/checkout@44c2b7a8a4ea60a981eaca3cf939b5f4305c123b # v4.1.5
           with:
             persist-credentials: false
-  
-        - name: 🔧 Create Results Directory
-          uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
-          with:
-            path: results/
-            key: results-dir
     
         - name: 🔍 Run Scorecard Analysis
           id: scorecard
           uses: ossf/scorecard-action@dc50aa9510b46c811795eb24b2f1ba02a914e534 # v2.3.3
           with:
-            results_file: results/scorecard.sarif
+            results_file: ${{ runner.temp }}/scorecard.sarif
             results_format: sarif
             publish_results: true
   
@@ -93,7 +87,7 @@
           with:
             script: |
               const fs = require('fs');
-              const resultsFile = 'results/scorecard.sarif';
+              const resultsFile = process.env.SCORECARD_FILE;
               if (!fs.existsSync(resultsFile)) {
                 throw new Error('Results file not found');
               }
@@ -115,13 +109,14 @@
               fs.writeFileSync('results/security-report.md', report);
   
               core.setOutput('high-risks', highRisks.length);
-          env:
-            SCORE: ${{ steps.scorecard.outputs.overall-score }}
+              env:
+                SCORE: ${{ steps.scorecard.outputs.overall-score }}
+                SCORECARD_FILE: ${{ runner.temp }}/scorecard.sarif
   
         - name: 📤 Upload SARIF Results
           uses: github/codeql-action/upload-sarif@b7cec7526559c32f1616476ff32d17ba4c59b2d6 # v3.25.5
           with:
-            sarif_file: results/scorecard.sarif
+            sarif_file: ${{ runner.temp }}/scorecard.sarif
             category: supply-chain-security
   
         - name: 📦 Upload Artifacts
@@ -130,7 +125,7 @@
           with:
             name: security-analysis
             path: |
-              results/
+              ${{ runner.temp }}/scorecard.sarif
               .github/scorecard-policy.yml
             retention-days: 30
   
