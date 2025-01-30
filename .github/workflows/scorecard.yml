@@ -80,7 +80,8 @@ jobs:
         id: scorecard
         uses: ossf/scorecard-action@dc50aa9510b46c811795eb24b2f1ba02a914e534 # v2.3.3
         with:
-          results_file: results/scorecard.sarif
+          results_file: ${{ runner.temp }}/scorecard.sarif
+          sarif_file: ${{ runner.temp }}/scorecard.sarif
           results_format: sarif
           publish_results: true
 
