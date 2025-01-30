@@ -77,7 +77,7 @@ jobs:
         id: scorecard
         uses: ossf/scorecard-action@dc50aa9510b46c811795eb24b2f1ba02a914e534 # v2.3.3
         with:
-          results_file: ${{ runner.temp }}/scorecard.sarif
+          results_file: ${{ github.workspace }}/scorecard.sarif
           results_format: sarif
           publish_results: true
 
@@ -112,12 +112,12 @@ jobs:
             core.setOutput('high-risks', highRisks.length);
             env:
               SCORE: ${{ steps.scorecard.outputs.overall-score }}
-              SCORECARD_FILE: ${{ runner.temp }}/scorecard.sarif
+              SCORECARD_FILE: ${{ github.workspace }}/scorecard.sarif
 
       - name: 📤 Upload SARIF Results
         uses: github/codeql-action/upload-sarif@b7cec7526559c32f1616476ff32d17ba4c59b2d6 # v3.25.5
         with:
-          sarif_file: ${{ runner.temp }}/scorecard.sarif
+          sarif_file: ${{ github.workspace }}/scorecard.sarif
           category: supply-chain-security
 
       - name: 📦 Upload Artifacts
@@ -126,7 +126,7 @@ jobs:
         with:
           name: security-analysis
           path: |
-            ${{ runner.temp }}/scorecard.sarif
+            ${{ github.workspace }}/scorecard.sarif
             .github/scorecard-policy.yml
           retention-days: 30
 
