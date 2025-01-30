@@ -14,9 +14,13 @@ on: # yamllint disable-line rule:truthy
       - develop
       - release/**
     paths-ignore:
-      - '**.md'
+      - "**.md"
+      - "**.txt"
       - docs/**
       - .github/*.md
+      - LICENSES/**
+      - LICENSE
+      - ".gitignore"
 
   pull_request:
     types:
@@ -24,9 +28,13 @@ on: # yamllint disable-line rule:truthy
       - edited
       - synchronize
     paths-ignore:
-      - '**.md'
+      - "**.md"
+      - "**.txt"
       - docs/**
       - .github/*.md
+      - LICENSES/**
+      - LICENSE
+      - ".gitignore"
 
   workflow_dispatch:
 
@@ -42,7 +50,7 @@ jobs:
     name: Supply Chain Security Analysis
     if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 30
 
     permissions:
       security-events: write # Required for SARIF uploads
@@ -55,9 +63,6 @@ jobs:
       high-risks: ${{ steps.process.outputs.high-risks }}
 
     steps:
-      - name: 🔧 Setup Workspace
-        run: mkdir -p results && echo "Workspace initialized"
-
       - name: 🔒 Harden Runner
         uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
         with:
@@ -67,6 +72,9 @@ jobs:
         uses: actions/checkout@44c2b7a8a4ea60a981eaca3cf939b5f4305c123b # v4.1.5
         with:
           persist-credentials: false
+
+      - name: 🔧 Setup Workspace
+        run: mkdir -p results && echo "Workspace initialized"
 
       - name: 🔍 Run Scorecard Analysis
         id: scorecard
@@ -87,10 +95,6 @@ jobs:
               throw new Error('Results file not found');
             }
             const results = JSON.parse(fs.readFileSync(resultsFile, 'utf8'));
-
-            // Extract checks
-            const checks = results.runs[0]?.results || [];
-            const highRisks = checks.filter(check => check.level === 'error');
 
             // Extract checks
             const checks = results.runs[0]?.results || [];
@@ -141,7 +145,7 @@ jobs:
               ? ['security: needs-improvement']
               : ['security: high-risk'];
 
-            const existingLabels = await github.rest.issues.listLabelForRepo({
+            const existingLabels = await github.rest.issues.listLabelsForRepo({
               owner: context.repo.owner,
               repo: context.repo.repo
             });
@@ -158,7 +162,7 @@ jobs:
 
             if (github.event_name == 'pull_request') {
               const prNumber = context.payload.pull_request.number;
-              await: github.rest.issues.addLabels({
+              await github.rest.issues.addLabels({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: prNumber,
