@@ -13,8 +13,7 @@ readme = "README.md"
 requires-python = ">=3.9"
 license = "EUPL-1.2"
 maintainers = [
-  { name = "Jürgen Mülbert" },
-  { email = "juergen.muelbert@outlook.de" },
+  { name = "Jürgen Mülbert" ,email = "juergen.muelbert@outlook.de" }
 ]
 authors = [{ name = "Jürgen Mülbert", email = "juergen.muelbert@outlook.de" }]
 # Pypi classifiers: https://pypi.org/classifiers/
@@ -22,7 +21,7 @@ classifiers = [
   "Development Status :: 4 - Beta",
   "Environment :: X11 Applications :: Qt",
   "Intended Audience :: End Users/Desktop",
-  "License :: OSI Approved :: EUPL-1.2",
+  # "License :: OSI Approved :: European Union Public License 1.2",
   "Operating System :: OS Independent",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.9",
@@ -98,18 +97,14 @@ dependencies = [
     "ruff>=0.3.0",
     "black>=24.2.0",
     "mypy>=1.8.0",
-    "bandit>=1.7.8",
     "pylint>=3.0.0",
     "pylint-pytest>=1.1.2",
-    "safety>=2.3.0",
-    "cyclonedx-bom>=3.11.0",
-    "pyside6=>6.5.0",
+    "pyside6>=6.5.0",
     "codespell>=2.3.0",
-    "pip-audit>=2.7.3",
     "reuse>=5.0.2",
-    "codespell>=2.3.0",
-    "markdownlint-cli>=0.39.0",
+    "radon[toml]>=6.0.1"
 ]
+
 
 [tool.hatch.envs.lint.scripts]
 style = [
@@ -118,19 +113,54 @@ style = [
     "black --check .",
     "pyside6-qmllint src/jmbde/qml/**"
 ]
+
+# Type checking
 typing = "mypy src tests --strict --warn-unused-configs"
-security = [
-    "bandit -r src -ll",
-    "safety check",
-    "pip-audit",
-    "cyclonedx-bom -r .github/workflow/requirements.txt -o bom.xml"
-]
+
+# Linting
 lint = "pylint src tests"
-spelling = "codespell"
-markdown = "markdownlint **/*.md"
+
+# Spelling check
+spelling = "codespell -w ."
+
+# License compliance
 license = "reuse lint"
-prcommit = "pre-commit run --all-files"
-all = ["style", "typing", "security", "lint", "spelling", "markdown", "license"]
+
+# Pre-commit checks
+precommit = "pre-commit run --all-files"
+
+# Code quality metrics
+radon_quality = [
+    "radon cc ./src -a -nb",
+    "radon mi ./src -nb"
+]
+
+# Aggregate linting tasks
+all = ["style", "typing", "lint", "spelling", "license", "radon_quality"]
+
+[tool.hatch.envs.security]
+dependencies = [
+    "bandit[toml]>=1.7.8",
+    "safety>=2.3.0",
+    "pip-audit"
+]
+
+[tool.hatch.envs.security.scripts]
+# Audit dependencies for vulnerabilities
+audit =  """
+hatch dep show requirements  > requirements.txt
+pip-audit -r requirements.txt
+rm requirements.txt
+"""
+
+# Check dependencies with safety
+safety-scan = "safety scan --full-report"
+
+# Run Bandit for static security analysis
+bandit-scan = "bandit -r src -ll"
+
+# Aggregate security tasks
+all = ["audit", "safety-scan", "bandit-scan"]
 
 [tool.hatch.envs.docs]
 dependencies = [
@@ -142,6 +172,7 @@ dependencies = [
   "mkdocs-mermaid2-plugin>=1.2.0",                    # Mermaid support
   "mkdocs-git-revision-date-localized-plugin>=1.2.0", # Gitdatum support
   "mkdocs-glightbox>=0.4.0",
+  "mkdocs-linkcheck>1.0.6",
   "mike>=2.1.3",
   "mkdocstrings-python>=1.7.5",
   "pymdown-extensions>=10.13",
@@ -150,6 +181,7 @@ dependencies = [
 
 [tool.hatch.envs.docs.scripts]
 build = "mkdocs build --clean --strict"
+validate-links = "mkdocs linkcheck"
 serve = "mkdocs serve --dev-addr localhost:8000"
 deploy = "mkdocs gh-deploy --force"
 
@@ -261,6 +293,10 @@ addopts = ["-ra", "--strict-markers", "--strict-config", "--doctest-modules"]
 testpaths = ["tests"]
 filterwarnings = ["error"]
 
+[tool.pydocstyle]
+convention = "google"  # or "numpy" or "pep257"
+add-ignore = ["D100"]  # Example to ignore missing docstrings on functions
+
 [tool.yamllint]
 extends = "default"
 strict = true
@@ -335,9 +371,6 @@ check-hidden = false
 builtin = "clear, rare, code, informal"
 quiet-level = 3
 count = true
-uri = true
-uri-ignore-length = 20
-encoding = "utf-8"
 
 [tool.proselint]
 max-line-length = 100

@@ -83,24 +83,24 @@ status/work-in-progress:
     - "**/draft/**"
 
 status/ready-for-review:
-  - any:  
+  - any:
     - "**/RFR/**"
     - "**/ready/**"
 
 status/blocked:
-  - any: 
+  - any:
     - "**/blocked/**"
     - "**/hold/**"
 
 status/needs-discussion:
-  - any:  
+  - any:
     - "**/discuss/**"
     - "**/proposal/**"
     - "RFC.md"
 
 # Security Labels
 security:
-  - any:  
+  - any:
     - "src/security/**/*.py"
     - "**/auth/**"
     - "**/oauth/**"
@@ -112,7 +112,7 @@ security:
 
 # Breaking Changes
 breaking:
-  - any:  
+  - any:
     - "**/*.py"
     - "**/*.pyi"
     - "**/*.pyx"
@@ -123,7 +123,7 @@ breaking:
 
 # Deprecation
 deprecation:
-  - any:  
+  - any:
     - "**/*.py"
     - "**/*.pyi"
     - "**/*.pyx"
@@ -132,7 +132,7 @@ deprecation:
 
 # CI/CD
 ci:
-  - any:  
+  - any:
     - ".github/workflows/**"
     - ".github/actions/**"
     - ".gitlab-ci.yml"
@@ -143,7 +143,7 @@ ci:
 
 # Dependencies
 dependencies:
-  - any:  
+  - any:
     - "requirements*.txt"
     - "requirements/**"
     - "poetry.lock"
@@ -156,7 +156,7 @@ dependencies:
 
 # Infrastructure
 infrastructure:
-  - any:  
+  - any:
     - "terraform/**"
     - "ansible/**"
     - "kubernetes/**"
@@ -170,7 +170,7 @@ infrastructure:
 
 # Documentation
 documentation:
-  - any:  
+  - any:
     - "docs/**/*"
     - "**/*.md"
     # '**/*.adoc'
@@ -184,7 +184,7 @@ documentation:
 
 # Testing
 testing:
-  - any:  
+  - any:
     - "tests/**"
     - "**/test/**"
     - "**/tests/**"
@@ -205,7 +205,7 @@ database:
 
 # API
 api:
-  - any:  
+  - any:
     - "**/api/**"
     - "**/rest/**"
     - "**/graphql/**"
@@ -238,29 +238,29 @@ size/xl:
 
 # Priority
 priority/critical:
-  - any:  
+  - any:
     - "**/hotfix/**"
     - "**/emergency/**"
     - "**/critical/**"
 
 priority/high:
-  - any:  
+  - any:
     - "**/high-priority/**"
     - "**/important/**"
 
 # Component Labels
 component/core:
-  - any:  
+  - any:
     - "src/core/**"
     - "lib/core/**"
 
 component/utils:
-  - any:  
+  - any:
     - "src/utils/**"
     - "lib/utils/**"
 
 component/cli:
-  - any:  
+  - any:
     - "src/cli/**"
     - "bin/**"
     - "scripts/**"
