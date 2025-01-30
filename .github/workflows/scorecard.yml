@@ -82,7 +82,7 @@ jobs:
           path: scorecard.sarif
           retention-days: 30
 
-process-results:
+  process-results:
     name: Process Security Results
     needs: analyze
     runs-on: ubuntu-latest
