@@ -1,207 +1,210 @@
 ---
-# SPDX-FileCopyrightText: Open Source Security Foundation (OpenSSF)
-# SPDX-License-Identifier: Apache-2.0
-
-name: Supply Chain Security Analysis
-
-on: # yamllint disable-line rule:truthy
-  schedule:
-    - cron: 0 4 * * 1 # Run at 04:00 UTC every Monday
-
-  push:
-    branches:
-      - main
-      - develop
-      - release/**
-    paths-ignore:
-      - '**.md'
-      - docs/**
-      - .github/*.md
-
-  pull_request:
-    types:
-      - opened
-      - edited
-      - synchronize
-    paths-ignore:
-      - '**.md'
-      - docs/**
-      - .github/*.md
-
-  workflow_dispatch:
-
-permissions:
-  contents: read # Base permissions for all jobs
-
-concurrency:
-  group: supply-chain-${{ github.ref }}
-  cancel-in-progress: true # Ensures only one run per branch is active
-
-jobs:
-  analyze:
-    name: Supply Chain Security Analysis
-    if: github.actor != 'dependabot[bot]'
-    runs-on: ubuntu-latest
-    timeout-minutes: 60
-
-    permissions:
-      security-events: write # Required for SARIF uploads
-      id-token: write # Needed to publish results with Scorecard
-      issues: write # Allows opening issues if needed
-      pull-requests: write # For label management
-
-    outputs:
-      score: ${{ steps.scorecard.outputs.overall-score }}
-      high-risks: ${{ steps.process.outputs.high-risks }}
-
-    steps:
-      - name: 🔧 Setup Workspace
-        run: mkdir -p results && echo "Workspace initialized"
-
-      - name: 🔒 Harden Runner
-        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
-        with:
-          egress-policy: audit
-
-      - name: 🧰 Checkout Repository
-        uses: actions/checkout@44c2b7a8a4ea60a981eaca3cf939b5f4305c123b # v4.1.5
-        with:
-          persist-credentials: false
-
-      - name: 🔍 Run Scorecard Analysis
-        id: scorecard
-        uses: ossf/scorecard-action@dc50aa9510b46c811795eb24b2f1ba02a914e534 # v2.3.3
-        with:
-          # TODO: #1216 Resolve Directory issue. The Destination is not being set created, now.
-          results_file: results/scorecard.sarif
-          results_format: sarif
-          publish_results: true
-
-      - name: 📊 Process Results
-        id: process
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
-        with:
-          script: |
-            const fs = require('fs');
-            const resultsFile = 'results/scorecard.sarif';
-            if (!fs.existsSync(resultsFile)) {
-              throw new Error('Results file not found');
-            }
-            const results = JSON.parse(fs.readFileSync(resultsFile, 'utf8'));
-
-            // Extract checks
-            const checks = results.runs[0]?.results || [];
-            const highRisks = checks.filter(check => check.level === 'error');
-
-            // Extract checks
-            const checks = results.runs[0]?.results || [];
-            const highRisks = checks.filter(check => check.level === 'error');
-
-            // Generate summary
-            const overallScore = process.env.SCORE || '0';
-            const report = `## 🔒 Supply Chain Security Report\n\n` +
-              `### 📊 Overall Score: ${overallScore}/10\n\n` +
-              `### 🚨 High Risk Issues\n` +
-              (highRisks.length > 0
-                ? highRisks.map(risk => `- ${risk.message.text}`).join('\n')
-                : '✅ No high-risk issues found\n');
-
-            fs.writeFileSync('results/security-report.md', report);
-
-            core.setOutput('high-risks', highRisks.length);
-        env:
-          SCORE: ${{ steps.scorecard.outputs.overall-score }}
-
-      - name: 📤 Upload SARIF Results
-        uses: github/codeql-action/upload-sarif@b7cec7526559c32f1616476ff32d17ba4c59b2d6 # v3.25.5
-        with:
-          sarif_file: results/scorecard.sarif
-          category: supply-chain-security
-
-      - name: 📦 Upload Artifacts
-        if: always()
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
-        with:
-          name: security-analysis
-          path: |
-            results/
-            .github/scorecard-policy.yml
-          retention-days: 30
-
-      - name: 🏷️ Manage Labels
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
-        with:
-          script: |
-            const labels = ['security: good', 'security: needs-improvement', 'security: high-risk'];
-            const score = parseInt(process.env.SECURITY_SCORE || '0', 10);
-
-            // Add appropriate label
-            const issueLabels = score >= 8
-              ? ['security: good']
-              : score >= 6
-              ? ['security: needs-improvement']
-              : ['security: high-risk'];
-
-            const existingLabels = await github.rest.issues.listLabelForRepo({
-              owner: context.repo.owner,
-              repo: context.repo.repo
-            });
-
-            for (const label of labels) {
-              if (!existingLabels.data.some(existing => existing.name == label)) {
-                  await github.rest.issues.createLabel({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    name: label,
-                    color: 'ededed', // Replace with your desired color
-                  });
+  # SPDX-FileCopyrightText: Open Source Security Foundation (OpenSSF)
+  # SPDX-License-Identifier: Apache-2.0
+  
+  name: Supply Chain Security Analysis
+  
+  on: # yamllint disable-line rule:truthy
+    schedule:
+      - cron: 0 4 * * 1 # Run at 04:00 UTC every Monday
+  
+    push:
+      branches:
+        - main
+        - develop
+        - release/**
+      paths-ignore:
+        - "**.md"
+        - "**.txt"
+        - docs/**
+        - .github/*.md
+        - LICENSES/**
+        - LICENSE
+        - ".gitignore"
+  
+    pull_request:
+      types:
+        - opened
+        - edited
+        - synchronize
+      paths-ignore:
+        - "**.md"
+        - "**.txt"
+        - docs/**
+        - .github/*.md
+        - LICENSES/**
+        - LICENSE
+        - ".gitignore"
+  
+    workflow_dispatch:
+  
+  permissions:
+    contents: read # Base permissions for all jobs
+  
+  concurrency:
+    group: supply-chain-${{ github.ref }}
+    cancel-in-progress: true # Ensures only one run per branch is active
+  
+  jobs:
+    analyze:
+      name: Supply Chain Security Analysis
+      if: github.actor != 'dependabot[bot]'
+      runs-on: ubuntu-latest
+      timeout-minutes: 30
+  
+      permissions:
+        security-events: write # Required for SARIF uploads
+        id-token: write # Needed to publish results with Scorecard
+        issues: write # Allows opening issues if needed
+        pull-requests: write # For label management
+  
+      outputs:
+        score: ${{ steps.scorecard.outputs.overall-score }}
+        high-risks: ${{ steps.process.outputs.high-risks }}
+  
+      steps:
+        - name: 🔒 Harden Runner
+          uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+          with:
+            egress-policy: audit
+  
+        - name: 🧰 Checkout Repository
+          uses: actions/checkout@44c2b7a8a4ea60a981eaca3cf939b5f4305c123b # v4.1.5
+          with:
+            persist-credentials: false
+  
+        - name: 🔧 Setup Workspace
+          run: mkdir -p results && echo "Workspace initialized"
+  
+        - name: 🔍 Run Scorecard Analysis
+          id: scorecard
+          uses: ossf/scorecard-action@dc50aa9510b46c811795eb24b2f1ba02a914e534 # v2.3.3
+          with:
+            results_file: results/scorecard.sarif
+            results_format: sarif
+            publish_results: true
+  
+        - name: 📊 Process Results
+          id: process
+          uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+          with:
+            script: |
+              const fs = require('fs');
+              const resultsFile = 'results/scorecard.sarif';
+              if (!fs.existsSync(resultsFile)) {
+                throw new Error('Results file not found');
               }
-
-            if (github.event_name == 'pull_request') {
-              const prNumber = context.payload.pull_request.number;
-              await: github.rest.issues.addLabels({
+              const results = JSON.parse(fs.readFileSync(resultsFile, 'utf8'));
+  
+              // Extract checks
+              const checks = results.runs[0]?.results || [];
+              const highRisks = checks.filter(check => check.level === 'error');
+  
+              // Generate summary
+              const overallScore = process.env.SCORE || '0';
+              const report = `## 🔒 Supply Chain Security Report\n\n` +
+                `### 📊 Overall Score: ${overallScore}/10\n\n` +
+                `### 🚨 High Risk Issues\n` +
+                (highRisks.length > 0
+                  ? highRisks.map(risk => `- ${risk.message.text}`).join('\n')
+                  : '✅ No high-risk issues found\n');
+  
+              fs.writeFileSync('results/security-report.md', report);
+  
+              core.setOutput('high-risks', highRisks.length);
+          env:
+            SCORE: ${{ steps.scorecard.outputs.overall-score }}
+  
+        - name: 📤 Upload SARIF Results
+          uses: github/codeql-action/upload-sarif@b7cec7526559c32f1616476ff32d17ba4c59b2d6 # v3.25.5
+          with:
+            sarif_file: results/scorecard.sarif
+            category: supply-chain-security
+  
+        - name: 📦 Upload Artifacts
+          if: always()
+          uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
+          with:
+            name: security-analysis
+            path: |
+              results/
+              .github/scorecard-policy.yml
+            retention-days: 30
+  
+        - name: 🏷️ Manage Labels
+          uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+          with:
+            script: |
+              const labels = ['security: good', 'security: needs-improvement', 'security: high-risk'];
+              const score = parseInt(process.env.SECURITY_SCORE || '0', 10);
+  
+              // Add appropriate label
+              const issueLabels = score >= 8
+                ? ['security: good']
+                : score >= 6
+                ? ['security: needs-improvement']
+                : ['security: high-risk'];
+  
+              const existingLabels = await github.rest.issues.listLabelsForRepo({
+                owner: context.repo.owner,
+                repo: context.repo.repo
+              });
+  
+              for (const label of labels) {
+                if (!existingLabels.data.some(existing => existing.name == label)) {
+                    await github.rest.issues.createLabel({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      name: label,
+                      color: 'ededed', // Replace with your desired color
+                    });
+                }
+  
+              if (github.event_name == 'pull_request') {
+                const prNumber = context.payload.pull_request.number;
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: prNumber,
+                  labels: issueLabels,
+                });
+              }
+          env:
+            SCORE: ${{ steps.scorecard.outputs.overall-score }}
+  
+        - name: 🧹 Cleanup
+          if: always()
+          run: |
+            rm -rf results/
+  
+    notify:
+      needs: analyze
+      if: needs.analyze.outputs.high-risks > 0
+      runs-on: ubuntu-latest
+  
+      permissions:
+        issues: write # To create notification issues
+  
+      steps:
+        - name: 🚨 Security Alert
+          uses: actions/github-script@v7.0.1
+          with:
+            script: |
+              const message = `## 🚨 Supply Chain Security Alert
+  
+              High risk security issues detected:
+              - Score: ${process.env.SCORE}/10
+              - High Risk Issues: ${process.env.HIGH_RISKS}
+  
+              Please review the [analysis results](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID})`;
+  
+              await github.rest.issues.create({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                issue_number: prNumber,
-                labels: issueLabels,
+                title: '🚨 Supply Chain Security Issues Detected',
+                body: message,
+                labels: ['security', 'high-risk', 'needs-attention']
               });
-            }
-        env:
-          SCORE: ${{ steps.scorecard.outputs.overall-score }}
-
-      - name: 🧹 Cleanup
-        if: always()
-        run: |
-          rm -rf results/
-
-  notify:
-    needs: analyze
-    if: needs.analyze.outputs.high-risks > 0
-    runs-on: ubuntu-latest
-
-    permissions:
-      issues: write # To create notification issues
-
-    steps:
-      - name: 🚨 Security Alert
-        uses: actions/github-script@v7.0.1
-        with:
-          script: |
-            const message = `## 🚨 Supply Chain Security Alert
-
-            High risk security issues detected:
-            - Score: ${process.env.SCORE}/10
-            - High Risk Issues: ${process.env.HIGH_RISKS}
-
-            Please review the [analysis results](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID})`;
-
-            await github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: '🚨 Supply Chain Security Issues Detected',
-              body: message,
-              labels: ['security', 'high-risk', 'needs-attention']
-            });
-        env:
-          SCORE: ${{ needs.analyze.outputs.score }}
-          HIGH_RISKS: ${{ needs.analyze.outputs.high_risks }}
+          env:
+            SCORE: ${{ needs.analyze.outputs.score }}
+            HIGH_RISKS: ${{ needs.analyze.outputs.high_risks }}
