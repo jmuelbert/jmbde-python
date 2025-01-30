@@ -47,7 +47,8 @@ jobs:
           fetch-depth: 0
 
       - name: 🔎 Dependency Review
-        uses: actions/dependency-review-action@3b139cfc5fae8b618d3eae3675e383bb1769c019 # v4.5.0
+        id: review
+        uses: actions/dependency-review-action@3b139cfc5fae8b618d3eae3675e383bb1769c019
         with:
           comment-summary-in-pr: always
           fail-on-severity: moderate
@@ -56,28 +57,64 @@ jobs:
 
       - name: 📊 Generate Report
         if: always()
-        uses: actions/github-script@v7
+        env:
+          DEPENDENCY_CHANGES: ${{ steps.review.outputs.dependency-changes }}
+          VULNERABLE_CHANGES: ${{ steps.review.outputs.vulnerable-changes }}
+          LICENSE_CHANGES: ${{ steps.review.outputs.invalid-license-changes }}
+          DENIED_CHANGES: ${{ steps.review.outputs.denied-changes }}
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
-            const review = JSON.parse(`${{ steps.review.outputs.result }}`);
-            let report = '## 📋 Dependency Review Summary\n\n';
+            const outputs = {
+              dependencyChanges: JSON.parse(process.env.DEPENDENCY_CHANGES || '[]'),
+              vulnerableChanges: JSON.parse(process.env.VULNERABLE_CHANGES || '[]'),
+              licenseChanges: JSON.parse(process.env.LICENSE_CHANGES || '[]'),
+              deniedChanges: JSON.parse(process.env.DENIED_CHANGES || '[]'),
+            };
 
-            if (review.violations?.length > 0) {
-              report += '### ⚠️ Violations Found\n\n';
-              review.violations.forEach(v => {
-                report += `- **${v.severity}**: ${v.message}\n`;
+            let report = '## 📋 Dependency Review Report\n\n';
+
+            // Dependency Summary
+            report += `### 📑 Summary\n`;
+            report += `- Total Changes: ${outputs.dependencyChanges.length}\n`;
+            report += `- Vulnerable Changes: ${outputs.vulnerableChanges.length}\n`;
+            report += `- License Issues: ${outputs.licenseChanges.length}\n`;
+            report += `- Denied Changes: ${outputs.deniedChanges.length}\n\n`;
+
+            // Vulnerabilities
+            if (outputs.vulnerableChanges.length > 0) {
+              report += '### ⚠️ Vulnerable Changes\n\n';
+              outputs.vulnerableChanges.forEach(change => {
+              report += `- **${change.package.name}@${change.package.version}**: ${change.advisory.title}\n`;
+              report += `  - Severity: ${change.advisory.severity}\n`;
+              report += `  - Advisory: [${change.advisory.url}](${change.advisory.url})\n\n`;
               });
             } else {
-              report += '✅ No dependency violations found\n';
+              report += '### ✅ No Vulnerable Changes Found\n\n';
             }
 
-            if (review.licenses?.denied?.length > 0) {
-              report += '\n### 🚫 Denied Licenses\n\n';
-              review.licenses.denied.forEach(l => {
-                report += `- ${l.name} (${l.package})\n`;
+            // License Issues
+            if (outputs.licenseChanges.length > 0) {
+              report += '### 🚫 License Issues\n\n';
+              outputs.licenseChanges.forEach(change => {
+              report += `- **${change.package.name}@${change.package.version}**: ${change.license}\n`;
+              report += `  - Allowed Licenses: ${change.allowedLicenses.join(', ')}\n\n`;
               });
+            } else {
+              report += '### ✅ No License Issues Found\n\n';
             }
 
+            // Denied Changes
+            if (outputs.deniedChanges.length > 0) {
+              report += '### ❌ Denied Changes\n\n';
+              outputs.deniedChanges.forEach(change => {
+              report += `- **${change.package.name}@${change.package.version}**: ${change.reason}\n`;
+              });
+            } else {
+              report += '### ✅ No Denied Changes Found\n\n';
+            }
+
+            // Post Report
             if (context.payload.pull_request) {
               await github.rest.issues.createComment({
                 ...context.repo,
@@ -86,29 +123,73 @@ jobs:
               });
             }
 
-      - name: 🏷️ Process Labels
+      - name: 🏷️ Update Labels
         if: always()
-        uses: actions/github-script@v7
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
-            const review = JSON.parse(`${{ steps.review.outputs.result }}`);
-            const labels = [];
+            try {
+              const reviewPassed = '${{ steps.review.outcome }}' === 'success';
+              const results = JSON.parse('${{ steps.review.outputs.result || '{}' }}');
 
-            if (review.violations?.length > 0 || review.licenses?.denied?.length > 0) {
-              labels.push('security-risk');
-              if (review.licenses?.denied?.length > 0) {
-                labels.push('license-issue');
+              const labels = [];
+
+              // Review status labels
+              if (reviewPassed) {
+                labels.push('dependency-check-passed');
+              } else {
+                labels.push('dependency-check-failed');
               }
-            } else {
-              labels.push('dependency-check-passed');
-            }
 
-            if (context.payload.pull_request) {
-              await github.rest.issues.addLabels({
-                ...context.repo,
-                issue_number: context.payload.pull_request.number,
-                labels
-              });
+              // Specific issue labels
+              if (results.violations?.length > 0) {
+                labels.push('security-issues');
+              }
+              if (results.licenses?.denied?.length > 0) {
+                labels.push('license-issues');
+              }
+
+              // Additional status labels
+              if (reviewPassed && !results.alerts?.length) {
+                labels.push('ready-for-review');
+              } else {
+                labels.push('needs-work');
+              }
+
+              // Remove existing labels first
+              const existingLabels = [
+                'dependency-check-passed',
+                'dependency-check-failed',
+                'security-issues',
+                'license-issues',
+                'ready-for-review',
+                'needs-work'
+              ];
+
+              for (const label of existingLabels) {
+                try {
+                  await github.rest.issues.removeLabel({
+                    ...context.repo,
+                    issue_number: context.payload.pull_request.number,
+                    name: label
+                  });
+                } catch (e) {
+                  // Ignore errors from non-existent labels
+                  if (e.status !== 404) throw e;
+                }
+              }
+
+              // Add new labels
+              if (labels.length > 0) {
+                await github.rest.issues.addLabels({
+                  ...context.repo,
+                  issue_number: context.payload.pull_request.number,
+                  labels: labels
+                });
+              }
+
+            } catch (error) {
+              core.warning(`Error updating labels: ${error.message}`);
             }
 
   validate-pr:
@@ -119,15 +200,24 @@ jobs:
       title-valid: ${{ steps.check-title.outputs.valid }}
       body-valid: ${{ steps.check-body.outputs.valid }}
 
+    permissions:
+      issues: write
+      pull-requests: write
+
     steps:
       - name: 🔒 Harden Runner
-        uses: step-security/harden-runner@v2
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
         with:
           egress-policy: audit
 
+      - name: 📥 Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
       - name: 🔍 Check PR Title
         id: check-title
-        uses: actions/github-script@v7
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
             const { title } = context.payload.pull_request;
@@ -158,7 +248,7 @@ jobs:
 
       - name: 📝 Check PR Body
         id: check-body
-        uses: actions/github-script@v7
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
             const body = context.payload.pull_request.body || '';
@@ -189,7 +279,7 @@ jobs:
 
       - name: 🏷️ Update Labels
         if: always()
-        uses: actions/github-script@v7
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
             const titleValid = '${{ steps.check-title.outputs.valid }}' === 'true';
@@ -214,21 +304,30 @@ jobs:
           npm install --global @commitlint/cli @commitlint/config-conventional
           echo "module.exports = {extends: ['@commitlint/config-conventional']};" > commitlint.config.js
 
-          git fetch origin ${{ github.event.pull_request.base.ref }} --depth=1
+          # Fetch base and head refs
+          git fetch --prune origin +refs/heads/${{ github.event.pull_request.base.ref }}:refs/remotes/origin/${{ github.event.pull_request.base.ref }}
+          git fetch --prune origin +refs/heads/${{ github.event.pull_request.head.ref }}:refs/remotes/origin/${{ github.event.pull_request.head.ref }}
 
+          # Get list of commits
           COMMITS=$(git rev-list ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }})
+          echo "COMMITS: $COMMITS"
 
+          # Initialize output variables
           EXIT_CODE=0
           INVALID_COMMITS=""
 
+          # Loop through commits
           for commit in $COMMITS; do
-            if ! git log -1 --format="%B" $commit | commitlint; then
+            echo "Checking commit: $commit"
+            if ! git log -1 --format="%B" $commit | npx commitlint; then
               EXIT_CODE=1
               INVALID_COMMITS="$INVALID_COMMITS\n$(git log -1 --format="%h: %s" $commit)"
             fi
           done
 
+          # If invalid commits found, output them
           if [ $EXIT_CODE -ne 0 ]; then
+            echo "Invalid commits detected!"
             echo "invalid_commits<<EOF" >> $GITHUB_OUTPUT
             echo -e "$INVALID_COMMITS" >> $GITHUB_OUTPUT
             echo "EOF" >> $GITHUB_OUTPUT
@@ -238,7 +337,7 @@ jobs:
 
       - name: 💬 Add Commit Lint Comment
         if: always() && steps.commitlint.outcome != 'skipped'
-        uses: actions/github-script@v7
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
             const outcome = '${{ steps.commitlint.outcome }}';
@@ -272,7 +371,7 @@ jobs:
 
       - name: 🏷️ Update Labels
         if: always() && steps.commitlint.outcome != 'skipped'
-        uses: actions/github-script@v7
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
             const outcome = '${{ steps.commitlint.outcome }}';
@@ -371,10 +470,6 @@ jobs:
             libxkbcommon-x11-0 \
             libegl1
 
-      - name: ⚙️ Setup Pre-commit
-        run: |
-          hatch run lint:prcommit
-
       - name: 🧪 Run Tests
         run: hatch run test:test
 
@@ -390,7 +485,7 @@ jobs:
           fi
 
       - name: 📤 Upload Coverage
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@13ce06bfc6bbe3ecf90edbbf1bc32fe5978ca1d3 # v5.3.1
         with:
           files: ./coverage.xml
           flags: ${{ matrix.os }},python-${{ matrix.python-version }}
@@ -398,7 +493,7 @@ jobs:
 
       - name: 📦 Store Test Results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
           name: test-results-${{ matrix.os }}-${{ matrix.python-version }}
           path: |
@@ -407,14 +502,83 @@ jobs:
             htmlcov/
           retention-days: 7
 
-  lint:
-    name: Lint & Format
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    needs: test
 
+  quality-checks:
+    name: Quality Checks
+    runs-on: ubuntu-latest
     permissions:
       security-events: write
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: 🔒 Harden Runner
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        with:
+          egress-policy: audit
+
+      - name: 🧰 Checkout Repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: ⚙️ Setup Python
+        uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
+        with:
+          python-version-file: ${{ env.PYTHON_VERSION_FILE }}
+          cache: pip
+          cache-dependency-path: |
+            .github/workflows/requirements.txt
+            .pre-commit-config.yaml
+            pyproject.toml
+
+      - name: 📦 Cache Pre-commit
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+          restore-keys: |
+            pre-commit-
+
+      - name: 🔧 Install Dependencies
+        run: |
+          pip install -r .github/workflows/requirements.txt
+
+      - name:  ✨ Run Pre-commit Checks
+        run: |
+          hatch run lint:precommit
+
+      - name: 📝 Generate Summary Report
+        if: always()
+        run: |
+          echo "## 🔍 Quality Checks Summary" > report.md
+          if [ -n "$(git diff --name-only)" ]; then
+            echo "### Issues Detected" >> report.md
+            git diff --name-only >> report.md
+          else
+            echo "All checks passed! 🎉" >> report.md
+          fi
+
+      - name: 💬 Post PR Comment
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('report.md', 'utf8');
+            github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: context.payload.pull_request.number,
+              body: report
+            });
+
+      - name: ❌ Fail Build on Issues
+        if: failure()
+        run: exit 1
+ 
+  spell-check:
+    name: Spell Check
+    runs-on: ubuntu-latest
+    needs: quality-checks
+    timeout-minutes: 15
 
     steps:
       - name: 🔒 Harden Runner
@@ -433,304 +597,15 @@ jobs:
           cache-dependency-path: |
             .github/workflows/requirements.txt
             pyproject.toml
-
-      - name: 🛠️ Install Dependencies
-        run: |
-          pip install -r .github/workflows/requirements.txt
-
-      - name: 📦 Cache Pre-commit
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/pre-commit
-          key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
-          restore-keys: |
-            pre-commit-
-
-      - name: ⚙️ Install pre-commit
-        run: hatch env create lint
-
-      - name: ✨ Run All Checks
-        id: checks
-        run: |
-          echo "Running style checks..."
-          hatch run lint:style || echo "style=failed" >> "$GITHUB_OUTPUT"
-
-          echo "Running type checks..."
-          hatch run lint:typing || echo "typing=failed" >> "$GITHUB_OUTPUT"
-
-          echo "Running security checks..."
-          hatch run lint:security || echo "security=failed" >> "$GITHUB_OUTPUT"
-
-          echo "Running pre-commit checks..."
-          hatch run lint:prcommit || echo "precommit=failed" >> "$GITHUB_OUTPUT"
-
-      - name: 📊 Generate Report
-        if: always()
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const steps = {
-              style: '${{ steps.checks.outputs.style }}' !== 'failed',
-              typing: '${{ steps.checks.outputs.typing }}' !== 'failed',
-              security: '${{ steps.checks.outputs.security }}' !== 'failed',
-              precommit: '${{ steps.checks.outputs.precommit }}' !== 'failed'
-            };
-
-            let summary = `## 🔍 Code Quality Check Results\n\n`;
-
-            summary += `### Check Status\n`;
-            summary += `- Style Checks: ${steps.style ? '✅' : '❌'}\n`;
-            summary += `- Type Checks: ${steps.typing ? '✅' : '❌'}\n`;
-            summary += `- Security Checks: ${steps.security ? '✅' : '❌'}\n`;
-            summary += `- Pre-commit Checks: ${steps.precommit ? '✅' : '❌'}\n\n`;
-
-            if (Object.values(steps).every(Boolean)) {
-              summary += `### ✅ All checks passed successfully!\n`;
-            } else {
-              summary += `### ⚠️ Some checks failed. Please review the logs for details.\n`;
-
-              if (!steps.style) {
-                summary += `\n#### Style Issues\n`;
-                summary += `Run \`hatch run lint:format\` locally to fix style issues.\n`;
-              }
-
-              if (!steps.typing) {
-                summary += `\n#### Type Issues\n`;
-                summary += `Review type annotations and run \`hatch run lint:typing\` locally.\n`;
-              }
-
-              if (!steps.security) {
-                summary += `\n#### Security Issues\n`;
-                summary += `Review security alerts and run \`hatch run lint:security\` locally.\n`;
-              }
-            }
-
-            if (context.payload.pull_request) {
-              await github.rest.issues.createComment({
-                ...context.repo,
-                issue_number: context.payload.pull_request.number,
-                body: summary
-              });
-            }
-
-      - name: 🏷️ Update Labels
-        if: github.event_name == 'pull_request'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const steps = {
-              style: '${{ steps.checks.outputs.style }}' !== 'failed',
-              typing: '${{ steps.checks.outputs.typing }}' !== 'failed',
-              security: '${{ steps.checks.outputs.security }}' !== 'failed',
-              precommit: '${{ steps.checks.outputs.precommit }}' !== 'failed'
-            };
-
-            const labels = [];
-
-            if (Object.values(steps).every(Boolean)) {
-              labels.push('quality-checks-passed');
-            } else {
-              if (!steps.style) labels.push('needs-formatting');
-              if (!steps.typing) labels.push('needs-types');
-              if (!steps.security) labels.push('security-review');
-            }
-
-            await github.rest.issues.addLabels({
-              ...context.repo,
-              issue_number: context.payload.pull_request.number,
-              labels: labels
-            });
-
-      - name: ❌ Check Failure
-        if: failure()
-        run: exit 1
-
-  code-quality:
-    name: Code Quality
-    runs-on: ubuntu-latest
-    needs: validate
-
-    steps:
-      - name: 🔒 Harden Runner
-        uses: step-security/harden-runner@v2
-        with:
-          egress-policy: audit
-
-      - name: 📥 Checkout
-        uses: actions/checkout@v4
-
-      - name: 🐍 Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version-file: ${{ env.PYTHON_VERSION_FILE }}
-          cache: pip
-
-      - name: 🔧 Install Dependencies
-        run: |
-          pip install -r .github/workflows/requirements.txt
-
-      - name: 🔍 Security Analysis
-        run: |
-          hatch run security:scan
-          hatch run security:audit
-
-      - name: 📊 Complexity Check
-        run: |
-          pip install radon
-          radon cc ./src -a -nb
-          radon mi ./src -mb
-        continue-on-error: true
-
-      - name: 🎯 Run Quality Checks
-        id: quality
-        run: |
-          # Run all checks and collect metrics
-          echo "::group::Style Checks"
-          hatch run lint:style
-          echo "::endgroup::"
-
-          echo "::group::Type Checks"
-          hatch run lint:typing
-          echo "::endgroup::"
-
-          echo "::group::Security Checks"
-          hatch run lint:security
-          echo "::endgroup::"
-
-          echo "::group::Documentation Checks"
-          hatch run lint:docstring
-          echo "::endgroup::"
-
-      - name: 📝 Generate Quality Report
-        if: always()
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const metrics = {
-              style: '${{ steps.quality.outputs.style }}' === 'success',
-              typing: '${{ steps.quality.outputs.typing }}' === 'success',
-              security: '${{ steps.quality.outputs.security }}' === 'success',
-              docs: '${{ steps.quality.outputs.docs }}' === 'success'
-            };
-
-            let report = `## 📊 Code Quality Report\n\n`;
-
-            // Add status badges
-            report += `### Status\n`;
-            report += `- Style: ${metrics.style ? '✅' : '❌'}\n`;
-            report += `- Type Safety: ${metrics.typing ? '✅' : '❌'}\n`;
-            report += `- Security: ${metrics.security ? '✅' : '❌'}\n`;
-            report += `- Documentation: ${metrics.docs ? '✅' : '❌'}\n\n`;
-
-            // Add recommendations if any checks failed
-            if (Object.values(metrics).includes(false)) {
-              report += `### Recommendations\n`;
-              if (!metrics.style) {
-                report += `- Run \`hatch run lint:format\` locally\n`;
-              }
-              if (!metrics.typing) {
-                report += `- Fix type annotations\n`;
-              }
-              if (!metrics.security) {
-                report += `- Review security warnings\n`;
-              }
-              if (!metrics.docs) {
-                report += `- Improve documentation coverage\n`;
-              }
-            }
-
-            // Add to PR comments
-            if (context.payload.pull_request) {
-              await github.rest.issues.createComment({
-                ...context.repo,
-                issue_number: context.payload.pull_request.number,
-                body: report
-              });
-            }
-
-      - name: 🏷️ Update Labels
-        if: github.event_name == 'pull_request'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const quality = '${{ steps.quality.outcome }}' === 'success';
-            const labels = quality ? ['quality-checks-passed'] : ['needs-quality-fixes'];
-
-            await github.rest.issues.addLabels({
-              ...context.repo,
-              issue_number: context.payload.pull_request.number,
-              labels: labels
-            });
-
-      - name: ❌ Check Status
-        if: steps.quality.outcome != 'success'
-        run: exit 1
-
-  security:
-    name: Security Analysis
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    needs: test
-
-    steps:
-      - name: 🔒 Harden Runner
-        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
-        with:
-          egress-policy: audit
-
-      - name: 🧰 Checkout Repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-
-      - name: ⚙️ Setup Python
-        uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
-        with:
-          python-version-file: ${{ env.PYTHON_VERSION_FILE }}
-          cache: pip
-
-      - name: 🛠️ Install Dependencies
-        run: |
-          pip install -r .github/workflows/requirements.txt
-
-      - name: 🛡️ Security Checks
-        run: |
-          hatch run security:scan
-          hatch run security:audit
-
-  spell-check:
-    name: Spell Check
-    runs-on: ubuntu-latest
-    needs: lint
-    timeout-minutes: 15
-
-    steps:
-      - name: 🔒 Harden Runner
-        uses: step-security/harden-runner@v2
-        with:
-          egress-policy: audit
-
-      - name: 📥 Checkout
-        uses: actions/checkout@v4
-
-      - name: 🐍 Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version-file: ${{ env.PYTHON_VERSION_FILE }}
-          cache: pip
-
       - name: 🔧 Install Dependencies
         run: |
           pip install -r requirements.txt
-          pip install codespell cspell-cli
-
       - name: 🔍 Run Spell Checks
         id: spell-check
         run: |
           echo "Running codespell..."
-          codespell --write-changes . > codespell.txt || true
-
-          echo "Running cspell..."
-          cspell "**/*" > cspell.txt || true
-
+          hatch env create lint
+          hatch run lint:spell > codespell.txt || true
           # Check if any changes were made
           if git diff --quiet; then
             echo "changes=false" >> "$GITHUB_OUTPUT"
@@ -738,7 +613,6 @@ jobs:
             echo "changes=true" >> "$GITHUB_OUTPUT"
             git diff --name-only > changed_files.txt
           fi
-
       - name: 📊 Generate Report
         if: always()
         run: |
@@ -751,14 +625,6 @@ jobs:
             else
               echo "No issues found"
             fi
-
-            echo -e "\n### CSpell Results:"
-            if [ -s cspell.txt ]; then
-              cat cspell.txt
-            else
-              echo "No issues found"
-            fi
-
             if [ -f "changed_files.txt" ]; then
               echo -e "\n### Files with Automatic Fixes:"
               while IFS= read -r file; do
@@ -766,7 +632,6 @@ jobs:
               done < changed_files.txt
             fi
           } > spell_check_report.md
-
       - name: 💬 Add PR Comment
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v7
@@ -774,13 +639,11 @@ jobs:
           script: |
             const fs = require('fs');
             const report = fs.readFileSync('spell_check_report.md', 'utf8');
-
             await github.rest.issues.createComment({
               ...context.repo,
-               issue_number: context.payload.pull_request.number,
-               body: report
+                issue_number: context.payload.pull_request.number,
+                body: report
             });
-
       - name: 🔄 Create Fix PR
         if: steps.spell-check.outputs.changes == 'true'
         uses: peter-evans/create-pull-request@v5
@@ -795,7 +658,6 @@ jobs:
             documentation
             automated-pr
             spelling
-
       - name: 📦 Upload Report
         if: always()
         uses: actions/upload-artifact@v4
@@ -804,7 +666,6 @@ jobs:
           path: |
             spell_check_report.md
             codespell.txt
-            cspell.txt
             retention-days: 7
 
   docs:
@@ -877,7 +738,7 @@ jobs:
 
       - name: 💬 Add Quality Report
         if: github.event_name == 'pull_request'
-        uses: actions/github-script@v7
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
             const summary = `## 📚 Documentation Quality Report
@@ -902,7 +763,7 @@ jobs:
             });
 
       - name: 📦 Store Documentation
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
           name: documentation-preview
           path: site/
@@ -910,7 +771,7 @@ jobs:
 
       - name: 💬 Add PR Comment
         if: github.event_name == 'pull_request'
-        uses: actions/github-script@v7
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
             const summary = `## 📚 Documentation Preview
@@ -937,7 +798,7 @@ jobs:
   report:
     name: Generate Report
     if: always()
-    needs: [validate, validate-pr, test, lint, security, spell-check, docs]
+    needs: [validate, validate-pr, test, quality-checks, spell-check, docs]
     runs-on: ubuntu-latest
 
     steps:
@@ -948,16 +809,17 @@ jobs:
           script: |
             const summary = `## 🔍 PR Check Results
 
-            ### Test Coverage: ${{ needs.test.outputs.coverage }}%
-            - Validate: ${needs.validate.result}
-            - Status: ${needs.test.result}
-            - Linting: ${needs.lint.result}
-            - Security: ${needs.security.result}
-            - Docs: ${needs.docs.result}
+            ### Test Coverage: ${process.env.TEST_COVERAGE}%
+            - Validate: ${process.env.VALIDATE_RESULT}
+            - Validate-PR: ${process.env.VALIDATE_PR_RESULT}
+            - Status: ${process.env.TEST_RESULT}
+            - Quality-Checks: ${process.env.QUALITY_CHECKS_RESULT}
+            - Spell-Check: ${process.env.SPELL_CHECK_RESULT}
+            - Docs: ${process.env.DOCS_RESULT}
 
             ### Details
-            - [Coverage Report](https://codecov.io/gh/${{ github.repository }})
-            - [Test Results](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            - [Coverage Report](https://codecov.io/gh/${process.env.REPOSITORY})
+            - [Test Results](${process.env.GITHUB_SERVER_URL}/${process.env.REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID})
             `;
 
             if (context.payload.pull_request) {
@@ -967,7 +829,18 @@ jobs:
                 body: summary
               });
             }
+        env:
+          TEST_COVERAGE: ${{ needs.test.outputs.coverage }}
+          VALIDATE_RESULT: ${{ needs.validate.result }}
+          VALIDATE_PR_RESULT: ${{ needs.validate-pr.result }}
+          TEST_RESULT: ${{ needs.test.result }}
+          QUALITY_CHECKS_RESULT: ${{ needs.quality-checks.result }}
+          SPELL_CHECK_RESULT: ${{ needs.spell-check.result }}
+          DOCS_RESULT: ${{ needs.docs.result }}
+          REPOSITORY: ${{ github.repository }}
+          GITHUB_SERVER_URL: ${{ github.server_url }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
 
       - name: 🚨 Check Status
-        if: needs.test.result != 'success' || needs.lint.result != 'success' || needs.security.result != 'success'
+        if: needs.test.result != 'success' || needs.quality-checks.result != 'success' || needs.docs.result != 'success' || needs.spell-check.result != 'success'
         run: exit 1
