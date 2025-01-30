@@ -108,7 +108,7 @@ jobs:
 
   test-and-build:
     name: Test & Build
-    needs: [validate, ui-tests]
+    needs: [validate]
     runs-on: ubuntu-latest
     timeout-minutes: 30
     environment: staging
