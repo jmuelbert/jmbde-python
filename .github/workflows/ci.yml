@@ -27,37 +27,6 @@ jobs:
   validate:
     name: Validate Dependencies
     runs-on: ubuntu-latest
-
-    
----
-# SPDX-FileCopyrightText: Jürgen Mülbert <juergen.muelbert@web.de>
-# SPDX-License-Identifier: EUPL-1.2
-
-name: Release Pipeline
-
-on: # yamllint disable-line rule:truthy
-  push:
-    branches:
-      - main
-      - release/**
-    tags: [v*]
-  workflow_dispatch:
-
-permissions:
-  contents: read
-
-env:
-  PACKAGE_NAME: jmbde-python
-  PYTHON_VERSION_FILE: .python-version
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
-jobs:
-  validate:
-    name: Validate Dependencies
-    runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: 🔒 Harden Runner
