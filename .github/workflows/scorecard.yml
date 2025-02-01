@@ -69,7 +69,7 @@ jobs:
 
       - name: 🔍 Run Scorecard Analysis
         id: scorecard
-        uses: ossf/scorecard-action@v2.3.3
+        uses: ossf/scorecard-action@v2.4.0
         with:
           results_file: scorecard.sarif
           results_format: sarif

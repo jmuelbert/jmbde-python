@@ -485,7 +485,7 @@ jobs:
           fi
 
       - name: 📤 Upload Coverage
-        uses: codecov/codecov-action@13ce06bfc6bbe3ecf90edbbf1bc32fe5978ca1d3 # v5.3.1
+        uses: codecov/codecov-action@ab904c41d6ece82784817410c45d8b8c02684457 # v3.1.6
         with:
           files: ./coverage.xml
           flags: ${{ matrix.os }},python-${{ matrix.python-version }}
@@ -646,7 +646,7 @@ jobs:
             });
       - name: 🔄 Create Fix PR
         if: steps.spell-check.outputs.changes == 'true'
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: 'docs: fix spelling issues'
