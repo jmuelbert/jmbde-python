@@ -55,12 +55,12 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🔧 Setup PNPM
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: ${{ fromJson(steps.settings.outputs.settings).versions.pnpm }}
 
       - name: 🔧 Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ fromJson(steps.settings.outputs.settings).versions.node }}
           cache: 'pnpm'
