@@ -1,5 +1,7 @@
 ---
-# TODO: #1214 Add SPDX license identifier
+# SPDX-FileCopyrightText: Jürgen Mülbert <juergen.muelbert@web.de>
+# SPDX-License-Identifier: EUPL-1.2
+
 name: Documentation Deployment
 
 on:
@@ -27,6 +29,7 @@ jobs:
     permissions:
       contents: write
       pages: write
+      issues: write
       id-token: write
 
     steps:
