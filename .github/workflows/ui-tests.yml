@@ -1,6 +1,6 @@
 name: UI Tests
 
-on:
+on: # yamllint disable-line rule:truthy
   push:
     paths:
       - 'src/jmbde/gui/**'
@@ -26,7 +26,7 @@ jobs:
     name: UI Tests
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
-    environment: staging
+    environment: development
 
     strategy:
       fail-fast: false
@@ -41,15 +41,17 @@ jobs:
 
     steps:
       - name: 🔒 Harden Runner
-        uses: step-security/harden-runner@v2
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
         with:
           egress-policy: audit
 
-      - name: 📥 Checkout
-        uses: actions/checkout@v4
+      - name: 🧐 Checkout Repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
 
       - name: 🐍 Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
@@ -73,17 +75,12 @@ jobs:
             xvfb
           sudo Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
 
-      - name: 🪟 Setup Windows Dependencies
-        if: runner.os == 'Windows'
-        run: |
-          python -m pip install wheel
-
       - name: 🍎 Setup macOS Dependencies
         if: runner.os == 'macOS'
         run: |
           brew install create-dmg
 
-      - name: 🔧 Install Dependencies
+      - name: 🔧 Install Python Dependencies
         run: |
           pip install -r .github/workflows/requirements.txt
           hatch env create test
@@ -108,7 +105,7 @@ jobs:
 
       - name: 📦 Upload Test Results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
           name: test-results-${{ matrix.os }}-py${{ matrix.python-version }}
           path: |
@@ -170,13 +167,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Checkout
-        uses: actions/checkout@v4
+      - name: 🔒 Harden Runner
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        with:
+          egress-policy: audit
 
-      - name: 🐍 Setup Python
-        uses: actions/setup-python@v5
+      - name: 🧰 Checkout Repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: ⚙️ Setup Python
+        uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
         with:
           python-version-file: ${{ env.PYTHON_VERSION_FILE }}
+          cache: pip
+          cache-dependency-path: |
+            pyproject.toml
+            .github/workflows/requirements.txt
 
       - name: 🔧 Install Dependencies
         run: |
@@ -195,7 +204,7 @@ jobs:
 
       - name: 📦 Upload Visual Test Results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
           name: visual-test-results
           path: |
