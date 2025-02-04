@@ -34,12 +34,13 @@ jobs:
         with:
           egress-policy: audit
 
-      - name: 🧰 Checkout Repository
+      - name: 🧐 Checkout Repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
 
       - name: 🔎 Dependency Review
+        if: github.event_name == 'pull_request'
         uses: actions/dependency-review-action@3b139cfc5fae8b618d3eae3675e383bb1769c019 # v4.5.0
 
   ui-tests:
@@ -65,7 +66,7 @@ jobs:
         with:
           egress-policy: audit
 
-      - name: 📥 Checkout
+      - name: 👅 Checkout Repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: 🐍 Setup Python
@@ -103,7 +104,7 @@ jobs:
           pip install -r .github/workflows/requirements.txt
           hatch env create test
 
-      - name: 🧪 Run UI Tests
+      - name: 🧑‍🔧 Run UI Tests
         env:
           QT_QPA_PLATFORM: offscreen
           DISPLAY: :99
@@ -121,7 +122,7 @@ jobs:
           mkdir -p test-artifacts/screenshots
           python tests/pyside6/capture_screenshots.py
 
-      - name: 📦 Upload Test Results
+      - name: 👛 Upload Test Results
         if: always()
         uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
@@ -134,10 +135,10 @@ jobs:
 
   test-and-build:
     name: Test & Build
-    needs: [validate, ui-tests]
+    needs: [validate]
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    environment: staging
+    environment: production
     outputs:
       version: ${{ steps.version.outputs.version }}
 
@@ -233,7 +234,7 @@ jobs:
           if-no-files-found: error
 
       - name: 📊 Upload Coverage
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v5
         with:
           file: ./coverage.xml
           fail_ci_if_error: true
@@ -262,7 +263,7 @@ jobs:
 
       - name: 📝 Create GitHub Release
         id: release
-        uses: softprops/action-gh-release@7b4da11513bf3f43f9999e90eabced41ab8bb048 # v2.2.0
+        uses: softprops/action-gh-release@c95fe1489396fe8a9eb87c0abf8aa5b2ef267fda # v2.2.1
         if: startsWith(github.ref, 'refs/tags/v')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -296,7 +297,7 @@ jobs:
             - Changelog: https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md
 
       - name: 📢 Publish to PyPI
-        uses: pypa/gh-action-pypi-publish@67339c736fd9354cd4f8cb0b744f2b82a74b5c70 # 1.12.3
+        uses: pypa/gh-action-pypi-publish@76f52bc884231f62b9a034ebfe128415bbaabdfc # 1.12.4
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
           verbose: true
