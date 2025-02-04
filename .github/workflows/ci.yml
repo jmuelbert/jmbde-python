@@ -48,7 +48,7 @@ jobs:
     needs: validate
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
-    environment: staging
+    environment: development
     strategy:
       fail-fast: false
       matrix:
@@ -78,7 +78,28 @@ jobs:
             .github/workflows/requirements.txt
             pyproject.toml
 
-      - name: 🔧 Install Dependencies
+      - name: 🎨 Setup Linux Display
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libegl1 \
+            libxkbcommon-x11-0 \
+            libxcb-icccm4 \
+            libxcb-image0 \
+            libxcb-keysyms1 \
+            libxcb-randr0 \
+            libxcb-render-util0 \
+            libxcb-xinerama0 \
+            xvfb
+          sudo Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+
+      - name: 🍎 Setup macOS Dependencies
+        if: runner.os == 'macOS'
+        run: |
+          brew install create-dmg
+
+      - name: 🔧 Install Python Dependencies
         run: |
           pip install -r .github/workflows/requirements.txt
           hatch env create test
@@ -95,9 +116,15 @@ jobs:
             --timeout=300 \
             --junitxml=test-results/junit.xml
 
+      - name: 📸 Capture Screenshots on Failure
+        if: failure()
+        run: |
+          mkdir -p test-artifacts/screenshots
+          python tests/pyside6/capture_screenshots.py
+
       - name: 👛 Upload Test Results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
           name: ui-test-results-${{ matrix.os }}-py${{ matrix.python-version }}
           path: |
@@ -196,7 +223,7 @@ jobs:
           check-wheel-contents dist/*.whl
 
       - name: 📦 Store Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
           name: dist
           path: |
@@ -229,7 +256,7 @@ jobs:
           egress-policy: audit
 
       - name: 📥 Download Artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
           name: dist
           path: dist/
