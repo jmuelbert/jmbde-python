@@ -15,6 +15,8 @@
 #
 """Tests for `jmbde-python` package."""
 
+import os
+
 import jmbde.models.datacontext as dc
 
 

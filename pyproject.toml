@@ -13,7 +13,7 @@ readme = "README.md"
 requires-python = ">=3.9"
 license = "EUPL-1.2"
 maintainers = [
-  { name = "Jürgen Mülbert" ,email = "juergen.muelbert@outlook.de" }
+  { name = "Jürgen Mülbert", email = "juergen.muelbert@outlook.de" },
 ]
 authors = [{ name = "Jürgen Mülbert", email = "juergen.muelbert@outlook.de" }]
 # Pypi classifiers: https://pypi.org/classifiers/
@@ -72,6 +72,7 @@ macos-max-compat = true
 python = ["3.9", "3.10", "3.11", "3.12"]
 
 [tool.hatch.envs.test]
+default = { test = "pytest", env = { PYTHONPATH = "src" } }
 dependencies = [
   "coverage>=6.2",
   "pytest>=7.4.0",
@@ -93,25 +94,25 @@ doctest = "pytest --doctest-modules"
 
 [tool.hatch.envs.lint]
 dependencies = [
-    "pre-commit>=3.6.0",
-    "ruff>=0.3.0",
-    "black>=24.2.0",
-    "mypy>=1.8.0",
-    "pylint>=3.0.0",
-    "pylint-pytest>=1.1.2",
-    "pyside6>=6.5.0",
-    "codespell>=2.3.0",
-    "reuse>=5.0.2",
-    "radon[toml]>=6.0.1"
+  "pre-commit>=3.6.0",
+  "ruff>=0.3.0",
+  "black>=24.2.0",
+  "mypy>=1.8.0",
+  "pylint>=3.0.0",
+  "pylint-pytest>=1.1.2",
+  "pyside6>=6.5.0",
+  "codespell>=2.3.0",
+  "reuse>=5.0.2",
+  "radon[toml]>=6.0.1",
 ]
 
 
 [tool.hatch.envs.lint.scripts]
 style = [
-    "ruff check .",
-    "ruff format .",
-    "black --check .",
-    "pyside6-qmllint src/jmbde/qml/**"
+  "ruff check .",
+  "ruff format .",
+  "black --check .",
+  "pyside6-qmllint src/jmbde/qml/**",
 ]
 
 # Type checking
@@ -130,24 +131,17 @@ license = "reuse lint"
 precommit = "pre-commit run --all-files"
 
 # Code quality metrics
-radon_quality = [
-    "radon cc ./src -a -nb",
-    "radon mi ./src -nb"
-]
+radon_quality = ["radon cc ./src -a -nb", "radon mi ./src -nb"]
 
 # Aggregate linting tasks
 all = ["style", "typing", "lint", "spelling", "license", "radon_quality"]
 
 [tool.hatch.envs.security]
-dependencies = [
-    "bandit[toml]>=1.7.8",
-    "safety>=2.3.0",
-    "pip-audit"
-]
+dependencies = ["bandit[toml]>=1.7.8", "safety>=2.3.0", "pip-audit"]
 
 [tool.hatch.envs.security.scripts]
 # Audit dependencies for vulnerabilities
-audit =  """
+audit = """
 hatch dep show requirements  > requirements.txt
 pip-audit -r requirements.txt
 rm requirements.txt
@@ -193,13 +187,13 @@ omit = ["src/jmbde/__about__.py"]
 
 [tool.coverage.report]
 exclude_lines = [
-    "pragma: no cover",
-    "def __repr__",
-    "if self.debug:",
-    "raise NotImplementedError",
-    "if __name__ == .__main__.:",
-    "pass",
-    "raise ImportError",
+  "pragma: no cover",
+  "def __repr__",
+  "if self.debug:",
+  "raise NotImplementedError",
+  "if __name__ == .__main__.:",
+  "pass",
+  "raise ImportError",
 ]
 fail_under = 90
 show_missing = true
@@ -207,7 +201,7 @@ show_missing = true
 [tool.ruff]
 fix = true
 line-length = 88
-unfixable = ["F401", "F841"]  # Don't auto-remove unused imports
+unfixable = ["F401", "F841"] # Don't auto-remove unused imports
 
 [tool.ruff.format]
 docstring-code-line-length = 100
@@ -246,16 +240,8 @@ skips = ["B101"]
 skips = ["*_test.py", "*/test_*.py"]
 
 [tool.gitleaks]
-enable-rules = [
-    "generic-api-key",
-    "python-password",
-    "pyside-secret"
-]
-allow-paths = [
-    "assets/translations/**",
-    "LICENSES/**",
-    "tests/**"
-]
+enable-rules = ["generic-api-key", "python-password", "pyside-secret"]
+allow-paths = ["assets/translations/**", "LICENSES/**", "tests/**"]
 
 [tool.black]
 target-version = ['py311']
@@ -268,9 +254,9 @@ extend-exclude = '''
 '''
 
 [tool.markdownlint]
-MD013 = false  # Line length
-MD033 = false  # Inline HTML
-MD041 = false  # First line in file should be a top level
+MD013 = false # Line length
+MD033 = false # Inline HTML
+MD041 = false # First line in file should be a top level
 
 [tool.mypy]
 python_version = "3.11"
@@ -291,20 +277,17 @@ warn_unreachable = true
 minversion = "6.0"
 addopts = ["-ra", "--strict-markers", "--strict-config", "--doctest-modules"]
 testpaths = ["tests"]
+python_paths = ["src"]
 filterwarnings = ["error"]
 
 [tool.pydocstyle]
-convention = "google"  # or "numpy" or "pep257"
-add-ignore = ["D100"]  # Example to ignore missing docstrings on functions
+convention = "google" # or "numpy" or "pep257"
+add-ignore = ["D100"] # Example to ignore missing docstrings on functions
 
 [tool.yamllint]
 extends = "default"
 strict = true
-ignore = [
-    ".github/workflows/",
-    "LICENSES/",
-    "assets/translations/"
-]
+ignore = [".github/workflows/", "LICENSES/", "assets/translations/"]
 
 [tool.yamllint.rules]
 document-start = "enable"
@@ -315,8 +298,8 @@ truthy = { allowed-values = ["true", "false"] }
 [tool.pylint]
 max-line-length = 88
 disable = [
-    "C0111",  # missing-docstring
-    "R0903",  # too-few-public-methods
+  "C0111", # missing-docstring
+  "R0903", # too-few-public-methods
 ]
 good-names = ["i", "j", "k", "ex", "Run", "_"]
 max-args = 5
@@ -350,9 +333,9 @@ skip = """
 """
 # Qt and project-specific terms
 dictionary = [
-    ".github/config/german-words.txt",
-    ".github/config/python-words.txt",
-    ".github/config/project-words.txt"
+  ".github/config/german-words.txt",
+  ".github/config/python-words.txt",
+  ".github/config/project-words.txt",
 ]
 ignore-words-list = """
     jmbde,pyside,pytest,pyqt,qtodotxt,

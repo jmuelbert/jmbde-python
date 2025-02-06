@@ -8,6 +8,8 @@
 
 """The configs."""
 
+import os
+
 BASE_DIR = os.path.join(os.path.dirname(__file__), "..")
 IMAGES_DIR = os.path.join(BASE_DIR, "images")
 CONF_DIR = os.path.join(BASE_DIR, "conf")
