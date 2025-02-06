@@ -24,7 +24,7 @@ jobs:
     permissions:
       issues: write
       pull-requests: read
-      projects: write
+      project: write
 
     outputs:
       labeled: ${{ steps.triage.outputs.labeled }}
