@@ -1,28 +1,53 @@
-#!/usr/bin/env python
-#
-#   jmbde a BDE Tool for datacontext
-#   Copyright (C) 2018-2020  Jürgen Mülbert
-#
-#   This program is free software: you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation, either version 3 of the License, or
-#   (at your option) any later version.
-#
-#   This program is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-#
-"""Tests for `jmbde-python` package."""
+#!/usr/bin/env python3
+"""
+Integrationstests für die Datenbank-Komponente.
+Diese Tests erstellen eine temporäre Datenbank, fügen einen Employee-Datensatz hinzu
+und prüfen anschließend, ob die Daten korrekt in der Datenbank gespeichert wurden.
+"""
 
-import os
+import sqlite3
+from datetime import datetime
 
-import jmbde.models.datacontext as dc
+import pytest
+
+from jmbde.core.database import Database
+from jmbde.models.employee import EmployeeModel
 
 
-def test_init() -> None:
-    """Sample Test."""
-    datacontext = dc.DataContext()
+def test_database_creation(tmp_path):
+    """
+    Testet, ob die Datenbank erfolgreich initialisiert wird und die Datei erstellt wurde.
+    """
+    db_path = tmp_path / "test.db"
+    db = Database(db_path)
+    # Die Datenbank-Datei sollte existieren.
+    assert db.db_path.exists()
 
-    result = datacontext.init()
-    assert result
+
+def test_add_employee_integration(tmp_path):
+    """
+    Testet, ob ein Employee-Datensatz korrekt in die Datenbank eingefügt wird.
+    """
+    db_path = tmp_path / "test.db"
+    db = Database(db_path)
+
+    # Erstelle einen Employee mit gültigen Daten
+    employee = EmployeeModel(
+        name="John Doe",
+        position="Developer",
+        email="john.doe@example.com",
+        phone="123-456",
+        department="IT",
+        hire_date=datetime.now(),
+        active=True,
+    )
+
+    emp_id = db.add_employee(employee)
+    assert emp_id > 0
+
+    # Direktes Abfragen der Datenbank, um den eingefügten Datensatz zu validieren
+    with db.connection as conn:
+        cursor = conn.execute("SELECT * FROM employees WHERE id = ?", (emp_id,))
+        row = cursor.fetchone()
+        assert row is not None
+        assert row["name"] == "John Doe"

@@ -1,24 +1,36 @@
-#
-# SPDX-FileCopyrightText: 2023 Jürgen Mülbert <juergen.muelbert@web.de>
-#
-# SPDX-License-Identifier: EUPL-1.2
-#
-#
-"""Tests for `jmbde_python` package."""
+# test_main.py
+import unittest
+from unittest.mock import patch
 
-import pytest
-from click.testing import CliRunner
-
-from jmbde import __main__
+from jmbde.main import main
 
 
-@pytest.fixture
-def runner() -> CliRunner:
-    """Fixture for invoking command-line interfaces."""
-    return CliRunner()
+class TestMainCLI(unittest.TestCase):
+    @patch("jmbde.main.gui_main")
+    @patch("jmbde.main.start_api_server")
+    @patch("jmbde.main.logging")
+    def test_main_gui_mode(self, mock_logging, mock_start_api_server, mock_gui_main):
+        with patch("sys.argv", ["main.py", "--mode", "gui"]):
+            main()
+            mock_logging.info.assert_called_with("Starting JMBDE GUI...")
+            mock_gui_main.assert_called_once()
+
+    @patch("jmbde.main.gui_main")
+    @patch("jmbde.main.start_api_server")
+    @patch("jmbde.main.logging")
+    def test_main_api_mode(self, mock_logging, mock_start_api_server, mock_gui_main):
+        with patch("sys.argv", ["main.py", "--mode", "api"]):
+            main()
+            mock_logging.info.assert_called_with("Starting JMBDE API server...")
+            mock_start_api_server.assert_called_once()
+
+    @patch("jmbde.main.logging")
+    def test_main_unknown_mode(self, mock_logging):
+        with patch("sys.argv", ["main.py", "--mode", "unknown"]):
+            with self.assertRaises(SystemExit):
+                main()
+            mock_logging.error.assert_called_with("Unknown mode: unknown")
 
 
-def test_main_succeeds(runner: CliRunner) -> None:
-    """It exits with a status code of zero"""
-    result = runner.invoke(__main__.main)
-    assert result.exit_code == 0
+if __name__ == "__main__":
+    unittest.main()

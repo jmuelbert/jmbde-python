@@ -207,8 +207,8 @@ class Settings(QObject):
             logger.error(f"Failed to get setting {key}: {e}")
             return None
 
-    @Slot(str, Any)
-    def setValue(self, key: str, value: Any) -> None:
+    @Slot(str, object)  # Change Any to object
+    def setValue(self, key: str, value: object) -> None:
         """
         Set setting value by key path.
 

@@ -2,7 +2,23 @@
 
 
 class ApplicationError(Exception):
-    """Base exception for application-specific errors."""
+    """
+    Base exception for application-specific errors.
+
+    class ApplicationError(Exception):
+
+    Custom exception class for application-related errors.
+
+    def __init__(self, message: str, *args: Exception) -> None:
+
+        Initialize ApplicationError with a message and optional arguments.
+
+    Args:
+            message (str): Error message to be displayed.
+            *args (Exception): Optional arguments for additional context.
+                super().__init__(message, *args)
+
+    """
 
 
 class ConfigurationError(ApplicationError):

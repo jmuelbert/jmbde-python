@@ -18,7 +18,7 @@ from PySide6.QtCore import QObject, Signal, Slot
 
 from jmbde.core.database import Database
 from jmbde.core.settings import Settings
-from jmbde.gui.employee_model import EmployeeModel
+from jmbde.models.employee import EmployeeModel
 from jmbde.utils.exceptions import ApplicationError
 from jmbde.utils.validators import validate_email, validate_phone
 
@@ -44,7 +44,6 @@ class MainApp(QObject):
     def __init__(
         self,
         database: Database,
-        employee_model: EmployeeModel,
         settings: Optional[Settings] = None,
         parent: Optional[QObject] = None,
     ) -> None:
@@ -54,16 +53,17 @@ class MainApp(QObject):
         Args:
         ----
             database: Database instance for data operations
-            employee_model: Employee data model
             settings: Optional settings manager
             parent: Optional parent QObject
 
         """
         super().__init__(parent)
         self._database = database
-        self._model = employee_model
         self._settings = settings or Settings()
         self._operation_in_progress = False
+        self._model = EmployeeModel(
+            database
+        )  # Ensure EmployeeModel is properly instantiated
 
         logger.info("MainApp initialized successfully")
 
@@ -141,171 +141,6 @@ class MainApp(QObject):
 
         finally:
             self._operation_in_progress = False
-
-    @Slot(int, str, str, str, str, str, bool, result=bool)
-    def update_employee(
-        self,
-        emp_id: int,
-        name: str,
-        position: str,
-        email: str,
-        phone: str,
-        department: str,
-        active: bool = True,
-    ) -> bool:
-        """
-        Update existing employee information.
-
-        Args:
-        ----
-            emp_id: Employee ID
-            name: Updated name
-            position: Updated position
-            email: Updated email
-            phone: Updated phone
-            department: Updated department
-            active: Employee status
-
-        Returns:
-        -------
-            bool: True if operation was successful
-
-        """
-        if self._operation_in_progress:
-            return False
-
-        try:
-            self._operation_in_progress = True
-
-            # Validate inputs
-            if not name or not position:
-                raise ValueError("Name and position are required")
-
-            if email and not validate_email(email):
-                raise ValueError("Invalid email format")
-
-            if phone and not validate_phone(phone):
-                raise ValueError("Invalid phone format")
-
-            # Update employee record
-            update_data = {
-                "name": name.strip(),
-                "position": position.strip(),
-                "email": email.strip() if email else None,
-                "phone": phone.strip() if phone else None,
-                "department": department.strip() if department else None,
-                "active": active,
-            }
-
-            success = self._database.update_employee(emp_id, update_data)
-
-            if not success:
-                raise ApplicationError("Failed to update employee record")
-
-            # Refresh model and notify
-            self._model.refresh()
-            self.employeeUpdated.emit(emp_id)
-            self.operationSucceeded.emit(f"Employee {name} updated successfully")
-
-            logger.info(f"Updated employee {emp_id}: {name}")
-            return True
-
-        except (ValueError, ApplicationError) as e:
-            logger.error(f"Failed to update employee {emp_id}: {e}")
-            self.errorOccurred.emit(str(e))
-            return False
-
-        finally:
-            self._operation_in_progress = False
-
-    @Slot(int, result=bool)
-    def delete_employee(self, emp_id: int) -> bool:
-        """
-        Delete an employee from the system.
-
-        Args:
-        ----
-            emp_id: Employee ID to delete
-
-        Returns:
-        -------
-            bool: True if operation was successful
-
-        """
-        if self._operation_in_progress:
-            return False
-
-        try:
-            self._operation_in_progress = True
-
-            # Get employee details for logging
-            employee = self._database.get_employee(emp_id)
-            if not employee:
-                raise ApplicationError("Employee not found")
-
-            # Delete employee
-            success = self._database.delete_employee(emp_id)
-
-            if not success:
-                raise ApplicationError("Failed to delete employee record")
-
-            # Refresh model and notify
-            self._model.refresh()
-            self.employeeDeleted.emit(emp_id)
-            self.operationSucceeded.emit(
-                f"Employee {employee['name']} deleted successfully",
-            )
-
-            logger.info(f"Deleted employee {emp_id}: {employee['name']}")
-            return True
-
-        except ApplicationError as e:
-            logger.error(f"Failed to delete employee {emp_id}: {e}")
-            self.errorOccurred.emit(str(e))
-            return False
-
-        finally:
-            self._operation_in_progress = False
-
-    @Slot(result=list)
-    def get_departments(self) -> list[str]:
-        """
-        Get list of all departments.
-
-        Returns
-        -------
-            List of department names
-
-        """
-        try:
-            return self._model.getDepartments()
-        except Exception as e:
-            logger.error(f"Failed to get departments: {e}")
-            self.errorOccurred.emit("Failed to retrieve departments")
-            return []
-
-    @Slot(result=dict)
-    def get_statistics(self) -> dict[str, Any]:
-        """
-        Get application statistics.
-
-        Returns
-        -------
-            Dictionary containing various statistics
-
-        """
-        try:
-            return {
-                "total_employees": len(self._model._data),
-                "active_employees": sum(
-                    1 for emp in self._model._data if emp["active"]
-                ),
-                "departments": len(self.get_departments()),
-                "last_updated": datetime.now().isoformat(),
-            }
-        except Exception as e:
-            logger.error(f"Failed to get statistics: {e}")
-            return {}
 
     def cleanup(self) -> None:
         """Perform cleanup operations before application exit."""

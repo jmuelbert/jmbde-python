@@ -69,10 +69,9 @@ macos-max-compat = true
 
 
 [[tool.hatch.envs.test.matrix]]
-python = ["3.9", "3.10", "3.11", "3.12"]
+python = ["3.10", "3.11", "3.12"]
 
 [tool.hatch.envs.test]
-default = { test = "pytest", env = { PYTHONPATH = "src" } }
 dependencies = [
   "coverage>=6.2",
   "pytest>=7.4.0",
@@ -82,8 +81,14 @@ dependencies = [
   "pytest-screenshot-on-failure>=1.0.0",
   "pytest-timeout>=2.3.1",
   "pytest-randomly>=3.15.0",
+  "fastapi>=0.115.8",
+  "httpx>=0.28.1",
   "typeguard>=4.1.5",
   "xdoctest>=0.15.10",
+  "numpy>=2.2.2",
+  "pillow>=11.1.0",
+  "opencv-python>=4.11.0.86",
+  "email-validator>=2.2.0",
 ]
 
 [tool.hatch.envs.test.scripts]
@@ -91,6 +96,9 @@ test = "pytest tests/ {args}"
 cov = "pytest --cov-report=xml --cov-report=html --cov-report=term-missing --cov=src tests/"
 typeguard = "pytest --typeguard-packages=src"
 doctest = "pytest --doctest-modules"
+
+[tool.hatch.envs.gui-test]
+dependencies = ["pytest", "PySide6"]
 
 [tool.hatch.envs.lint]
 dependencies = [
@@ -277,7 +285,6 @@ warn_unreachable = true
 minversion = "6.0"
 addopts = ["-ra", "--strict-markers", "--strict-config", "--doctest-modules"]
 testpaths = ["tests"]
-python_paths = ["src"]
 filterwarnings = ["error"]
 
 [tool.pydocstyle]
