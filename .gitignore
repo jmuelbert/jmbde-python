@@ -3,6 +3,7 @@
 
 ### Project Specific ###
 project-structure.txt
+data
 *.db
 src/*.db
 .ruff_cache/

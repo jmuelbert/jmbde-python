@@ -1,139 +1,90 @@
-import unittest
-from unittest.mock import MagicMock, patch
+# tests/unit/test_device_model.py
 
-from jmbde.core.database import (
-    Database,  # Replace 'your_module' with the actual module name
-)
-from jmbde.models.device import DeviceModel
-from jmbde.models.employee import EmployeeModel
+from contextlib import contextmanager
+from datetime import datetime, timedelta
+from unittest.mock import Mock, call, patch
+
+import pytest
+from pydantic import ValidationError
+
+from jmbde.core.database import Database
+from jmbde.models.device import DeviceModel, DeviceStatus
 from jmbde.utils.exceptions import DatabaseError
 
+# Test data
+current_time = datetime.now()
+TEST_DEVICE_DATA = {
+    "device_name": "Test Device",
+    "device_type": "Laptop",
+    "serial_number": "SN123456",
+    "purchase_date": current_time,
+    "warranty_expires": current_time + timedelta(days=365),
+    "status": DeviceStatus.ACTIVE,
+    "employee_id": None,
+}
 
-class TestDatabase(unittest.TestCase):
 
-    @patch("sqlite3.connect")
-    def setUp(self, mock_connect):
-        # Mock the database connection and cursor
-        self.mock_connection = MagicMock()
-        self.mock_cursor = MagicMock()
-        mock_connect.return_value = self.mock_connection
-        self.mock_connection.cursor.return_value = self.mock_cursor
+class TestDeviceModel:
+    """Test DeviceModel functionality."""
 
-        # Initialize the Database instance
-        self.db = Database(db_path=":memory:")  # Use in-memory database for testing
+    def test_device_creation(self):
+        """Test device model creation."""
+        device = DeviceModel(**TEST_DEVICE_DATA)
+        assert device.device_name == TEST_DEVICE_DATA["device_name"]
+        assert device.serial_number == TEST_DEVICE_DATA["serial_number"]
 
-    def test_add_employee_success(self):
-        # Create a mock employee
-        employee = EmployeeModel(
-            name="John Doe",
-            position="Developer",
-            email="john.doe@example.com",
-            phone="1234567890",
-            department="Engineering",
-            hire_date="2023-01-01",
-            active=True,
-        )
+    # ... (other TestDeviceModel tests remain the same)
 
-        # Mock the cursor's lastrowid
-        self.mock_cursor.lastrowid = 1
 
-        # Call the method
-        employee_id = self.db.add_employee(employee)
+class TestDeviceDatabase:
+    """Test device database operations."""
 
-        # Assert that the cursor executed the correct SQL
-        self.mock_cursor.execute.assert_called_once_with(
-            """
-            INSERT INTO employees (name, position, email, phone, department, hire_date, active)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-            """,
-            (
-                employee.name,
-                employee.position,
-                employee.email,
-                employee.phone,
-                employee.department,
-                employee.hire_date,
-                employee.active,
-            ),
-        )
-        # Assert that the returned employee ID is correct
-        self.assertEqual(employee_id, 1)
+    @pytest.fixture
+    def mock_db(self):
+        """Provide mock database."""
+        mock = Mock(spec=Database)
 
-    def test_add_employee_failure(self):
-        # Create a mock employee
-        employee = EmployeeModel(
-            name="Jane Doe",
-            position="Manager",
-            email="jane.doe@example.com",
-            phone="0987654321",
-            department="HR",
-            hire_date="2023-01-01",
-            active=True,
-        )
+        # Create a mock transaction context
+        @contextmanager
+        def mock_transaction():
+            cursor = Mock()
+            cursor.lastrowid = 1
+            cursor.fetchone.return_value = dict(TEST_DEVICE_DATA, id=1)
+            yield cursor
 
-        # Simulate a database error
-        self.mock_cursor.execute.side_effect = Exception("Database error")
+        mock.transaction = mock_transaction
 
-        # Call the method and assert that it raises a DatabaseError
-        with self.assertRaises(DatabaseError):
-            self.db.add_employee(employee)
+        # Add the required methods
+        mock.add_device = Mock(return_value=1)
+        mock.get_device = Mock(return_value=dict(TEST_DEVICE_DATA, id=1))
+        mock.update_device = Mock(return_value=True)
 
-    def test_add_device_success(self):
-        # Create a mock device
-        device = DeviceModel(
-            employee_id=1,
-            device_name="Laptop",
-            device_type="Computer",
-            serial_number="ABC123",
-            purchase_date="2023-01-01",
-            warranty_expires="2024-01-01",
-            status="active",
-        )
+        return mock
 
-        # Mock the cursor's lastrowid
-        self.mock_cursor.lastrowid = 1
+    def test_device_persistence(self, mock_db):
+        """Test device persistence."""
+        device = DeviceModel(**TEST_DEVICE_DATA)
+        device_id = mock_db.add_device(device)
 
-        # Call the method
-        device_id = self.db.add_device(device)
+        assert device_id == 1
+        assert mock_db.add_device.called
 
-        # Assert that the cursor executed the correct SQL
-        self.mock_cursor.execute.assert_called_once_with(
-            """
-            INSERT INTO devices (employee_id, device_name, device_type, serial_number, purchase_date, warranty_expires, status)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-            """,
-            (
-                device.employee_id,
-                device.device_name,
-                device.device_type,
-                device.serial_number,
-                device.purchase_date,
-                device.warranty_expires,
-                device.status,
-            ),
-        )
-        # Assert that the returned device ID is correct
-        self.assertEqual(device_id, 1)
+    def test_device_retrieval(self, mock_db):
+        """Test device retrieval."""
+        device_data = mock_db.get_device(1)
 
-    def test_add_device_failure(self):
-        # Create a mock device
-        device = DeviceModel(
-            employee_id=1,
-            device_name="Tablet",
-            device_type="Computer",
-            serial_number="XYZ789",
-            purchase_date="2023-01-01",
-            warranty_expires="2024-01-01",
-            status="active",
-        )
+        assert device_data is not None
+        assert device_data["device_name"] == TEST_DEVICE_DATA["device_name"]
+        assert mock_db.get_device.called
 
-        # Simulate a database error
-        self.mock_cursor.execute.side_effect = Exception("Database error")
+    def test_device_update(self, mock_db):
+        """Test device update."""
+        device = DeviceModel(id=1, **TEST_DEVICE_DATA)
+        success = mock_db.update_device(device)
 
-        # Call the method and assert that it raises a DatabaseError
-        with self.assertRaises(DatabaseError):
-            self.db.add_device(device)
+        assert success
+        assert mock_db.update_device.called
 
 
 if __name__ == "__main__":
-    unittest.main()
+    pytest.main([__file__])

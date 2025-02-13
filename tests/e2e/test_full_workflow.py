@@ -1,86 +1,94 @@
-#!/usr/bin/env python3
-"""
-End-to-End-Test für die Hauptanwendung von JMBDE.
-
-Dieser Test prüft den kompletten Workflow:
-- Eingabe von Daten
-- Übermittlung der Daten
-- Überprüfung, ob das EmployeeModel aktualisiert wurde
-"""
+import sys
+from datetime import datetime
+from pathlib import Path
 
 import pytest
-from PySide6.QtCore import Qt
+from PySide6.QtCore import QObject, Qt
 from PySide6.QtGui import QGuiApplication
 from PySide6.QtQml import QQmlApplicationEngine
 
-from jmbde.core.database import Database
-from jmbde.gui.main_app import MainApp  # Ensure this is the correct import
+from jmbde.core.db_handler import DBHandler
+from jmbde.gui.main_app import MainApp
 from jmbde.models.employee import EmployeeModel
 
+TEST_QML = """
+import QtQuick 2.15
+import QtQuick.Controls 2.15
 
-@pytest.fixture(scope="session")
-def qt_app():
-    """Fixture to create a QGuiApplication for the entire test session."""
-    if not QGuiApplication.instance():
-        app = QGuiApplication([])  # Create a QGuiApplication for QML
-    else:
-        app = QGuiApplication.instance()  # Use existing instance
-    yield app
-    app.quit()  # Ensure the application quits after tests
+ApplicationWindow {
+    visible: true
+    width: 800
+    height: 600
+    title: "JMBDE Test"
+
+    ListView {
+        id: employeeList
+        objectName: "employeeList"
+        anchors.fill: parent
+        model: employeeModel
+        delegate: ItemDelegate {
+            width: ListView.view.width
+            height: 50
+            text: model.name || ""
+        }
+    }
+}
+"""
+
+TEST_EMPLOYEE = {
+    "name": "Test Employee",
+    "position": "Developer",
+    "email": "test@example.com",
+    "phone": "123-456",
+    "department": "IT",
+}
 
 
 @pytest.fixture
-def database():
-    """Erstellt eine temporäre Dummy-Datenbank."""
-    return Database()  # Falls du eine spezielle Test-Datenbank hast, hier anpassen
+def db_handler(tmp_path):
+    """Provide database handler."""
+    handler = DBHandler(tmp_path / "test.db")
+    yield handler
+    handler.cleanup()
 
 
 @pytest.fixture
-def main_app(database, qt_app):
-    """Erstellt eine Instanz der Hauptanwendung."""
-    engine = QQmlApplicationEngine()
-
-    # Initialize MainApp with the database
-    main_app = MainApp(database)
-    engine.rootContext().setContextProperty(
-        "mainApp", main_app
-    )  # Expose MainApp to QML
-    engine.load("qrc:/qml/main.qml")  # Load your QML file
-
-    # Ensure the QML file loaded successfully
-    assert engine.rootObjects(), "Failed to load QML file."
-
-    return main_app
+def employee_model(db_handler):
+    """Provide employee model."""
+    return EmployeeModel(database=db_handler.db)
 
 
-def test_full_workflow(main_app, qtbot):
-    """
-    Testet das Hinzufügen eines Mitarbeiters über die GUI und überprüft,
-    ob das EmployeeModel korrekt aktualisiert wird.
-    """
-    # Step 1: Simulierte Benutzereingabe
-    name = "Test Employee"
-    position = "Developer"
-    email = "test@example.com"
-    phone = "123456789"
-    department = "IT"
+def test_mainapp_integration(qapp, qml_engine, db_handler, employee_model, qtbot):
+    """Test MainApp integration."""
+    main_app = MainApp(db_handler=db_handler)
 
-    success = main_app.add_employee(name, position, email, phone, department)
+    qml_engine.rootContext().setContextProperty("mainApp", main_app)
+    qml_engine.rootContext().setContextProperty("employeeModel", employee_model)
+    qml_engine.loadData(TEST_QML.encode())
+    qtbot.wait(100)
 
-    # Überprüfung, ob der Eintrag erfolgreich war
-    assert success, "Mitarbeiter konnte nicht hinzugefügt werden."
+    root = qml_engine.rootObjects()[0]
+    list_view = root.findChild(QObject, "employeeList")
+    assert list_view is not None, "Failed to find ListView"
 
-    # Step 2: Überprüfung, ob das Model die Daten enthält
-    model: EmployeeModel = main_app._model  # Zugriff auf das EmployeeModel
-    row_count = model.rowCount()
-    assert (
-        row_count > 0
-    ), "Das EmployeeModel enthält keine Einträge nach dem Hinzufügen."
+    initial_count = list_view.property("count")
 
-    # Step 3: Überprüfung des letzten hinzugefügten Mitarbeiters
-    last_index = model.index(row_count - 1, 0)
-    assert last_index.isValid(), "Der letzte Eintrag im Model ist ungültig."
+    with qtbot.waitSignal(main_app.employeeAdded, timeout=1000):
+        success = main_app.add_employee(**TEST_EMPLOYEE)
+    assert success, "Failed to add employee"
 
-    assert (
-        model.data(last_index, Qt.DisplayRole) == name
-    ), "Der Name im Model ist nicht korrekt."
+    employee_model.refresh()
+    qtbot.wait(100)
+
+    new_count = list_view.property("count")
+    assert new_count == initial_count + 1, "Model not updated after adding employee"
+
+    # Proper cleanup
+    main_app.cleanup()
+    qml_engine.clearComponentCache()
+    qml_engine.deleteLater()
+    qml_engine = None  # Ensure complete deletion
+
+    # Ensure the Qt application quits properly
+    qapp.quit()
+    del qapp  # Ensure QApplication is removed

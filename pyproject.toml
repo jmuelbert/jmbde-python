@@ -75,7 +75,7 @@ python = ["3.10", "3.11", "3.12"]
 dependencies = [
   "coverage>=6.2",
   "pytest>=7.4.0",
-  "pytest-qt>=4.0.0",
+  "pytest-qt>=4.2.0",
   "pytest-xvfb>=3.0.0",
   "pytest-cov>=4.1.0",
   "pytest-screenshot-on-failure>=1.0.0",
@@ -286,6 +286,14 @@ minversion = "6.0"
 addopts = ["-ra", "--strict-markers", "--strict-config", "--doctest-modules"]
 testpaths = ["tests"]
 filterwarnings = ["error"]
+qt_api = "pyside6"
+markers = [
+  "integration: marks tests as integration tests",
+  "unit: marks tests as unit tests",
+  "e2e: marks tests as end-to-end tests",
+  "qt: marks tests as Qt-related tests",
+]
+
 
 [tool.pydocstyle]
 convention = "google" # or "numpy" or "pep257"

@@ -1,173 +1,92 @@
-#!/usr/bin/env python3
-"""
-Integration test for the EmployeeModel in a QML interface.
-The test loads minimal QML code that uses the EmployeeModel as a context property
-and checks if the number of ListView items (count) matches the rowCount() method of the model.
-"""
-
+import logging
 import sys
+from datetime import datetime
+from pathlib import Path
 
 import pytest
-from PySide6.QtCore import QObject, QUrl
+from PySide6.QtCore import QModelIndex, Qt
 from PySide6.QtGui import QGuiApplication
 from PySide6.QtQml import QQmlApplicationEngine
 
+from jmbde.core.db_handler import DBHandler
+from jmbde.models.employee import EmployeeData, EmployeeModel
 
-# Dummy database simulating the behavior of the real database.
-class DummyDatabase:
-    def __init__(self):
-        self.employees = [
-            {
-                "id": 1,
-                "name": "Alice",
-                "position": "Developer",
-                "email": "alice@example.com",
-                "phone": "111-222",
-                "department": "IT",
-                "hire_date": "2020-01-01",
-                "active": True,
-            },
-            {
-                "id": 2,
-                "name": "Bob",
-                "position": "Tester",
-                "email": "bob@example.com",
-                "phone": "333-444",
-                "department": "QA",
-                "hire_date": "2020-02-01",
-                "active": True,
-            },
-            {
-                "id": 3,
-                "name": "Charlie",
-                "position": "Manager",
-                "email": "charlie@example.com",
-                "phone": "555-666",
-                "department": "IT",
-                "hire_date": "2020-03-01",
-                "active": False,
-            },
-        ]
-
-    def get_employees(self, active_only=True, department=None):
-        employees = self.employees
-        if active_only:
-            employees = [emp for emp in employees if emp.get("active", True)]
-        if department:
-            employees = [
-                emp for emp in employees if emp.get("department") == department
-            ]
-        return employees
-
-    def update_employee(self, employee_id, data):
-        return True
-
-    def add_employee(self, employee_data):
-        new_id = len(self.employees) + 1
-        employee_data["id"] = new_id
-        self.employees.append(employee_data)
-        return new_id
-
-    def delete_employee(self, employee_id):
-        for emp in self.employees:
-            if emp["id"] == employee_id:
-                self.employees.remove(emp)
-                return True
-        return False
+# Test data
+TEST_EMPLOYEES = [
+    {
+        "name": "Alice Smith",
+        "position": "Developer",
+        "email": "alice@example.com",
+        "phone": "123-456",
+        "department": "IT",
+        "hire_date": datetime.now(),
+        "active": True,
+    },
+    {
+        "name": "Bob Johnson",
+        "position": "Designer",
+        "email": "bob@example.com",
+        "phone": "789-012",
+        "department": "Design",
+        "hire_date": datetime.now(),
+        "active": True,
+    },
+]
 
 
-# Ensure a QGuiApplication exists.
-@pytest.fixture(scope="session", autouse=True)
-def app_qml():
+@pytest.fixture(scope="session")
+def qapp():
+    """Provide QGuiApplication instance."""
     app = QGuiApplication.instance()
-    if not app:
-        app = QGuiApplication(sys.argv)  # Create a QGuiApplication if none exists
+    if app is None:
+        app = QGuiApplication(sys.argv)
     return app
 
 
 @pytest.fixture
-def dummy_db():
-    return DummyDatabase()
+def db_handler(tmp_path):
+    """Provide database handler with test data."""
+    handler = DBHandler(tmp_path / "test.db")
+
+    # Initialize test data
+    for emp_data in TEST_EMPLOYEES:
+        employee = EmployeeData(**emp_data)
+        handler.add_employee(employee)
+
+    yield handler
+    handler.cleanup()
 
 
 @pytest.fixture
-def employee_model(dummy_db):
-    from jmbde.gui.employee_model import EmployeeModel
-
-    model = EmployeeModel(dummy_db)
-    model.refresh()  # Load initial data (only active employees)
+def employee_model(db_handler):
+    """Provide employee model."""
+    model = EmployeeModel(database=db_handler.db)
+    model.refresh()  # Explicitly refresh the model
     return model
 
 
-def test_employee_model_in_qml(app_qml, employee_model, qtbot):
-    """
-    Loads minimal QML code that displays a ListView with the EmployeeModel,
-    and checks if the number of entries in the ListView matches the rowCount of the model.
-    """
-    engine = QQmlApplicationEngine()
+def test_model_initialization(employee_model):
+    """Test model initialization."""
+    assert employee_model.rowCount() == len(TEST_EMPLOYEES)
 
-    # Set the EmployeeModel as a ContextProperty for QML access.
-    engine.rootContext().setContextProperty("employeeModel", employee_model)
 
-    # Minimal QML code that includes a ListView.
-    qml_code = b"""
-import QtQuick 2.15
-import QtQuick.Controls 2.15
-
-Item {
-    width: 300; height: 300
-    ListView {
-        id: listView
-        anchors.fill: parent
-        model: employeeModel
-    }
-}
-"""
-    # Load the QML code and handle potential errors.
-    engine.loadData(qml_code)
-    if engine.rootObjects().isEmpty():
-        raise RuntimeError("Failed to load QML code.")
-
-    # Wait briefly to allow the QML engine to load the code.
-    qtbot.wait(500)
-
-    root_objects = engine.rootObjects()
-    assert len(root_objects) > 0, "The QML interface did not load."
-
-    # Find the ListView object in the QML hierarchy.
-    listView = root_objects[0].findChild(QObject, "listView")
-    assert listView is not None, "ListView was not found in the QML interface."
-
-    # Get the count of items in the ListView.
-    qml_count = listView.property("count")
-    expected_count = employee_model.rowCount()  # Should be 2 (active employees)
-
+def test_model_data_access(employee_model):
+    """Test data access from model."""
+    index = employee_model.index(0, 0)
+    name = employee_model.data(
+        index, employee_model.ROLES[Qt.UserRole + 2]
+    )  # Name role
     assert (
-        qml_count == expected_count
-    ), f"Expected {expected_count} entries in the ListView, but found: {qml_count}"
+        name == TEST_EMPLOYEES[0]["name"]
+    ), f"Expected {TEST_EMPLOYEES[0]['name']}, got {name}"
 
-    # Additional test: Add a new employee and check if the ListView updates.
-    new_employee = {
-        "name": "David",
-        "position": "Designer",
-        "email": "david@example.com",
-        "phone": "777-888",
-        "department": "Design",
-        "hire_date": "2021-01-01",
-        "active": True,
-    }
-    dummy_db.add_employee(new_employee)  # Add a new active employee
-    employee_model.refresh()  # Refresh the model to reflect the new data
 
-    # Wait briefly to allow the QML engine to update the ListView.
-    qtbot.wait(500)
+def test_model_filtering(employee_model):
+    """Test model filtering."""
+    # Test name filter
+    employee_model.filterText = "Alice"
+    assert employee_model.rowCount() == 1
 
-    # Get the updated count of items in the ListView.
-    updated_qml_count = listView.property("count")
-    updated_expected_count = (
-        employee_model.rowCount()
-    )  # Should now be 3 (active employees)
-
-    assert (
-        updated_qml_count == updated_expected_count
-    ), f"Expected {updated_expected_count} entries in the ListView after adding a new employee, but found: {updated_qml_count}"
+    # Clear filter
+    employee_model.filterText = ""
+    assert employee_model.rowCount() == len(TEST_EMPLOYEES)
