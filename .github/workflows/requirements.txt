@@ -1,4 +1,4 @@
-pip==25.0
+pip==25.0.1
 wheel==0.45.1
 twine==6.1.0
 check-wheel-contents==0.6.1
