@@ -61,7 +61,7 @@ jobs:
           persist-credentials: false
 
       - name: ⚙️ Setup Python
-        uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
+        uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5.4.0
         with:
           python-version-file: ${{ env.PYTHON_VERSION_FILE }}
           cache: pip
@@ -161,7 +161,7 @@ jobs:
 
       - name: 🔄 Create Fix PR
         if: steps.check.outputs.compliance-status
-        uses: peter-evans/create-pull-request@4e1beaa7521e8b457b572c090b25bd3db56bf1c5 # v5.0.3
+        uses: peter-evans/create-pull-request@13c47c574799c8eb0a033eba252619135e70f392 # v5.0.3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: 'docs: fix license compliance issues'
