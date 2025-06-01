@@ -1,6 +1,6 @@
-pip==25.1
+pip==25.1.1
 wheel==0.45.1
 twine==6.1.0
-check-wheel-contents==0.6.1
+check-wheel-contents==0.6.2
 hatch==1.14.1
 hatchling==1.27.0
