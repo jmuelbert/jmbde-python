@@ -48,7 +48,7 @@ jobs:
 
       - name: 🔎 Dependency Review
         id: review
-        uses: actions/dependency-review-action@ce3cf9537a52e8119d91fd484ab5b8a807627bf8
+        uses: actions/dependency-review-action@da24556b548a50705dd671f47852072ea4c105d9
         with:
           comment-summary-in-pr: always
           fail-on-severity: moderate
@@ -485,7 +485,7 @@ jobs:
           fi
 
       - name: 📤 Upload Coverage
-        uses: codecov/codecov-action@ad3126e916f78f00edff4ed0317cf185271ccc2d # v5.4.2
+        uses: codecov/codecov-action@15559ed290fa727036809b67ab0f646ffa6c5158 # v5.4.2
         with:
           files: ./coverage.xml
           flags: ${{ matrix.os }},python-${{ matrix.python-version }}
