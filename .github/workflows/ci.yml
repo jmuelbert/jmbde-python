@@ -41,7 +41,7 @@ jobs:
 
       - name: 🔎 Dependency Review
         if: github.event_name == 'pull_request'
-        uses: actions/dependency-review-action@ce3cf9537a52e8119d91fd484ab5b8a807627bf8 # v4.6.0
+        uses: actions/dependency-review-action@da24556b548a50705dd671f47852072ea4c105d9 # v4.7.1
 
   ui-tests:
     name: UI Tests
@@ -234,7 +234,7 @@ jobs:
           if-no-files-found: error
 
       - name: 📊 Upload Coverage
-        uses: codecov/codecov-action@v5.4.2
+        uses: codecov/codecov-action@v5.4.3
         with:
           file: ./coverage.xml
           fail_ci_if_error: true
@@ -263,7 +263,7 @@ jobs:
 
       - name: 📝 Create GitHub Release
         id: release
-        uses: softprops/action-gh-release@da05d552573ad5aba039eaac05058a918a7bf631 # v2.2.2
+        uses: softprops/action-gh-release@72f2c25fcb47643c292f7107632f7a47c1df5cd8 # v2.3.2
         if: startsWith(github.ref, 'refs/tags/v')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
